@@ -53,12 +53,20 @@ export const defaultExperiences: Experience[] = [
 
 export const defaultProjects: Project[] = [
   {
-    title: 'Otokeep - Pemantauan Servis Kendaraan',
-    description: 'Sistem web cerdas untuk pelacakan dan pemantauan jadwal servis kendaraan secara berkala, log riwayat perawatan suku cadang, dan estimasi biaya armada atau kendaraan pribadi.',
-    tags: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'Responsive UI'],
+    title: 'Otokeep - Smart Vehicle Maintenance & AI Tracker',
+    description: 'Platform cerdas pemantauan servis kendaraan & manajemen armada dengan integrasi AI Speedometer Scanner (Gemini Vision), pengingat servis otomatis, monitoring pajak & STNK berkala, serta log perawatan real-time.',
+    tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Gemini Vision AI', 'REST API'],
     demo_url: 'https://github.com/Dimss-W/Otokeep',
     github_url: 'https://github.com/Dimss-W/Otokeep.git',
-    image_url: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80',
+    image_url: '/projects/otokeep-landing.png',
+    images: [
+      '/projects/otokeep-landing.png',
+      '/projects/otokeep-dashboard.png',
+    ],
+    captions: [
+      'Landing Page Otokeep • Smart Vehicle Tracker',
+      'Dashboard Armada • AI Speedometer Scanner & Real-time Odometer',
+    ],
     featured: true,
     display_order: 1,
   },

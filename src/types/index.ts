@@ -33,6 +33,8 @@ export interface Project {
   demo_url?: string;
   github_url?: string;
   image_url?: string;
+  images?: string[];
+  captions?: string[];
   featured?: boolean;
   display_order?: number;
 }

@@ -1,15 +1,156 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Project } from '@/types';
-import { ExternalLink, Star, Code2, ArrowUpRight, FolderGit2 } from 'lucide-react';
+import { ExternalLink, Star, Code2, ArrowUpRight, FolderGit2, ChevronLeft, ChevronRight, Maximize2, X, Sparkles } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 interface ProjectsSectionProps {
   projects: Project[];
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectImageSlider({
+  images,
+  captions,
+  title,
+  onImageClick,
+}: {
+  images: string[];
+  captions?: string[];
+  title: string;
+  onImageClick?: (img: string, caption?: string) => void;
+}) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Auto-slide effect every 3.5 seconds when not hovered
+  useEffect(() => {
+    if (images.length <= 1 || isHovered) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [images.length, isHovered]);
+
+  const prevSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const nextSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const currentCaption = captions && captions[currentIndex] ? captions[currentIndex] : `${currentIndex + 1} / ${images.length}`;
+
+  return (
+    <div
+      className="relative w-full h-full overflow-hidden group/slider select-none"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Sliding Carousel Track */}
+      <div
+        className="flex w-full h-full transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {images.map((img, i) => (
+          <div
+            key={i}
+            className="w-full h-full shrink-0 relative cursor-pointer"
+            onClick={() => onImageClick?.(img, captions?.[i])}
+            title="Klik untuk perbesar tangkapan layar"
+          >
+            <img
+              src={img}
+              alt={`${title} screenshot ${i + 1}`}
+              className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Auto-Slide Indicator Badge */}
+      {images.length > 1 && (
+        <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 text-emerald-400 text-[10px] font-semibold tracking-wide shadow-md">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+          <span>Auto Slide</span>
+        </div>
+      )}
+
+      {/* Navigation Controls (Visible on hover) */}
+      {images.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={prevSlide}
+            aria-label="Previous slide"
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all duration-200 z-10 shadow-lg"
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <button
+            type="button"
+            onClick={nextSlide}
+            aria-label="Next slide"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all duration-200 z-10 shadow-lg"
+          >
+            <ChevronRight size={16} />
+          </button>
+
+          {/* Bottom Bar: Caption & Slide Progress Dots */}
+          <div className="absolute bottom-2.5 left-0 right-0 px-3 flex items-center justify-between pointer-events-none z-10">
+            {/* Caption pill */}
+            <span className="pointer-events-auto px-2.5 py-1 rounded-full bg-slate-950/90 backdrop-blur-md border border-slate-700/80 text-[10px] text-slate-200 font-medium truncate max-w-[70%] shadow-md">
+              {currentCaption}
+            </span>
+
+            {/* Slide Indicators */}
+            <div className="pointer-events-auto flex items-center gap-1.5 ml-auto bg-slate-950/85 backdrop-blur-md px-2 py-1 rounded-full border border-slate-800 shadow-md">
+              {images.map((_, dotIdx) => (
+                <button
+                  key={dotIdx}
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentIndex(dotIdx);
+                  }}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    currentIndex === dotIdx
+                      ? 'w-5 bg-emerald-400 shadow-sm shadow-emerald-400/60'
+                      : 'w-1.5 bg-slate-600 hover:bg-slate-400'
+                  }`}
+                  aria-label={`Slide ${dotIdx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Quick Zoom Icon */}
+      <button
+        type="button"
+        onClick={() => onImageClick?.(images[currentIndex], currentCaption)}
+        className="absolute bottom-2.5 right-2.5 opacity-0 group-hover/slider:opacity-100 transition-opacity w-7 h-7 rounded-full bg-slate-950/90 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center z-10 shadow-md md:hidden"
+        title="Perbesar"
+      >
+        <Maximize2 size={12} />
+      </button>
+    </div>
+  );
+}
+
+function ProjectCard({
+  project,
+  index,
+  onOpenPreview,
+}: {
+  project: Project;
+  index: number;
+  onOpenPreview: (img: string, title: string, caption?: string) => void;
+}) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({});
 
@@ -40,6 +181,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const formattedNumber = String(index + 1).padStart(2, '0');
   const delayClass = index % 3 === 0 ? '' : index % 3 === 1 ? 'reveal-delay-1' : 'reveal-delay-2';
 
+  const hasMultipleImages = Boolean(project.images && project.images.length > 1);
+
   return (
     <div
       ref={cardRef}
@@ -48,14 +191,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className={`glass-card flex flex-col h-full rounded-2xl border border-slate-800/90 bg-slate-900/60 transition-all duration-300 ease-out group reveal-init ${delayClass}`}
       style={tiltStyle}
     >
-      {/* Thumbnail Banner with Number Overlay */}
-      <div className="h-52 w-full relative overflow-hidden bg-slate-950/90 rounded-t-2xl">
-        {project.image_url ? (
-          <img
-            src={project.image_url}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
+      {/* Thumbnail Banner with Number Overlay & Auto-Slider */}
+      <div className="h-56 sm:h-60 w-full relative overflow-hidden bg-slate-950/90 rounded-t-2xl">
+        {project.images && project.images.length > 0 ? (
+          <ProjectImageSlider
+            images={project.images}
+            captions={project.captions}
+            title={project.title}
+            onImageClick={(img, caption) => onOpenPreview(img, project.title, caption)}
           />
+        ) : project.image_url ? (
+          <div
+            className="w-full h-full relative cursor-pointer"
+            onClick={() => onOpenPreview(project.image_url!, project.title)}
+          >
+            <img
+              src={project.image_url}
+              alt={project.title}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
+            />
+          </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-slate-700">
             <Code2 size={48} />
@@ -63,16 +218,16 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         )}
 
         {/* Ambient Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
         {/* Bedimcode Number Badge: 01, 02, etc. */}
-        <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-slate-700/80 text-white font-syne font-extrabold text-xs tracking-wider shadow-lg">
+        <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-slate-700/80 text-white font-syne font-extrabold text-xs tracking-wider shadow-lg z-10 pointer-events-none">
           <span className="text-emerald-400 font-mono">#{formattedNumber}</span>
         </div>
 
         {/* Featured Tag */}
-        {project.featured && (
-          <div className="absolute top-3.5 right-3.5 bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-md">
+        {project.featured && !hasMultipleImages && (
+          <div className="absolute top-3.5 right-3.5 bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-md z-10 pointer-events-none">
             <Star size={11} className="fill-emerald-400 text-emerald-400" />
             <span>Featured</span>
           </div>
@@ -138,6 +293,29 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [activeFilter, setActiveFilter] = useState<'ALL' | 'WEB' | 'MOBILE' | 'ENTERPRISE'>('ALL');
+  const [previewModal, setPreviewModal] = useState<{
+    isOpen: boolean;
+    imageUrl: string;
+    title: string;
+    caption?: string;
+  }>({
+    isOpen: false,
+    imageUrl: '',
+    title: '',
+  });
+
+  const handleOpenPreview = (imageUrl: string, title: string, caption?: string) => {
+    setPreviewModal({
+      isOpen: true,
+      imageUrl,
+      title,
+      caption,
+    });
+  };
+
+  const handleClosePreview = () => {
+    setPreviewModal((prev) => ({ ...prev, isOpen: false }));
+  };
 
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === 'ALL') return true;
@@ -217,10 +395,58 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
           {filteredProjects.map((project, idx) => (
-            <ProjectCard key={project.id || project.title} project={project} index={idx} />
+            <ProjectCard
+              key={project.id || project.title}
+              project={project}
+              index={idx}
+              onOpenPreview={handleOpenPreview}
+            />
           ))}
         </div>
       </div>
+
+      {/* Lightbox Screenshot Preview Modal */}
+      {previewModal.isOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn"
+          onClick={handleClosePreview}
+        >
+          <div
+            className="relative max-w-5xl w-full max-h-[90vh] bg-slate-900 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-5 py-3.5 bg-slate-950/80 border-b border-slate-800">
+              <div>
+                <h4 className="font-syne font-bold text-slate-100 text-sm sm:text-base">
+                  {previewModal.title}
+                </h4>
+                {previewModal.caption && (
+                  <p className="text-xs text-emerald-400 font-medium">
+                    {previewModal.caption}
+                  </p>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={handleClosePreview}
+                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Modal Image Display */}
+            <div className="p-2 sm:p-4 overflow-auto flex items-center justify-center bg-slate-950/95 max-h-[75vh]">
+              <img
+                src={previewModal.imageUrl}
+                alt={previewModal.title}
+                className="max-w-full max-h-[70vh] object-contain rounded-lg border border-slate-800 shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
