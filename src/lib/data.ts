@@ -130,6 +130,24 @@ export const defaultProjects: Project[] = [
     display_order: 4,
   },
   {
+    title: 'Kastrix - Smart Point of Sale & Multi-Outlet System',
+    description: 'Platform SaaS Point of Sale (POS) & manajemen inventaris cerdas untuk otomasi kasir, pengelolaan menu gerai, verifikasi akun mitra owner, dan visualisasi laporan omzet real-time dengan role Super Admin & Kasir.',
+    tags: ['Laravel', 'React', 'Tailwind CSS', 'MySQL', 'POS System', 'REST API'],
+    demo_url: 'https://github.com/Dimss-W',
+    github_url: 'https://github.com/Dimss-W',
+    image_url: '/projects/kastrix-landing.png',
+    images: [
+      '/projects/kastrix-landing.png',
+      '/projects/kastrix-dashboard.png',
+    ],
+    captions: [
+      'Landing Page Kastrix • Solusi Cerdas Kelola Kasir & Omzet',
+      'Dashboard Administrator • Super Admin Panel & Kelola Mitra',
+    ],
+    featured: true,
+    display_order: 5,
+  },
+  {
     title: 'Personal CV & Portfolio Website',
     description: 'Website portofolio dan CV personal modern bereputasi tinggi berbasis Next.js 13, React, Tailwind CSS, dan BaaS Supabase terinspirasi desain modern Bedimcode Bianca.',
     tags: ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'TypeScript'],
@@ -137,7 +155,7 @@ export const defaultProjects: Project[] = [
     github_url: 'https://github.com/Dimss-W/CV-Website.git',
     image_url: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
     featured: false,
-    display_order: 5,
+    display_order: 6,
   },
 ];
 

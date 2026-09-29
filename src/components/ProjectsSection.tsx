@@ -86,12 +86,20 @@ function ProjectImageSlider({
                 </div>
               </>
             ) : (
-              /* Full Uncropped Desktop Screenshot */
-              <img
-                src={img}
-                alt={`${title} screenshot ${i + 1}`}
-                className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-              />
+              /* Full Uncropped Desktop Screenshot with Ambient Backdrop */
+              <div className="relative w-full h-full flex items-center justify-center p-2">
+                <img
+                  src={img}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-25 scale-110 pointer-events-none select-none"
+                />
+                <img
+                  src={img}
+                  alt={`${title} screenshot ${i + 1}`}
+                  className="relative z-10 w-full h-full max-h-full object-contain rounded-lg drop-shadow-[0_8px_24px_rgba(0,0,0,0.75)] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                />
+              </div>
             )}
           </div>
         ))}
