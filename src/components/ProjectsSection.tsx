@@ -52,9 +52,9 @@ function ProjectImageSlider({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Sliding Carousel Track */}
+      {/* Sliding Carousel Track with Ultra-Smooth Cubic Easing */}
       <div
-        className="flex w-full h-full transition-transform duration-700 ease-in-out"
+        className="flex w-full h-full transition-transform duration-700 [transition-timing-function:cubic-bezier(0.25,1,0.5,1)]"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {images.map((img, i) => (

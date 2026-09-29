@@ -60,27 +60,6 @@ export const defaultExperiences: Experience[] = [
     ],
     display_order: 3,
   },
-  {
-    role: 'Juara 1 IT Bootcamp Software Development',
-    company: 'Fakultas Teknik & Informatika UBSI (Tingkat Seluruh Kampus UBSI)',
-    location: 'Sentul, Bogor, Indonesia',
-    start_date: '2025',
-    end_date: '2025',
-    is_current: false,
-    description: 'Meraih predikat JUARA 1 dari seluruh perwakilan kampus Universitas Bina Sarana Informatika (UBSI) se-Indonesia dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" di Hotel Asyana Sentul - Bogor. Membangun aplikasi web "Website Madrasah Aliyah Smart Tahfidz School" dengan arsitektur full stack tangguh dan teruji.',
-    technologies: ['Full Stack Web Development', 'Laravel & PHP', 'Database Design', 'Software Architecture', 'Presentation & Pitching'],
-    images: [
-      '/documentation/juara-1-bootcamp-penyerahan-piala.jpg',
-      '/documentation/juara-1-bootcamp-tim-outdoor.jpg',
-      '/certificates/juara1-it-bootcamp.png',
-    ],
-    captions: [
-      'Penyerahan Piala Juara 1 IT Bootcamp Bersama Pimpinan / Rektorat UBSI',
-      'Dokumentasi Tim Pemenang Juara 1 IT Bootcamp Se-Kampus UBSI',
-      'Sertifikat Apresiasi Resmi Juara 1 Ditetapkan Rektor UBSI',
-    ],
-    display_order: 4,
-  },
 ];
 
 export const defaultProjects: Project[] = [
@@ -292,32 +271,18 @@ export const defaultCertificates: Certificate[] = [
 
 export const defaultEducations: Education[] = [
   {
-    degree: 'Sistem Informasi (S.Kom)',
+    degree: 'S1 Sistem Informasi (S.Kom)',
     institution: 'Universitas Bina Sarana Informatika (UBSI)',
     start_year: '2023',
     end_year: 'Sekarang (Mahasiswa Aktif)',
     description: 'Menempuh pendidikan program studi Sistem Informasi dengan fokus pada Analisis & Desain Sistem, Rekayasa Perangkat Lunak, Manajemen Basis Data Relasional, serta Pengembangan Aplikasi Web & Mobile.',
   },
   {
-    degree: 'Sertifikasi Kompetensi Database Administrator',
-    institution: 'Badan Nasional Sertifikasi Profesi (BNSP) & LSP UBSI',
-    start_year: '2026',
-    end_year: '2029 (Berlaku 3 Tahun)',
-    description: 'Tersertifikasi resmi kompeten nasional dalam perancangan database, penulisan SQL terstruktur, integrasi data, jaminan kualitas data, dan penerapan hak akses basis data.',
-  },
-  {
-    degree: 'Juara 1 IT Bootcamp Software Development (Tingkat Seluruh Kampus UBSI)',
-    institution: 'Fakultas Teknik & Informatika (FTI) UBSI',
-    start_year: '2025',
-    end_year: '2025',
-    description: 'Pemenang Juara 1 dari seluruh perwakilan kampus UBSI se-Indonesia dalam perancangan dan implementasi aplikasi web full stack "Website Madrasah Aliyah Smart Tahfidz School" pada bootcamp industri intensif.',
-  },
-  {
-    degree: 'Pengajar & Mentor Rekayasa Perangkat Lunak (RPL)',
-    institution: 'SMK Muhammadiyah 15 Jakarta',
-    start_year: '2025',
-    end_year: '2025',
-    description: 'Dipercaya menjadi pengajar tamu dan instruktur teknis bagi siswa jurusan Rekayasa Perangkat Lunak (RPL), membimbing pengenalan framework Laravel, arsitektur web modern, dan persiapan karier developer industri.',
+    degree: 'Peminatan Rekayasa Perangkat Lunak & Basis Data',
+    institution: 'Universitas Bina Sarana Informatika (UBSI)',
+    start_year: '2023',
+    end_year: 'Sekarang',
+    description: 'Fokus pendalaman akademis pada perancangan database enterprise, metodologi agile software engineering, optimasi struktur data, dan arsitektur aplikasi berskala industri.',
   },
 ];
 

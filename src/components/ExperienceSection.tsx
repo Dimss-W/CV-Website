@@ -191,23 +191,34 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                           </span>
                         </div>
 
-                        {/* Interactive Photo Frame (Uncropped) */}
+                        {/* Interactive Photo Frame (Uncropped with Silky Smooth Cross-fade) */}
                         <div
                           onClick={() =>
                             openLightbox(item.images!, item.captions, currentImgIdx, item.role)
                           }
                           className="relative w-full rounded-lg overflow-hidden bg-slate-900 border border-slate-800/80 group cursor-pointer flex items-center justify-center"
-                          style={{ minHeight: '280px', maxHeight: '380px' }}
+                          style={{ minHeight: '300px', height: '360px' }}
                         >
-                          <img
-                            src={item.images[currentImgIdx]}
-                            alt={item.captions ? item.captions[currentImgIdx] : item.role}
-                            className="w-full h-auto max-h-[360px] object-contain block transition-transform duration-300 group-hover:scale-[1.01]"
-                            loading="lazy"
-                          />
+                          {item.images.map((imgUrl, imgIdx) => (
+                            <div
+                              key={imgIdx}
+                              className={`absolute inset-0 flex items-center justify-center p-2 transition-all duration-700 ease-in-out ${
+                                imgIdx === currentImgIdx
+                                  ? 'opacity-100 scale-100 z-10 pointer-events-auto'
+                                  : 'opacity-0 scale-[0.97] z-0 pointer-events-none'
+                              }`}
+                            >
+                              <img
+                                src={imgUrl}
+                                alt={item.captions ? item.captions[imgIdx] : item.role}
+                                className="w-full h-full max-h-[340px] object-contain block drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out group-hover:scale-[1.01]"
+                                loading="lazy"
+                              />
+                            </div>
+                          ))}
 
                           {/* Hover Zoom Overlay */}
-                          <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                          <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 z-20 pointer-events-none">
                             <div className="px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700 text-slate-100 text-xs font-semibold flex items-center gap-1.5 shadow-lg">
                               <Maximize2 size={13} className="text-emerald-400" />
                               <span>Perbesar Foto</span>
@@ -226,7 +237,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                                     [index]: (currentImgIdx - 1 + item.images!.length) % item.images!.length,
                                   }));
                                 }}
-                                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/85 hover:bg-slate-800 text-slate-200 border border-slate-700/80 flex items-center justify-center transition-all shadow-md"
+                                className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 hover:bg-emerald-500 hover:text-slate-950 text-slate-200 border border-slate-700/80 flex items-center justify-center transition-all duration-200 z-30 shadow-md"
                                 aria-label="Foto Sebelumnya"
                               >
                                 <ChevronLeft size={16} />
@@ -240,7 +251,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                                     [index]: (currentImgIdx + 1) % item.images!.length,
                                   }));
                                 }}
-                                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/85 hover:bg-slate-800 text-slate-200 border border-slate-700/80 flex items-center justify-center transition-all shadow-md"
+                                className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 hover:bg-emerald-500 hover:text-slate-950 text-slate-200 border border-slate-700/80 flex items-center justify-center transition-all duration-200 z-30 shadow-md"
                                 aria-label="Foto Berikutnya"
                               >
                                 <ChevronRight size={16} />

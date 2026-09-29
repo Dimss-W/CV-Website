@@ -29,9 +29,30 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
     'juara-1-it-bootcamp': 0,
   });
 
+  // Track hover to pause auto-slide
+  const [hoveredCert, setHoveredCert] = useState<string | null>(null);
+
   // Lightbox modal state
   const [modalCert, setModalCert] = useState<Certificate | null>(null);
   const [modalPageIndex, setModalPageIndex] = useState<number>(0);
+
+  // Auto-slide effect for certificates with multiple items
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActivePages((prev) => {
+        const next = { ...prev };
+        certificates.forEach((cert) => {
+          if (cert.images.length > 1 && hoveredCert !== cert.id) {
+            const current = prev[cert.id] ?? 0;
+            next[cert.id] = (current + 1) % cert.images.length;
+          }
+        });
+        return next;
+      });
+    }, 5500);
+
+    return () => clearInterval(timer);
+  }, [certificates, hoveredCert]);
 
   const openLightbox = (cert: Certificate, pageIdx: number = 0) => {
     setModalCert(cert);
@@ -44,14 +65,21 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
     document.body.style.overflow = 'unset';
   };
 
-  // Close modal on Escape key
+  // Close modal on Escape key or Arrow navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeLightbox();
+      if (modalCert && modalCert.images.length > 1) {
+        if (e.key === 'ArrowRight') {
+          setModalPageIndex((prev) => (prev + 1) % modalCert.images.length);
+        } else if (e.key === 'ArrowLeft') {
+          setModalPageIndex((prev) => (prev - 1 + modalCert.images.length) % modalCert.images.length);
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [modalCert]);
 
   return (
     <section id="certificates" className="py-24 relative overflow-hidden">
@@ -86,6 +114,8 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
             return (
               <div
                 key={cert.id}
+                onMouseEnter={() => setHoveredCert(cert.id)}
+                onMouseLeave={() => setHoveredCert(null)}
                 className="glass-card flex flex-col rounded-2xl border border-slate-800 bg-slate-900/70 overflow-hidden shadow-xl shadow-black/30 hover:border-emerald-500/30 transition-all duration-300 group"
               >
                 {/* Top Badge & Header */}
@@ -118,7 +148,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   </p>
                 </div>
 
-                {/* Certificate Document Preview Frame (Uncropped) */}
+                {/* Certificate Document Preview Frame (Uncropped with Silky Smooth Cross-fade) */}
                 <div className="p-5 bg-slate-950/60 flex flex-col items-center">
                   {/* Page Tab Selector if multiple pages exist */}
                   {cert.images.length > 1 && (
@@ -139,9 +169,9 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                             onClick={() =>
                               setActivePages((prev) => ({ ...prev, [cert.id]: idx }))
                             }
-                            className={`px-3 py-1 text-xs rounded-lg font-medium transition-all duration-200 border ${
+                            className={`px-3 py-1 text-xs rounded-lg font-medium transition-all duration-300 border ${
                               currentPage === idx
-                                ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300 shadow-sm'
+                                ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300 shadow-sm shadow-emerald-500/10'
                                 : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                             }`}
                           >
@@ -152,36 +182,78 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                     </div>
                   )}
 
-                  {/* Document Container */}
+                  {/* Document Container with Layered Smooth Cross-fade */}
                   <div
                     onClick={() => openLightbox(cert, currentPage)}
-                    className="relative w-full rounded-xl overflow-hidden bg-slate-900/90 border border-slate-800/90 shadow-inner group/preview cursor-pointer transition-all duration-300 hover:border-emerald-500/40"
+                    className="relative w-full rounded-xl overflow-hidden bg-slate-900/90 border border-slate-800/90 shadow-inner group/preview cursor-pointer transition-all duration-500 hover:border-emerald-500/40 flex items-center justify-center"
                     style={{
-                      minHeight: isBNSP ? '380px' : '260px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      height: isBNSP ? '440px' : '320px',
                     }}
                   >
-                    <img
-                      src={currentImg.url}
-                      alt={currentImg.title}
-                      className="w-full h-auto max-h-[460px] object-contain block transition-transform duration-300 group-hover/preview:scale-[1.02]"
-                      loading="lazy"
-                    />
+                    {cert.images.map((img, idx) => (
+                      <div
+                        key={idx}
+                        className={`absolute inset-0 flex items-center justify-center p-3 transition-all duration-700 ease-in-out ${
+                          currentPage === idx
+                            ? 'opacity-100 scale-100 z-10 pointer-events-auto'
+                            : 'opacity-0 scale-[0.97] z-0 pointer-events-none'
+                        }`}
+                      >
+                        <img
+                          src={img.url}
+                          alt={img.title}
+                          className="w-full h-full max-h-full object-contain block drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out group-hover/preview:scale-[1.02]"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+
+                    {/* Nav Arrows if multiple images */}
+                    {cert.images.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActivePages((prev) => ({
+                              ...prev,
+                              [cert.id]: (currentPage - 1 + cert.images.length) % cert.images.length,
+                            }));
+                          }}
+                          className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 hover:bg-emerald-500 hover:text-slate-950 text-slate-200 border border-slate-700/80 flex items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-all duration-200 z-30 shadow-md"
+                          aria-label="Sebelumnya"
+                        >
+                          <ChevronLeft size={16} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActivePages((prev) => ({
+                              ...prev,
+                              [cert.id]: (currentPage + 1) % cert.images.length,
+                            }));
+                          }}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900/90 hover:bg-emerald-500 hover:text-slate-950 text-slate-200 border border-slate-700/80 flex items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-all duration-200 z-30 shadow-md"
+                          aria-label="Berikutnya"
+                        >
+                          <ChevronRight size={16} />
+                        </button>
+                      </>
+                    )}
 
                     {/* Hover Overlay with Zoom Icon */}
-                    <div className="absolute inset-0 bg-slate-950/50 backdrop-blur-[2px] opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2">
-                      <div className="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                        <Maximize2 size={20} />
+                    <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center gap-2 z-20 pointer-events-none">
+                      <div className="w-11 h-11 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                        <Maximize2 size={18} />
                       </div>
-                      <span className="text-xs font-semibold text-slate-100 tracking-wide bg-slate-900/90 px-3 py-1 rounded-full border border-slate-700">
+                      <span className="text-xs font-semibold text-slate-100 tracking-wide bg-slate-900/95 px-3 py-1 rounded-full border border-slate-700 shadow-md">
                         Klik untuk Pratinjau Fullscreen
                       </span>
                     </div>
                   </div>
 
-                  <p className="text-[11px] text-slate-500 mt-2 text-center italic">
+                  <p className="text-[11px] text-slate-400 mt-2.5 text-center italic transition-all duration-300">
                     {currentImg.title}
                   </p>
                 </div>
@@ -247,7 +319,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                     <button
                       type="button"
                       onClick={() => openLightbox(cert, currentPage)}
-                      className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/90 text-slate-100 text-xs font-semibold border border-slate-700 transition-colors shadow-sm"
+                      className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/90 text-slate-100 text-xs font-semibold border border-slate-700 transition-all duration-300 shadow-sm"
                     >
                       <Maximize2 size={14} className="text-emerald-400" />
                       <span>Lihat Ukuran Penuh</span>
@@ -257,7 +329,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                       href={cert.pdf_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30 transition-colors shadow-sm"
+                      className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30 transition-all duration-300 shadow-sm"
                     >
                       <FileText size={14} />
                       <span>Buka File Asli (PDF)</span>
@@ -307,13 +379,24 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
               </button>
             </div>
 
-            {/* Modal Body: Uncropped Image Viewer */}
-            <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-slate-950/90">
-              <img
-                src={modalCert.images[modalPageIndex]?.url || modalCert.images[0].url}
-                alt={modalCert.title}
-                className="max-h-[70vh] w-auto max-w-full object-contain rounded-lg border border-slate-800 shadow-2xl"
-              />
+            {/* Modal Body: Uncropped Image Viewer with Cross-fade */}
+            <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-slate-950/90 relative min-h-[350px]">
+              {modalCert.images.map((img, idx) => (
+                <div
+                  key={idx}
+                  className={`transition-all duration-500 ease-in-out flex items-center justify-center w-full h-full ${
+                    idx === modalPageIndex
+                      ? 'opacity-100 scale-100 pointer-events-auto'
+                      : 'opacity-0 scale-95 pointer-events-none absolute inset-0'
+                  }`}
+                >
+                  <img
+                    src={img.url}
+                    alt={modalCert.title}
+                    className="max-h-[70vh] w-auto max-w-full object-contain rounded-lg border border-slate-800 shadow-2xl"
+                  />
+                </div>
+              ))}
             </div>
 
             {/* Modal Footer */}
@@ -323,27 +406,27 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    disabled={modalPageIndex === 0}
-                    onClick={() => setModalPageIndex((prev) => Math.max(0, prev - 1))}
-                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:pointer-events-none text-slate-200 transition-colors"
+                    onClick={() =>
+                      setModalPageIndex(
+                        (prev) => (prev - 1 + modalCert.images.length) % modalCert.images.length
+                      )
+                    }
+                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors"
                   >
                     <ChevronLeft size={16} />
                   </button>
                   <span className="text-xs text-slate-300 font-medium">
-                    Halaman {modalPageIndex + 1} dari {modalCert.images.length}:{' '}
+                    Item {modalPageIndex + 1} dari {modalCert.images.length}:{' '}
                     <span className="text-slate-400 italic">
                       {modalCert.images[modalPageIndex]?.title}
                     </span>
                   </span>
                   <button
                     type="button"
-                    disabled={modalPageIndex === modalCert.images.length - 1}
                     onClick={() =>
-                      setModalPageIndex((prev) =>
-                        Math.min(modalCert.images.length - 1, prev + 1)
-                      )
+                      setModalPageIndex((prev) => (prev + 1) % modalCert.images.length)
                     }
-                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:pointer-events-none text-slate-200 transition-colors"
+                    className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors"
                   >
                     <ChevronRight size={16} />
                   </button>
@@ -359,7 +442,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   href={modalCert.pdf_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-colors shadow-md shadow-emerald-500/20"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all duration-300 shadow-md shadow-emerald-500/20"
                 >
                   <FileText size={14} />
                   <span>Download / Buka PDF Asli</span>
