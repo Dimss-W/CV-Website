@@ -5,8 +5,6 @@ import { Certificate } from '@/types';
 import { 
   Award, 
   ShieldCheck, 
-  FileText, 
-  ExternalLink, 
   Maximize2, 
   X, 
   ChevronLeft, 
@@ -160,7 +158,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                         } else {
                           if (idx === 0) label = '📜 Sertifikat Juara 1';
                           else if (idx === 1) label = '🏆 Penyerahan Piala';
-                          else label = '👥 Tim Se-Kampus UBSI';
+                          else label = '👥 Tim';
                         }
                         return (
                           <button
@@ -315,26 +313,15 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   </div>
 
                   {/* Actions */}
-                  <div className="pt-4 border-t border-slate-800/70 flex flex-wrap items-center gap-3">
+                  <div className="pt-4 border-t border-slate-800/70">
                     <button
                       type="button"
                       onClick={() => openLightbox(cert, currentPage)}
-                      className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/90 text-slate-100 text-xs font-semibold border border-slate-700 transition-all duration-300 shadow-sm"
+                      className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-500/20 hover:border-emerald-500/40 text-slate-100 hover:text-emerald-300 text-xs font-semibold border border-slate-700 transition-all duration-300 shadow-sm"
                     >
                       <Maximize2 size={14} className="text-emerald-400" />
                       <span>Lihat Ukuran Penuh</span>
                     </button>
-
-                    <a
-                      href={cert.pdf_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30 transition-all duration-300 shadow-sm"
-                    >
-                      <FileText size={14} />
-                      <span>Buka File Asli (PDF)</span>
-                      <ExternalLink size={12} className="opacity-70" />
-                    </a>
                   </div>
                 </div>
               </div>
@@ -437,18 +424,13 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 </div>
               )}
 
-              <div className="flex items-center gap-2.5">
-                <a
-                  href={modalCert.pdf_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold transition-all duration-300 shadow-md shadow-emerald-500/20"
-                >
-                  <FileText size={14} />
-                  <span>Download / Buka PDF Asli</span>
-                  <ExternalLink size={12} />
-                </a>
-              </div>
+              <button
+                type="button"
+                onClick={closeLightbox}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all duration-300 border border-slate-700"
+              >
+                <span>Tutup Pratinjau</span>
+              </button>
             </div>
           </div>
         </div>

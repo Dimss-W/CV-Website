@@ -234,7 +234,7 @@ export const defaultCertificates: Certificate[] = [
   },
   {
     id: 'juara-1-it-bootcamp',
-    title: 'Juara 1 IT Bootcamp Software Development (Seluruh Kampus UBSI)',
+    title: 'Juara 1 IT Bootcamp Software Development (Seluruh Kampus Cabang UBSI)',
     subtitle: 'Pengembangan Website Madrasah Aliyah Smart Tahfidz School',
     issuer: 'Fakultas Teknik & Informatika (FTI) Universitas Bina Sarana Informatika',
     credential_id: 'e-Sn : 19230181',
@@ -242,7 +242,7 @@ export const defaultCertificates: Certificate[] = [
     issue_date: '02 Juli 2025',
     field: 'Software Engineering & Full Stack Web Development',
     category: 'Award',
-    badge: 'Juara 1 Se-Kampus UBSI',
+    badge: 'Juara 1 Seluruh Kampus Cabang UBSI',
     images: [
       {
         title: 'Sertifikat Apresiasi & Penghargaan Juara 1 Rektor UBSI',
@@ -253,12 +253,12 @@ export const defaultCertificates: Certificate[] = [
         url: '/documentation/juara-1-bootcamp-penyerahan-piala.jpg',
       },
       {
-        title: 'Dokumentasi Tim Pemenang Juara 1 IT Bootcamp Se-Kampus UBSI',
+        title: 'Dokumentasi Tim Pemenang Juara 1 IT Bootcamp',
         url: '/documentation/juara-1-bootcamp-tim-outdoor.jpg',
       },
     ],
-    pdf_url: '/certificates/sertifikat-juara1-it-bootcamp.pdf',
-    description: 'Meraih predikat JUARA 1 mengungguli seluruh perwakilan mahasiswa dari seluruh kampus Universitas Bina Sarana Informatika (UBSI) se-Indonesia dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" di Hotel Asyana Sentul - Bogor. Diberikan apresiasi langsung oleh Rektor UBSI atas keunggulan aplikasi web "Website Madrasah Aliyah Smart Tahfidz School".',
+    pdf_url: '',
+    description: 'Meraih predikat JUARA 1 mengungguli seluruh perwakilan mahasiswa dari seluruh kampus cabang Universitas Bina Sarana Informatika (UBSI) se-Indonesia dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" di Hotel Asyana Sentul - Bogor. Diberikan apresiasi langsung oleh Rektor UBSI atas keunggulan aplikasi web "Website Madrasah Aliyah Smart Tahfidz School".',
     skills: [
       'Full Stack Software Development',
       'Web Application Architecture',
