@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Profile } from '@/types';
 import { submitContactMessage } from '@/lib/data';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Loader2, ArrowRight } from 'lucide-react';
-import { GithubIcon } from './Icons';
+import { GithubIcon, InstagramIcon } from './Icons';
 
 interface ContactSectionProps {
   profile: Profile;
@@ -113,7 +113,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                 <Phone size={20} />
               </div>
               <h4 className="font-syne font-bold text-sm text-slate-200">WhatsApp / Telepon</h4>
-              <p className="text-xs text-slate-400 mt-0.5">+62 857-9477-0824</p>
+              <p className="text-xs text-slate-400 mt-0.5">085794770824</p>
               <a
                 href="https://wa.me/6285794770824"
                 target="_blank"
@@ -121,6 +121,24 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 mt-4 transition-colors"
               >
                 <span>Chat WhatsApp</span>
+                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+            </div>
+
+            {/* Instagram Card */}
+            <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800/80 hover:border-pink-500/40 transition-all duration-300 group">
+              <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center mb-3">
+                <InstagramIcon size={20} />
+              </div>
+              <h4 className="font-syne font-bold text-sm text-slate-200">Instagram</h4>
+              <p className="text-xs text-slate-400 mt-0.5">@dimsswijanark_</p>
+              <a
+                href="https://instagram.com/dimsswijanark_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-pink-400 hover:text-pink-300 mt-4 transition-colors"
+              >
+                <span>Ikuti di Instagram</span>
                 <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
               </a>
             </div>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ArrowUp, Heart } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
+import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -74,6 +74,15 @@ export default function Footer() {
               className="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
             >
               <LinkedinIcon size={15} />
+            </a>
+            <a
+              href="https://instagram.com/dimsswijanark_"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram Profile"
+              className="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:border-pink-500/40 transition-all"
+            >
+              <InstagramIcon size={15} />
             </a>
             <button
               onClick={scrollToTop}

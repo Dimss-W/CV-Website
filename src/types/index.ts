@@ -10,6 +10,7 @@ export interface Profile {
   resume_url?: string;
   github_url?: string;
   linkedin_url?: string;
+  instagram_url?: string;
 }
 
 export interface Experience {

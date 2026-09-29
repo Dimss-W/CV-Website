@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Profile } from '@/types';
 import { Mail, MapPin, ArrowRight, Download, Send } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
+import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
 import CircularBadge from './CircularBadge';
 
 interface HeroProps {
@@ -152,6 +152,17 @@ export default function Hero({ profile }: HeroProps) {
                   className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all hover:scale-105"
                 >
                   <LinkedinIcon size={15} />
+                </a>
+              )}
+              {profile.instagram_url && (
+                <a
+                  href={profile.instagram_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram Profile"
+                  className="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:border-pink-500/40 transition-all hover:scale-105"
+                >
+                  <InstagramIcon size={15} />
                 </a>
               )}
               <a
