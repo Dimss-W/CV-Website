@@ -23,6 +23,8 @@ export interface Experience {
   is_current: boolean;
   description: string;
   technologies?: string[];
+  images?: string[];
+  captions?: string[];
   display_order?: number;
 }
 

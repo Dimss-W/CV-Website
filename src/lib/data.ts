@@ -40,15 +40,46 @@ export const defaultExperiences: Experience[] = [
     display_order: 2,
   },
   {
-    role: 'Juara 1 IT Bootcamp & Software Engineering Mentor',
-    company: 'Kompetisi Nasional IT Bootcamp & SMK Tech Program',
-    location: 'Indonesia',
+    role: 'Pengajar & Mentor Rekayasa Perangkat Lunak (RPL)',
+    company: 'SMK Muhammadiyah 15 Jakarta',
+    location: 'Jakarta Selatan, Indonesia',
     start_date: '2025',
     end_date: '2025',
     is_current: false,
-    description: 'Meraih predikat Juara 1 dalam ajang kompetisi intensif pengembangan perangkat lunak berskala nasional. Dipercaya menjadi narasumber/pembicara tamu dan mentor teknis dalam program bootcamp software development SMK, membagikan materi arsitektur web modern, alur kerja developer standar industri, dan praktik terbaik coding kepada generasi muda.',
-    technologies: ['Public Speaking', 'Technical Mentoring', 'Software Architecture', 'Full Stack Development', 'Problem Solving'],
+    description: 'Menjadi pengajar tamu dan instruktur teknis bagi para siswa jurusan Rekayasa Perangkat Lunak (RPL) di SMK Muhammadiyah 15 Jakarta. Membawakan kurikulum pengembangan web modern dengan pengenalan Framework Laravel, struktur MVC, database relasional MySQL, praktik clean code, serta simulasi alur kerja kolaborasi Git developer standar industri.',
+    technologies: ['Laravel Framework', 'PHP & MVC Pattern', 'MySQL Database', 'Git & GitHub', 'Technical Mentoring', 'Public Speaking'],
+    images: [
+      '/documentation/smk-muhammadiyah-pengajar-1.jpg',
+      '/documentation/smk-muhammadiyah-pengajar-2.jpg',
+      '/documentation/smk-muhammadiyah-pengajar-3.jpg',
+    ],
+    captions: [
+      'Foto Bersama Siswa Kelas Rekayasa Perangkat Lunak (RPL) SMK Muhammadiyah 15 Jakarta',
+      'Sesi Pembelajaran Langsung: Pengenalan Framework Laravel & Arsitektur Web MVC',
+      'Pendampingan Praktik Coding & Eksplorasi Proyek di Lab Komputer RPL',
+    ],
     display_order: 3,
+  },
+  {
+    role: 'Juara 1 IT Bootcamp Software Development',
+    company: 'Fakultas Teknik & Informatika UBSI (Tingkat Seluruh Kampus UBSI)',
+    location: 'Sentul, Bogor, Indonesia',
+    start_date: '2025',
+    end_date: '2025',
+    is_current: false,
+    description: 'Meraih predikat JUARA 1 dari seluruh perwakilan kampus Universitas Bina Sarana Informatika (UBSI) se-Indonesia dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" di Hotel Asyana Sentul - Bogor. Membangun aplikasi web "Website Madrasah Aliyah Smart Tahfidz School" dengan arsitektur full stack tangguh dan teruji.',
+    technologies: ['Full Stack Web Development', 'Laravel & PHP', 'Database Design', 'Software Architecture', 'Presentation & Pitching'],
+    images: [
+      '/documentation/juara-1-bootcamp-penyerahan-piala.jpg',
+      '/documentation/juara-1-bootcamp-tim-outdoor.jpg',
+      '/certificates/juara1-it-bootcamp.png',
+    ],
+    captions: [
+      'Penyerahan Piala Juara 1 IT Bootcamp Bersama Pimpinan / Rektorat UBSI',
+      'Dokumentasi Tim Pemenang Juara 1 IT Bootcamp Se-Kampus UBSI',
+      'Sertifikat Apresiasi Resmi Juara 1 Ditetapkan Rektor UBSI',
+    ],
+    display_order: 4,
   },
 ];
 
@@ -224,7 +255,7 @@ export const defaultCertificates: Certificate[] = [
   },
   {
     id: 'juara-1-it-bootcamp',
-    title: 'Juara 1 IT Bootcamp - Software Development for Industry',
+    title: 'Juara 1 IT Bootcamp Software Development (Seluruh Kampus UBSI)',
     subtitle: 'Pengembangan Website Madrasah Aliyah Smart Tahfidz School',
     issuer: 'Fakultas Teknik & Informatika (FTI) Universitas Bina Sarana Informatika',
     credential_id: 'e-Sn : 19230181',
@@ -232,15 +263,23 @@ export const defaultCertificates: Certificate[] = [
     issue_date: '02 Juli 2025',
     field: 'Software Engineering & Full Stack Web Development',
     category: 'Award',
-    badge: 'Juara 1 Tingkat Industri',
+    badge: 'Juara 1 Se-Kampus UBSI',
     images: [
       {
-        title: 'Sertifikat Apresiasi & Penghargaan Juara 1',
+        title: 'Sertifikat Apresiasi & Penghargaan Juara 1 Rektor UBSI',
         url: '/certificates/juara1-it-bootcamp.png',
+      },
+      {
+        title: 'Penyerahan Piala Juara 1 Bersama Pimpinan / Rektorat UBSI',
+        url: '/documentation/juara-1-bootcamp-penyerahan-piala.jpg',
+      },
+      {
+        title: 'Dokumentasi Tim Pemenang Juara 1 IT Bootcamp Se-Kampus UBSI',
+        url: '/documentation/juara-1-bootcamp-tim-outdoor.jpg',
       },
     ],
     pdf_url: '/certificates/sertifikat-juara1-it-bootcamp.pdf',
-    description: 'Meraih predikat JUARA 1 dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" yang diselenggarakan di Hotel Asyana Sentul - Bogor. Diberikan apresiasi langsung oleh Rektor UBSI atas keunggulan rekayasa arsitektur, fungsionalitas, dan kualitas implementasi aplikasi web "Website Madrasah Aliyah Smart Tahfidz School".',
+    description: 'Meraih predikat JUARA 1 mengungguli seluruh perwakilan mahasiswa dari seluruh kampus Universitas Bina Sarana Informatika (UBSI) se-Indonesia dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" di Hotel Asyana Sentul - Bogor. Diberikan apresiasi langsung oleh Rektor UBSI atas keunggulan aplikasi web "Website Madrasah Aliyah Smart Tahfidz School".',
     skills: [
       'Full Stack Software Development',
       'Web Application Architecture',
@@ -267,18 +306,18 @@ export const defaultEducations: Education[] = [
     description: 'Tersertifikasi resmi kompeten nasional dalam perancangan database, penulisan SQL terstruktur, integrasi data, jaminan kualitas data, dan penerapan hak akses basis data.',
   },
   {
-    degree: 'Juara 1 IT Bootcamp Software Development for Industry',
+    degree: 'Juara 1 IT Bootcamp Software Development (Tingkat Seluruh Kampus UBSI)',
     institution: 'Fakultas Teknik & Informatika (FTI) UBSI',
     start_year: '2025',
     end_year: '2025',
-    description: 'Pemenang Juara 1 dalam perancangan dan implementasi aplikasi web full stack "Website Madrasah Aliyah Smart Tahfidz School" pada bootcamp industri intensif.',
+    description: 'Pemenang Juara 1 dari seluruh perwakilan kampus UBSI se-Indonesia dalam perancangan dan implementasi aplikasi web full stack "Website Madrasah Aliyah Smart Tahfidz School" pada bootcamp industri intensif.',
   },
   {
-    degree: 'Pembicara Bootcamp Software Development SMK',
-    institution: 'Program Bootcamp Sekolah Menengah Kejuruan (SMK)',
+    degree: 'Pengajar & Mentor Rekayasa Perangkat Lunak (RPL)',
+    institution: 'SMK Muhammadiyah 15 Jakarta',
     start_year: '2025',
     end_year: '2025',
-    description: 'Dipercaya menjadi narasumber/pembicara tamu dan mentor teknis untuk membagikan wawasan industri, praktik terbaik coding, dan motivasi berkarier di dunia software engineering kepada para siswa kejuruan.',
+    description: 'Dipercaya menjadi pengajar tamu dan instruktur teknis bagi siswa jurusan Rekayasa Perangkat Lunak (RPL), membimbing pengenalan framework Laravel, arsitektur web modern, dan persiapan karier developer industri.',
   },
 ];
 

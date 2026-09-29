@@ -122,23 +122,33 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 <div className="p-5 bg-slate-950/60 flex flex-col items-center">
                   {/* Page Tab Selector if multiple pages exist */}
                   {cert.images.length > 1 && (
-                    <div className="w-full flex items-center justify-center gap-2 mb-3">
-                      {cert.images.map((img, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() =>
-                            setActivePages((prev) => ({ ...prev, [cert.id]: idx }))
-                          }
-                          className={`px-3 py-1 text-xs rounded-lg font-medium transition-all duration-200 border ${
-                            currentPage === idx
-                              ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300 shadow-sm'
-                              : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
-                          }`}
-                        >
-                          {idx === 0 ? '📄 Halaman Depan' : '📋 7 Unit Kompetensi'}
-                        </button>
-                      ))}
+                    <div className="w-full flex flex-wrap items-center justify-center gap-1.5 mb-3">
+                      {cert.images.map((img, idx) => {
+                        let label = `Item ${idx + 1}`;
+                        if (isBNSP) {
+                          label = idx === 0 ? '📄 Sertifikat BNSP' : '📋 7 Unit SKKNI';
+                        } else {
+                          if (idx === 0) label = '📜 Sertifikat Juara 1';
+                          else if (idx === 1) label = '🏆 Penyerahan Piala';
+                          else label = '👥 Tim Se-Kampus UBSI';
+                        }
+                        return (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={() =>
+                              setActivePages((prev) => ({ ...prev, [cert.id]: idx }))
+                            }
+                            className={`px-3 py-1 text-xs rounded-lg font-medium transition-all duration-200 border ${
+                              currentPage === idx
+                                ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300 shadow-sm'
+                                : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                            }`}
+                          >
+                            {label}
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
 
