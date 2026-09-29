@@ -191,18 +191,17 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                           </span>
                         </div>
 
-                        {/* Interactive Photo Frame (Uncropped with Silky Smooth Cross-fade) */}
+                        {/* Interactive Photo Frame: Uniform Landscape Ratio with Silky Smooth Cross-fade */}
                         <div
                           onClick={() =>
                             openLightbox(item.images!, item.captions, currentImgIdx, item.role)
                           }
-                          className="relative w-full rounded-lg overflow-hidden bg-slate-900 border border-slate-800/80 group cursor-pointer flex items-center justify-center"
-                          style={{ minHeight: '300px', height: '360px' }}
+                          className="relative w-full aspect-[16/10] sm:h-72 rounded-xl overflow-hidden bg-slate-950 border border-slate-800/80 group cursor-pointer flex items-center justify-center"
                         >
                           {item.images.map((imgUrl, imgIdx) => (
                             <div
                               key={imgIdx}
-                              className={`absolute inset-0 flex items-center justify-center p-2 transition-all duration-700 ease-in-out ${
+                              className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
                                 imgIdx === currentImgIdx
                                   ? 'opacity-100 scale-100 z-10 pointer-events-auto'
                                   : 'opacity-0 scale-[0.97] z-0 pointer-events-none'
@@ -211,7 +210,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                               <img
                                 src={imgUrl}
                                 alt={item.captions ? item.captions[imgIdx] : item.role}
-                                className="w-full h-full max-h-[340px] object-contain block drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out group-hover:scale-[1.01]"
+                                className="w-full h-full object-cover object-center block drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)] transition-transform duration-700 ease-out group-hover:scale-105"
                                 loading="lazy"
                               />
                             </div>

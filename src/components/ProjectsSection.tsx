@@ -219,11 +219,9 @@ function ProjectCard({
       className={`glass-card flex flex-col h-full rounded-2xl border border-slate-800/90 bg-slate-900/60 transition-all duration-300 ease-out group reveal-init ${delayClass}`}
       style={tiltStyle}
     >
-      {/* Thumbnail Banner with Number Overlay & Auto-Slider (Uncropped Full View) */}
+      {/* Thumbnail Banner with Number Overlay & Auto-Slider (Uniform Landscape Ratio) */}
       <div
-        className={`w-full relative overflow-hidden bg-slate-950 rounded-t-2xl flex items-center justify-center border-b border-slate-800/80 ${
-          isMobile ? 'h-80 sm:h-96' : 'h-56 sm:h-64'
-        }`}
+        className="w-full relative overflow-hidden bg-slate-950 rounded-t-2xl flex items-center justify-center border-b border-slate-800/80 h-56 sm:h-64"
       >
         {project.images && project.images.length > 0 ? (
           <ProjectImageSlider

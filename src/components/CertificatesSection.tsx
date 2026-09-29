@@ -180,18 +180,15 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                     </div>
                   )}
 
-                  {/* Document Container with Layered Smooth Cross-fade */}
+                  {/* Document Container: Uniform Landscape Ratio with Smooth Cross-fade */}
                   <div
                     onClick={() => openLightbox(cert, currentPage)}
-                    className="relative w-full rounded-xl overflow-hidden bg-slate-900/90 border border-slate-800/90 shadow-inner group/preview cursor-pointer transition-all duration-500 hover:border-emerald-500/40 flex items-center justify-center"
-                    style={{
-                      height: isBNSP ? '440px' : '320px',
-                    }}
+                    className="relative w-full aspect-[16/10] sm:h-72 rounded-xl overflow-hidden bg-slate-950 border border-slate-800/90 shadow-inner group/preview cursor-pointer transition-all duration-500 hover:border-emerald-500/40 flex items-center justify-center"
                   >
                     {cert.images.map((img, idx) => (
                       <div
                         key={idx}
-                        className={`absolute inset-0 flex items-center justify-center p-3 transition-all duration-700 ease-in-out ${
+                        className={`absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out ${
                           currentPage === idx
                             ? 'opacity-100 scale-100 z-10 pointer-events-auto'
                             : 'opacity-0 scale-[0.97] z-0 pointer-events-none'
@@ -200,7 +197,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                         <img
                           src={img.url}
                           alt={img.title}
-                          className="w-full h-full max-h-full object-contain block drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)] transition-transform duration-500 ease-out group-hover/preview:scale-[1.02]"
+                          className="w-full h-full object-cover object-top block transition-transform duration-700 ease-out group-hover/preview:scale-105"
                           loading="lazy"
                         />
                       </div>
