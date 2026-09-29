@@ -113,9 +113,9 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                 <Phone size={20} />
               </div>
               <h4 className="font-syne font-bold text-sm text-slate-200">WhatsApp / Telepon</h4>
-              <p className="text-xs text-slate-400 mt-0.5">+62 812-3456-7890</p>
+              <p className="text-xs text-slate-400 mt-0.5">+62 857-9477-0824</p>
               <a
-                href="https://wa.me/6281234567890"
+                href="https://wa.me/6285794770824"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 hover:text-cyan-300 mt-4 transition-colors"
