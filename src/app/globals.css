@@ -50,10 +50,16 @@ body {
   color: #f8fafc;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Poppins', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', sans-serif;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 /* Ambient Radial Background Glows */

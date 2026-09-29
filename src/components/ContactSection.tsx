@@ -97,7 +97,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                 <Mail size={20} />
               </div>
               <h4 className="font-syne font-bold text-sm text-slate-200">Email Langsung</h4>
-              <p className="text-xs text-slate-400 mt-0.5">{profile.email}</p>
+              <p className="text-xs text-slate-400 mt-0.5 break-all">{profile.email}</p>
               <a
                 href={`mailto:${profile.email}`}
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 mt-4 transition-colors"

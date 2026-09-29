@@ -15,30 +15,30 @@ export default function AboutSection({ profile }: AboutSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Visual Profile Card with Bedimcode Floating Accent */}
           <div className="lg:col-span-5 reveal-init">
-            <div className="relative mx-auto max-w-sm">
+            <div className="relative mx-auto max-w-[280px] sm:max-w-[310px]">
               {/* Neon Glow Blobs behind the image */}
-              <div className="absolute -top-6 -left-6 w-48 h-48 bg-emerald-500/20 rounded-full blur-2xl pointer-events-none" />
-              <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-cyan-500/20 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute -top-4 -left-4 w-40 h-40 bg-emerald-500/20 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute -bottom-4 -right-4 w-40 h-40 bg-cyan-500/20 rounded-full blur-2xl pointer-events-none" />
 
               {/* Main Photo Card Frame */}
-              <div className="relative rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-900/90 shadow-2xl p-2.5">
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-slate-950">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-900/90 shadow-2xl p-2 sm:p-2.5">
+                <div className="relative rounded-xl overflow-hidden aspect-[4/4.6] bg-slate-950">
                   <img
                     src={profile.avatar_url || '/dimas-profile.jpg'}
                     alt={profile.full_name}
-                    className="w-full h-full object-cover object-center filter grayscale-[15%] hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover object-top filter grayscale-[8%] hover:grayscale-0 transition-all duration-500"
                   />
                   {/* Subtle gradient vignette */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-75" />
 
                   {/* Floating Experience Badge */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-slate-950/85 backdrop-blur-md border border-slate-700/80 rounded-xl p-3.5 flex items-center gap-3 shadow-lg">
-                    <div className="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-extrabold text-sm">
+                  <div className="absolute bottom-3 left-3 right-3 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-lg p-2.5 flex items-center gap-2.5 shadow-md">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-extrabold text-xs">
                       3+
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-white font-syne">Tahun Pengalaman Aktif</div>
-                      <div className="text-[11px] text-slate-400">Web, Mobile & Data Analytics</div>
+                      <div className="text-[11px] font-bold text-white font-syne">Tahun Pengalaman Aktif</div>
+                      <div className="text-[9px] text-slate-400">Web, Mobile & Data Analytics</div>
                     </div>
                   </div>
                 </div>

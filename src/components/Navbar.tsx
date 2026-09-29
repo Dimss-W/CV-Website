@@ -64,11 +64,11 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
         {/* Desktop Nav Links with Bedimcode Dot Indicator */}
         <nav className="hidden md:block">
-          <ul className="flex items-center gap-8 m-0 p-0 list-none">
+          <ul className="flex items-center md:gap-5 lg:gap-7 m-0 p-0 list-none">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
-                <li key={link.name}>
+                <li key={link.name} className="whitespace-nowrap">
                   <a
                     href={link.href}
                     className={`relative text-xs uppercase tracking-widest font-syne font-semibold transition-all duration-300 py-1 flex items-center gap-1.5 ${
