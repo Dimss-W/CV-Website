@@ -48,7 +48,7 @@ export default function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div>
             <span className="font-syne font-extrabold text-xl text-white tracking-tight">
-              Dimas<span className="text-emerald-400">.</span>
+              Portofolio Dimas<span className="text-emerald-400">.</span>
             </span>
             <p className="text-xs text-slate-500 mt-0.5">
               Full Stack Web & Mobile Software Engineer • Jakarta, ID

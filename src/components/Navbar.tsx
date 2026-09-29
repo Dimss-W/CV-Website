@@ -57,8 +57,8 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Brand Logo in Syne font */}
         <a href="#home" className="flex items-center gap-2 group">
-          <span className="font-syne font-extrabold text-2xl text-white tracking-tight group-hover:text-emerald-400 transition-colors">
-            Dimas<span className="text-emerald-400">.</span>
+          <span className="font-syne font-extrabold text-xl sm:text-2xl text-white tracking-tight group-hover:text-emerald-400 transition-colors">
+            Portofolio Dimas<span className="text-emerald-400">.</span>
           </span>
         </a>
 

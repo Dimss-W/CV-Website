@@ -67,7 +67,7 @@
 - **Nama:** Dimas Wijanarko
 - **Peran:** Full Stack Web & Mobile Software Engineer
 - **GitHub:** [@Dimss-W](https://github.com/Dimss-W)
-- **Email:** [dimaswijanarko111@gmail.com](mailto:dimaswijanarko111@gmail.com)
+- **Email:** [dmswijanarko@gmail.com](mailto:dmswijanarko@gmail.com)
 - **Lokasi:** Jakarta, Indonesia
 
 ---
