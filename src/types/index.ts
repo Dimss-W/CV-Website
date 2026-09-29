@@ -35,6 +35,7 @@ export interface Project {
   image_url?: string;
   images?: string[];
   captions?: string[];
+  is_mobile?: boolean;
   featured?: boolean;
   display_order?: number;
 }

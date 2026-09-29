@@ -13,17 +13,19 @@ function ProjectImageSlider({
   images,
   captions,
   title,
+  isMobile,
   onImageClick,
 }: {
   images: string[];
   captions?: string[];
   title: string;
-  onImageClick?: (img: string, caption?: string) => void;
+  isMobile?: boolean;
+  onImageClick?: (img: string, caption?: string, isMobile?: boolean) => void;
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-slide effect every 6 seconds when not hovered (calm and comfortable to read)
+  // Auto-slide effect every 6 seconds when not hovered (calm, comfortable to read)
   useEffect(() => {
     if (images.length <= 1 || isHovered) return;
     const timer = setInterval(() => {
@@ -58,24 +60,47 @@ function ProjectImageSlider({
         {images.map((img, i) => (
           <div
             key={i}
-            className="w-full h-full shrink-0 relative cursor-pointer flex items-center justify-center bg-slate-950"
-            onClick={() => onImageClick?.(img, captions?.[i])}
+            className={`w-full h-full shrink-0 relative cursor-pointer flex items-center justify-center overflow-hidden bg-slate-950 ${
+              isMobile ? 'py-3 px-4' : 'p-1'
+            }`}
+            onClick={() => onImageClick?.(img, captions?.[i], isMobile)}
             title="Klik untuk melihat layar penuh (Fullscreen)"
           >
-            {/* Full Uncropped Screenshot */}
-            <img
-              src={img}
-              alt={`${title} screenshot ${i + 1}`}
-              className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-            />
+            {isMobile ? (
+              <>
+                {/* Soft ambient colored glow behind mobile screen */}
+                <img
+                  src={img}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-30 scale-125 pointer-events-none select-none"
+                />
+
+                {/* Mobile Phone Mockup Screen - Tall, uncropped & clearly readable */}
+                <div className="relative z-10 h-full max-h-[96%] flex items-center justify-center">
+                  <img
+                    src={img}
+                    alt={`${title} screenshot ${i + 1}`}
+                    className="h-full w-auto max-h-[350px] object-contain rounded-2xl drop-shadow-[0_16px_36px_rgba(0,0,0,0.85)] border border-slate-700/80 transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  />
+                </div>
+              </>
+            ) : (
+              /* Full Uncropped Desktop Screenshot */
+              <img
+                src={img}
+                alt={`${title} screenshot ${i + 1}`}
+                className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+              />
+            )}
           </div>
         ))}
       </div>
 
-      {/* Top Right Fullscreen Button (Replaces Auto Slide badge) */}
+      {/* Top Right Fullscreen Button */}
       <button
         type="button"
-        onClick={() => onImageClick?.(images[currentIndex], currentCaption)}
+        onClick={() => onImageClick?.(images[currentIndex], currentCaption, isMobile)}
         className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-slate-300 flex items-center justify-center transition-all duration-200 shadow-md opacity-80 group-hover/slider:opacity-100"
         title="Klik untuk layar penuh"
       >
@@ -142,10 +167,12 @@ function ProjectCard({
 }: {
   project: Project;
   index: number;
-  onOpenPreview: (img: string, title: string, caption?: string) => void;
+  onOpenPreview: (img: string, title: string, caption?: string, isMobile?: boolean) => void;
 }) {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const [tiltStyle, setTiltStyle] = useState<React.CSSProperties>({});
+
+  const isMobile = Boolean(project.is_mobile || project.tags.some((t) => ['Flutter', 'Dart', 'Mobile'].includes(t)));
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -185,27 +212,42 @@ function ProjectCard({
       style={tiltStyle}
     >
       {/* Thumbnail Banner with Number Overlay & Auto-Slider (Uncropped Full View) */}
-      <div className="h-56 sm:h-64 w-full relative overflow-hidden bg-slate-950 rounded-t-2xl flex items-center justify-center border-b border-slate-800/80">
+      <div
+        className={`w-full relative overflow-hidden bg-slate-950 rounded-t-2xl flex items-center justify-center border-b border-slate-800/80 ${
+          isMobile ? 'h-80 sm:h-96' : 'h-56 sm:h-64'
+        }`}
+      >
         {project.images && project.images.length > 0 ? (
           <ProjectImageSlider
             images={project.images}
             captions={project.captions}
             title={project.title}
-            onImageClick={(img, caption) => onOpenPreview(img, project.title, caption)}
+            isMobile={isMobile}
+            onImageClick={(img, caption, mob) => onOpenPreview(img, project.title, caption, mob)}
           />
         ) : project.image_url ? (
           <div
-            className="w-full h-full relative cursor-pointer flex items-center justify-center bg-slate-950 group/img"
-            onClick={() => onOpenPreview(project.image_url!, project.title)}
+            className={`w-full h-full relative cursor-pointer flex items-center justify-center bg-slate-950 group/img ${
+              isMobile ? 'py-3 px-4' : 'p-1'
+            }`}
+            onClick={() => onOpenPreview(project.image_url!, project.title, undefined, isMobile)}
             title="Klik untuk melihat layar penuh (Fullscreen)"
           >
-            <img
-              src={project.image_url}
-              alt={project.title}
-              className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02] opacity-95 group-hover:opacity-100"
-            />
-            {/* Ambient Gradient overlay */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+            {isMobile ? (
+              <div className="relative z-10 h-full max-h-[96%] flex items-center justify-center">
+                <img
+                  src={project.image_url}
+                  alt={project.title}
+                  className="h-full w-auto max-h-[350px] object-contain rounded-2xl drop-shadow-[0_16px_36px_rgba(0,0,0,0.85)] border border-slate-700/80 transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                />
+              </div>
+            ) : (
+              <img
+                src={project.image_url}
+                alt={project.title}
+                className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02] opacity-95 group-hover:opacity-100"
+              />
+            )}
             <button
               type="button"
               className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-slate-300 flex items-center justify-center transition-all duration-200 shadow-md opacity-0 group-hover/img:opacity-100"
@@ -298,18 +340,21 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
     imageUrl: string;
     title: string;
     caption?: string;
+    isMobile?: boolean;
   }>({
     isOpen: false,
     imageUrl: '',
     title: '',
+    isMobile: false,
   });
 
-  const handleOpenPreview = (imageUrl: string, title: string, caption?: string) => {
+  const handleOpenPreview = (imageUrl: string, title: string, caption?: string, isMobile?: boolean) => {
     setPreviewModal({
       isOpen: true,
       imageUrl,
       title,
       caption,
+      isMobile,
     });
   };
 
@@ -403,7 +448,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 items-stretch">
           {filteredProjects.map((project, idx) => (
             <ProjectCard
               key={project.id || project.title}
@@ -422,7 +467,9 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           onClick={handleClosePreview}
         >
           <div
-            className="relative max-w-6xl w-full max-h-[96vh] bg-slate-900/95 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            className={`relative w-full max-h-[96vh] bg-slate-900/95 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col ${
+              previewModal.isMobile ? 'max-w-md' : 'max-w-6xl'
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -451,11 +498,13 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             </div>
 
             {/* Modal Image Display (Full, uncropped, maximum clarity) */}
-            <div className="p-2 sm:p-4 overflow-auto flex items-center justify-center bg-slate-950 max-h-[84vh]">
+            <div className="p-3 sm:p-5 overflow-auto flex items-center justify-center bg-slate-950 max-h-[84vh]">
               <img
                 src={previewModal.imageUrl}
                 alt={previewModal.title}
-                className="max-w-full max-h-[80vh] w-auto h-auto object-contain rounded-lg border border-slate-800/80 shadow-2xl"
+                className={`max-w-full max-h-[78vh] w-auto h-auto object-contain shadow-2xl ${
+                  previewModal.isMobile ? 'rounded-3xl border border-slate-700/80' : 'rounded-lg border border-slate-800/80'
+                }`}
               />
             </div>
           </div>
