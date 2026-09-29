@@ -1,5 +1,5 @@
 import { supabase } from './supabaseClient';
-import { Profile, Experience, Project, Skill, Education, ContactMessage } from '@/types';
+import { Profile, Experience, Project, Skill, Education, Certificate, ContactMessage } from '@/types';
 
 // Default mock data jika tabel di Supabase belum terisi data lengkap
 export const defaultProfile: Profile = {
@@ -179,6 +179,78 @@ export const defaultSkills: Skill[] = [
   { name: 'Technical Mentoring & Public Speaking', category: 'Tools & DevOps', level: 92 },
 ];
 
+export const defaultCertificates: Certificate[] = [
+  {
+    id: 'serkom-database-administrator',
+    title: 'Sertifikat Kompetensi Database Administrator',
+    subtitle: 'Certificate of Competence in Data Management',
+    issuer: 'Badan Nasional Sertifikasi Profesi (BNSP) & LSP Universitas Bina Sarana Informatika',
+    credential_id: 'No. 63120 2521 6 0000936 2026',
+    reg_number: 'No. Reg. DMS.1241.00936 2026',
+    issue_date: '06 Maret 2026',
+    valid_until: '06 Maret 2029 (Berlaku 3 Tahun)',
+    field: 'Data Management - Database Administrator',
+    category: 'Certification',
+    badge: 'BNSP & LSP RI Certified',
+    images: [
+      {
+        title: 'Halaman 1: Sertifikat Kompetensi Resmi BNSP',
+        url: '/certificates/serkom-database-administrator.png',
+      },
+      {
+        title: 'Halaman 2: Daftar 7 Unit Kompetensi Standar Nasional (SKKNI)',
+        url: '/certificates/serkom-database-administrator-units.png',
+      },
+    ],
+    pdf_url: '/certificates/sertifikat-bnsp-database-administrator.pdf',
+    description: 'Dinyatakan KOMPETEN secara nasional oleh Badan Nasional Sertifikasi Profesi (BNSP) dan Lembaga Sertifikasi Profesi (LSP) UBSI pada skema Database Administrator. Menguasai arsitektur basis data, integrasi data, optimalisasi query SQL, pemeliharaan kualitas data, serta tata kelola keamanan dan hak akses database.',
+    skills: [
+      'SQL Query Optimization',
+      'Database Design & ERD Modeling',
+      'Data Integration & Migration',
+      'Data Quality & Consistency',
+      'Database Security & Access Control',
+      'Document & Content Management',
+    ],
+    competency_units: [
+      { code: 'J.62DMS00.006.1', title: 'Mendesain basis data (Designing databases)' },
+      { code: 'J.62DMS00.010.1', title: 'Membuat basis data (Creating databases)' },
+      { code: 'J.62DMS00.011.1', title: 'Membuat integrasi data (Creating data integrations)' },
+      { code: 'J.62DMS00.012.1', title: 'Mengelola kualitas data (Managing data quality)' },
+      { code: 'J.62DMS00.016.1', title: 'Mengelola dokumen dan konten (Managing documents and content)' },
+      { code: 'J.620100.020.02', title: 'Menggunakan SQL (Using SQL)' },
+      { code: 'J.620100.021.02', title: 'Menerapkan akses basis data (Implementing database access)' },
+    ],
+  },
+  {
+    id: 'juara-1-it-bootcamp',
+    title: 'Juara 1 IT Bootcamp - Software Development for Industry',
+    subtitle: 'Pengembangan Website Madrasah Aliyah Smart Tahfidz School',
+    issuer: 'Fakultas Teknik & Informatika (FTI) Universitas Bina Sarana Informatika',
+    credential_id: 'e-Sn : 19230181',
+    reg_number: 'Penghargaan Rektor UBSI',
+    issue_date: '02 Juli 2025',
+    field: 'Software Engineering & Full Stack Web Development',
+    category: 'Award',
+    badge: 'Juara 1 Tingkat Industri',
+    images: [
+      {
+        title: 'Sertifikat Apresiasi & Penghargaan Juara 1',
+        url: '/certificates/juara1-it-bootcamp.png',
+      },
+    ],
+    pdf_url: '/certificates/sertifikat-juara1-it-bootcamp.pdf',
+    description: 'Meraih predikat JUARA 1 dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" yang diselenggarakan di Hotel Asyana Sentul - Bogor. Diberikan apresiasi langsung oleh Rektor UBSI atas keunggulan rekayasa arsitektur, fungsionalitas, dan kualitas implementasi aplikasi web "Website Madrasah Aliyah Smart Tahfidz School".',
+    skills: [
+      'Full Stack Software Development',
+      'Web Application Architecture',
+      'Clean Code & Agile Workflow',
+      'Modern UI/UX Responsive Design',
+      'Product Presentation & Demo',
+    ],
+  },
+];
+
 export const defaultEducations: Education[] = [
   {
     degree: 'Sistem Informasi (S.Kom)',
@@ -188,11 +260,18 @@ export const defaultEducations: Education[] = [
     description: 'Menempuh pendidikan program studi Sistem Informasi dengan fokus pada Analisis & Desain Sistem, Rekayasa Perangkat Lunak, Manajemen Basis Data Relasional, serta Pengembangan Aplikasi Web & Mobile.',
   },
   {
-    degree: 'Juara 1 IT Bootcamp Software Development',
-    institution: 'Kompetisi Nasional IT Bootcamp',
+    degree: 'Sertifikasi Kompetensi Database Administrator',
+    institution: 'Badan Nasional Sertifikasi Profesi (BNSP) & LSP UBSI',
+    start_year: '2026',
+    end_year: '2029 (Berlaku 3 Tahun)',
+    description: 'Tersertifikasi resmi kompeten nasional dalam perancangan database, penulisan SQL terstruktur, integrasi data, jaminan kualitas data, dan penerapan hak akses basis data.',
+  },
+  {
+    degree: 'Juara 1 IT Bootcamp Software Development for Industry',
+    institution: 'Fakultas Teknik & Informatika (FTI) UBSI',
     start_year: '2025',
     end_year: '2025',
-    description: 'Berhasil meraih predikat Juara 1 dalam ajang kompetisi intensif pengembangan perangkat lunak berskala nasional dengan menciptakan solusi aplikasi digital inovatif dan teruji.',
+    description: 'Pemenang Juara 1 dalam perancangan dan implementasi aplikasi web full stack "Website Madrasah Aliyah Smart Tahfidz School" pada bootcamp industri intensif.',
   },
   {
     degree: 'Pembicara Bootcamp Software Development SMK',
@@ -241,6 +320,10 @@ export async function getSkillsData(): Promise<Skill[]> {
 
 export async function getEducationsData(): Promise<Education[]> {
   return defaultEducations;
+}
+
+export async function getCertificatesData(): Promise<Certificate[]> {
+  return defaultCertificates;
 }
 
 export async function submitContactMessage(message: ContactMessage): Promise<{ success: boolean; message: string }> {

@@ -49,6 +49,25 @@ export interface Skill {
   display_order?: number;
 }
 
+export interface Certificate {
+  id: string;
+  title: string;
+  subtitle: string;
+  issuer: string;
+  credential_id: string;
+  reg_number?: string;
+  issue_date: string;
+  valid_until?: string;
+  field: string;
+  category: 'Certification' | 'Award';
+  badge: string;
+  images: { title: string; url: string }[];
+  pdf_url: string;
+  description: string;
+  skills: string[];
+  competency_units?: { code: string; title: string }[];
+}
+
 export interface Education {
   id?: string;
   degree: string;

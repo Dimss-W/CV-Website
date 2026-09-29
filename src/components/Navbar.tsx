@@ -17,7 +17,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
       setScrolled(window.scrollY > 30);
 
       // Bedimcode active section detection
-      const sections = ['home', 'about', 'works', 'services', 'skills', 'contact'];
+      const sections = ['home', 'about', 'works', 'services', 'skills', 'certificates', 'contact'];
       const scrollPos = window.scrollY + 220;
 
       for (const sectionId of sections) {
@@ -43,6 +43,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
     { name: 'Works', id: 'works', href: '#works' },
     { name: 'Services', id: 'services', href: '#services' },
     { name: 'Skills', id: 'skills', href: '#skills' },
+    { name: 'Sertifikat', id: 'certificates', href: '#certificates' },
     { name: 'Contact', id: 'contact', href: '#contact' },
   ];
 

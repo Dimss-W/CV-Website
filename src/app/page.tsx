@@ -7,6 +7,7 @@ import ServicesSection from '@/components/ServicesSection';
 import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
+import CertificatesSection from '@/components/CertificatesSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import ScrollObserver from '@/components/ScrollObserver';
@@ -18,17 +19,19 @@ import {
   getProjectsData,
   getSkillsData,
   getEducationsData,
+  getCertificatesData,
 } from '@/lib/data';
 
 export const revalidate = 60; // Revalidate data every 60s
 
 export default async function HomePage() {
-  const [profile, experiences, projects, skills, educations] = await Promise.all([
+  const [profile, experiences, projects, skills, educations, certificates] = await Promise.all([
     getProfileData(),
     getExperiencesData(),
     getProjectsData(),
     getSkillsData(),
     getEducationsData(),
+    getCertificatesData(),
   ]);
 
   return (
@@ -60,11 +63,16 @@ export default async function HomePage() {
       {/* 05. Skills Section */}
       <SkillsSection skills={skills} />
 
-      {/* 06. Experience & Education Timeline */}
+      {/* 06. Experience Timeline */}
       <ExperienceSection experiences={experiences} />
+
+      {/* 07. Official Certifications & Awards (BNSP & Juara 1 IT Bootcamp) */}
+      <CertificatesSection certificates={certificates} />
+
+      {/* 08. Education Background */}
       <EducationSection educations={educations} />
 
-      {/* 07. Contact Section */}
+      {/* 09. Contact Section */}
       <ContactSection profile={profile} />
 
       {/* Floating 1-Click Action Dock */}
