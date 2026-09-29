@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArrowDownRight, Sparkles } from 'lucide-react';
+import { ArrowDownRight } from 'lucide-react';
 
 interface CircularBadgeProps {
   text?: string;
@@ -13,11 +13,17 @@ export default function CircularBadge({
   className = '',
 }: CircularBadgeProps) {
   return (
-    <div className={`relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center select-none ${className}`}>
-      {/* Rotating SVG Circular Text */}
+    <div
+      style={{ width: '128px', height: '128px', position: 'relative' }}
+      className={`relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center select-none shrink-0 ${className}`}
+    >
+      {/* Rotating SVG Circular Text with strict dimensions */}
       <svg
+        width="128"
+        height="128"
         className="w-full h-full animate-[spin_12s_linear_infinite] hover:animate-[spin_4s_linear_infinite] transition-all"
         viewBox="0 0 100 100"
+        style={{ width: '100%', height: '100%' }}
       >
         <path
           id="circlePath"
@@ -35,6 +41,7 @@ export default function CircularBadge({
       <a
         href="#works"
         aria-label="Scroll to Works"
+        style={{ width: '44px', height: '44px' }}
         className="absolute w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 hover:scale-110 hover:bg-emerald-500 hover:text-slate-950 transition-all duration-300 cursor-pointer"
       >
         <ArrowDownRight size={18} />
