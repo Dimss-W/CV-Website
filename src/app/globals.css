@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #07090e;
+  --bg-card: rgba(15, 22, 36, 0.7);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  
+  /* Award-winning easing curves */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: #f8fafc;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ambient Radial Background Glows */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10vw;
+  left: 20vw;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(100px);
+  will-change: transform;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0vw;
+  right: 15vw;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(100px);
+  will-change: transform;
+}
+
+/* Living Responsive Cyber Tech Grid Layer */
+.cyber-grid-bg {
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(99, 102, 241, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 75% 55% at 50% 30%, #000 25%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 30%, #000 25%, transparent 85%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Butter-Smooth LERP Mouse Follower Spotlight */
+.mouse-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 650px;
+  height: 650px;
+  margin-top: -325px;
+  margin-left: -325px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.09) 0%, rgba(56, 189, 248, 0.035) 45%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  will-change: transform;
+  transform: translate3d(-1000px, -1000px, 0);
+}
+
+/* Top Scroll Progress Bar */
+.scroll-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 9999;
+}
+.scroll-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #38bdf8, #818cf8);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.7);
+  width: 0%;
+  transition: width 0.1s linear;
+  will-change: width;
+}
+
+/* Minimalist Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #07090e;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.65);
+}
+
+/* Global Ultra-Smooth Interaction Defaults */
+button, 
+a, 
+input, 
+textarea, 
+select {
+  transition: color 0.3s var(--ease-out-expo),
+              background-color 0.3s var(--ease-out-expo),
+              border-color 0.3s var(--ease-out-expo),
+              box-shadow 0.35s var(--ease-out-expo),
+              transform 0.35s var(--ease-out-expo),
+              opacity 0.3s var(--ease-out-expo);
+  will-change: transform, opacity;
+}
+
+/* Butter-Smooth Scroll Reveal Animation */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(28px) scale(0.985);
+  transition: opacity 0.85s var(--ease-out-quint), transform 0.85s var(--ease-out-quint);
+  will-change: opacity, transform;
+}
+
+.reveal-init.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-delay-1 {
+  transition-delay: 0.12s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.22s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.32s;
+}
+
+/* Glassmorphism Card Style with Silky Hover */
+.glass-card {
+  background: rgba(15, 22, 36, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  transition: transform 0.45s var(--ease-out-expo), 
+              border-color 0.45s var(--ease-out-expo), 
+              box-shadow 0.45s var(--ease-out-expo),
+              background-color 0.45s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transition: opacity 0.4s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.8), 0 0 28px rgba(99, 102, 241, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Interactive 3D Tilt Card with Fluid Physics */
+@media (hover: hover) {
+  .tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+    transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s var(--ease-out-expo), border-color 0.4s var(--ease-out-expo);
+  }
+}
+
+/* Harmonious Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8 0%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Floating Toast Banner */
+.toast-banner {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.2);
+  backdrop-filter: blur(16px);
+  border-radius: 0.75rem;
+  padding: 0.85rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #f8fafc;
+  font-size: 0.9rem;
+  font-weight: 500;
+  z-index: 99999;
+  animation: slideInToast 0.4s var(--ease-out-expo);
+}
+
+@keyframes slideInToast {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
