@@ -63,23 +63,24 @@ export default function RecruiterQuickBar({ profile }: RecruiterQuickBarProps) {
           <div className="min-w-0">
             <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-400 tracking-tight">
               <span>OPEN TO WORK</span>
-              <span className="text-slate-500">•</span>
-              <span className="text-slate-300">Siap Bergabung Segera</span>
+              <span className="hidden sm:inline text-slate-500">•</span>
+              <span className="hidden sm:inline text-slate-300">Siap Bergabung Segera</span>
             </div>
-            <div className="text-[10px] text-slate-400 truncate">
-              Full Stack (Laravel) & Mobile (Flutter)
+            <div className="text-[10px] text-slate-400 truncate hidden xs:block">
+              Full Stack & Mobile Engineer
             </div>
           </div>
         </div>
 
         {/* Right: Fast Action Buttons */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <a
             href="#contact"
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-syne text-xs font-bold shadow-md shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5"
+            className="flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-syne text-[11px] sm:text-xs font-bold shadow-md shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
           >
             <Send size={12} />
-            <span>Rekrut / Diskusi</span>
+            <span>Rekrut</span>
+            <span className="hidden sm:inline">/ Diskusi</span>
           </a>
 
           <button

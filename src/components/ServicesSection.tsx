@@ -125,26 +125,26 @@ export default function ServicesSection() {
                 {/* Header clickable bar */}
                 <button
                   onClick={() => toggleAccordion(idx)}
-                  className="w-full px-6 py-6 sm:px-8 sm:py-7 flex items-center justify-between text-left gap-4"
+                  className="w-full px-4 py-4 sm:px-8 sm:py-7 flex items-center justify-between text-left gap-3 sm:gap-4"
                   aria-expanded={isOpen}
                 >
-                  <div className="flex items-center gap-5 sm:gap-7 flex-1">
+                  <div className="flex items-center gap-3.5 sm:gap-7 flex-1 min-w-0">
                     {/* Number Indicator */}
-                    <span className="font-syne font-extrabold text-xl sm:text-2xl text-slate-500">
+                    <span className="font-syne font-extrabold text-lg sm:text-2xl text-slate-500 shrink-0">
                       {service.number}
                     </span>
 
                     {/* Icon container */}
-                    <div className="w-12 h-12 rounded-xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center flex-shrink-0 shadow-inner">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-800/90 border border-slate-700/80 flex items-center justify-center shrink-0 shadow-inner">
                       {service.icon}
                     </div>
 
                     {/* Title & subtitle */}
-                    <div>
-                      <h3 className="font-syne font-bold text-lg sm:text-xl text-slate-100 tracking-tight">
+                    <div className="min-w-0">
+                      <h3 className="font-syne font-bold text-base sm:text-xl text-slate-100 tracking-tight">
                         {service.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
+                      <p className="text-xs sm:text-sm text-slate-400 mt-0.5 truncate sm:whitespace-normal">
                         {service.subtitle}
                       </p>
                     </div>
@@ -152,20 +152,20 @@ export default function ServicesSection() {
 
                   {/* Toggle Arrow */}
                   <div
-                    className={`w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300 ${
+                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border shrink-0 transition-all duration-300 ${
                       isOpen
                         ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-400 rotate-180'
                         : 'bg-slate-800 border-slate-700 text-slate-400'
                     }`}
                   >
-                    <ChevronDown size={18} />
+                    <ChevronDown size={16} className="sm:w-[18px] sm:h-[18px]" />
                   </div>
                 </button>
 
                 {/* Accordion Content */}
                 {isOpen && (
-                  <div className="px-6 pb-7 sm:px-8 sm:pb-8 pt-2 border-t border-slate-800/60 transition-all duration-300 animate-in fade-in slide-in-from-top-2">
-                    <p className="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                  <div className="px-4 pb-6 sm:px-8 sm:pb-8 pt-2 border-t border-slate-800/60 transition-all duration-300 animate-in fade-in slide-in-from-top-2">
+                    <p className="text-slate-300 text-xs sm:text-base leading-relaxed mb-6">
                       {service.description}
                     </p>
 

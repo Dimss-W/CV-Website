@@ -70,12 +70,12 @@ export default function Hero({ profile }: HeroProps) {
               Creative Engineer &
             </h1>
 
-            {/* Fixed-Height Animated Typewriter Container (Never shifts content below!) */}
-            <div className="h-9 sm:h-11 flex items-center mb-5 overflow-hidden">
-              <span className="font-syne text-xl sm:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 whitespace-nowrap">
+            {/* Responsive Animated Typewriter Container */}
+            <div className="min-h-[2.5rem] sm:min-h-[2.75rem] flex items-center mb-5 overflow-hidden">
+              <span className="font-syne text-lg sm:text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 truncate max-w-full">
                 {currentText || 'Software Developer'}
               </span>
-              <span className="text-emerald-400 text-xl sm:text-2xl lg:text-3xl font-bold animate-pulse ml-0.5 select-none">|</span>
+              <span className="text-emerald-400 text-lg sm:text-2xl lg:text-3xl font-bold animate-pulse ml-0.5 select-none">|</span>
             </div>
 
             {/* Hero Description */}

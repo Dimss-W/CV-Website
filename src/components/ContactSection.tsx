@@ -164,7 +164,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
 
           {/* Right Column: Bedimcode Styled Form */}
           <div className="lg:col-span-7 reveal-init reveal-delay-1">
-            <div className="p-7 sm:p-9 rounded-3xl bg-slate-900/80 border border-slate-800/90 shadow-2xl backdrop-blur-xl">
+            <div className="p-5 sm:p-9 rounded-2xl sm:rounded-3xl bg-slate-900/80 border border-slate-800/90 shadow-2xl backdrop-blur-xl">
               <h3 className="font-syne font-bold text-xl text-slate-100 mb-6">
                 Kirim Pesan Anda
               </h3>

@@ -112,9 +112,9 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
         {/* Timeline Container */}
         <div className="max-w-3xl mx-auto relative">
           {/* Vertical Spine Line */}
-          <div className="absolute top-4 bottom-4 left-5 w-0.5 bg-gradient-to-b from-emerald-500 via-teal-400 to-slate-900 z-0" />
+          <div className="absolute top-4 bottom-4 left-4 sm:left-5 w-0.5 bg-gradient-to-b from-emerald-500 via-teal-400 to-slate-900 z-0" />
 
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-8 sm:gap-10">
             {experiences.map((item, index) => {
               const delayClass = index === 0 ? '' : index === 1 ? 'reveal-delay-1' : 'reveal-delay-2';
               const hasImages = item.images && item.images.length > 0;
@@ -123,21 +123,21 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
               return (
                 <div
                   key={item.id || index}
-                  className={`flex gap-6 sm:gap-8 relative z-10 reveal-init ${delayClass}`}
+                  className={`flex gap-3.5 sm:gap-6 lg:gap-8 relative z-10 reveal-init ${delayClass}`}
                 >
                   {/* Timeline Icon Node */}
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 mt-1 transition-transform ${
+                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 mt-1 transition-transform ${
                       item.is_current
                         ? 'bg-gradient-to-tr from-emerald-400 to-cyan-500 text-slate-950 font-bold shadow-lg shadow-emerald-500/30 ring-4 ring-slate-950'
                         : 'bg-slate-900 border border-slate-700 text-emerald-400 ring-4 ring-slate-950'
                     }`}
                   >
-                    <Briefcase size={17} />
+                    <Briefcase size={15} className="sm:w-[17px] sm:h-[17px]" />
                   </div>
 
                   {/* Experience Card */}
-                  <div className="glass-card p-6 sm:p-7 flex-1 border border-slate-800/90 bg-slate-900/60 shadow-lg shadow-black/30">
+                  <div className="glass-card p-4 sm:p-7 flex-1 border border-slate-800/90 bg-slate-900/60 shadow-lg shadow-black/30 rounded-2xl">
                     <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                       <div>
                         <h3 className="text-lg sm:text-xl font-bold text-slate-100 tracking-tight">

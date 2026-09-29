@@ -23,7 +23,7 @@ export default function Footer() {
         </div>
 
         {/* Quick Nav Links in Bedimcode Style */}
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 mb-10 pb-10 border-b border-slate-800/80">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7 mb-10 pb-10 border-b border-slate-800/80">
           <a href="#home" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
             Home
           </a>
@@ -39,13 +39,16 @@ export default function Footer() {
           <a href="#skills" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
             Skills
           </a>
+          <a href="#certificates" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
+            Sertifikat
+          </a>
           <a href="#contact" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
             Contact
           </a>
         </div>
 
         {/* Bottom row: Brand, Socials & Back to Top */}
-        <div className="flex flex-wrap items-center justify-between gap-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <div>
             <span className="font-syne font-extrabold text-xl text-white tracking-tight">
               Portofolio Dimas<span className="text-emerald-400">.</span>
@@ -95,7 +98,7 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-slate-900 flex flex-wrap items-center justify-between text-xs text-slate-500 gap-4">
+        <div className="mt-8 pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
           <div>
             &copy; {new Date().getFullYear()} Dimas Wijanarko. All rights reserved.
           </div>

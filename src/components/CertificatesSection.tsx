@@ -117,7 +117,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 className="glass-card flex flex-col rounded-2xl border border-slate-800 bg-slate-900/70 overflow-hidden shadow-xl shadow-black/30 hover:border-emerald-500/30 transition-all duration-300 group"
               >
                 {/* Top Badge & Header */}
-                <div className="p-6 pb-4 border-b border-slate-800/80 bg-slate-950/40">
+                <div className="p-4 sm:p-6 pb-4 border-b border-slate-800/80 bg-slate-950/40">
                   <div className="flex flex-wrap items-center justify-between gap-2.5 mb-3">
                     <span
                       className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide border shadow-sm ${
@@ -147,7 +147,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 </div>
 
                 {/* Certificate Document Preview Frame (Uncropped with Silky Smooth Cross-fade) */}
-                <div className="p-5 bg-slate-950/60 flex flex-col items-center">
+                <div className="p-3.5 sm:p-5 bg-slate-950/60 flex flex-col items-center">
                   {/* Page Tab Selector if multiple pages exist */}
                   {cert.images.length > 1 && (
                     <div className="w-full flex flex-wrap items-center justify-center gap-1.5 mb-3">
@@ -183,7 +183,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   {/* Document Container: Uniform Landscape Ratio with Smooth Cross-fade */}
                   <div
                     onClick={() => openLightbox(cert, currentPage)}
-                    className="relative w-full aspect-[16/10] sm:h-72 rounded-xl overflow-hidden bg-slate-950 border border-slate-800/90 shadow-inner group/preview cursor-pointer transition-all duration-500 hover:border-emerald-500/40 flex items-center justify-center"
+                    className="relative w-full aspect-[16/10] h-52 sm:h-64 lg:h-72 rounded-xl overflow-hidden bg-slate-950 border border-slate-800/90 shadow-inner group/preview cursor-pointer transition-all duration-500 hover:border-emerald-500/40 flex items-center justify-center"
                   >
                     {cert.images.map((img, idx) => (
                       <div
@@ -254,7 +254,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 </div>
 
                 {/* Details & Metadata */}
-                <div className="p-6 pt-4 flex-1 flex flex-col justify-between">
+                <div className="p-4 sm:p-6 pt-4 flex-1 flex flex-col justify-between">
                   <div>
                     {/* Date / Validity Meta */}
                     <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 mb-3.5">
@@ -332,23 +332,23 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/90 backdrop-blur-md animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-slate-950/90 backdrop-blur-md animate-fade-in"
           onClick={closeLightbox}
         >
           <div
-            className="relative max-w-4xl w-full max-h-[92vh] flex flex-col bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl shadow-black overflow-hidden"
+            className="relative max-w-4xl w-full max-h-[96vh] sm:max-h-[92vh] flex flex-col bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl shadow-black overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Top Header */}
-            <div className="p-4 sm:p-5 border-b border-slate-800 bg-slate-950/80 flex items-center justify-between gap-4">
-              <div>
+            <div className="p-3.5 sm:p-5 border-b border-slate-800 bg-slate-950/80 flex items-center justify-between gap-3">
+              <div className="min-w-0">
                 <span className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mb-1">
                   {modalCert.badge}
                 </span>
-                <h3 className="text-base sm:text-lg font-bold font-syne text-slate-100 leading-snug">
+                <h3 className="text-sm sm:text-lg font-bold font-syne text-slate-100 leading-snug truncate">
                   {modalCert.title}
                 </h3>
-                <p className="text-xs text-slate-400 font-mono">
+                <p className="text-[11px] sm:text-xs text-slate-400 font-mono truncate">
                   {modalCert.credential_id} • {modalCert.issuer}
                 </p>
               </div>
@@ -356,15 +356,15 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
               <button
                 type="button"
                 onClick={closeLightbox}
-                className="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-slate-700/60 flex items-center justify-center transition-colors shrink-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-800/80 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-slate-700/60 flex items-center justify-center transition-colors shrink-0"
                 aria-label="Tutup"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
             {/* Modal Body: Uncropped Image Viewer with Cross-fade */}
-            <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-slate-950/90 relative min-h-[350px]">
+            <div className="flex-1 overflow-auto p-2 sm:p-6 flex items-center justify-center bg-slate-950/90 relative min-h-[260px] sm:min-h-[350px]">
               {modalCert.images.map((img, idx) => (
                 <div
                   key={idx}
@@ -377,7 +377,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   <img
                     src={img.url}
                     alt={modalCert.title}
-                    className="max-h-[70vh] w-auto max-w-full object-contain rounded-lg border border-slate-800 shadow-2xl"
+                    className="max-h-[60vh] sm:max-h-[75vh] w-auto max-w-full object-contain rounded-lg border border-slate-800 shadow-2xl"
                   />
                 </div>
               ))}
