@@ -89,12 +89,22 @@ export const defaultProjects: Project[] = [
     display_order: 2,
   },
   {
-    title: 'Sistem Input Realisasi Anggaran & Kinerja',
-    description: 'Sistem internal enterprise monitoring realisasi program kerja, input serapan anggaran dinamis, dan integrasi visual reporting dashboard analitik untuk kebutuhan evaluasi manajemen (Projek Magang).',
-    tags: ['Laravel', 'Blade', 'Power BI', 'MySQL', 'Enterprise'],
+    title: 'Enterprise Monitoring & Power BI Dashboard',
+    description: 'Sistem manajemen enterprise terintegrasi untuk pemantauan realisasi anggaran proyek, pengesahan dokumen BASTO, verifikasi mutu QC teknis, dan administrasi invoicing PT PGAS Telekomunikasi Nusantara (PGNCOM) dengan visualisasi analitik Microsoft Power BI interaktif.',
+    tags: ['Power BI', 'Laravel', 'Blade', 'MySQL', 'Enterprise'],
     demo_url: 'https://github.com/Dimss-W/Sistem-Input-Realisasi',
     github_url: 'https://github.com/Dimss-W/Sistem-Input-Realisasi.git',
-    image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+    image_url: '/projects/pgncom-login.png',
+    images: [
+      '/projects/pgncom-login.png',
+      '/projects/pgncom-dashboard.png',
+      '/projects/powerbi-dashboard.png',
+    ],
+    captions: [
+      'Portal Operasional PGNCOM • Realisasi Biaya & QC Control',
+      'Dashboard Administrator • Manajemen Distribusi Akun & Audit Log',
+      'Dashboard Monitoring Power BI • Analitik Kontrak & Realisasi Anggaran',
+    ],
     featured: true,
     display_order: 3,
   },
@@ -109,16 +119,6 @@ export const defaultProjects: Project[] = [
     display_order: 4,
   },
   {
-    title: 'Enterprise Monitoring & Power BI Dashboard',
-    description: 'Website sistem manajemen perusahaan tempat magang yang terintegrasi langsung dengan Microsoft Power BI untuk visualisasi analitik data performa real-time dan monitoring operasional.',
-    tags: ['Power BI', 'Laravel', 'React', 'MySQL', 'Tailwind CSS'],
-    demo_url: 'https://github.com/Dimss-W',
-    github_url: 'https://github.com/Dimss-W',
-    image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-    featured: true,
-    display_order: 5,
-  },
-  {
     title: 'Personal CV & Portfolio Website',
     description: 'Website portofolio dan CV personal modern bereputasi tinggi berbasis Next.js 13, React, Tailwind CSS, dan BaaS Supabase terinspirasi desain modern Bedimcode Bianca.',
     tags: ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'TypeScript'],
@@ -126,7 +126,7 @@ export const defaultProjects: Project[] = [
     github_url: 'https://github.com/Dimss-W/CV-Website.git',
     image_url: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80',
     featured: false,
-    display_order: 6,
+    display_order: 5,
   },
 ];
 
