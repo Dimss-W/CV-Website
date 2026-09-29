@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Project } from '@/types';
-import { ExternalLink, Star, Code2, ArrowUpRight, FolderGit2, ChevronLeft, ChevronRight, Maximize2, X, Sparkles } from 'lucide-react';
+import { ExternalLink, Star, Code2, ArrowUpRight, FolderGit2, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 interface ProjectsSectionProps {
@@ -23,12 +23,12 @@ function ProjectImageSlider({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-slide effect every 3.5 seconds when not hovered
+  // Auto-slide effect every 6 seconds when not hovered (calm and comfortable to read)
   useEffect(() => {
     if (images.length <= 1 || isHovered) return;
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 3500);
+    }, 6000);
     return () => clearInterval(timer);
   }, [images.length, isHovered]);
 
@@ -46,7 +46,7 @@ function ProjectImageSlider({
 
   return (
     <div
-      className="relative w-full h-full overflow-hidden group/slider select-none"
+      className="relative w-full h-full overflow-hidden group/slider select-none bg-slate-950"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -58,35 +58,38 @@ function ProjectImageSlider({
         {images.map((img, i) => (
           <div
             key={i}
-            className="w-full h-full shrink-0 relative cursor-pointer"
+            className="w-full h-full shrink-0 relative cursor-pointer flex items-center justify-center bg-slate-950"
             onClick={() => onImageClick?.(img, captions?.[i])}
-            title="Klik untuk perbesar tangkapan layar"
+            title="Klik untuk melihat layar penuh (Fullscreen)"
           >
+            {/* Full Uncropped Screenshot */}
             <img
               src={img}
               alt={`${title} screenshot ${i + 1}`}
-              className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+              className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02]"
             />
           </div>
         ))}
       </div>
 
-      {/* Auto-Slide Indicator Badge */}
-      {images.length > 1 && (
-        <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 text-emerald-400 text-[10px] font-semibold tracking-wide shadow-md">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-          <span>Auto Slide</span>
-        </div>
-      )}
+      {/* Top Right Fullscreen Button (Replaces Auto Slide badge) */}
+      <button
+        type="button"
+        onClick={() => onImageClick?.(images[currentIndex], currentCaption)}
+        className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-slate-300 flex items-center justify-center transition-all duration-200 shadow-md opacity-80 group-hover/slider:opacity-100"
+        title="Klik untuk layar penuh"
+      >
+        <Maximize2 size={13} />
+      </button>
 
-      {/* Navigation Controls (Visible on hover) */}
+      {/* Navigation Controls (Visible on hover or touch) */}
       {images.length > 1 && (
         <>
           <button
             type="button"
             onClick={prevSlide}
             aria-label="Previous slide"
-            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all duration-200 z-10 shadow-lg"
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/90 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all duration-200 z-10 shadow-lg"
           >
             <ChevronLeft size={16} />
           </button>
@@ -94,7 +97,7 @@ function ProjectImageSlider({
             type="button"
             onClick={nextSlide}
             aria-label="Next slide"
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all duration-200 z-10 shadow-lg"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-950/90 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-white flex items-center justify-center opacity-0 group-hover/slider:opacity-100 transition-all duration-200 z-10 shadow-lg"
           >
             <ChevronRight size={16} />
           </button>
@@ -128,16 +131,6 @@ function ProjectImageSlider({
           </div>
         </>
       )}
-
-      {/* Quick Zoom Icon */}
-      <button
-        type="button"
-        onClick={() => onImageClick?.(images[currentIndex], currentCaption)}
-        className="absolute bottom-2.5 right-2.5 opacity-0 group-hover/slider:opacity-100 transition-opacity w-7 h-7 rounded-full bg-slate-950/90 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center z-10 shadow-md md:hidden"
-        title="Perbesar"
-      >
-        <Maximize2 size={12} />
-      </button>
     </div>
   );
 }
@@ -191,8 +184,8 @@ function ProjectCard({
       className={`glass-card flex flex-col h-full rounded-2xl border border-slate-800/90 bg-slate-900/60 transition-all duration-300 ease-out group reveal-init ${delayClass}`}
       style={tiltStyle}
     >
-      {/* Thumbnail Banner with Number Overlay & Auto-Slider */}
-      <div className="h-56 sm:h-60 w-full relative overflow-hidden bg-slate-950/90 rounded-t-2xl">
+      {/* Thumbnail Banner with Number Overlay & Auto-Slider (Uncropped Full View) */}
+      <div className="h-56 sm:h-64 w-full relative overflow-hidden bg-slate-950 rounded-t-2xl flex items-center justify-center border-b border-slate-800/80">
         {project.images && project.images.length > 0 ? (
           <ProjectImageSlider
             images={project.images}
@@ -202,14 +195,24 @@ function ProjectCard({
           />
         ) : project.image_url ? (
           <div
-            className="w-full h-full relative cursor-pointer"
+            className="w-full h-full relative cursor-pointer flex items-center justify-center bg-slate-950 group/img"
             onClick={() => onOpenPreview(project.image_url!, project.title)}
+            title="Klik untuk melihat layar penuh (Fullscreen)"
           >
             <img
               src={project.image_url}
               alt={project.title}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
+              className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.02] opacity-95 group-hover:opacity-100"
             />
+            {/* Ambient Gradient overlay */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+            <button
+              type="button"
+              className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-slate-950/85 hover:bg-emerald-500 hover:text-slate-950 border border-slate-700/80 text-slate-300 flex items-center justify-center transition-all duration-200 shadow-md opacity-0 group-hover/img:opacity-100"
+              title="Klik untuk layar penuh"
+            >
+              <Maximize2 size={13} />
+            </button>
           </div>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-slate-700">
@@ -217,17 +220,14 @@ function ProjectCard({
           </div>
         )}
 
-        {/* Ambient Gradient overlay */}
-        <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-
         {/* Bedimcode Number Badge: 01, 02, etc. */}
-        <div className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-slate-700/80 text-white font-syne font-extrabold text-xs tracking-wider shadow-lg z-10 pointer-events-none">
+        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-slate-700/80 text-white font-syne font-extrabold text-xs tracking-wider shadow-lg z-10 pointer-events-none">
           <span className="text-emerald-400 font-mono">#{formattedNumber}</span>
         </div>
 
-        {/* Featured Tag */}
+        {/* Featured Tag (Only if no custom slider to keep header clean) */}
         {project.featured && !hasMultipleImages && (
-          <div className="absolute top-3.5 right-3.5 bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-md z-10 pointer-events-none">
+          <div className="absolute top-3 right-3 bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-md z-10 pointer-events-none">
             <Star size={11} className="fill-emerald-400 text-emerald-400" />
             <span>Featured</span>
           </div>
@@ -317,6 +317,16 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
     setPreviewModal((prev) => ({ ...prev, isOpen: false }));
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') handleClosePreview();
+    };
+    if (previewModal.isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [previewModal.isOpen]);
+
   const filteredProjects = projects.filter((project) => {
     if (activeFilter === 'ALL') return true;
     if (activeFilter === 'WEB') {
@@ -405,43 +415,47 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
         </div>
       </div>
 
-      {/* Lightbox Screenshot Preview Modal */}
+      {/* Fullscreen Screenshot Preview Modal (Full Screen Lightbox) */}
       {previewModal.isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/95 backdrop-blur-xl animate-fadeIn"
           onClick={handleClosePreview}
         >
           <div
-            className="relative max-w-5xl w-full max-h-[90vh] bg-slate-900 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            className="relative max-w-6xl w-full max-h-[96vh] bg-slate-900/95 border border-slate-700/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-center justify-between px-5 py-3.5 bg-slate-950/80 border-b border-slate-800">
-              <div>
-                <h4 className="font-syne font-bold text-slate-100 text-sm sm:text-base">
-                  {previewModal.title}
-                </h4>
-                {previewModal.caption && (
-                  <p className="text-xs text-emerald-400 font-medium">
-                    {previewModal.caption}
-                  </p>
-                )}
+            <div className="flex items-center justify-between px-5 py-3.5 bg-slate-950/90 border-b border-slate-800">
+              <div className="flex items-center gap-3">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                <div>
+                  <h4 className="font-syne font-bold text-slate-100 text-sm sm:text-base">
+                    {previewModal.title}
+                  </h4>
+                  {previewModal.caption && (
+                    <p className="text-xs text-emerald-400 font-medium mt-0.5">
+                      {previewModal.caption}
+                    </p>
+                  )}
+                </div>
               </div>
               <button
                 type="button"
                 onClick={handleClosePreview}
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+                className="w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors shadow-md"
+                title="Tutup (Esc)"
               >
                 <X size={18} />
               </button>
             </div>
 
-            {/* Modal Image Display */}
-            <div className="p-2 sm:p-4 overflow-auto flex items-center justify-center bg-slate-950/95 max-h-[75vh]">
+            {/* Modal Image Display (Full, uncropped, maximum clarity) */}
+            <div className="p-2 sm:p-4 overflow-auto flex items-center justify-center bg-slate-950 max-h-[84vh]">
               <img
                 src={previewModal.imageUrl}
                 alt={previewModal.title}
-                className="max-w-full max-h-[70vh] object-contain rounded-lg border border-slate-800 shadow-2xl"
+                className="max-w-full max-h-[80vh] w-auto h-auto object-contain rounded-lg border border-slate-800/80 shadow-2xl"
               />
             </div>
           </div>
