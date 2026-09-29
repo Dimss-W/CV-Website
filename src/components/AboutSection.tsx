@@ -22,17 +22,17 @@ export default function AboutSection({ profile }: AboutSectionProps) {
 
               {/* Main Photo Card Frame */}
               <div className="relative rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-900/90 shadow-2xl p-2 sm:p-2.5">
-                <div className="relative rounded-xl overflow-hidden aspect-[4/4.6] bg-slate-950">
+                <div className="relative rounded-xl overflow-hidden aspect-[3/3.8] bg-slate-950 flex items-center justify-center">
                   <img
                     src={profile.avatar_url || '/dimas-profile.jpg'}
                     alt={profile.full_name}
-                    className="w-full h-full object-cover object-top filter grayscale-[8%] hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover object-[center_25%] scale-[0.93] origin-center filter grayscale-[5%] hover:grayscale-0 hover:scale-[0.96] transition-all duration-500"
                   />
                   {/* Subtle gradient vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-75" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent pointer-events-none" />
 
                   {/* Floating Experience Badge */}
-                  <div className="absolute bottom-3 left-3 right-3 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-lg p-2.5 flex items-center gap-2.5 shadow-md">
+                  <div className="absolute bottom-3 left-3 right-3 bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-lg p-2.5 flex items-center gap-2.5 shadow-md pointer-events-none">
                     <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-extrabold text-xs">
                       3+
                     </div>

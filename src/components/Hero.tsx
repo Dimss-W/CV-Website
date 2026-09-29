@@ -174,17 +174,17 @@ export default function Hero({ profile }: HeroProps) {
 
               {/* Main Portrait Frame with Compact Elegant Scale */}
               <div className="relative rounded-2xl overflow-hidden border border-slate-700/80 bg-slate-900/90 shadow-2xl p-2 sm:p-2.5">
-                <div className="relative rounded-xl overflow-hidden aspect-[4/4.6] bg-slate-950">
+                <div className="relative rounded-xl overflow-hidden aspect-[3/3.8] bg-slate-950 flex items-center justify-center">
                   <img
                     src={profile.avatar_url || '/dimas-profile.jpg'}
                     alt={profile.full_name}
-                    className="w-full h-full object-cover object-top filter grayscale-[8%] hover:grayscale-0 transition-all duration-500"
+                    className="w-full h-full object-cover object-[center_25%] scale-[0.93] origin-center filter grayscale-[5%] hover:grayscale-0 hover:scale-[0.96] transition-all duration-500"
                   />
                   {/* Bottom Vignette */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent pointer-events-none" />
 
                   {/* Overlaid Achievement Chips */}
-                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2.5">
+                  <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2.5 pointer-events-none">
                     <div className="bg-slate-950/90 backdrop-blur-md border border-slate-700/80 rounded-lg px-2.5 py-1.5 shadow-md">
                       <div className="text-xs sm:text-sm font-extrabold text-emerald-400 font-syne">10+ Proyek</div>
                       <div className="text-[9px] text-slate-400">Web & Mobile Apps</div>
