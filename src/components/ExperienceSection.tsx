@@ -53,7 +53,13 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                     {num}
                   </span>
                   <span className="px-3.5 py-1 rounded-full border border-[var(--first-color)]/50 text-xs text-white font-medium">
-                    {item.start_date} — {item.is_current ? 'Sekarang' : item.end_date}
+                    {item.is_current
+                      ? `${item.start_date} — Sekarang`
+                      : item.start_date === item.end_date
+                        ? item.start_date
+                        : item.end_date?.toLowerCase().includes('bulan')
+                          ? `${item.start_date} (${item.end_date})`
+                          : `${item.start_date} — ${item.end_date}`}
                   </span>
                 </div>
 
