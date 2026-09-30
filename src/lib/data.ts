@@ -35,7 +35,7 @@ export const defaultExperiences: Experience[] = [
     start_date: '2023',
     end_date: '2024',
     is_current: false,
-    description: 'Mengembangkan sistem web operasional enterprise "Monitoring Realisasi Biaya & Quality Control" untuk pemantauan realisasi anggaran proyek, pengesahan dokumen BASTO, verifikasi mutu QC teknis, dan administrasi invoicing. Merancang dan mengintegrasikan dashboard analitik Microsoft Power BI interaktif untuk monitoring 84 kontrak proyek senilai Rp309 Miliar, evaluasi rasio realisasi vs prognosa, dan tracking status transaksi vendor secara real-time.',
+    description: 'Mengembangkan sistem web operasional enterprise "Monitoring Realisasi Biaya & Quality Control" untuk pemantauan realisasi anggaran proyek, pengesahan dokumen BASTO, verifikasi mutu QC teknis, dan administrasi invoicing. Merancang dan mengintegrasikan dashboard analitik Microsoft Power BI interaktif untuk monitoring capaian proyek, evaluasi rasio realisasi vs prognosa, dan tracking status transaksi secara real-time.',
     technologies: ['Microsoft Power BI', 'DAX', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'REST API', 'Enterprise Governance'],
     display_order: 2,
   },
@@ -114,7 +114,7 @@ export const defaultProjects: Project[] = [
     captions: [
       'Portal Operasional PGNCOM • Realisasi Biaya & QC Control',
       'Dashboard Administrator • Manajemen Distribusi Akun & Audit Log',
-      'Dashboard Monitoring Power BI • Analitik Kontrak & Realisasi Anggaran',
+      'Dashboard Monitoring Power BI • Analitik Realisasi & Performa Proyek',
     ],
     featured: true,
     display_order: 3,

@@ -58,9 +58,9 @@ const services: ServiceItem[] = [
     subtitle: 'Microsoft Power BI, DAX & Executive Reporting',
     description: 'Merancang visualisasi data bisnis interaktif, monitoring serapan anggaran, dan KPI kinerja eksekutif dengan Microsoft Power BI terintegrasi langsung ke database operasional perusahaan (seperti implementasi di PT PGAS Telekomunikasi Nusantara).',
     deliverables: [
-      'Dashboard Analitik Interaktif Power BI (Nilai Kontrak vs Realisasi vs Prognosa Rp309M)',
-      'Pemodelan Data Relasional, Perhitungan DAX & Analisis Finansial per Vendor',
-      'Tracking Status Transaksi Finansial (PAID, POPAY, WAIT INV) Berkelanjutan',
+      'Dashboard Analitik Interaktif Power BI (Monitoring Realisasi vs Prognosa Proyek)',
+      'Pemodelan Data Relasional, Perhitungan DAX & Visualisasi KPI Eksekutif',
+      'Tracking Status Transaksi Operasional Berkelanjutan Secara Real-Time',
       'Monitoring Realisasi Biaya & Quality Control Berstandar Enterprise NOC',
     ],
     techStack: ['Microsoft Power BI', 'DAX', 'MySQL', 'Data Modeling', 'Laravel Backend'],
