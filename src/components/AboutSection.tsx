@@ -25,6 +25,8 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             <i className="ri-arrow-right-line" />
           </a>
         </div>
+
+        <div className="blob-big" />
       </div>
     </section>
   );

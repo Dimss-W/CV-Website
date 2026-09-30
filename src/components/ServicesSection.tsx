@@ -116,6 +116,8 @@ export default function ServicesSection() {
                   ))}
                 </ul>
               </div>
+
+              <div className="blob-small" />
             </article>
           );
         })}

@@ -18,7 +18,7 @@ export default function EducationSection({ educations }: EducationSectionProps) 
         {educations.map((edu, idx) => (
           <article
             key={edu.id || idx}
-            className="relative bg-[var(--container-color)] p-6 sm:p-8 rounded-[2rem] overflow-hidden"
+            className="education__card relative bg-[var(--container-color)] p-6 sm:p-8 rounded-[2rem] overflow-hidden"
           >
             <div className="relative z-[5]">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3">

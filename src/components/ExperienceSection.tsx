@@ -45,7 +45,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
           return (
             <article
               key={item.id || index}
-              className="relative bg-[var(--container-color)] p-5 sm:p-7 rounded-[2rem] overflow-hidden"
+              className="experience__card relative bg-[var(--container-color)] p-5 sm:p-7 rounded-[2rem] overflow-hidden"
             >
               <div className="relative z-[5]">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">

@@ -814,6 +814,12 @@ img {
 
 /*=============== ABOUT SECTION ===============*/
 .about__container {
+  position: relative;
+  background-color: var(--container-color);
+  border: 1px solid var(--border-color);
+  padding: 2rem 1.5rem;
+  border-radius: 2rem;
+  overflow: hidden;
   color: var(--white-color);
   text-align: center;
   row-gap: 2rem;
@@ -821,6 +827,8 @@ img {
 
 @media (min-width: 768px) {
   .about__container {
+    padding: 2.85rem 3.25rem;
+    border-radius: 2.25rem;
     grid-template-columns: 1.35fr 1fr;
     column-gap: 3.5rem;
     align-items: center;
@@ -829,12 +837,19 @@ img {
 }
 
 .about__title {
+  position: relative;
+  z-index: 5;
   font-size: var(--h1-font-size);
   line-height: 1.38;
 }
 
 .about__title span {
   color: var(--first-color);
+}
+
+.about__info {
+  position: relative;
+  z-index: 5;
 }
 
 .about__description {
@@ -851,6 +866,12 @@ img {
   .about__button {
     width: auto;
   }
+}
+
+.about__container .blob-big {
+  z-index: 1;
+  right: -4rem;
+  bottom: -4rem;
 }
 
 /*=============== WORK SECTION ===============*/
@@ -885,6 +906,7 @@ img {
 .work__card {
   position: relative;
   background-color: var(--container-color);
+  border: 1px solid var(--border-color);
   padding: 1.15rem 1.15rem 1.65rem;
   border-radius: 2rem;
   overflow: hidden;
@@ -892,6 +914,11 @@ img {
   flex-direction: column;
   height: 100%;
   min-height: 490px;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.work__card:hover {
+  border-color: hsla(208, 92%, 64%, 0.35);
 }
 
 @media (min-width: 768px) {
@@ -1005,30 +1032,42 @@ img {
 
 /*=============== SERVICES SECTION ===============*/
 .services__container {
-  max-width: 780px;
+  max-width: 860px;
   margin-inline: auto;
-  row-gap: 2rem;
+  row-gap: 1.25rem;
 }
 
 @media (min-width: 768px) {
   .services__container {
-    row-gap: 2.5rem;
+    row-gap: 1.5rem;
   }
 }
 
 .services__card {
-  border-bottom: 2px solid var(--container-color);
-  padding-bottom: 1.5rem;
+  position: relative;
+  background-color: var(--container-color);
+  border: 1px solid var(--border-color);
+  padding: 1.35rem 1.5rem;
+  border-radius: 1.85rem;
   overflow: hidden;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.3s ease;
 }
 
 @media (min-width: 768px) {
   .services__card {
-    padding-bottom: 2rem;
+    padding: 1.65rem 2.25rem;
+    border-radius: 2.1rem;
   }
 }
 
+.services__card:hover,
+.services__card.services-open {
+  border-color: hsla(208, 92%, 64%, 0.35);
+}
+
 .services__button {
+  position: relative;
+  z-index: 5;
   width: 100%;
   display: flex;
   align-items: center;
@@ -1038,7 +1077,7 @@ img {
 
 @media (min-width: 768px) {
   .services__button {
-    column-gap: 2.25rem;
+    column-gap: 1.75rem;
   }
 }
 
@@ -1050,7 +1089,7 @@ img {
 
 @media (min-width: 768px) {
   .services__icon {
-    font-size: 2.4rem;
+    font-size: 2.35rem;
   }
 }
 
@@ -1066,9 +1105,10 @@ img {
 }
 
 .services__arrow {
-  width: 34px;
-  height: 34px;
-  background-color: var(--container-color);
+  width: 36px;
+  height: 36px;
+  background-color: hsla(220, 26%, 17%, 0.9);
+  border: 1px solid var(--border-color);
   color: var(--white-color);
   border-radius: 50%;
   font-size: 1.4rem;
@@ -1076,6 +1116,14 @@ img {
   place-items: center;
   margin-left: auto;
   flex-shrink: 0;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.services-open .services__arrow,
+.services__card:hover .services__arrow {
+  background-color: var(--first-color);
+  border-color: var(--first-color);
+  color: var(--black-color);
 }
 
 .services__arrow i {
@@ -1083,7 +1131,7 @@ img {
 }
 
 .services__description {
-  margin-block: 1rem 1.5rem;
+  margin-block: 1rem 1.35rem;
   color: var(--text-color);
   line-height: 1.65;
 }
@@ -1091,7 +1139,7 @@ img {
 @media (min-width: 768px) {
   .services__description,
   .services__list {
-    padding-left: 4.65rem;
+    padding-left: 4.1rem;
   }
 }
 
@@ -1103,14 +1151,17 @@ img {
 }
 
 .services__item {
-  border: 2px solid var(--first-color);
+  border: 1.5px solid var(--first-color);
+  background-color: hsla(208, 92%, 64%, 0.08);
   border-radius: 4rem;
-  padding: 0.35rem 0.85rem;
+  padding: 0.35rem 0.9rem;
   color: var(--white-color);
   font: var(--font-semi-bold) var(--small-font-size) var(--second-font);
 }
 
 .services__data {
+  position: relative;
+  z-index: 5;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -1120,10 +1171,30 @@ img {
 .services-open .services__data {
   max-height: 600px;
   opacity: 1;
+  padding-bottom: 0.25rem;
 }
 
 .services-open .services__arrow i {
   transform: rotate(-180deg);
+}
+
+.services__card .blob-small {
+  z-index: 1;
+  top: -4rem;
+  right: -2rem;
+}
+
+/*=============== EXPERIENCE & EDUCATION CARDS ===============*/
+.experience__card,
+.education__card {
+  background-color: var(--container-color);
+  border: 1px solid var(--border-color);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.experience__card:hover,
+.education__card:hover {
+  border-color: hsla(208, 92%, 64%, 0.35);
 }
 
 /*=============== SKILLS SECTION ===============*/
@@ -1145,12 +1216,18 @@ img {
 .skills__card {
   position: relative;
   background-color: var(--container-color);
+  border: 1px solid var(--border-color);
   padding: 1.65rem 1.35rem;
-  border-radius: 1.65rem;
+  border-radius: 2rem;
   display: flex;
   flex-direction: column;
   row-gap: 1.35rem;
   overflow: hidden;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.skills__card:hover {
+  border-color: hsla(208, 92%, 64%, 0.35);
 }
 
 @media (min-width: 680px) {
@@ -1280,6 +1357,7 @@ img {
   width: 290px;
   flex-shrink: 0;
   background-color: var(--container-color);
+  border: 1px solid var(--border-color);
   padding: 1.75rem 1.35rem;
   border-radius: 2rem;
   margin-inline: 0.65rem;
@@ -1293,7 +1371,7 @@ img {
   .testimonials__card {
     width: 390px;
     padding: 2.35rem;
-    border-radius: 2.5rem;
+    border-radius: 2.25rem;
   }
 
   .testimonials__container::after,
@@ -1301,7 +1379,7 @@ img {
     content: "";
     position: absolute;
     top: 0;
-    width: 12%;
+    width: 10%;
     height: 100%;
     pointer-events: none;
     z-index: 6;
@@ -1311,7 +1389,7 @@ img {
     left: 0;
     background: linear-gradient(
       90deg,
-      var(--body-color) 0%,
+      #070b14 0%,
       hsla(0, 0%, 0%, 0) 100%
     );
   }
@@ -1321,7 +1399,7 @@ img {
     background: linear-gradient(
       90deg,
       hsla(0, 0%, 0%, 0) 0%,
-      var(--body-color) 100%
+      #070b14 100%
     );
   }
 }
@@ -1403,7 +1481,7 @@ img {
 
 /*=============== CONTACT SECTION ===============*/
 .contact__container {
-  row-gap: 2.75rem;
+  row-gap: 2.25rem;
   max-width: 980px;
   margin-inline: auto;
 }
@@ -1411,13 +1489,25 @@ img {
 @media (min-width: 768px) {
   .contact__container {
     grid-template-columns: 1.15fr 0.85fr;
-    column-gap: 3.5rem;
-    align-items: center;
+    column-gap: 2.5rem;
+    align-items: stretch;
   }
 }
 
 .contact__form {
+  background-color: var(--container-color);
+  border: 1px solid var(--border-color);
+  padding: 1.65rem 1.4rem;
+  border-radius: 2rem;
   row-gap: 1rem;
+  align-content: center;
+}
+
+@media (min-width: 768px) {
+  .contact__form {
+    padding: 2.25rem;
+    border-radius: 2.25rem;
+  }
 }
 
 .contact__group {
@@ -1426,11 +1516,11 @@ img {
 
 .contact__input {
   width: 100%;
-  background-color: var(--container-color);
+  background-color: hsla(222, 28%, 7%, 0.85);
   color: var(--white-color);
-  padding: 1.15rem 1.4rem;
-  border-radius: 1.35rem;
-  border: 2px solid transparent;
+  padding: 1.05rem 1.35rem;
+  border-radius: 1.25rem;
+  border: 1.5px solid var(--border-color);
   transition: border-color 0.4s;
 }
 
@@ -1443,7 +1533,7 @@ img {
 }
 
 textarea.contact__input {
-  height: 150px;
+  height: 145px;
   resize: none;
 }
 
@@ -1459,16 +1549,18 @@ textarea.contact__input {
 
 .contact__card {
   background-color: var(--container-color);
-  padding: 0.95rem 1.25rem;
-  border-radius: 4rem;
+  border: 1px solid var(--border-color);
+  padding: 1.1rem 1.35rem;
+  border-radius: 1.65rem;
   display: flex;
   align-items: center;
   column-gap: 0.85rem;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .contact__card:hover {
   transform: translateY(-2px);
+  border-color: hsla(208, 92%, 64%, 0.35);
 }
 
 .contact__icon {
@@ -1499,7 +1591,8 @@ textarea.contact__input {
 .contact__link {
   width: 36px;
   height: 36px;
-  background-color: var(--body-color);
+  background-color: hsla(222, 28%, 7%, 0.9);
+  border: 1px solid var(--border-color);
   color: var(--white-color);
   border-radius: 50%;
   display: grid;
@@ -1507,11 +1600,12 @@ textarea.contact__input {
   font-size: 1.15rem;
   margin-left: auto;
   flex-shrink: 0;
-  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s, border-color 0.3s;
 }
 
 .contact__card:hover .contact__link {
   background-color: var(--first-color);
+  border-color: var(--first-color);
   color: var(--black-color);
   transform: translate(2px, -2px);
 }
@@ -1524,12 +1618,20 @@ textarea.contact__input {
 }
 
 .footer__container {
+  position: relative;
+  background-color: var(--container-color);
+  border: 1px solid var(--border-color);
+  padding: 2.25rem 1.5rem;
+  border-radius: 2rem;
   row-gap: 2.5rem;
   text-align: center;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .footer__container {
+    padding: 2.75rem 3.25rem;
+    border-radius: 2.25rem;
     grid-template-columns: 1.3fr 1fr;
     justify-content: space-between;
     align-items: center;
@@ -1689,7 +1791,7 @@ textarea.contact__input {
   #experience article,
   #education article,
   .contact__card {
-    border: 1px solid transparent;
+    border: 1px solid var(--border-color);
     transition:
       opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
       transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
