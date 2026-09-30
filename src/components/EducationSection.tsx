@@ -25,37 +25,43 @@ export default function EducationSection({ educations }: EducationSectionProps) 
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-7 max-w-4xl mx-auto">
+        <div
+          className={`grid grid-cols-1 ${
+            educations.length > 1 ? 'md:grid-cols-2 max-w-4xl' : 'max-w-2xl'
+          } gap-7 mx-auto`}
+        >
           {educations.map((edu, idx) => (
             <div
               key={edu.id || idx}
-              className={`glass-card p-7 border border-slate-800 bg-slate-900/60 shadow-lg shadow-black/20 reveal-init ${
+              className={`glass-card p-6 sm:p-8 rounded-2xl border border-slate-800/90 bg-slate-900/60 hover:border-emerald-500/30 transition-all duration-300 shadow-lg shadow-black/20 reveal-init ${
                 idx === 1 ? 'reveal-delay-1' : ''
               }`}
             >
-              <div className="flex items-center gap-3.5 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-sky-400 flex items-center justify-center shrink-0">
-                  <Award size={20} />
-                </div>
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-100 leading-snug">
-                    {edu.degree}
-                  </h3>
-                  <div className="text-xs sm:text-sm font-semibold text-sky-400 mt-0.5">
-                    {edu.institution}
+              <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                    <GraduationCap size={22} />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold font-syne text-slate-100 leading-snug">
+                      {edu.degree}
+                    </h3>
+                    <div className="text-xs sm:text-sm font-semibold text-emerald-400 mt-0.5">
+                      {edu.institution}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 font-medium mb-4">
-                <Calendar size={12} />
-                <span>
-                  {edu.start_year} - {edu.end_year || 'Sekarang'}
-                </span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 font-medium shrink-0">
+                  <Calendar size={12} className="text-emerald-400" />
+                  <span>
+                    {edu.start_year} - {edu.end_year || 'Sekarang'}
+                  </span>
+                </div>
               </div>
 
               {edu.description && (
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {edu.description}
                 </p>
               )}

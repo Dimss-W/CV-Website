@@ -266,14 +266,7 @@ export const defaultEducations: Education[] = [
     institution: 'Universitas Bina Sarana Informatika (UBSI)',
     start_year: '2023',
     end_year: 'Sekarang (Mahasiswa Aktif)',
-    description: 'Menempuh pendidikan program studi Sistem Informasi dengan fokus pada Analisis & Desain Sistem, Rekayasa Perangkat Lunak, Manajemen Basis Data Relasional, serta Pengembangan Aplikasi Web & Mobile.',
-  },
-  {
-    degree: 'Peminatan Rekayasa Perangkat Lunak & Basis Data',
-    institution: 'Universitas Bina Sarana Informatika (UBSI)',
-    start_year: '2023',
-    end_year: 'Sekarang',
-    description: 'Fokus pendalaman akademis pada perancangan database enterprise, metodologi agile software engineering, optimasi struktur data, dan arsitektur aplikasi berskala industri.',
+    description: 'Menempuh pendidikan program studi Sistem Informasi (Fakultas Teknik & Informatika) dengan fokus pada Analisis & Desain Sistem, Rekayasa Perangkat Lunak, Arsitektur Basis Data Relasional, serta Pengembangan Aplikasi Web & Mobile berskala industri.',
   },
 ];
 
