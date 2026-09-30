@@ -254,10 +254,16 @@ img {
   opacity: 0 !important;
 }
 
-@media (pointer: coarse), (max-width: 859px) {
-  .cursor,
+@media (max-width: 859px) {
+  .cursor {
+    width: 22px;
+    height: 22px;
+    opacity: 0.75;
+  }
+
   .cursor-trail {
-    display: none;
+    width: 52px;
+    height: 52px;
   }
 }
 
@@ -1588,16 +1594,60 @@ textarea.contact__input {
   bottom: 2.5rem;
 }
 
-/*=============== SCROLL REVEAL ===============*/
+/*=============== SCROLL REVEAL & MOBILE SCROLL INTERACTIVITY ===============*/
 .reveal-init {
   opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(38px) scale(0.97);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
 }
 
 .reveal-init.is-revealed {
   opacity: 1;
   transform: none;
+}
+
+/* Efek interaktif otomatis saat di-scroll pada Mobile */
+@media (max-width: 859px) {
+  .work__card,
+  .services__card,
+  .skills__card,
+  #experience article,
+  #education article,
+  .contact__card {
+    border: 1px solid transparent;
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s ease,
+      border-color 0.45s ease;
+  }
+
+  .work__card.scroll-focus,
+  .services__card.scroll-focus,
+  .skills__card.scroll-focus,
+  #experience article.scroll-focus,
+  #education article.scroll-focus,
+  .contact__card.scroll-focus {
+    border-color: hsla(208, 92%, 64%, 0.38);
+    box-shadow: 0 12px 32px -8px hsla(208, 92%, 60%, 0.22);
+  }
+
+  .work__card.scroll-focus .work__img {
+    transform: scale(1.04);
+  }
+
+  .work__card.scroll-focus .work__arrow {
+    opacity: 1;
+  }
+
+  .contact__card.scroll-focus .contact__link {
+    background-color: var(--first-color);
+    color: var(--black-color);
+  }
 }
 
 /*=============== FULLSCREEN LIGHTBOX (UNCROPPED) ===============*/
