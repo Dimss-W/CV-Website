@@ -195,6 +195,18 @@ export default function ScrollObserver() {
 
   return (
     <>
+      {/* Animated Ambient Background (Aurora Mesh, Tech Grid, Particles & Meteors) */}
+      <div className="ambient-bg" aria-hidden="true">
+        <div className="ambient-bg__grid" />
+        <div className="ambient-bg__orb ambient-bg__orb--1" />
+        <div className="ambient-bg__orb ambient-bg__orb--2" />
+        <div className="ambient-bg__orb ambient-bg__orb--3" />
+        <div className="ambient-bg__stars" />
+        <span className="ambient-bg__meteor ambient-bg__meteor--1" />
+        <span className="ambient-bg__meteor ambient-bg__meteor--2" />
+        <span className="ambient-bg__meteor ambient-bg__meteor--3" />
+      </div>
+
       {/* Gradient Shadow Trail following cursor/scroll movement */}
       <div ref={trailRef} className="cursor-trail" aria-hidden="true" />
 
