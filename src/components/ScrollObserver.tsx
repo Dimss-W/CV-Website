@@ -4,14 +4,17 @@ import React, { useEffect, useRef, useState } from 'react';
 
 export default function ScrollObserver() {
   const cursorRef = useRef<HTMLDivElement | null>(null);
+  const trailRef = useRef<HTMLDivElement | null>(null);
   const [showScrollUp, setShowScrollUp] = useState(false);
 
   useEffect(() => {
-    // 1. Custom Cursor following mouse (Bedimcode Bianca exact behavior)
+    // 1. Custom Cursor with Dynamic Gradient Motion Shadow & Glow Trail
     let mouseX = -100;
     let mouseY = -100;
     let currentX = -100;
     let currentY = -100;
+    let trailX = -100;
+    let trailY = -100;
     let rafId: number;
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -20,11 +23,42 @@ export default function ScrollObserver() {
     };
 
     const animateCursor = () => {
-      currentX += (mouseX - currentX) * 0.18;
-      currentY += (mouseY - currentY) * 0.18;
+      const dx = mouseX - currentX;
+      const dy = mouseY - currentY;
+
+      currentX += dx * 0.22;
+      currentY += dy * 0.22;
+
+      trailX += (mouseX - trailX) * 0.11;
+      trailY += (mouseY - trailY) * 0.11;
+
+      const speed = Math.min(Math.hypot(dx, dy), 60);
+      const isMoving = speed > 0.6;
+
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${currentX - 16}px, ${currentY - 16}px, 0)`;
+        cursorRef.current.style.transform = `translate3d(${currentX - 15}px, ${currentY - 15}px, 0)`;
+
+        // Directional gradient shadow that blooms and trails opposite to movement
+        const offsetX = Math.max(-22, Math.min(22, -dx * 0.38));
+        const offsetY = Math.max(-22, Math.min(22, -dy * 0.38));
+        const glowBlur1 = 16 + speed * 0.45;
+        const glowBlur2 = 34 + speed * 0.85;
+        const glowAlpha = isMoving ? Math.min(0.85, 0.45 + speed * 0.012) : 0.38;
+
+        cursorRef.current.style.boxShadow = `
+          0 0 14px hsla(110, 100%, 82%, ${glowAlpha}),
+          ${offsetX * 0.55}px ${offsetY * 0.55}px ${glowBlur1}px hsla(110, 85%, 62%, ${glowAlpha * 0.9}),
+          ${offsetX}px ${offsetY}px ${glowBlur2}px hsla(145, 90%, 55%, ${glowAlpha * 0.65})
+        `;
       }
+
+      if (trailRef.current) {
+        const trailScale = 1 + (speed / 60) * 0.45;
+        const trailOpacity = isMoving ? Math.min(0.95, 0.45 + (speed / 60) * 0.5) : 0.32;
+        trailRef.current.style.transform = `translate3d(${trailX - 32}px, ${trailY - 32}px, 0) scale(${trailScale.toFixed(2)})`;
+        trailRef.current.style.opacity = String(trailOpacity.toFixed(2));
+      }
+
       rafId = requestAnimationFrame(animateCursor);
     };
 
@@ -34,11 +68,13 @@ export default function ScrollObserver() {
     // Hide custom cursor on links & buttons
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
-      if (!target || !cursorRef.current) return;
+      if (!target || !cursorRef.current || !trailRef.current) return;
       if (target.closest('a, button, input, textarea, [role="button"]')) {
         cursorRef.current.classList.add('hide-cursor');
+        trailRef.current.classList.add('hide-cursor');
       } else {
         cursorRef.current.classList.remove('hide-cursor');
+        trailRef.current.classList.remove('hide-cursor');
       }
     };
 
@@ -77,7 +113,10 @@ export default function ScrollObserver() {
 
   return (
     <>
-      {/* Bedimcode Bianca Custom Cursor */}
+      {/* Gradient Shadow Trail following cursor movement */}
+      <div ref={trailRef} className="cursor-trail" aria-hidden="true" />
+
+      {/* Bedimcode Bianca Custom Cursor with Gradient Glow */}
       <div ref={cursorRef} className="cursor" aria-hidden="true" />
 
       {/* Bedimcode Bianca Scroll Up Button */}
@@ -85,7 +124,7 @@ export default function ScrollObserver() {
         href="#home"
         className={`scrollup ${showScrollUp ? 'show-scroll' : ''}`}
         id="scroll-up"
-        aria-label="Scroll to top"
+        aria-label="Gulir ke atas"
       >
         <i className="ri-arrow-up-line" />
       </a>

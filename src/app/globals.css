@@ -205,30 +205,58 @@ img {
   }
 }
 
-/*=============== CUSTOM CURSOR ===============*/
+/*=============== CUSTOM CURSOR & GRADIENT SHADOW ===============*/
 .cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
-  background-color: var(--first-color);
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(
+    circle at 35% 35%,
+    hsl(var(--hue), 100%, 86%) 0%,
+    hsl(var(--hue), 82%, 62%) 55%,
+    hsl(135, 78%, 48%) 100%
+  );
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   mix-blend-mode: difference;
-  transition: transform 0.12s ease-out, opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
-  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+  will-change: transform, box-shadow;
 }
 
-.cursor.hide-cursor {
+.cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    circle,
+    hsla(var(--hue), 100%, 82%, 0.65) 0%,
+    hsla(var(--hue), 85%, 60%, 0.42) 40%,
+    hsla(145, 85%, 52%, 0.18) 70%,
+    transparent 100%
+  );
+  filter: blur(10px);
+  transition: opacity 0.25s ease, width 0.3s ease, height 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.cursor.hide-cursor,
+.cursor-trail.hide-cursor {
   width: 0;
   height: 0;
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 @media (pointer: coarse), (max-width: 859px) {
-  .cursor {
+  .cursor,
+  .cursor-trail {
     display: none;
   }
 }
