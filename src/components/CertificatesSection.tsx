@@ -45,7 +45,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
         Sertifikat & <span>Penghargaan</span>
       </h2>
 
-      <div className="container grid grid-cols-1 lg:grid-cols-2 gap-8 reveal-init">
+      <div className="container grid grid-cols-1 lg:grid-cols-2 auto-rows-fr gap-8 reveal-init">
         {certificates.map((cert, index) => {
           const currentPage = activeImageMap[cert.id] ?? 0;
           const currentImg = cert.images[currentPage] || cert.images[0];
@@ -54,7 +54,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
           return (
             <article
               key={cert.id}
-              className="work__card"
+              className="work__card h-full"
               onMouseEnter={() => setPausedCardId(cert.id)}
               onMouseLeave={() => setPausedCardId(null)}
             >
@@ -117,20 +117,20 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
               <div className="work__data">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="work__number !mb-0">{num}</span>
-                  <span className="px-3 py-1 rounded-full border border-[var(--first-color)] text-xs font-semibold text-white">
+                  <span className="px-3 py-1 rounded-full border border-[var(--first-color)] text-xs font-semibold text-white truncate">
                     {cert.badge}
                   </span>
                 </div>
 
                 <h3 className="work__name mt-2">{cert.title}</h3>
-                <p className="text-xs text-[var(--first-color)] font-medium mb-2">
+                <p className="text-xs text-[var(--first-color)] font-medium mb-2 truncate">
                   {cert.issuer} • {cert.issue_date}
                 </p>
 
                 <p className="work__description">{cert.description}</p>
 
-                <ul className="services__list mt-auto pt-2">
-                  {cert.skills.slice(0, 5).map((s) => (
+                <ul className="services__list mt-auto pt-3 border-t border-white/10">
+                  {cert.skills.slice(0, 4).map((s) => (
                     <li key={s} className="services__item !text-xs">
                       {s}
                     </li>

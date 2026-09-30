@@ -139,11 +139,11 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
       </h2>
 
       <div className="work__container container reveal-init">
-        {/* Mobile: Swipeable Carousel | Web/Desktop (md+): 2 & 3 Column Responsive Grid */}
+        {/* Mobile: Swipeable Carousel | Web/Desktop (md+): 2 & 3 Column Equal-Size Grid */}
         <div
           ref={trackRef}
           onScroll={handleTrackScroll}
-          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 md:pb-0 pt-1 scrollbar-none"
+          className="work__grid scrollbar-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {projects.map((project, index) => {
@@ -158,7 +158,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             return (
               <article
                 key={project.id || project.title}
-                className="work__card snap-start shrink-0 w-[84vw] max-w-[340px] md:w-auto md:max-w-none"
+                className="work__card snap-start shrink-0 w-[85vw] max-w-[340px] md:w-full md:max-w-none"
               >
                 <WorkCardSlider
                   images={imgs}
@@ -172,15 +172,19 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
                 <div className="work__data">
                   <span className="work__number">{num}</span>
-                  <h3 className="work__name">{project.title}</h3>
-                  <p className="work__description">{project.description}</p>
+                  <h3 className="work__name" title={project.title}>
+                    {project.title}
+                  </h3>
+                  <p className="work__description" title={project.description}>
+                    {project.description}
+                  </p>
 
-                  <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/10 mt-auto">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tags.slice(0, 4).map((tag) => (
+                  <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/10 mt-auto min-h-[40px]">
+                    <div className="flex items-center gap-1.5 overflow-hidden">
+                      {project.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium"
+                          className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium whitespace-nowrap"
                         >
                           {tag}
                         </span>
@@ -192,10 +196,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                         href={project.github_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--first-color)] hover:underline"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--first-color)] hover:underline shrink-0"
                       >
                         <i className="ri-github-line text-sm" />
-                        <span>Repositori</span>
+                        <span>Kode</span>
                       </a>
                     )}
                   </div>
