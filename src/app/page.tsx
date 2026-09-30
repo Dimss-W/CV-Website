@@ -6,13 +6,12 @@ import ProjectsSection from '@/components/ProjectsSection';
 import ServicesSection from '@/components/ServicesSection';
 import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
-import EducationSection from '@/components/EducationSection';
 import CertificatesSection from '@/components/CertificatesSection';
+import EducationSection from '@/components/EducationSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import ScrollObserver from '@/components/ScrollObserver';
-import ParticleCanvas from '@/components/ParticleCanvas';
-import RecruiterQuickBar from '@/components/RecruiterQuickBar';
 import {
   getProfileData,
   getExperiencesData,
@@ -22,64 +21,62 @@ import {
   getCertificatesData,
 } from '@/lib/data';
 
-export const revalidate = 60; // Revalidate data every 60s
+export const revalidate = 60;
 
 export default async function HomePage() {
-  const [profile, experiences, projects, skills, educations, certificates] = await Promise.all([
-    getProfileData(),
-    getExperiencesData(),
-    getProjectsData(),
-    getSkillsData(),
-    getEducationsData(),
-    getCertificatesData(),
-  ]);
+  const [profile, experiences, projects, skills, educations, certificates] =
+    await Promise.all([
+      getProfileData(),
+      getExperiencesData(),
+      getProjectsData(),
+      getSkillsData(),
+      getEducationsData(),
+      getCertificatesData(),
+    ]);
 
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      {/* Living Responsive Cyber Tech Grid Layer */}
-      <div className="cyber-grid-bg" />
-
-      {/* Scroll Progress Bar & Mouse Spotlight Observer */}
-      <ScrollObserver />
-
-      {/* Interactive Constellation & Aurora Particle Canvas */}
-      <ParticleCanvas />
-
-      {/* Navigation Header in Bedimcode Style */}
+    <>
+      {/*==================== HEADER & NAV ====================*/}
       <Navbar resumeUrl={profile.resume_url} />
 
-      {/* 01. Home Section */}
-      <Hero profile={profile} />
-      
-      {/* 02. About Section */}
-      <AboutSection profile={profile} />
+      {/*==================== MAIN ====================*/}
+      <main className="main">
+        {/* Custom Cursor, Scroll Up & ScrollReveal Observer */}
+        <ScrollObserver />
 
-      {/* 03. Works Section (featuring Otokeep, FindIt, Sistem-Input-Realisasi) */}
-      <ProjectsSection projects={projects} />
+        {/*==================== HOME SECTION ====================*/}
+        <Hero profile={profile} />
 
-      {/* 04. Services Section */}
-      <ServicesSection />
+        {/*==================== ABOUT SECTION ====================*/}
+        <AboutSection profile={profile} />
 
-      {/* 05. Skills Section */}
-      <SkillsSection skills={skills} />
+        {/*==================== WORK SECTION ====================*/}
+        <ProjectsSection projects={projects} />
 
-      {/* 06. Experience Timeline */}
-      <ExperienceSection experiences={experiences} />
+        {/*==================== SERVICES SECTION ====================*/}
+        <ServicesSection />
 
-      {/* 07. Official Certifications & Awards (BNSP & Juara 1 IT Bootcamp) */}
-      <CertificatesSection certificates={certificates} />
+        {/*==================== SKILLS SECTION ====================*/}
+        <SkillsSection skills={skills} />
 
-      {/* 08. Education Background */}
-      <EducationSection educations={educations} />
+        {/*==================== EXPERIENCE SECTION ====================*/}
+        <ExperienceSection experiences={experiences} />
 
-      {/* 09. Contact Section */}
-      <ContactSection profile={profile} />
+        {/*==================== CERTIFICATES SECTION ====================*/}
+        <CertificatesSection certificates={certificates} />
 
-      {/* Floating 1-Click Action Dock */}
-      <RecruiterQuickBar profile={profile} />
+        {/*==================== ACADEMIC BACKGROUND ====================*/}
+        <EducationSection educations={educations} />
 
-      {/* 08. Footer in Bedimcode Style */}
+        {/*==================== TESTIMONIALS / HIGHLIGHTS MARQUEE ====================*/}
+        <TestimonialsSection />
+
+        {/*==================== CONTACT SECTION ====================*/}
+        <ContactSection profile={profile} />
+      </main>
+
+      {/*==================== FOOTER ====================*/}
       <Footer />
-    </main>
+    </>
   );
 }

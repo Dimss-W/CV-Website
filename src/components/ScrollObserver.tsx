@@ -1,102 +1,94 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function ScrollObserver() {
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
+  const [showScrollUp, setShowScrollUp] = useState(false);
 
   useEffect(() => {
-    // 1. Smooth Scroll Progress Indicator
-    let progressTicking = false;
-    const handleScroll = () => {
-      if (!progressTicking) {
-        window.requestAnimationFrame(() => {
-          const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-          if (totalScroll > 0) {
-            setScrollProgress((window.scrollY / totalScroll) * 100);
-          }
-          progressTicking = false;
-        });
-        progressTicking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // 2. Liquid-Smooth LERP Mouse Follower Spotlight
-    const spotlightEl = document.getElementById('ambient-spotlight');
-    let targetX = -1000;
-    let targetY = -1000;
-    let currentX = -1000;
-    let currentY = -1000;
-    let animId: number;
+    // 1. Custom Cursor following mouse (Bedimcode Bianca exact behavior)
+    let mouseX = -100;
+    let mouseY = -100;
+    let currentX = -100;
+    let currentY = -100;
+    let rafId: number;
 
     const handleMouseMove = (e: MouseEvent) => {
-      targetX = e.clientX;
-      targetY = e.clientY;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    const animateCursor = () => {
+      currentX += (mouseX - currentX) * 0.18;
+      currentY += (mouseY - currentY) * 0.18;
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${currentX - 16}px, ${currentY - 16}px, 0)`;
+      }
+      rafId = requestAnimationFrame(animateCursor);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    rafId = requestAnimationFrame(animateCursor);
 
-    const updateSpotlight = () => {
-      // Linear Interpolation (LERP) factor for silky-smooth trailing
-      const ease = 0.09;
-      currentX += (targetX - currentX) * ease;
-      currentY += (targetY - currentY) * ease;
-
-      if (spotlightEl && currentX > -500) {
-        spotlightEl.style.transform = `translate3d(${currentX.toFixed(1)}px, ${currentY.toFixed(1)}px, 0)`;
+    // Hide custom cursor on links & buttons
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target || !cursorRef.current) return;
+      if (target.closest('a, button, input, textarea, [role="button"]')) {
+        cursorRef.current.classList.add('hide-cursor');
+      } else {
+        cursorRef.current.classList.remove('hide-cursor');
       }
-
-      animId = requestAnimationFrame(updateSpotlight);
     };
 
-    animId = requestAnimationFrame(updateSpotlight);
+    document.addEventListener('mouseover', handleMouseOver, { passive: true });
 
-    // 3. Optimized Intersection Observer for Scroll Reveals
-    const observerOptions: IntersectionObserverInit = {
-      root: null,
-      rootMargin: '0px 0px -40px 0px',
-      threshold: 0.12,
+    // 2. Show Scroll Up button
+    const handleScroll = () => {
+      setShowScrollUp(window.scrollY >= 350);
     };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-revealed');
-        }
-      });
-    }, observerOptions);
+    // 3. ScrollReveal IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
 
-    const elementsToReveal = document.querySelectorAll('.reveal-init');
-    elementsToReveal.forEach((el) => revealObserver.observe(el));
-
-    // Handle any dynamic elements
-    const mutationObserver = new MutationObserver(() => {
-      const newElements = document.querySelectorAll('.reveal-init:not(.is-revealed)');
-      newElements.forEach((el) => revealObserver.observe(el));
-    });
-
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    const elements = document.querySelectorAll('.reveal-init');
+    elements.forEach((el) => observer.observe(el));
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animId);
-      revealObserver.disconnect();
-      mutationObserver.disconnect();
+      document.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(rafId);
+      observer.disconnect();
     };
   }, []);
 
   return (
     <>
-      {/* Top Scroll Progress Line */}
-      <div className="scroll-progress-container">
-        <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }} />
-      </div>
+      {/* Bedimcode Bianca Custom Cursor */}
+      <div ref={cursorRef} className="cursor" aria-hidden="true" />
 
-      {/* Ambient Mouse Spotlight */}
-      <div id="ambient-spotlight" className="mouse-spotlight" />
+      {/* Bedimcode Bianca Scroll Up Button */}
+      <a
+        href="#home"
+        className={`scrollup ${showScrollUp ? 'show-scroll' : ''}`}
+        id="scroll-up"
+        aria-label="Scroll to top"
+      >
+        <i className="ri-arrow-up-line" />
+      </a>
     </>
   );
 }

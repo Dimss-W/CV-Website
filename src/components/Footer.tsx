@@ -1,112 +1,82 @@
 'use client';
 
 import React from 'react';
-import { ArrowUp, Heart } from 'lucide-react';
-import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons';
 
 export default function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
-    <footer className="border-t border-slate-800/80 pt-16 pb-12 bg-slate-950/95 relative z-10">
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Bedimcode Signature Big Footer Title */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="font-syne font-extrabold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight uppercase leading-tight mb-4">
-            Collaborate with Dimas and build scalable digital solutions today.
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400">
-            Terbuka untuk kolaborasi proyek, full-time opportunity, dan konsultasi software engineering.
-          </p>
-        </div>
+    <footer className="footer">
+      <div className="footer__container container grid">
+        <h2 className="footer__title">
+          COLLABORATE <span>WITH DIMAS</span> <br />
+          AND START <span>YOUR JOURNEY IN</span> <br />
+          DIGITAL INNOVATION TODAY.
+        </h2>
 
-        {/* Quick Nav Links in Bedimcode Style */}
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-7 mb-10 pb-10 border-b border-slate-800/80">
-          <a href="#home" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
-            Home
-          </a>
-          <a href="#about" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
-            About
-          </a>
-          <a href="#works" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
-            Works
-          </a>
-          <a href="#services" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
-            Services
-          </a>
-          <a href="#skills" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
-            Skills
-          </a>
-          <a href="#certificates" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
-            Sertifikat
-          </a>
-          <a href="#contact" className="text-xs font-syne font-semibold uppercase tracking-wider text-slate-400 hover:text-emerald-400 transition-colors">
-            Contact
-          </a>
-        </div>
-
-        {/* Bottom row: Brand, Socials & Back to Top */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <div>
-            <span className="font-syne font-extrabold text-xl text-white tracking-tight">
-              Portofolio Dimas<span className="text-emerald-400">.</span>
-            </span>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Full Stack Web & Mobile Software Engineer • Jakarta, ID
-            </p>
+        <div className="footer__content">
+          <div className="footer__links">
+            <a href="#work" className="footer__link">
+              Work
+            </a>
+            <a href="#service" className="footer__link">
+              Services
+            </a>
+            <a href="#skills" className="footer__link">
+              Skills
+            </a>
+            <a href="#certificates" className="footer__link">
+              Certificates
+            </a>
           </div>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <div className="footer__social">
             <a
               href="https://github.com/Dimss-W"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub Profile"
-              className="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-all"
+              className="footer__social-link"
+              aria-label="GitHub"
             >
-              <GithubIcon size={15} />
+              <i className="ri-github-line" />
             </a>
-            <a
-              href="https://linkedin.com/in/dimas-wijanarko"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn Profile"
-              className="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
-            >
-              <LinkedinIcon size={15} />
-            </a>
+
             <a
               href="https://instagram.com/dimsswijanark_"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Instagram Profile"
-              className="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:border-pink-500/40 transition-all"
+              className="footer__social-link"
+              aria-label="Instagram"
             >
-              <InstagramIcon size={15} />
+              <i className="ri-instagram-line" />
             </a>
-            <button
-              onClick={scrollToTop}
-              aria-label="Scroll to top"
-              className="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 transition-all"
-            >
-              <ArrowUp size={15} />
-            </button>
-          </div>
-        </div>
 
-        {/* Copyright */}
-        <div className="mt-8 pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center sm:text-left">
-          <div>
-            &copy; {new Date().getFullYear()} Dimas Wijanarko. All rights reserved.
-          </div>
-          <div className="flex items-center gap-1.5 text-slate-500">
-            <span>Built with precision & passion</span>
+            <a
+              href="https://linkedin.com/in/dimas-wijanarko"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer__social-link"
+              aria-label="LinkedIn"
+            >
+              <i className="ri-linkedin-box-line" />
+            </a>
+
+            <a
+              href="https://wa.me/6285794770824"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer__social-link"
+              aria-label="WhatsApp"
+            >
+              <i className="ri-whatsapp-line" />
+            </a>
           </div>
         </div>
       </div>
+
+      <span className="footer__copy">
+        &#169; All Rights Reserved By Dimas Wijanarko
+      </span>
+
+      <div className="blob-big" />
     </footer>
   );
 }

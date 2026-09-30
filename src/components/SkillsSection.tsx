@@ -2,104 +2,93 @@
 
 import React from 'react';
 import { Skill } from '@/types';
-import { Cpu, Layout, Server, Database, Wrench, CheckCircle2 } from 'lucide-react';
 
 interface SkillsSectionProps {
-  skills: Skill[];
+  skills?: Skill[];
 }
 
-export default function SkillsSection({ skills }: SkillsSectionProps) {
-  const categories: Array<'Frontend' | 'Backend' | 'Database & Cloud' | 'Tools & DevOps'> = [
-    'Frontend',
-    'Backend',
-    'Database & Cloud',
-    'Tools & DevOps',
-  ];
+interface BiancaSkillCategory {
+  title: string;
+  icon: string;
+  items: { name: string; img: string }[];
+}
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'Frontend':
-        return <Layout size={19} className="text-emerald-400" />;
-      case 'Backend':
-        return <Server size={19} className="text-cyan-400" />;
-      case 'Database & Cloud':
-        return <Database size={19} className="text-teal-400" />;
-      case 'Tools & DevOps':
-        return <Wrench size={19} className="text-indigo-400" />;
-      default:
-        return <Cpu size={19} className="text-emerald-400" />;
-    }
-  };
+const BIANCA_SKILLS: BiancaSkillCategory[] = [
+  {
+    title: 'Frontend',
+    icon: 'ri-layout-3-line',
+    items: [
+      { name: 'Flutter', img: '/skills/flutter.svg' },
+      { name: 'Dart', img: '/skills/dart.svg' },
+      { name: 'React', img: '/skills/skills-frontend-4.svg' },
+      { name: 'Next.js', img: '/skills/nextjs.svg' },
+      { name: 'Tailwind CSS', img: '/skills/tailwindcss.svg' },
+      { name: 'HTML', img: '/skills/skills-frontend-1.svg' },
+      { name: 'CSS', img: '/skills/skills-frontend-2.svg' },
+      { name: 'JavaScript', img: '/skills/skills-frontend-3.svg' },
+    ],
+  },
+  {
+    title: 'Backend',
+    icon: 'ri-database-line',
+    items: [
+      { name: 'Laravel', img: '/skills/skills-backend-1.svg' },
+      { name: 'PHP', img: '/skills/php.svg' },
+      { name: 'MySQL', img: '/skills/mysql.svg' },
+      { name: 'PostgreSQL', img: '/skills/skills-backend-2.svg' },
+      { name: 'Supabase', img: '/skills/skills-backend-4.svg' },
+      { name: 'Node Js', img: '/skills/skills-backend-3.svg' },
+    ],
+  },
+  {
+    title: 'Data & Tools',
+    icon: 'ri-pencil-rule-2-line',
+    items: [
+      { name: 'Power BI', img: '/skills/powerbi.svg' },
+      { name: 'Git', img: '/skills/skills-frontend-6.svg' },
+      { name: 'GitHub', img: '/skills/skills-frontend-7.svg' },
+      { name: 'Figma', img: '/skills/skills-design-1.svg' },
+      { name: 'Framer', img: '/skills/skills-design-6.svg' },
+    ],
+  },
+];
 
+export default function SkillsSection({}: SkillsSectionProps) {
   return (
-    <section id="skills" className="py-24 relative">
-      <div className="max-w-6xl mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 reveal-init">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4 shadow-sm shadow-emerald-500/10">
-            <Cpu size={14} />
-            <span>Keahlian Teknis</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-syne text-slate-100 tracking-tight mb-4">
-            Keahlian & <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">Kompetensi</span>
-          </h2>
-          <p className="text-slate-400 text-base leading-relaxed">
-            Teknologi, framework, dan tools yang saya kuasai untuk membangun produk digital berstandar industri dengan performa tinggi.
-          </p>
-        </div>
+    <section className="skills section" id="skills">
+      <h2 className="section__title reveal-init">
+        My <span>Skills</span>
+      </h2>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((cat, idx) => {
-            const catSkills = skills.filter((s) => s.category === cat);
-            if (catSkills.length === 0) return null;
-            const delayClass = idx === 0 ? '' : idx === 1 ? 'reveal-delay-1' : idx === 2 ? 'reveal-delay-2' : 'reveal-delay-3';
+      <p className="skills__description reveal-init">
+        Keahlian teknis yang saya pelajari dan kembangkan secara konsisten melalui
+        studi Sistem Informasi UBSI, proyek nyata, dan kompetisi nasional.
+      </p>
 
-            return (
-              <div
-                key={cat}
-                className={`glass-card p-6 rounded-2xl flex flex-col border border-slate-800/90 bg-slate-900/60 shadow-lg shadow-black/20 hover:border-emerald-500/30 transition-all duration-300 reveal-init ${delayClass}`}
-              >
-                {/* Category Header */}
-                <div className="flex items-center gap-3 pb-4 mb-5 border-b border-slate-800">
-                  <div className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center shrink-0">
-                    {getCategoryIcon(cat)}
-                  </div>
-                  <h3 className="text-base font-bold font-syne text-slate-100">{cat}</h3>
-                </div>
+      <div className="skills__container container grid reveal-init">
+        {BIANCA_SKILLS.map((group) => (
+          <article key={group.title} className="skills__card">
+            <div className="skills__profession">
+              <i className={`${group.icon} skills__icon`} />
+              <h2 className="skills__title">{group.title}</h2>
+            </div>
 
-                {/* Skill Items */}
-                <div className="flex flex-col gap-4 flex-1">
-                  {catSkills.map((skill, sIdx) => (
-                    <div key={skill.id || sIdx}>
-                      <div className="flex justify-between items-center mb-1.5 text-sm">
-                        <div className="flex items-center gap-1.5 text-slate-200 font-medium text-xs">
-                          <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />
-                          <span>{skill.name}</span>
-                        </div>
-                        {skill.level && (
-                          <span className="text-[11px] text-slate-400 font-mono">
-                            {skill.level}%
-                          </span>
-                        )}
-                      </div>
+            <ul className="skills__list">
+              {group.items.map((item) => (
+                <li key={item.name} className="skills__item">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="skills__img"
+                  />
+                  <span className="skills__name">{item.name}</span>
+                </li>
+              ))}
+            </ul>
 
-                      {/* Progress Bar with Emerald-Cyan Gradient */}
-                      {skill.level && (
-                        <div className="w-full h-1.5 bg-slate-800/90 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-400 rounded-full transition-all duration-1000"
-                            style={{ width: `${skill.level}%` }}
-                          />
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+            <div className="blob-small" />
+          </article>
+        ))}
       </div>
     </section>
   );
