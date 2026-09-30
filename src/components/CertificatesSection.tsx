@@ -45,7 +45,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
         Sertifikat & <span>Penghargaan</span>
       </h2>
 
-      <div className="container grid grid-cols-1 lg:grid-cols-2 auto-rows-fr gap-8 reveal-init">
+      <div className="container grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto auto-rows-fr gap-6 reveal-init">
         {certificates.map((cert, index) => {
           const currentPage = activeImageMap[cert.id] ?? 0;
           const currentImg = cert.images[currentPage] || cert.images[0];

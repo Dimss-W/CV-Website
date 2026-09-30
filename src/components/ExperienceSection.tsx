@@ -7,85 +7,6 @@ interface ExperienceSectionProps {
   experiences: Experience[];
 }
 
-function ExperienceGallery({
-  images,
-  captions,
-  title,
-  onOpenModal,
-}: {
-  images: string[];
-  captions?: string[];
-  title: string;
-  onOpenModal: (imgIdx: number) => void;
-}) {
-  const [idx, setIdx] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    if (images.length <= 1 || paused) return;
-    const timer = setInterval(() => {
-      setIdx((prev) => (prev + 1) % images.length);
-    }, 5200);
-    return () => clearInterval(timer);
-  }, [images.length, paused]);
-
-  const currentCaption = captions?.[idx] || `${idx + 1} / ${images.length}`;
-
-  return (
-    <div
-      className="work__link !h-[220px] sm:!h-[285px] mb-5 group"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onClick={() => onOpenModal(idx)}
-    >
-      {images.map((img, i) => (
-        <img
-          key={i}
-          src={img}
-          alt={`${title} - ${i + 1}`}
-          className={`work__img absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-in-out ${
-            i === idx ? 'opacity-100 scale-100 z-[2]' : 'opacity-0 scale-105 z-[1] pointer-events-none'
-          }`}
-        />
-      ))}
-
-      <div className="work__arrow" title="Lihat Ukuran Penuh">
-        <i className="ri-arrow-right-up-line" />
-      </div>
-
-      {images.length > 1 && (
-        <div
-          className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between gap-2 pointer-events-none"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[11px] text-white/90 truncate max-w-[70%]">
-            {currentCaption}
-          </span>
-
-          <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-black/75 backdrop-blur-md pointer-events-auto">
-            {images.map((_, dotIdx) => (
-              <button
-                key={dotIdx}
-                type="button"
-                aria-label={`Foto ${dotIdx + 1}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIdx(dotIdx);
-                }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === dotIdx
-                    ? 'w-4 bg-[var(--first-color)]'
-                    : 'w-1.5 bg-white/40 hover:bg-white/70'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   const [modal, setModal] = useState<{
     open: boolean;
@@ -117,22 +38,11 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
           return (
             <article
               key={item.id || index}
-              className="relative bg-[var(--container-color)] p-6 sm:p-8 rounded-[2rem] overflow-hidden"
+              className="relative bg-[var(--container-color)] p-5 sm:p-7 rounded-[2rem] overflow-hidden"
             >
-              {hasImages && (
-                <ExperienceGallery
-                  images={item.images!}
-                  captions={item.captions}
-                  title={`${item.role} - ${item.company}`}
-                  onOpenModal={(imgIdx) =>
-                    setModal({ open: true, exp: item, imgIdx })
-                  }
-                />
-              )}
-
               <div className="relative z-[5]">
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <span className="font-[var(--second-font)] font-semibold text-2xl sm:text-3xl text-[var(--first-color)]">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                  <span className="font-[var(--second-font)] font-semibold text-xl sm:text-2xl text-[var(--first-color)]">
                     {num}
                   </span>
                   <span className="px-3.5 py-1 rounded-full border border-[var(--first-color)]/50 text-xs text-white font-medium">
@@ -140,21 +50,73 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-semibold text-white mb-1">
+                <h3 className="text-lg sm:text-xl font-semibold text-white mb-1">
                   {item.role}
                 </h3>
-                <p className="text-sm font-medium text-[var(--first-color)] mb-3">
+                <p className="text-xs sm:text-sm font-medium text-[var(--first-color)] mb-2.5">
                   {item.company} {item.location ? `• ${item.location}` : ''}
                 </p>
 
-                <p className="text-sm text-[var(--text-color)] leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-[var(--text-color)] leading-relaxed mb-4">
                   {item.description}
                 </p>
 
+                {/* Galeri Dokumentasi Kompak & Informatif (3 Kolom Proporsional) */}
+                {hasImages && (
+                  <div className="mb-4 pt-3 border-t border-white/10">
+                    <div className="flex items-center justify-between mb-2.5">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/90">
+                        <i className="ri-camera-lens-line text-[var(--first-color)] text-sm" />
+                        Dokumentasi Kegiatan ({item.images!.length} Foto)
+                      </span>
+                      <span className="text-[11px] text-[var(--text-color)]">
+                        Klik foto untuk melihat ukuran penuh
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {item.images!.map((img, i) => {
+                        const caption =
+                          item.captions?.[i] || `Dokumentasi ${i + 1}`;
+                        return (
+                          <button
+                            key={i}
+                            type="button"
+                            onClick={() =>
+                              setModal({ open: true, exp: item, imgIdx: i })
+                            }
+                            className="group relative flex flex-col bg-black/40 border border-white/10 hover:border-[var(--first-color)]/60 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:-translate-y-0.5"
+                          >
+                            <div className="relative w-full h-[130px] sm:h-[120px] overflow-hidden bg-black/60">
+                              <img
+                                src={img}
+                                alt={`${item.role} - ${caption}`}
+                                className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                              />
+                              <span className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/75 text-white group-hover:bg-[var(--first-color)] group-hover:text-black grid place-items-center text-xs transition-colors">
+                                <i className="ri-fullscreen-line" />
+                              </span>
+                              <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/75 text-[10px] font-semibold text-[var(--first-color)]">
+                                Foto {i + 1}
+                              </span>
+                            </div>
+
+                            <div className="p-2.5">
+                              <p className="text-[11px] text-white/90 font-medium leading-snug line-clamp-2">
+                                {caption}
+                              </p>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {item.technologies && item.technologies.length > 0 && (
-                  <ul className="services__list">
+                  <ul className="services__list pt-1">
                     {item.technologies.map((tech) => (
-                      <li key={tech} className="services__item text-xs">
+                      <li key={tech} className="services__item !text-xs !py-1 !px-3">
                         {tech}
                       </li>
                     ))}
