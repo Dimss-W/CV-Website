@@ -67,7 +67,7 @@ export const defaultProjects: Project[] = [
     title: 'Otokeep - Manajemen Perawatan Kendaraan & Pemindai AI',
     description: 'Platform cerdas pemantauan servis kendaraan & manajemen armada dengan integrasi Pemindai Speedometer AI (Gemini Vision), pengingat servis otomatis, pemantauan pajak & STNK berkala, serta riwayat perawatan real-time.',
     tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Gemini Vision AI', 'REST API'],
-    demo_url: 'https://github.com/Dimss-W/Otokeep',
+    demo_url: 'https://otokeep-rho.vercel.app/',
     github_url: 'https://github.com/Dimss-W/Otokeep.git',
     image_url: '/projects/otokeep-landing.png',
     images: [

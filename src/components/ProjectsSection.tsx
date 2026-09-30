@@ -182,24 +182,43 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     {project.description}
                   </p>
 
-                  <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/10 mt-auto min-h-[40px]">
-                    <div className="flex items-center gap-1.5 overflow-hidden">
-                      {project.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium whitespace-nowrap"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium whitespace-nowrap"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/10 mt-auto min-h-[44px]">
+                    {project.demo_url &&
+                    !project.demo_url.includes('github.com') ? (
+                      <a
+                        href={project.demo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--first-color)] text-[var(--black-color)] text-xs font-semibold hover:brightness-110 transition-all shadow-sm shrink-0"
+                      >
+                        <i className="ri-global-line text-sm" />
+                        <span>Buka Website</span>
+                        <i className="ri-arrow-right-up-line text-sm" />
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-[11px] text-[var(--text-color)]">
+                        <i className="ri-verified-badge-line text-[var(--first-color)] text-sm" />
+                        <span>Proyek Terverifikasi</span>
+                      </span>
+                    )}
 
                     {project.github_url && (
                       <a
                         href={project.github_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--first-color)] hover:underline shrink-0"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/15 hover:border-[var(--first-color)] text-xs font-semibold text-white hover:text-[var(--first-color)] transition-colors shrink-0 ml-auto"
                       >
                         <i className="ri-github-line text-sm" />
                         <span>Kode</span>
@@ -242,7 +261,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             className="relative w-full max-w-5xl max-h-[94vh] bg-[var(--container-color)] border border-white/15 rounded-3xl overflow-hidden flex flex-col shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 border-b border-white/10">
+            <div className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3.5 border-b border-white/10">
               <div className="min-w-0">
                 <h4 className="font-semibold text-white text-sm sm:text-base truncate">
                   {lightbox.project.title}
@@ -254,14 +273,29 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                 )}
               </div>
 
-              <button
-                type="button"
-                onClick={() => setLightbox((p) => ({ ...p, open: false }))}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-[var(--first-color)] hover:text-black text-white grid place-items-center transition-colors shrink-0"
-                aria-label="Tutup"
-              >
-                <i className="ri-close-large-line" />
-              </button>
+              <div className="flex items-center gap-2 shrink-0">
+                {lightbox.project.demo_url &&
+                  !lightbox.project.demo_url.includes('github.com') && (
+                    <a
+                      href={lightbox.project.demo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--first-color)] text-[var(--black-color)] text-xs font-semibold hover:brightness-110 transition-all"
+                    >
+                      <i className="ri-global-line text-sm" />
+                      <span>Buka Website</span>
+                    </a>
+                  )}
+
+                <button
+                  type="button"
+                  onClick={() => setLightbox((p) => ({ ...p, open: false }))}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[var(--first-color)] hover:text-black text-white grid place-items-center transition-colors shrink-0"
+                  aria-label="Tutup"
+                >
+                  <i className="ri-close-large-line" />
+                </button>
+              </div>
             </div>
 
             <div className="lightbox-body">
