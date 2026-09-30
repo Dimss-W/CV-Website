@@ -85,7 +85,7 @@ export const defaultProjects: Project[] = [
     title: 'FindIt - Sistem Terpadu Kehilangan & Penemuan Barang UBSI',
     description: 'Sistem informasi pengelolaan barang hilang & ditemukan terpadu untuk 27 kampus Universitas Bina Sarana Informatika se-Indonesia, dilengkapi alur verifikasi temuan, brankas loker, validasi klaim, dan dashboard kontrol pusat.',
     tags: ['Laravel', 'Blade', 'MySQL', 'Multi-Kampus', 'REST API'],
-    demo_url: 'https://github.com/Dimss-W/FindIt',
+    demo_url: 'https://findit-git-main-dim-6414.vercel.app/',
     github_url: 'https://github.com/Dimss-W/FindIt.git',
     image_url: '/projects/findit-landing.png',
     images: [
