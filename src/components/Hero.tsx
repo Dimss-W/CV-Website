@@ -8,10 +8,10 @@ interface HeroProps {
 }
 
 const PROFESSIONS = [
-  'Pengembang Web Full Stack',
-  'Pengembang Aplikasi Mobile',
-  'Analis Data & Power BI',
-  'Administrator Basis Data',
+  'Aplikasi Web Full Stack',
+  'Aplikasi Mobile Flutter',
+  'Analitik Data Power BI',
+  'Arsitektur Basis Data',
 ];
 
 const CIRCULAR_TEXT = 'JELAJAHI - LEBIH - LANJUT -';
@@ -56,10 +56,10 @@ export default function Hero({ profile }: HeroProps) {
           </h3>
 
           <h1 className="home__title">
-            Rekayasa Perangkat Lunak &amp; <br />
-            <span id="home-typed">
-              {currentText}
-              <span className="inline-block ml-0.5 animate-pulse">|</span>
+            <span className="home__title-top">Pengembang Sistem &amp;</span>
+            <span className="home__title-typed" id="home-typed">
+              <span>{currentText}</span>
+              <span className="home__cursor" aria-hidden="true">|</span>
             </span>
           </h1>
 

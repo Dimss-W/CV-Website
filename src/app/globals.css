@@ -28,11 +28,11 @@
   /*========== Font and typography (Mobile Default) ==========*/
   --body-font: "Poppins", sans-serif;
   --second-font: "Syne", sans-serif;
-  --biggest-font-size: clamp(1.85rem, 6vw, 2.5rem);
-  --bigger-font-size: clamp(1.65rem, 4.5vw, 2.25rem);
-  --h1-font-size: clamp(1.35rem, 3.5vw, 1.75rem);
-  --h2-font-size: clamp(1.15rem, 2.5vw, 1.35rem);
-  --h3-font-size: 1rem;
+  --biggest-font-size: clamp(1.35rem, 5.2vw, 1.9rem);
+  --bigger-font-size: clamp(1.45rem, 4.2vw, 1.95rem);
+  --h1-font-size: clamp(1.25rem, 3.2vw, 1.6rem);
+  --h2-font-size: clamp(1.1rem, 2.4vw, 1.3rem);
+  --h3-font-size: 0.95rem;
   --normal-font-size: 0.938rem;
   --small-font-size: 0.813rem;
   --smaller-font-size: 0.75rem;
@@ -50,11 +50,11 @@
 /*========== Desktop & Laptop Typography (>= 768px) ==========*/
 @media (min-width: 768px) {
   :root {
-    --biggest-font-size: clamp(2.75rem, 4.8vw, 4.25rem);
-    --bigger-font-size: clamp(2.15rem, 3.5vw, 3rem);
-    --h1-font-size: clamp(1.65rem, 2.5vw, 2.15rem);
-    --h2-font-size: clamp(1.25rem, 1.8vw, 1.5rem);
-    --h3-font-size: 1.15rem;
+    --biggest-font-size: clamp(2rem, 3.2vw, 2.85rem);
+    --bigger-font-size: clamp(1.85rem, 2.8vw, 2.45rem);
+    --h1-font-size: clamp(1.5rem, 2.2vw, 1.95rem);
+    --h2-font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+    --h3-font-size: 1.05rem;
     --normal-font-size: 1rem;
     --small-font-size: 0.875rem;
     --smaller-font-size: 0.813rem;
@@ -456,12 +456,40 @@ img {
 
 .home__title {
   font-size: var(--biggest-font-size);
-  line-height: 1.18;
-  margin-bottom: 1rem;
+  line-height: 1.25;
+  margin-bottom: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.home__title span {
+.home__title .home__title-top {
+  color: var(--white-color);
+  display: block;
+  white-space: nowrap;
+}
+
+.home__title .home__title-typed {
   color: var(--first-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  min-height: 1.25em;
+}
+
+.home__cursor {
+  color: var(--first-color);
+  display: inline-block;
+  margin-left: 0.1rem;
+  font-weight: 400;
+  animation: cursor-blink 0.9s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .home__description {
