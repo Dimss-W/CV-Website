@@ -222,15 +222,6 @@ export const defaultCertificates: Certificate[] = [
       'Database Security & Access Control',
       'Document & Content Management',
     ],
-    competency_units: [
-      { code: 'J.62DMS00.006.1', title: 'Mendesain basis data (Designing databases)' },
-      { code: 'J.62DMS00.010.1', title: 'Membuat basis data (Creating databases)' },
-      { code: 'J.62DMS00.011.1', title: 'Membuat integrasi data (Creating data integrations)' },
-      { code: 'J.62DMS00.012.1', title: 'Mengelola kualitas data (Managing data quality)' },
-      { code: 'J.62DMS00.016.1', title: 'Mengelola dokumen dan konten (Managing documents and content)' },
-      { code: 'J.620100.020.02', title: 'Menggunakan SQL (Using SQL)' },
-      { code: 'J.620100.021.02', title: 'Menerapkan akses basis data (Implementing database access)' },
-    ],
   },
   {
     id: 'juara-1-it-bootcamp',

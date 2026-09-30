@@ -274,28 +274,6 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                       {cert.description}
                     </p>
 
-                    {/* Unit Kompetensi list if BNSP */}
-                    {cert.competency_units && cert.competency_units.length > 0 && (
-                      <div className="mb-4 p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80">
-                        <div className="text-xs font-bold text-slate-200 mb-2 flex items-center gap-1.5">
-                          <CheckCircle2 size={13} className="text-emerald-400" />
-                          <span>Unit Kompetensi Standar Nasional (SKKNI):</span>
-                        </div>
-                        <ul className="space-y-1.5 text-xs text-slate-400">
-                          {cert.competency_units.map((unit) => (
-                            <li key={unit.code} className="flex items-start gap-1.5">
-                              <span className="text-emerald-400 font-mono text-[11px] shrink-0 mt-0.5">
-                                •
-                              </span>
-                              <span>
-                                <strong className="text-slate-300 font-mono text-[11px]">{unit.code}</strong> — {unit.title}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
                     {/* Skills Tags */}
                     <div className="flex flex-wrap gap-1.5 mb-5">
                       {cert.skills.map((skill, sIdx) => (
