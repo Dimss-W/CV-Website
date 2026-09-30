@@ -20,7 +20,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.sender_name || !formData.sender_email || !formData.message) {
-      setStatusMessage('Mohon lengkapi Name, Email, dan Message ❌');
+      setStatusMessage('Mohon lengkapi Nama, Email, dan Pesan ❌');
       return;
     }
 
@@ -31,18 +31,18 @@ export default function ContactSection({ profile }: ContactSectionProps) {
       const res = await submitContactMessage({
         sender_name: formData.sender_name,
         sender_email: formData.sender_email,
-        subject: `New message from ${formData.sender_name}`,
+        subject: `Pesan baru dari ${formData.sender_name}`,
         message: formData.message,
       });
 
       if (res.success) {
-        setStatusMessage('Message sent successfully ✅');
+        setStatusMessage('Pesan berhasil dikirim ✅');
         setFormData({ sender_name: '', sender_email: '', message: '' });
       } else {
-        setStatusMessage('Message not sent (service error) ❌');
+        setStatusMessage('Pesan gagal dikirim (gangguan layanan) ❌');
       }
     } catch {
-      setStatusMessage('Message not sent (service error) ❌');
+      setStatusMessage('Pesan gagal dikirim (gangguan layanan) ❌');
     } finally {
       setLoading(false);
       setTimeout(() => setStatusMessage(''), 5000);
@@ -52,17 +52,17 @@ export default function ContactSection({ profile }: ContactSectionProps) {
   return (
     <section className="contact section" id="contact">
       <h2 className="section__title reveal-init">
-        Contact <span>Me</span>
+        Hubungi <span>Saya</span>
       </h2>
 
       <div className="contact__container container grid reveal-init">
-        {/* Left Column: Bedimcode Bianca Form */}
+        {/* Kolom Kiri: Formulir Kontak Bedimcode Bianca */}
         <form onSubmit={handleSubmit} className="contact__form grid" id="contact-form">
           <div className="contact__group">
             <input
               type="text"
               name="user_name"
-              placeholder="Name"
+              placeholder="Nama Lengkap"
               required
               value={formData.sender_name}
               onChange={(e) =>
@@ -76,7 +76,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
             <input
               type="email"
               name="user_email"
-              placeholder="Email"
+              placeholder="Alamat Email"
               required
               value={formData.sender_email}
               onChange={(e) =>
@@ -89,7 +89,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
           <div className="contact__group">
             <textarea
               name="user_message"
-              placeholder="Message"
+              placeholder="Tulis pesan atau diskusi proyek Anda..."
               required
               value={formData.message}
               onChange={(e) =>
@@ -110,12 +110,12 @@ export default function ContactSection({ profile }: ContactSectionProps) {
             disabled={loading}
             className="contact__button button"
           >
-            <span>{loading ? 'Sending...' : 'Send Message'}</span>
+            <span>{loading ? 'Mengirim...' : 'Kirim Pesan'}</span>
             <i className="ri-arrow-right-line" />
           </button>
         </form>
 
-        {/* Right Column: Bedimcode Bianca Pill Contact Cards */}
+        {/* Kolom Kanan: Kartu Kontak Pill Bedimcode Bianca */}
         <div className="contact__content grid">
           <div className="contact__card">
             <i className="ri-mail-line contact__icon" />
@@ -126,7 +126,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
             <a
               href={`mailto:${profile.email}`}
               className="contact__link"
-              aria-label="Send email"
+              aria-label="Kirim email"
             >
               <i className="ri-arrow-right-up-line" />
             </a>
@@ -135,7 +135,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
           <div className="contact__card">
             <i className="ri-phone-line contact__icon" />
             <div className="contact__data">
-              <h3 className="contact__title">Phone number</h3>
+              <h3 className="contact__title">Nomor Telepon / WhatsApp</h3>
               <span className="contact__address">{profile.phone || '085794770824'}</span>
             </div>
             <a
@@ -169,7 +169,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
           <div className="contact__card">
             <i className="ri-map-pin-line contact__icon" />
             <div className="contact__data">
-              <h3 className="contact__title">Location</h3>
+              <h3 className="contact__title">Domisili</h3>
               <span className="contact__address">{profile.location || 'Jakarta, Indonesia'}</span>
             </div>
             <a

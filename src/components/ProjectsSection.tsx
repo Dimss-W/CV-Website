@@ -44,7 +44,9 @@ function WorkCardSlider({
           src={img}
           alt={`${title} - ${i + 1}`}
           className={`work__img absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-in-out ${
-            i === idx ? 'opacity-100 scale-100 z-[2]' : 'opacity-0 scale-105 z-[1] pointer-events-none'
+            i === idx
+              ? 'opacity-100 scale-100 z-[2]'
+              : 'opacity-0 scale-105 z-[1] pointer-events-none'
           }`}
         />
       ))}
@@ -112,8 +114,9 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const handleTrackScroll = () => {
     if (!trackRef.current) return;
     const scrollLeft = trackRef.current.scrollLeft;
-    const cardWidth = (trackRef.current.children[0] as HTMLElement)?.offsetWidth || 380;
-    const index = Math.round(scrollLeft / (cardWidth + 24));
+    const cardWidth =
+      (trackRef.current.children[0] as HTMLElement)?.offsetWidth || 320;
+    const index = Math.round(scrollLeft / (cardWidth + 20));
     if (index >= 0 && index < projects.length) {
       setActiveSlide(index);
     }
@@ -132,117 +135,93 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section className="work section" id="work">
       <h2 className="section__title reveal-init">
-        View My <span>Work</span>
+        Karya &amp; <span>Proyek Saya</span>
       </h2>
 
-      <div className="work__container container grid reveal-init">
-        {/* Bedimcode Bianca Horizontal Swiper Carousel */}
-        <div className="work__swiper relative">
-          <div
-            ref={trackRef}
-            onScroll={handleTrackScroll}
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 pt-2 px-1 scrollbar-none"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {projects.map((project, index) => {
-              const num = String(index + 1).padStart(2, '0');
-              const imgs =
-                project.images && project.images.length > 0
-                  ? project.images
-                  : project.image_url
-                  ? [project.image_url]
-                  : [];
+      <div className="work__container container reveal-init">
+        {/* Mobile: Swipeable Carousel | Web/Desktop (md+): 2 & 3 Column Responsive Grid */}
+        <div
+          ref={trackRef}
+          onScroll={handleTrackScroll}
+          className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-7 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-4 md:pb-0 pt-1 scrollbar-none"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {projects.map((project, index) => {
+            const num = String(index + 1).padStart(2, '0');
+            const imgs =
+              project.images && project.images.length > 0
+                ? project.images
+                : project.image_url
+                ? [project.image_url]
+                : [];
 
-              return (
-                <article
-                  key={project.id || project.title}
-                  className="work__card snap-start shrink-0 w-[86vw] sm:w-[360px] lg:w-[420px]"
-                >
-                  <WorkCardSlider
-                    images={imgs}
-                    captions={project.captions}
-                    title={project.title}
-                    onImageClick={(clickedImg) => {
-                      const foundIdx = Math.max(0, imgs.indexOf(clickedImg));
-                      setLightbox({ open: true, project, imgIdx: foundIdx });
-                    }}
-                  />
-
-                  <div className="work__data">
-                    <span className="work__number">{num}</span>
-                    <h3 className="work__name">{project.title}</h3>
-                    <p className="work__description">{project.description}</p>
-
-                    <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/10 mt-auto">
-                      <div className="flex flex-wrap gap-1.5">
-                        {project.tags.slice(0, 4).map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {project.github_url && (
-                        <a
-                          href={project.github_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--first-color)] hover:underline"
-                        >
-                          <i className="ri-github-line text-sm" />
-                          <span>Repo</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="blob-big" />
-                </article>
-              );
-            })}
-          </div>
-
-          {/* Swiper Pagination Bullets & Navigation Buttons */}
-          <div className="flex items-center justify-center gap-4 mt-4">
-            <button
-              type="button"
-              aria-label="Previous work"
-              onClick={() =>
-                scrollToCard((activeSlide - 1 + projects.length) % projects.length)
-              }
-              className="w-9 h-9 rounded-full bg-[var(--container-color)] hover:bg-[var(--first-color)] hover:text-[var(--black-color)] text-white grid place-items-center transition-colors"
-            >
-              <i className="ri-arrow-left-s-line text-lg" />
-            </button>
-
-            <div className="flex items-center gap-2">
-              {projects.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`Go to project ${i + 1}`}
-                  onClick={() => scrollToCard(i)}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
-                    activeSlide === i
-                      ? 'w-6 bg-[var(--first-color)]'
-                      : 'w-2.5 bg-[var(--first-color)]/30 hover:bg-[var(--first-color)]/60'
-                  }`}
+            return (
+              <article
+                key={project.id || project.title}
+                className="work__card snap-start shrink-0 w-[84vw] max-w-[340px] md:w-auto md:max-w-none"
+              >
+                <WorkCardSlider
+                  images={imgs}
+                  captions={project.captions}
+                  title={project.title}
+                  onImageClick={(clickedImg) => {
+                    const foundIdx = Math.max(0, imgs.indexOf(clickedImg));
+                    setLightbox({ open: true, project, imgIdx: foundIdx });
+                  }}
                 />
-              ))}
-            </div>
 
+                <div className="work__data">
+                  <span className="work__number">{num}</span>
+                  <h3 className="work__name">{project.title}</h3>
+                  <p className="work__description">{project.description}</p>
+
+                  <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/10 mt-auto">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tags.slice(0, 4).map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {project.github_url && (
+                      <a
+                        href={project.github_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--first-color)] hover:underline"
+                      >
+                        <i className="ri-github-line text-sm" />
+                        <span>Repositori</span>
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <div className="blob-big" />
+              </article>
+            );
+          })}
+        </div>
+
+        {/* Mobile Carousel Pagination Dots (Hidden on Desktop Grid) */}
+        <div className="flex md:hidden items-center justify-center gap-2 mt-4">
+          {projects.map((_, i) => (
             <button
+              key={i}
               type="button"
-              aria-label="Next work"
-              onClick={() => scrollToCard((activeSlide + 1) % projects.length)}
-              className="w-9 h-9 rounded-full bg-[var(--container-color)] hover:bg-[var(--first-color)] hover:text-[var(--black-color)] text-white grid place-items-center transition-colors"
-            >
-              <i className="ri-arrow-right-s-line text-lg" />
-            </button>
-          </div>
+              aria-label={`Pilih proyek ${i + 1}`}
+              onClick={() => scrollToCard(i)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeSlide === i
+                  ? 'w-6 bg-[var(--first-color)]'
+                  : 'w-2 bg-[var(--first-color)]/30'
+              }`}
+            />
+          ))}
         </div>
       </div>
 

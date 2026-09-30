@@ -11,7 +11,7 @@ export default function EducationSection({ educations }: EducationSectionProps) 
   return (
     <section className="section" id="education">
       <h2 className="section__title reveal-init">
-        Academic <span>Background</span>
+        Latar Belakang <span>Akademik</span>
       </h2>
 
       <div className="container grid max-w-2xl mx-auto reveal-init">

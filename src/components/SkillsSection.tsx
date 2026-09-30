@@ -15,7 +15,7 @@ interface BiancaSkillCategory {
 
 const BIANCA_SKILLS: BiancaSkillCategory[] = [
   {
-    title: 'Frontend',
+    title: 'Frontend & Mobile',
     icon: 'ri-layout-3-line',
     items: [
       { name: 'Flutter', img: '/skills/flutter.svg' },
@@ -29,7 +29,7 @@ const BIANCA_SKILLS: BiancaSkillCategory[] = [
     ],
   },
   {
-    title: 'Backend',
+    title: 'Backend & Database',
     icon: 'ri-database-line',
     items: [
       { name: 'Laravel', img: '/skills/skills-backend-1.svg' },
@@ -37,11 +37,11 @@ const BIANCA_SKILLS: BiancaSkillCategory[] = [
       { name: 'MySQL', img: '/skills/mysql.svg' },
       { name: 'PostgreSQL', img: '/skills/skills-backend-2.svg' },
       { name: 'Supabase', img: '/skills/skills-backend-4.svg' },
-      { name: 'Node Js', img: '/skills/skills-backend-3.svg' },
+      { name: 'Node.js', img: '/skills/skills-backend-3.svg' },
     ],
   },
   {
-    title: 'Data & Tools',
+    title: 'Analitik & Tools',
     icon: 'ri-pencil-rule-2-line',
     items: [
       { name: 'Power BI', img: '/skills/powerbi.svg' },
@@ -57,12 +57,12 @@ export default function SkillsSection({}: SkillsSectionProps) {
   return (
     <section className="skills section" id="skills">
       <h2 className="section__title reveal-init">
-        My <span>Skills</span>
+        Keahlian <span>Teknis</span>
       </h2>
 
       <p className="skills__description reveal-init">
-        Keahlian teknis yang saya pelajari dan kembangkan secara konsisten melalui
-        studi Sistem Informasi UBSI, proyek nyata, dan kompetisi nasional.
+        Keahlian yang saya pelajari dan kembangkan secara konsisten melalui studi
+        akademik Sistem Informasi UBSI, proyek nyata, dan kompetisi nasional.
       </p>
 
       <div className="skills__container container grid reveal-init">

@@ -8,13 +8,13 @@ interface HeroProps {
 }
 
 const PROFESSIONS = [
-  'Software Developer',
-  'Full Stack Engineer',
-  'Mobile Developer',
-  'Data & BI Analyst',
+  'Pengembang Web Full Stack',
+  'Pengembang Aplikasi Mobile',
+  'Analis Data & Power BI',
+  'Administrator Basis Data',
 ];
 
-const CIRCULAR_TEXT = "EXPLORE - MORE - LET'S -";
+const CIRCULAR_TEXT = 'JELAJAHI - LEBIH - LANJUT -';
 
 export default function Hero({ profile }: HeroProps) {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -52,11 +52,11 @@ export default function Hero({ profile }: HeroProps) {
       <div className="home__container container grid">
         <div className="home__data reveal-init">
           <h3 className="home__subtitle">
-            Hi! I&apos;m {profile.full_name} - Based in Jakarta
+            Halo! Saya {profile.full_name} — Jakarta, Indonesia
           </h3>
 
           <h1 className="home__title">
-            Creative Engineer &amp; <br />
+            Rekayasa Perangkat Lunak &amp; <br />
             <span id="home-typed">
               {currentText}
               <span className="inline-block ml-0.5 animate-pulse">|</span>
@@ -64,7 +64,7 @@ export default function Hero({ profile }: HeroProps) {
           </h1>
 
           <p className="home__description">
-            Mahasiswa Sistem Informasi UBSI yang merancang dan membangun aplikasi Web, Mobile, &amp; Dashboard Analitik berkualitas tinggi.
+            Mahasiswa Sistem Informasi UBSI yang merancang dan membangun aplikasi Web, Mobile, serta Dashboard Analitik yang modern dan solutif.
           </p>
         </div>
 
@@ -91,7 +91,11 @@ export default function Hero({ profile }: HeroProps) {
               ))}
             </span>
 
-            <a href="#about" className="home__arrow" aria-label="Scroll to About">
+            <a
+              href="#about"
+              className="home__arrow"
+              aria-label="Gulir ke Tentang Saya"
+            >
               <i className="ri-arrow-down-line" />
             </a>
           </div>

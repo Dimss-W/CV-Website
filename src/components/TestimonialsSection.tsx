@@ -52,7 +52,7 @@ export default function TestimonialsSection() {
   return (
     <section className="testimonials section">
       <h2 className="section__title reveal-init">
-        <span>What</span> They Say
+        <span>Apresiasi</span> & Pencapaian
       </h2>
 
       <div className="testimonials__container container grid reveal-init">

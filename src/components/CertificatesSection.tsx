@@ -42,7 +42,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
   return (
     <section className="section" id="certificates">
       <h2 className="section__title reveal-init">
-        My <span>Certificates</span>
+        Sertifikat & <span>Penghargaan</span>
       </h2>
 
       <div className="container grid grid-cols-1 lg:grid-cols-2 gap-8 reveal-init">

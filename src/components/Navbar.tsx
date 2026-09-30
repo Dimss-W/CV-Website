@@ -15,7 +15,15 @@ export default function Navbar({}: NavbarProps) {
     const handleScroll = () => {
       setScrolled(window.scrollY >= 50);
 
-      const sections = ['home', 'work', 'service', 'skills', 'experience', 'certificates', 'contact'];
+      const sections = [
+        'home',
+        'work',
+        'service',
+        'skills',
+        'experience',
+        'certificates',
+        'contact',
+      ];
       const scrollPos = window.scrollY + 260;
 
       for (const sectionId of sections) {
@@ -37,12 +45,12 @@ export default function Navbar({}: NavbarProps) {
   }, []);
 
   const navLinks = [
-    { name: 'Home', id: 'home', href: '#home' },
-    { name: 'Works', id: 'work', href: '#work' },
-    { name: 'My Services', id: 'service', href: '#service' },
-    { name: 'Skills', id: 'skills', href: '#skills' },
-    { name: 'Experience', id: 'experience', href: '#experience' },
-    { name: 'Certificates', id: 'certificates', href: '#certificates' },
+    { name: 'Beranda', id: 'home', href: '#home' },
+    { name: 'Karya', id: 'work', href: '#work' },
+    { name: 'Layanan', id: 'service', href: '#service' },
+    { name: 'Keahlian', id: 'skills', href: '#skills' },
+    { name: 'Pengalaman', id: 'experience', href: '#experience' },
+    { name: 'Sertifikat', id: 'certificates', href: '#certificates' },
   ];
 
   return (
@@ -52,14 +60,19 @@ export default function Navbar({}: NavbarProps) {
           Dimas
         </a>
 
-        <div className={`nav__menu ${mobileMenuOpen ? 'show-menu' : ''}`} id="nav-menu">
+        <div
+          className={`nav__menu ${mobileMenuOpen ? 'show-menu' : ''}`}
+          id="nav-menu"
+        >
           <ul className="nav__list">
             {navLinks.map((link) => (
               <li key={link.id}>
                 <a
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`nav__link ${activeSection === link.id ? 'active-link' : ''}`}
+                  className={`nav__link ${
+                    activeSection === link.id ? 'active-link' : ''
+                  }`}
                 >
                   {link.name}
                 </a>
@@ -72,29 +85,29 @@ export default function Navbar({}: NavbarProps) {
                 onClick={() => setMobileMenuOpen(false)}
                 className="nav__contact"
               >
-                Contact me
+                Hubungi Saya
               </a>
             </li>
           </ul>
 
-          {/* Close */}
+          {/* Tombol Tutup Mobile */}
           <button
             type="button"
             className="nav__close"
             id="nav-close"
-            aria-label="Close menu"
+            aria-label="Tutup menu"
             onClick={() => setMobileMenuOpen(false)}
           >
             <i className="ri-close-large-line" />
           </button>
         </div>
 
-        {/* Toggle */}
+        {/* Tombol Buka Mobile */}
         <button
           type="button"
           className="nav__toggle"
           id="nav-toggle"
-          aria-label="Toggle menu"
+          aria-label="Buka menu"
           onClick={() => setMobileMenuOpen(true)}
         >
           <i className="ri-menu-line" />

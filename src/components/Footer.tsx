@@ -7,24 +7,24 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer__container container grid">
         <h2 className="footer__title">
-          COLLABORATE <span>WITH DIMAS</span> <br />
-          AND START <span>YOUR JOURNEY IN</span> <br />
-          DIGITAL INNOVATION TODAY.
+          MARI BERKOLABORASI <span>BERSAMA DIMAS</span> <br />
+          DAN WUJUDKAN <span>SOLUSI INOVASI</span> <br />
+          DIGITAL ANDA HARI INI.
         </h2>
 
         <div className="footer__content">
           <div className="footer__links">
             <a href="#work" className="footer__link">
-              Work
+              Karya
             </a>
             <a href="#service" className="footer__link">
-              Services
+              Layanan
             </a>
             <a href="#skills" className="footer__link">
-              Skills
+              Keahlian
             </a>
             <a href="#certificates" className="footer__link">
-              Certificates
+              Sertifikat
             </a>
           </div>
 
@@ -73,7 +73,7 @@ export default function Footer() {
       </div>
 
       <span className="footer__copy">
-        &#169; All Rights Reserved By Dimas Wijanarko
+        &#169; Hak Cipta Dilindungi Oleh Dimas Wijanarko
       </span>
 
       <div className="blob-big" />

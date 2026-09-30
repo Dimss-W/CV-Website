@@ -106,7 +106,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
   return (
     <section className="section" id="experience">
       <h2 className="section__title reveal-init">
-        My <span>Experience</span>
+        Pengalaman <span>Profesional</span>
       </h2>
 
       <div className="container grid max-w-4xl mx-auto gap-6 reveal-init">
@@ -136,7 +136,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                     {num}
                   </span>
                   <span className="px-3.5 py-1 rounded-full border border-[var(--first-color)]/50 text-xs text-white font-medium">
-                    {item.start_date} — {item.is_current ? 'Present' : item.end_date}
+                    {item.start_date} — {item.is_current ? 'Sekarang' : item.end_date}
                   </span>
                 </div>
 
