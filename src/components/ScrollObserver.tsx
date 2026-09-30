@@ -46,9 +46,9 @@ export default function ScrollObserver() {
         const glowAlpha = isMoving ? Math.min(0.85, 0.45 + speed * 0.012) : 0.38;
 
         cursorRef.current.style.boxShadow = `
-          0 0 14px hsla(110, 100%, 82%, ${glowAlpha}),
-          ${offsetX * 0.55}px ${offsetY * 0.55}px ${glowBlur1}px hsla(110, 85%, 62%, ${glowAlpha * 0.9}),
-          ${offsetX}px ${offsetY}px ${glowBlur2}px hsla(145, 90%, 55%, ${glowAlpha * 0.65})
+          0 0 14px hsla(196, 100%, 85%, ${glowAlpha}),
+          ${offsetX * 0.55}px ${offsetY * 0.55}px ${glowBlur1}px hsla(208, 92%, 64%, ${glowAlpha * 0.9}),
+          ${offsetX}px ${offsetY}px ${glowBlur2}px hsla(235, 88%, 62%, ${glowAlpha * 0.65})
         `;
       }
 

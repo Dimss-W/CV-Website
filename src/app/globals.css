@@ -8,22 +8,22 @@
 :root {
   --header-height: 3.75rem;
 
-  /*========== Colors ==========*/
-  --hue: 110;
-  --first-color: hsl(var(--hue), 75%, 60%);
+  /*========== Colors (Sky Azure & Midnight Slate - Nyaman di Mata) ==========*/
+  --hue: 210;
+  --first-color: hsl(208, 92%, 64%);
   --gradient-color: linear-gradient(
     90deg,
-    hsl(var(--hue), 75%, 60%) 0%,
-    hsl(var(--hue), 100%, 85%) 40%,
-    hsl(var(--hue), 100%, 85%) 60%,
-    hsl(var(--hue), 75%, 60%) 100%
+    hsl(204, 92%, 62%) 0%,
+    hsl(196, 100%, 84%) 42%,
+    hsl(212, 96%, 82%) 62%,
+    hsl(224, 88%, 65%) 100%
   );
-  --white-color: hsl(var(--hue), 24%, 98%);
-  --black-color: hsl(var(--hue), 12%, 8%);
-  --text-color: hsl(var(--hue), 4%, 70%);
-  --body-color: hsl(var(--hue), 12%, 4%);
-  --container-color: hsl(var(--hue), 8%, 10%);
-  --border-color: hsl(var(--hue), 8%, 20%);
+  --white-color: hsl(210, 30%, 98%);
+  --black-color: hsl(220, 25%, 7%);
+  --text-color: hsl(215, 14%, 72%);
+  --body-color: hsl(222, 24%, 4.5%);
+  --container-color: hsl(220, 18%, 10.5%);
+  --border-color: hsl(215, 16%, 22%);
 
   /*========== Font and typography (Mobile Default) ==========*/
   --body-font: "Poppins", sans-serif;
@@ -214,9 +214,9 @@ img {
   height: 30px;
   background: radial-gradient(
     circle at 35% 35%,
-    hsl(var(--hue), 100%, 86%) 0%,
-    hsl(var(--hue), 82%, 62%) 55%,
-    hsl(135, 78%, 48%) 100%
+    hsl(196, 100%, 88%) 0%,
+    hsl(208, 92%, 64%) 55%,
+    hsl(232, 85%, 58%) 100%
   );
   border-radius: 50%;
   pointer-events: none;
@@ -237,9 +237,9 @@ img {
   z-index: 9998;
   background: radial-gradient(
     circle,
-    hsla(var(--hue), 100%, 82%, 0.65) 0%,
-    hsla(var(--hue), 85%, 60%, 0.42) 40%,
-    hsla(145, 85%, 52%, 0.18) 70%,
+    hsla(198, 100%, 84%, 0.65) 0%,
+    hsla(210, 92%, 64%, 0.42) 40%,
+    hsla(238, 85%, 60%, 0.18) 70%,
     transparent 100%
   );
   filter: blur(10px);
