@@ -48,7 +48,7 @@ const BIANCA_SKILLS: BiancaSkillCategory[] = [
       { name: 'Git', img: '/skills/skills-frontend-6.svg' },
       { name: 'GitHub', img: '/skills/skills-frontend-7.svg' },
       { name: 'Figma', img: '/skills/skills-design-1.svg' },
-      { name: 'Framer', img: '/skills/skills-design-6.svg' },
+      { name: 'Antigravity', img: '/skills/antigravity.svg' },
     ],
   },
 ];

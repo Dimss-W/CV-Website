@@ -33,7 +33,7 @@ function ExperienceGallery({
 
   return (
     <div
-      className="work__link mb-5 group"
+      className="work__link !h-[220px] sm:!h-[285px] mb-5 group"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onClick={() => onOpenModal(idx)}
