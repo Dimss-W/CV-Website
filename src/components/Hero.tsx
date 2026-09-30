@@ -14,7 +14,7 @@ const PROFESSIONS = [
   'Arsitektur Basis Data',
 ];
 
-const CIRCULAR_TEXT = 'JELAJAHI - LEBIH - LANJUT -';
+const CIRCULAR_TEXT = 'JELAJAHI • LEBIH • LANJUT • ';
 
 export default function Hero({ profile }: HeroProps) {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -42,17 +42,15 @@ export default function Hero({ profile }: HeroProps) {
   }, [currentText, isDeleting, roleIndex]);
 
   const letters = CIRCULAR_TEXT.split('');
-  const angleStep = 300 / letters.length;
+  const angleStep = 360 / letters.length;
 
   return (
     <section className="home section" id="home">
-      <div className="blob-small" />
-      <div className="blob-small" />
-
       <div className="home__container container grid">
         <div className="home__data reveal-init">
           <h3 className="home__subtitle">
-            Halo! Saya {profile.full_name} — Jakarta, Indonesia
+            Halo! Saya {profile.full_name} —{' '}
+            <span className="whitespace-nowrap">Jakarta, Indonesia</span>
           </h3>
 
           <h1 className="home__title">

@@ -9,89 +9,117 @@ export default function ScrollObserver() {
   const [showScrollUp, setShowScrollUp] = useState(false);
 
   useEffect(() => {
-    let mouseX = typeof window !== 'undefined' ? window.innerWidth * 0.5 : 500;
-    let mouseY = typeof window !== 'undefined' ? window.innerHeight * 0.35 : 300;
-    let currentX = mouseX;
-    let currentY = mouseY;
-    let trailX = mouseX;
-    let trailY = mouseY;
+    const isMobileView = () =>
+      typeof window !== 'undefined' && window.innerWidth < 860;
+
+    // Initial autonomous coordinates
+    const getAutoPosition = (scrollY: number) => {
+      const w = typeof window !== 'undefined' ? window.innerWidth : 390;
+      const h = typeof window !== 'undefined' ? window.innerHeight : 800;
+      const t = scrollY * 0.0045;
+      const autoX =
+        w * 0.5 +
+        Math.sin(t) * (w * 0.32) +
+        Math.cos(t * 2.1) * (w * 0.08);
+      const autoY =
+        h * 0.42 +
+        Math.cos(t * 1.3) * (h * 0.22) +
+        Math.sin(t * 0.7) * (h * 0.06);
+      return { x: autoX, y: autoY };
+    };
+
+    const initialPos = getAutoPosition(
+      typeof window !== 'undefined' ? window.scrollY : 0
+    );
+
+    let targetX = initialPos.x;
+    let targetY = initialPos.y;
+    let currentX = targetX;
+    let currentY = targetY;
+    let trailX = targetX;
+    let trailY = targetY;
     let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
     let scrollVelocity = 0;
+    let isScrolling = false;
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
     let rafId: number;
 
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (e.touches && e.touches.length > 0) {
-        mouseX = e.touches[0].clientX;
-        mouseY = e.touches[0].clientY;
-      }
+      // Jangan ikuti posisi user jika sedang di-scroll atau di layar mobile
+      if (isScrolling || isMobileView()) return;
+      targetX = e.clientX;
+      targetY = e.clientY;
     };
 
     const animateCursor = () => {
-      const dx = mouseX - currentX;
-      const dy = mouseY - currentY;
+      const dx = targetX - currentX;
+      const dy = targetY - currentY;
 
-      currentX += dx * 0.22;
-      currentY += dy * 0.22;
+      currentX += dx * 0.14;
+      currentY += dy * 0.14;
 
-      trailX += (mouseX - trailX) * 0.11;
-      trailY += (mouseY - trailY) * 0.11;
+      trailX += (targetX - trailX) * 0.08;
+      trailY += (targetY - trailY) * 0.08;
 
-      scrollVelocity *= 0.88;
+      scrollVelocity *= 0.9;
 
       const pointerSpeed = Math.hypot(dx, dy);
-      const speed = Math.min(pointerSpeed + Math.abs(scrollVelocity) * 0.6, 65);
-      const isMoving = speed > 0.6;
+      const speed = Math.min(pointerSpeed + Math.abs(scrollVelocity) * 0.65, 65);
+      const isMoving = speed > 0.5;
 
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${currentX - 15}px, ${currentY - 15}px, 0)`;
+        const halfSize = isMobileView() ? 10 : 14;
+        cursorRef.current.style.transform = `translate3d(${(
+          currentX - halfSize
+        ).toFixed(1)}px, ${(currentY - halfSize).toFixed(1)}px, 0)`;
 
-        const offsetX = Math.max(-22, Math.min(22, -dx * 0.38));
+        const offsetX = Math.max(-24, Math.min(24, -dx * 0.42));
         const offsetY = Math.max(
-          -26,
-          Math.min(26, -dy * 0.38 + scrollVelocity * 0.45)
+          -28,
+          Math.min(28, -dy * 0.42 + scrollVelocity * 0.5)
         );
         const glowBlur1 = 16 + speed * 0.45;
-        const glowBlur2 = 34 + speed * 0.85;
-        const glowAlpha = isMoving ? Math.min(0.88, 0.45 + speed * 0.012) : 0.38;
+        const glowBlur2 = 32 + speed * 0.85;
+        const glowAlpha = isMoving
+          ? Math.min(0.85, 0.45 + speed * 0.01)
+          : 0.32;
 
         cursorRef.current.style.boxShadow = `
-          0 0 14px hsla(196, 100%, 85%, ${glowAlpha}),
-          ${offsetX * 0.55}px ${offsetY * 0.55}px ${glowBlur1}px hsla(208, 92%, 64%, ${glowAlpha * 0.9}),
-          ${offsetX}px ${offsetY}px ${glowBlur2}px hsla(235, 88%, 62%, ${glowAlpha * 0.65})
+          0 0 14px hsla(196, 100%, 82%, ${glowAlpha.toFixed(2)}),
+          ${(offsetX * 0.55).toFixed(1)}px ${(offsetY * 0.55).toFixed(1)}px ${glowBlur1.toFixed(0)}px hsla(208, 92%, 64%, ${(glowAlpha * 0.85).toFixed(2)}),
+          ${offsetX.toFixed(1)}px ${offsetY.toFixed(1)}px ${glowBlur2.toFixed(0)}px hsla(232, 88%, 62%, ${(glowAlpha * 0.6).toFixed(2)})
         `;
       }
 
       if (trailRef.current) {
+        const trailHalf = isMobileView() ? 26 : 32;
         const trailScale = 1 + (speed / 60) * 0.45;
         const trailOpacity = isMoving
-          ? Math.min(0.95, 0.45 + (speed / 60) * 0.5)
-          : 0.32;
-        trailRef.current.style.transform = `translate3d(${trailX - 32}px, ${trailY - 32}px, 0) scale(${trailScale.toFixed(2)})`;
+          ? Math.min(0.9, 0.42 + (speed / 60) * 0.48)
+          : 0.26;
+        trailRef.current.style.transform = `translate3d(${(
+          trailX - trailHalf
+        ).toFixed(1)}px, ${(trailY - trailHalf).toFixed(1)}px, 0) scale(${trailScale.toFixed(2)})`;
         trailRef.current.style.opacity = String(trailOpacity.toFixed(2));
       }
 
       // Subtle interactive ambient spotlight on background
       if (spotlightRef.current) {
-        spotlightRef.current.style.background = `radial-gradient(650px circle at ${currentX.toFixed(
+        spotlightRef.current.style.background = `radial-gradient(560px circle at ${currentX.toFixed(
           0
         )}px ${currentY.toFixed(
           0
-        )}px, hsla(210, 90%, 62%, 0.09), transparent 70%)`;
+        )}px, hsla(210, 90%, 62%, 0.07), transparent 70%)`;
       }
 
       rafId = requestAnimationFrame(animateCursor);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     rafId = requestAnimationFrame(animateCursor);
 
     const handleMouseOver = (e: MouseEvent) => {
+      if (isMobileView()) return;
       const target = e.target as HTMLElement | null;
       if (!target || !cursorRef.current || !trailRef.current) return;
       if (target.closest('a, button, input, textarea, [role="button"]')) {
@@ -116,14 +144,18 @@ export default function ScrollObserver() {
 
       setShowScrollUp(currentScrollY >= 350);
 
-      if (window.innerWidth < 860) {
-        const waveX =
-          window.innerWidth * 0.5 +
-          Math.sin(currentScrollY * 0.006) * (window.innerWidth * 0.28);
-        const waveY = window.innerHeight * 0.38;
-        mouseX = waveX;
-        mouseY = waveY;
+      // Saat user sedang scroll, bulat biru bergerak sendiri secara otonom
+      isScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 220);
 
+      const autoPos = getAutoPosition(currentScrollY);
+      targetX = autoPos.x;
+      targetY = autoPos.y;
+
+      if (isMobileView()) {
         const viewportCenter = window.innerHeight * 0.52;
         const cards = document.querySelectorAll<HTMLElement>(
           interactiveCardsSelector
@@ -188,9 +220,9 @@ export default function ScrollObserver() {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('mouseover', handleMouseOver);
       window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
       cancelAnimationFrame(rafId);
       observer.disconnect();
     };
@@ -198,9 +230,8 @@ export default function ScrollObserver() {
 
   return (
     <>
-      {/* Clean, Minimalist Architectural Background (Linear / Vercel Style) */}
+      {/* Clean, Minimalist Architectural Background */}
       <div className="ambient-bg" aria-hidden="true">
-        <div className="ambient-bg__beam" />
         <div className="ambient-bg__dots" />
         <div ref={spotlightRef} className="ambient-bg__spotlight" />
       </div>
