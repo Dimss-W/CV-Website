@@ -81,6 +81,7 @@ export default function TestimonialsSection() {
                 <img
                   src={item.img}
                   alt={item.name}
+                  style={{ objectPosition: '50% 62%' }}
                   className="testimonials__img"
                 />
                 <div>

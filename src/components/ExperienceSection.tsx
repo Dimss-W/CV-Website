@@ -7,6 +7,13 @@ interface ExperienceSectionProps {
   experiences: Experience[];
 }
 
+function getExpFocalPoint(url: string): string {
+  if (url.includes('smk-muhammadiyah-pengajar-1')) return '50% 72%';
+  if (url.includes('smk-muhammadiyah-pengajar-2')) return '50% 70%';
+  if (url.includes('smk-muhammadiyah-pengajar-3')) return '50% 64%';
+  return '50% 55%';
+}
+
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   const [modal, setModal] = useState<{
     open: boolean;
@@ -87,11 +94,12 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                             }
                             className="group relative flex flex-col bg-black/40 border border-white/10 hover:border-[var(--first-color)]/60 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:-translate-y-0.5"
                           >
-                            <div className="relative w-full h-[130px] sm:h-[120px] overflow-hidden bg-black/60">
+                            <div className="relative w-full h-[135px] sm:h-[125px] overflow-hidden bg-black/60">
                               <img
                                 src={img}
                                 alt={`${item.role} - ${caption}`}
-                                className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                style={{ objectPosition: getExpFocalPoint(img) }}
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                               />
                               <span className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/75 text-white group-hover:bg-[var(--first-color)] group-hover:text-black grid place-items-center text-xs transition-colors">
                                 <i className="ri-fullscreen-line" />

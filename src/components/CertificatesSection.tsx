@@ -7,6 +7,14 @@ interface CertificatesSectionProps {
   certificates: Certificate[];
 }
 
+function getCertFocalPoint(url: string): string {
+  if (url.includes('juara-1-bootcamp-penyerahan-piala')) return '50% 60%';
+  if (url.includes('juara-1-bootcamp-tim-outdoor')) return '50% 72%';
+  if (url.includes('serkom-database-administrator-units')) return '50% 22%';
+  if (url.includes('serkom-database-administrator')) return '50% 32%';
+  return '50% 50%';
+}
+
 export default function CertificatesSection({ certificates }: CertificatesSectionProps) {
   const [activeImageMap, setActiveImageMap] = useState<Record<string, number>>({});
   const [pausedCardId, setPausedCardId] = useState<string | null>(null);
@@ -58,7 +66,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
               onMouseEnter={() => setPausedCardId(cert.id)}
               onMouseLeave={() => setPausedCardId(null)}
             >
-              {/* Uniform Landscape Preview Frame with Bianca Hover Arrow */}
+              {/* Uniform Landscape Preview Frame with Centered Subject Focus */}
               <div
                 className="work__link"
                 onClick={() => {
@@ -71,7 +79,8 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                     key={i}
                     src={img.url}
                     alt={`${cert.title} - ${img.title}`}
-                    className={`work__img absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-in-out ${
+                    style={{ objectPosition: getCertFocalPoint(img.url) }}
+                    className={`work__img absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out ${
                       i === currentPage
                         ? 'opacity-100 scale-100 z-[2]'
                         : 'opacity-0 scale-105 z-[1] pointer-events-none'

@@ -43,7 +43,10 @@ function WorkCardSlider({
           key={i}
           src={img}
           alt={`${title} - ${i + 1}`}
-          className={`work__img absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 ease-in-out ${
+          style={{
+            objectPosition: img.includes('caltrack') ? '50% 32%' : '50% 50%',
+          }}
+          className={`work__img absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out ${
             i === idx
               ? 'opacity-100 scale-100 z-[2]'
               : 'opacity-0 scale-105 z-[1] pointer-events-none'
