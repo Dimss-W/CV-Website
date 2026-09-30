@@ -32,7 +32,7 @@ export const defaultExperiences: Experience[] = [
     role: 'Pengembang Web & Analitik Data (Intern)',
     company: 'PT PGAS Telekomunikasi Nusantara (PGNCOM)',
     location: 'Jakarta, Indonesia',
-    start_date: '2025',
+    start_date: '2026',
     end_date: '3 Bulan',
     is_current: false,
     description: 'Mengembangkan sistem web operasional perusahaan "Monitoring Realisasi Biaya & Quality Control" untuk pemantauan realisasi anggaran proyek, pengesahan dokumen BASTO, verifikasi mutu QC teknis, dan administrasi penagihan. Merancang dan mengintegrasikan dashboard analitik Microsoft Power BI interaktif untuk pemantauan capaian proyek, evaluasi rasio realisasi terhadap prognosa, dan pelacakan status transaksi secara real-time.',
