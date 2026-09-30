@@ -167,6 +167,14 @@ img {
 
 .main {
   overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.section,
+.footer {
+  position: relative;
+  z-index: 2;
 }
 
 /*=============== AMBIENT ANIMATED BACKGROUND ===============*/
@@ -176,13 +184,21 @@ img {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: -2;
+  z-index: 0;
   overflow: hidden;
   background:
-    radial-gradient(circle at 15% 15%, hsla(212, 85%, 22%, 0.32) 0%, transparent 48%),
-    radial-gradient(circle at 85% 28%, hsla(235, 80%, 20%, 0.28) 0%, transparent 50%),
-    radial-gradient(circle at 50% 85%, hsla(198, 85%, 18%, 0.26) 0%, transparent 55%),
-    linear-gradient(180deg, hsl(222, 28%, 5%) 0%, hsl(224, 30%, 7.5%) 50%, hsl(222, 28%, 4.5%) 100%);
+    radial-gradient(circle at 15% 15%, hsla(208, 92%, 28%, 0.35) 0%, transparent 48%),
+    radial-gradient(circle at 85% 28%, hsla(235, 88%, 26%, 0.30) 0%, transparent 52%),
+    radial-gradient(circle at 50% 85%, hsla(195, 92%, 24%, 0.28) 0%, transparent 55%),
+    linear-gradient(180deg, hsl(222, 32%, 4.5%) 0%, hsl(224, 34%, 7.5%) 50%, hsl(222, 32%, 4.5%) 100%);
+}
+
+.ambient-bg__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* Subtle Architectural Cyber Grid */
@@ -190,11 +206,11 @@ img {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, hsla(208, 90%, 70%, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, hsla(208, 90%, 70%, 0.055) 1px, transparent 1px);
-  background-size: 54px 54px;
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 35%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 35%, transparent 100%);
+    linear-gradient(to right, hsla(208, 92%, 68%, 0.075) 1px, transparent 1px),
+    linear-gradient(to bottom, hsla(208, 92%, 68%, 0.075) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, #000 40%, transparent 100%);
 }
 
 /* Floating Aurora Light Clouds */
