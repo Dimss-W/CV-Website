@@ -247,50 +247,65 @@ img {
   }
 }
 
-/*=============== CUSTOM CURSOR & GRADIENT SHADOW ===============*/
-.cursor {
+/*=============== CUSTOM CURSOR & 3-LAYER GPU GRADIENT SHADOW ===============*/
+.cursor,
+.cursor-trail,
+.cursor-aura {
   position: fixed;
   top: 0;
   left: 0;
-  width: 28px;
-  height: 28px;
-  background: radial-gradient(
-    circle at 35% 35%,
-    hsla(196, 100%, 88%, 0.92) 0%,
-    hsla(208, 92%, 64%, 0.82) 55%,
-    hsla(232, 85%, 58%, 0.7) 100%
-  );
   border-radius: 50%;
   pointer-events: none;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(-100px, -100px, 0);
+  transition: opacity 0.25s ease;
+}
+
+.cursor {
+  width: 28px;
+  height: 28px;
   z-index: 9999;
-  transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
-  will-change: transform, box-shadow;
+  background: radial-gradient(
+    circle at 35% 35%,
+    hsla(196, 100%, 90%, 0.95) 0%,
+    hsla(208, 92%, 64%, 0.88) 55%,
+    hsla(232, 85%, 58%, 0.78) 100%
+  );
+  box-shadow:
+    0 0 14px hsla(198, 100%, 82%, 0.65),
+    0 0 28px hsla(210, 92%, 64%, 0.45);
 }
 
 .cursor-trail {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  pointer-events: none;
+  width: 60px;
+  height: 60px;
   z-index: 9998;
   background: radial-gradient(
     circle,
-    hsla(198, 100%, 84%, 0.42) 0%,
-    hsla(210, 92%, 64%, 0.24) 38%,
-    hsla(238, 85%, 60%, 0.08) 65%,
-    transparent 75%
+    hsla(198, 100%, 84%, 0.45) 0%,
+    hsla(210, 92%, 64%, 0.26) 42%,
+    hsla(236, 85%, 60%, 0.1) 68%,
+    transparent 76%
   );
-  transition: opacity 0.25s ease, width 0.3s ease, height 0.3s ease;
-  will-change: transform, opacity;
+}
+
+.cursor-aura {
+  width: 92px;
+  height: 92px;
+  z-index: 9997;
+  background: radial-gradient(
+    circle,
+    hsla(214, 95%, 68%, 0.28) 0%,
+    hsla(238, 88%, 62%, 0.14) 45%,
+    transparent 74%
+  );
 }
 
 .cursor.hide-cursor,
-.cursor-trail.hide-cursor {
-  width: 0;
-  height: 0;
+.cursor-trail.hide-cursor,
+.cursor-aura.hide-cursor {
   opacity: 0 !important;
 }
 
@@ -298,12 +313,17 @@ img {
   .cursor {
     width: 20px;
     height: 20px;
-    opacity: 0.82;
+    opacity: 0.88;
   }
 
   .cursor-trail {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .cursor-aura {
+    width: 76px;
+    height: 76px;
   }
 }
 
