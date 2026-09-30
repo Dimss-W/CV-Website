@@ -261,7 +261,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
               </button>
             </div>
 
-            <div className="p-3 sm:p-6 overflow-auto flex items-center justify-center bg-black/70 max-h-[75vh]">
+            <div className="lightbox-body">
               {(() => {
                 const imgs =
                   lightbox.project.images && lightbox.project.images.length > 0
@@ -273,7 +273,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   <img
                     src={imgs[lightbox.imgIdx]}
                     alt={lightbox.project.title}
-                    className="max-h-[68vh] w-auto max-w-full object-contain rounded-xl shadow-2xl"
+                    className="lightbox-img"
                   />
                 );
               })()}

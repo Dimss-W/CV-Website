@@ -200,11 +200,11 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
               </button>
             </div>
 
-            <div className="p-3 sm:p-6 overflow-auto flex items-center justify-center bg-black/70 max-h-[75vh]">
+            <div className="lightbox-body">
               <img
                 src={modal.exp.images[modal.imgIdx]}
                 alt={modal.exp.role}
-                className="max-h-[68vh] w-auto max-w-full object-contain rounded-xl shadow-2xl"
+                className="lightbox-img"
               />
             </div>
 

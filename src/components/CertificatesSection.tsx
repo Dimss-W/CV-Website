@@ -174,11 +174,11 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
               </button>
             </div>
 
-            <div className="p-3 sm:p-6 overflow-auto flex items-center justify-center bg-black/70 max-h-[75vh]">
+            <div className="lightbox-body">
               <img
                 src={modalCert.images[modalPageIndex]?.url}
                 alt={modalCert.title}
-                className="max-h-[68vh] w-auto max-w-full object-contain rounded-xl shadow-2xl"
+                className="lightbox-img"
               />
             </div>
 
