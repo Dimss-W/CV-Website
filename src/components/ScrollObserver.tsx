@@ -44,10 +44,11 @@ export default function ScrollObserver() {
     let rafId: number;
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (isScrolling || isMobileView()) return;
       hasPointerMoved = true;
       pointerX = e.clientX;
       pointerY = e.clientY;
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     };
 
     const animateCursor = (now: number) => {
@@ -125,18 +126,17 @@ export default function ScrollObserver() {
     rafId = requestAnimationFrame(animateCursor);
 
     const handleMouseOver = (e: MouseEvent) => {
-      if (isMobileView()) return;
       const target = e.target as HTMLElement | null;
       if (!target || !cursorRef.current || !trailRef.current || !auraRef.current)
         return;
-      if (target.closest('a, button, input, textarea, [role="button"]')) {
-        cursorRef.current.classList.add('hide-cursor');
-        trailRef.current.classList.add('hide-cursor');
-        auraRef.current.classList.add('hide-cursor');
+      if (target.closest('a, button, input, textarea, [role="button"], .spotlight-card, article')) {
+        cursorRef.current.classList.add('cursor-hover');
+        trailRef.current.classList.add('cursor-hover');
+        auraRef.current.classList.add('cursor-hover');
       } else {
-        cursorRef.current.classList.remove('hide-cursor');
-        trailRef.current.classList.remove('hide-cursor');
-        auraRef.current.classList.remove('hide-cursor');
+        cursorRef.current.classList.remove('cursor-hover');
+        trailRef.current.classList.remove('cursor-hover');
+        auraRef.current.classList.remove('cursor-hover');
       }
     };
 

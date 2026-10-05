@@ -70,7 +70,25 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: 5.5rem;
+}
+
+section {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Spotlight Card Interactivity */
+.spotlight-card {
+  position: relative;
+  background: hsla(220, 22%, 11%, 0.82);
+  border: 1px solid hsla(210, 60%, 68%, 0.16);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.spotlight-card:hover {
+  transform: translateY(-4px);
+  border-color: hsla(208, 92%, 64%, 0.55);
+  box-shadow: 0 16px 36px -10px hsla(208, 92%, 64%, 0.22), 0 0 20px hsla(208, 92%, 64%, 0.12);
 }
 
 body,
@@ -303,10 +321,21 @@ img {
   );
 }
 
-.cursor.hide-cursor,
-.cursor-trail.hide-cursor,
-.cursor-aura.hide-cursor {
-  opacity: 0 !important;
+.cursor.cursor-hover {
+  transform: scale(1.55) !important;
+  box-shadow:
+    0 0 22px hsla(198, 100%, 82%, 0.9),
+    0 0 44px hsla(210, 92%, 64%, 0.7);
+}
+
+.cursor-trail.cursor-hover {
+  transform: scale(1.35) !important;
+  opacity: 0.8;
+}
+
+.cursor-aura.cursor-hover {
+  transform: scale(1.25) !important;
+  opacity: 0.9;
 }
 
 @media (max-width: 859px) {
@@ -333,8 +362,12 @@ img {
   width: 100%;
   top: 0;
   left: 0;
-  background-color: transparent;
+  background-color: hsla(222, 26%, 6%, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid hsla(210, 60%, 68%, 0.12);
   z-index: var(--z-fixed);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav {
