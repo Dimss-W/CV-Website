@@ -25,7 +25,7 @@ function WorkCardSlider({
     if (images.length <= 1 || paused) return;
     const timer = setInterval(() => {
       setIdx((prev) => (prev + 1) % images.length);
-    }, 4800);
+    }, 4500);
     return () => clearInterval(timer);
   }, [images.length, paused]);
 
@@ -33,26 +33,37 @@ function WorkCardSlider({
 
   return (
     <div
-      className="work__link group"
+      className="work__link group relative overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onClick={() => onImageClick(images[idx], currentCaption)}
     >
-      {images.map((img, i) => (
-        <img
-          key={i}
-          src={img}
-          alt={`${title} - ${i + 1}`}
-          style={{
-            objectPosition: img.includes('caltrack') ? '50% 32%' : '50% 50%',
-          }}
-          className={`work__img absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out ${
-            i === idx
-              ? 'opacity-100 scale-100 z-[2]'
-              : 'opacity-0 scale-105 z-[1] pointer-events-none'
-          }`}
-        />
-      ))}
+      {/* Silky-smooth GPU Horizontal Slide Track */}
+      <div
+        className="flex w-full h-full will-change-transform"
+        style={{
+          transform: `translate3d(-${idx * 100}%, 0, 0)`,
+          transition: 'transform 1000ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+      >
+        {images.map((img, i) => (
+          <div
+            key={i}
+            className="relative w-full h-full shrink-0 overflow-hidden bg-black/40"
+          >
+            <img
+              src={img}
+              alt={`${title} - ${i + 1}`}
+              style={{
+                objectPosition: img.includes('caltrack')
+                  ? '50% 32%'
+                  : '50% 50%',
+              }}
+              className="work__img w-full h-full object-cover transition-transform duration-700 ease-out"
+            />
+          </div>
+        ))}
+      </div>
 
       {/* Bedimcode Bianca Signature Hover Diagonal Arrow */}
       <div className="work__arrow" title="Lihat Ukuran Penuh">
@@ -65,7 +76,7 @@ function WorkCardSlider({
           className="absolute bottom-3 left-3 right-3 z-20 flex items-center justify-between gap-2 pointer-events-none"
           onClick={(e) => e.stopPropagation()}
         >
-          <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[11px] text-white/90 truncate max-w-[68%]">
+          <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[11px] text-white/90 truncate max-w-[68%] transition-all duration-300">
             {currentCaption}
           </span>
 
@@ -79,9 +90,9 @@ function WorkCardSlider({
                   e.stopPropagation();
                   setIdx(dotIdx);
                 }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
+                className={`h-1.5 rounded-full transition-all duration-500 ease-out ${
                   idx === dotIdx
-                    ? 'w-4 bg-[var(--first-color)]'
+                    ? 'w-5 bg-[var(--first-color)] shadow-[0_0_8px_var(--first-color)]'
                     : 'w-1.5 bg-white/40 hover:bg-white/70'
                 }`}
               />
