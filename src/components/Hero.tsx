@@ -20,7 +20,7 @@ const CIRCULAR_TEXT = 'JELAJAHI • LEBIH • LANJUT • ';
 
 export default function Hero({ profile }: HeroProps) {
   const [wordIndex, setWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState('Aplikasi Web Full Stack');
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {

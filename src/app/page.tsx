@@ -34,14 +34,14 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* Custom Cursor, Scroll Up & ScrollReveal Observer */}
+      <ScrollObserver />
+
       {/*==================== HEADER & NAV ====================*/}
       <Navbar resumeUrl={profile.resume_url} />
 
       {/*==================== MAIN ====================*/}
       <main className="main">
-        {/* Custom Cursor, Scroll Up & ScrollReveal Observer */}
-        <ScrollObserver />
-
         {/*==================== HOME SECTION ====================*/}
         <Hero profile={profile} />
 

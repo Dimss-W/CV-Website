@@ -331,13 +331,28 @@ export default function ScrollObserver() {
       </div>
 
       {/* Layer 3: Deep Indigo-Cyan Gradient Shadow Aura (Paling Belakang) */}
-      <div ref={auraRef} className="cursor-aura" aria-hidden="true" />
+      <div
+        ref={auraRef}
+        className="cursor-aura"
+        aria-hidden="true"
+        style={{ transform: 'translate3d(calc(50vw - 48px), calc(42vh - 48px), 0)' }}
+      />
 
       {/* Layer 2: Sky-Blue Gradient Shadow Trail (Tengah - Bayangan yang ngikutin) */}
-      <div ref={trailRef} className="cursor-trail" aria-hidden="true" />
+      <div
+        ref={trailRef}
+        className="cursor-trail"
+        aria-hidden="true"
+        style={{ transform: 'translate3d(calc(50vw - 32px), calc(42vh - 32px), 0)' }}
+      />
 
       {/* Layer 1: Core Luminous Blue Orb (Utama) */}
-      <div ref={cursorRef} className="cursor" aria-hidden="true" />
+      <div
+        ref={cursorRef}
+        className="cursor"
+        aria-hidden="true"
+        style={{ transform: 'translate3d(calc(50vw - 16px), calc(42vh - 16px), 0)' }}
+      />
 
       {/* Bedimcode Bianca Scroll Up Button */}
       <a
