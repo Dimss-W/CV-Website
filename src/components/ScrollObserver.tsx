@@ -24,7 +24,7 @@ export default function ScrollObserver() {
     window.addEventListener('resize', handleResize, { passive: true });
 
     let rawMouseX = winW * 0.5;
-    let rawMouseY = winH * 0.38;
+    let rawMouseY = winH * 0.42;
     let hasPointerMoved = false;
 
     let rawScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
@@ -33,15 +33,17 @@ export default function ScrollObserver() {
     let scrollVelocity = 0;
     let isScrolling = false;
     let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
+    let scrollBlend = 0; // 0 = kursor mouse, 1 = otomatis pindah ke tengah layar saat scroll
     let lastScrollUpState = rawScrollY >= 350;
 
-    // Koordinat animasi 3-layer (Inti, Bayangan Ekor Utama, dan Aura Pendaran)
+    // Koordinat animasi 3-layer (Inti, Bayangan Ekor, dan Aura)
     let currentX = rawMouseX;
     let currentY = rawMouseY;
     let trailX = rawMouseX;
     let trailY = rawMouseY;
     let auraX = rawMouseX;
     let auraY = rawMouseY;
+    let smoothSpeed = 0;
 
     let lastTime = performance.now();
     let rafId: number;
@@ -66,78 +68,81 @@ export default function ScrollObserver() {
         setShowScrollUp(shouldShow);
       }
 
+      // Saat user scroll, aktifkan mode otomatis pindah ke tengah
       isScrolling = true;
       if (scrollTimeout) clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         isScrolling = false;
-      }, 350);
+      }, 420);
     };
 
     const animateCursor = (now: number) => {
       const dt = Math.min((now - lastTime) / 16.667, 2.5);
       lastTime = now;
 
+      // Interpolasi scrollY super-halus
       rawScrollY = window.scrollY;
-      smoothScrollY += (rawScrollY - smoothScrollY) * (0.09 * dt);
+      smoothScrollY += (rawScrollY - smoothScrollY) * (0.075 * dt);
 
-      // Gelombang pergerakan matematis yang bereaksi terhadap posisi scroll
-      const scrollPhase = smoothScrollY * 0.0035;
-      const scrollWaveX =
-        Math.sin(scrollPhase) * (winW * 0.16) +
-        Math.cos(scrollPhase * 1.8) * (winW * 0.04);
-      const scrollWaveY =
-        Math.cos(scrollPhase * 1.2) * (winH * 0.12) +
-        Math.sin(scrollPhase * 0.7) * (winH * 0.03);
+      // Transisi ultra-smooth: saat scroll pindah ke tengah (blend -> 1), saat kursor diam/selesai scroll kembali ke kursor (blend -> 0)
+      const targetBlend = isScrolling ? 1.0 : 0.0;
+      const blendRate = isScrolling ? 0.07 : 0.035;
+      scrollBlend += (targetBlend - scrollBlend) * (blendRate * dt);
+
+      // Gelombang matematis anggun di area tengah layar (Center Undulating Wave)
+      const scrollPhase = smoothScrollY * 0.003;
+      const centerWaveX =
+        winW * 0.5 +
+        Math.sin(scrollPhase) * (winW * 0.22) +
+        Math.cos(scrollPhase * 1.7) * 35;
+      const centerWaveY =
+        winH * 0.45 +
+        Math.cos(scrollPhase * 1.15) * (winH * 0.18) +
+        Math.sin(scrollPhase * 0.6) * 25;
 
       let targetX: number;
       let targetY: number;
 
       if (!hasPointerMoved || isMobileView()) {
-        // Mode Otonom (Mobile & saat belum menggerakkan mouse):
-        // Bulat biru meliuk-liuk di layar secara dinamis mengikuti scroll
+        // Mode Otonom / Mobile: Selalu bergerak mengalir di tengah layar
         targetX =
-          winW * 0.5 +
-          Math.sin(scrollPhase) * (winW * 0.32) +
-          Math.cos(scrollPhase * 1.9) * 35 +
-          Math.sin(now * 0.0012) * 16;
+          centerWaveX +
+          Math.sin(now * 0.001) * 14;
         targetY =
-          winH * 0.44 +
-          Math.cos(scrollPhase * 1.25) * (winH * 0.22) +
-          Math.sin(scrollPhase * 0.65) * 25 +
-          Math.cos(now * 0.0016) * 12;
+          centerWaveY +
+          Math.cos(now * 0.0014) * 10;
       } else {
-        // Mode Kursor + Scroll Interaktif:
-        // Bulat biru mengikuti kursor mouse, DAN saat di-scroll bulat biru ikut berayun dinamis dengan gelombang scroll
-        const waveAmp = isScrolling ? 1.0 : 0.45;
-        targetX = rawMouseX + scrollWaveX * waveAmp;
-        targetY = rawMouseY + scrollWaveY * waveAmp - scrollVelocity * 0.32;
-
-        targetX = Math.max(16, Math.min(winW - 16, targetX));
-        targetY = Math.max(16, Math.min(winH - 16, targetY));
+        // Mode Transisi Halus (Smooth Hermite Ease antara Kursor Mouse & Tengah Layar)
+        const easeFactor = scrollBlend * scrollBlend * (3 - 2 * scrollBlend);
+        targetX = (1 - easeFactor) * rawMouseX + easeFactor * centerWaveX;
+        targetY = (1 - easeFactor) * rawMouseY + easeFactor * centerWaveY;
       }
 
-      // Exponential smoothing bertingkat (Inti memimpin, Bayangan membuntuti)
-      const leadFactor = 1 - Math.pow(1 - 0.2, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.1, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.055, dt);
+      // Pastikan tetap berada dalam batas layar yang nyaman
+      targetX = Math.max(16, Math.min(winW - 16, targetX));
+      targetY = Math.max(16, Math.min(winH - 16, targetY));
+
+      // Damping super-halus bebas patah-patah (Buttery Smooth Damping)
+      const leadFactor = 1 - Math.pow(1 - 0.12, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.065, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.035, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
 
-      // Bayangan 1 membuntuti kursor inti (efek ekor komet)
+      // Bayangan 1 (Trail) membuntuti inti secara halus
       trailX += (currentX - trailX) * trailFactor;
       trailY += (currentY - trailY) * trailFactor;
 
-      // Bayangan 2 membuntuti bayangan 1 (efek pendaran aura atmosfer)
+      // Bayangan 2 (Aura Pendaran) membuntuti bayangan 1 dengan lag lebih panjang
       auraX += (trailX - auraX) * auraFactor;
       auraY += (trailY - auraY) * auraFactor;
 
       scrollVelocity *= 0.9;
       const dx = targetX - currentX;
       const dy = targetY - currentY;
-      const pointerSpeed = Math.hypot(dx, dy);
-      const speed = Math.min(pointerSpeed + Math.abs(scrollVelocity) * 0.65, 75);
-      const isMoving = speed > 0.4;
+      const instantSpeed = Math.hypot(dx, dy);
+      smoothSpeed += (instantSpeed - smoothSpeed) * (0.09 * dt);
 
       const mobile = isMobileView();
       const halfCursor = mobile ? 11 : 16;
@@ -148,52 +153,45 @@ export default function ScrollObserver() {
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${(
           currentX - halfCursor
-        ).toFixed(1)}px, ${(currentY - halfCursor).toFixed(1)}px, 0)`;
+        ).toFixed(2)}px, ${(currentY - halfCursor).toFixed(2)}px, 0)`;
 
-        const offsetX = Math.max(-28, Math.min(28, -dx * 0.4));
-        const offsetY = Math.max(
-          -32,
-          Math.min(32, -dy * 0.4 + scrollVelocity * 0.45)
-        );
-        const glowBlur1 = 16 + speed * 0.45;
-        const glowBlur2 = 34 + speed * 0.85;
-        const glowAlpha = isMoving
-          ? Math.min(0.95, 0.52 + speed * 0.01)
-          : 0.42;
+        const offsetX = Math.max(-26, Math.min(26, -dx * 0.35));
+        const offsetY = Math.max(-28, Math.min(28, -dy * 0.35));
+        const glowBlur1 = 16 + smoothSpeed * 0.35;
+        const glowBlur2 = 32 + smoothSpeed * 0.65;
+        const glowAlpha = Math.min(0.95, 0.46 + smoothSpeed * 0.012);
 
         cursorRef.current.style.boxShadow = `
           0 0 16px hsla(196, 100%, 85%, ${glowAlpha.toFixed(2)}),
-          ${(offsetX * 0.55).toFixed(1)}px ${(offsetY * 0.55).toFixed(1)}px ${glowBlur1.toFixed(0)}px hsla(208, 95%, 65%, ${(glowAlpha * 0.9).toFixed(2)}),
+          ${(offsetX * 0.5).toFixed(1)}px ${(offsetY * 0.5).toFixed(1)}px ${glowBlur1.toFixed(0)}px hsla(208, 95%, 65%, ${(glowAlpha * 0.9).toFixed(2)}),
           ${offsetX.toFixed(1)}px ${offsetY.toFixed(1)}px ${glowBlur2.toFixed(0)}px hsla(232, 90%, 62%, ${(glowAlpha * 0.68).toFixed(2)})
         `;
       }
 
-      // Render Bayangan Mengikuti (Trailing Shadow 1)
+      // Render Bayangan Ekor yang Mengikuti (Trailing Shadow 1)
       if (trailRef.current) {
-        const trailScale = 1 + (speed / 70) * 0.4;
-        const trailOpacity = isMoving
-          ? Math.min(0.95, 0.45 + (speed / 70) * 0.5)
-          : 0.3;
+        const trailScale = 1 + (smoothSpeed / 80) * 0.35;
+        const trailOpacity = Math.min(0.92, 0.36 + (smoothSpeed / 80) * 0.45);
         trailRef.current.style.transform = `translate3d(${(
           trailX - halfTrail
-        ).toFixed(1)}px, ${(trailY - halfTrail).toFixed(1)}px, 0) scale(${trailScale.toFixed(2)})`;
+        ).toFixed(2)}px, ${(trailY - halfTrail).toFixed(2)}px, 0) scale(${trailScale.toFixed(2)})`;
         trailRef.current.style.opacity = String(trailOpacity.toFixed(2));
       }
 
-      // Render Bayangan Pendaran Aura Luar (Aura Shadow 2)
+      // Render Aura Atmosfer Terluar (Aura Shadow 2)
       if (auraRef.current) {
-        const auraScale = 1 + (speed / 80) * 0.25;
+        const auraScale = 1 + (smoothSpeed / 90) * 0.22;
         auraRef.current.style.transform = `translate3d(${(
           auraX - halfAura
-        ).toFixed(1)}px, ${(auraY - halfAura).toFixed(1)}px, 0) scale(${auraScale.toFixed(2)})`;
+        ).toFixed(2)}px, ${(auraY - halfAura).toFixed(2)}px, 0) scale(${auraScale.toFixed(2)})`;
       }
 
-      // Spotlight Interaktif Mengikuti Bulat Biru
+      // Ambient Spotlight Halus di Latar Belakang
       if (spotlightRef.current) {
-        spotlightRef.current.style.background = `radial-gradient(580px circle at ${currentX.toFixed(
-          0
+        spotlightRef.current.style.background = `radial-gradient(620px circle at ${currentX.toFixed(
+          1
         )}px ${currentY.toFixed(
-          0
+          1
         )}px, hsla(210, 90%, 62%, 0.08), transparent 70%)`;
       }
 
@@ -335,7 +333,7 @@ export default function ScrollObserver() {
         ref={auraRef}
         className="cursor-aura"
         aria-hidden="true"
-        style={{ transform: 'translate3d(calc(50vw - 48px), calc(42vh - 48px), 0)' }}
+        style={{ transform: 'translate3d(calc(50vw - 48px), calc(45vh - 48px), 0)' }}
       />
 
       {/* Layer 2: Sky-Blue Gradient Shadow Trail (Tengah - Bayangan yang ngikutin) */}
@@ -343,7 +341,7 @@ export default function ScrollObserver() {
         ref={trailRef}
         className="cursor-trail"
         aria-hidden="true"
-        style={{ transform: 'translate3d(calc(50vw - 32px), calc(42vh - 32px), 0)' }}
+        style={{ transform: 'translate3d(calc(50vw - 32px), calc(45vh - 32px), 0)' }}
       />
 
       {/* Layer 1: Core Luminous Blue Orb (Utama) */}
@@ -351,7 +349,7 @@ export default function ScrollObserver() {
         ref={cursorRef}
         className="cursor"
         aria-hidden="true"
-        style={{ transform: 'translate3d(calc(50vw - 16px), calc(42vh - 16px), 0)' }}
+        style={{ transform: 'translate3d(calc(50vw - 16px), calc(45vh - 16px), 0)' }}
       />
 
       {/* Bedimcode Bianca Scroll Up Button */}
