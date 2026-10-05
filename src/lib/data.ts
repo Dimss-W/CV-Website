@@ -69,11 +69,6 @@ export const defaultProjects: Project[] = [
     tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Gemini Vision AI', 'REST API'],
     category: 'data-ai',
     technical_highlight: 'Kompresi gambar JPEG otomatis dan pipeline Google Gemini Vision OCR untuk ekstraksi angka odometer tanpa latensi server berlebih.',
-    demo_credentials: {
-      email: 'demo@otokeep.com',
-      password: 'password123',
-      note: 'Akun Pengujian Demo',
-    },
     demo_url: 'https://otokeep-rho.vercel.app/',
     github_url: 'https://github.com/Dimss-W/Otokeep.git',
     image_url: '/projects/otokeep-landing.png',
@@ -94,11 +89,6 @@ export const defaultProjects: Project[] = [
     tags: ['Laravel', 'Blade', 'MySQL', 'Multi-Kampus', 'REST API'],
     category: 'web',
     technical_highlight: 'Partisi relasi data multi-kampus untuk 27 cabang UBSI dengan penanganan loker penitipan terpusat dan verifikasi identitas mahasiswa.',
-    demo_credentials: {
-      email: 'admin.demo@ubsi.ac.id',
-      password: 'password123',
-      note: 'Akun Pengujian Demo',
-    },
     demo_url: 'https://findit-git-main-dim-6414.vercel.app/',
     github_url: 'https://github.com/Dimss-W/FindIt.git',
     image_url: '/projects/findit-landing.png',
