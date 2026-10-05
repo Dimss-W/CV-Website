@@ -1,45 +1,76 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Profile } from '@/types';
-import LanyardCard from './LanyardCard';
 
 interface HeroProps {
   profile: Profile;
 }
 
-export default function Hero({ profile }: HeroProps) {
-  return (
-    <section className="home section pt-20 lg:pt-24 min-h-[90vh] flex items-center" id="home">
-      <div className="container max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-        {/* Kolom Kiri: Pernyataan Rekayasa & Aksi Utama */}
-        <div className="lg:col-span-7 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-xs font-mono text-sky-400 mb-4 shadow-[0_0_16px_rgba(56,189,248,0.15)]">
-            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
-            <span className="font-semibold tracking-wide">SOFTWARE &amp; DATA SYSTEMS 2026</span>
-          </div>
+const PROFESSIONS = [
+  'Aplikasi Web Full Stack',
+  'Aplikasi Mobile Flutter',
+  'Analitik Data Power BI',
+  'Arsitektur Basis Data',
+];
 
-          <h3 className="text-xs sm:text-sm font-bold tracking-widest text-[var(--first-color)] uppercase mb-2">
-            Dimas Wijanarko • Jakarta, Indonesia
+const CIRCULAR_TEXT = 'JELAJAHI • LEBIH • LANJUT • ';
+
+export default function Hero({ profile }: HeroProps) {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const fullText = PROFESSIONS[roleIndex];
+    const typeSpeed = isDeleting ? 35 : 65;
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && currentText === fullText) {
+        setTimeout(() => setIsDeleting(true), 2000);
+      } else if (isDeleting && currentText === '') {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % PROFESSIONS.length);
+      } else {
+        setCurrentText(
+          fullText.substring(0, currentText.length + (isDeleting ? -1 : 1))
+        );
+      }
+    }, typeSpeed);
+
+    return () => clearTimeout(timer);
+  }, [currentText, isDeleting, roleIndex]);
+
+  const letters = CIRCULAR_TEXT.split('');
+  const angleStep = 360 / letters.length;
+
+  return (
+    <section className="home section" id="home">
+      <div className="home__container container grid">
+        <div className="home__data">
+          <h3 className="home__subtitle">
+            Halo! Saya {profile.full_name} —{' '}
+            <span className="whitespace-nowrap">Jakarta, Indonesia</span>
           </h3>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] mb-4">
-            Full Stack Web &amp; Mobile <br />
-            <span className="text-[var(--first-color)] drop-shadow-[0_0_24px_rgba(56,189,248,0.35)]">
-              Software Engineer
+          <h1 className="home__title">
+            <span className="home__title-top">Pengembang Sistem &amp;</span>
+            <span className="home__title-typed" id="home-typed">
+              <span>{currentText}</span>
+              <span className="home__cursor" aria-hidden="true">|</span>
             </span>
           </h1>
 
-          <p className="max-w-xl text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
-            Mahasiswa Sistem Informasi UBSI bersertifikasi resmi BNSP Database Administrator. Mengkhususkan diri pada perancangan sistem web performa tinggi (Laravel, REST API, SQL), aplikasi mobile lintas platform (Flutter), serta integrasi analitik korporat (Microsoft Power BI &amp; DAX).
+          <p className="home__description">
+            Mahasiswa Sistem Informasi UBSI yang merancang dan membangun aplikasi Web, Mobile, serta Dashboard Analitik yang modern dan solutif.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 mt-6">
             <a
               href="#work"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--first-color)] text-[var(--black-color)] text-xs md:text-sm font-bold hover:brightness-110 transition-all shadow-[0_0_24px_rgba(56,189,248,0.4)]"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--first-color)] text-[var(--black-color)] text-xs md:text-sm font-semibold hover:brightness-110 transition-all shadow-sm"
             >
-              <span>Jelajahi Karya Terpilih</span>
+              <span>Lihat Portofolio</span>
               <i className="ri-arrow-right-line" />
             </a>
 
@@ -47,36 +78,47 @@ export default function Hero({ profile }: HeroProps) {
               href={profile.resume_url && profile.resume_url !== '#contact' ? profile.resume_url : '/certificates/sertifikat-bnsp-database-administrator.pdf'}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-700/80 hover:border-[var(--first-color)] bg-slate-900/80 hover:bg-slate-900 text-xs md:text-sm font-semibold text-white hover:text-[var(--first-color)] transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 hover:border-[var(--first-color)] text-xs md:text-sm font-semibold text-white hover:text-[var(--first-color)] transition-colors shadow-sm"
             >
               <i className="ri-file-download-line text-sm" />
-              <span>Unduh CV Resmi (PDF)</span>
+              <span>Unduh CV (PDF)</span>
             </a>
-          </div>
-
-          {/* Core Technical Highlights */}
-          <div className="flex flex-wrap items-center gap-2 mt-8 pt-5 border-t border-slate-800/80 text-xs text-slate-400 font-mono">
-            <span className="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-slate-300 hover:border-sky-500/40 transition-colors">
-              # Laravel &amp; PHP
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-slate-300 hover:border-sky-500/40 transition-colors">
-              # Flutter &amp; Dart
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-slate-300 hover:border-sky-500/40 transition-colors">
-              # Relational SQL &amp; ERD
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-slate-300 hover:border-sky-500/40 transition-colors">
-              # Microsoft Power BI
-            </span>
-            <span className="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-slate-300 hover:border-sky-500/40 transition-colors">
-              # Gemini Vision AI (OCR)
-            </span>
           </div>
         </div>
 
-        {/* Kolom Kanan: 3D Physics Lanyard Card & Terminal Interaktif */}
-        <div className="lg:col-span-5 flex items-center justify-center relative min-h-[460px] py-4">
-          <LanyardCard profile={profile} />
+        <div className="home__images">
+          <div className="home__box-1" />
+          <div className="home__box-2" />
+          <div className="home__box-3" />
+
+          <img
+            src={profile.avatar_url || '/dimas-profile.jpg'}
+            alt={profile.full_name}
+            className="home__img"
+          />
+
+          <div className="home__circle">
+            <span className="home__text" id="home-text">
+              {letters.map((char, i) => (
+                <span
+                  key={i}
+                  style={{ transform: `rotate(${i * angleStep}deg)` }}
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
+
+            <a
+              href="#about"
+              className="home__arrow"
+              aria-label="Gulir ke Tentang Saya"
+            >
+              <i className="ri-arrow-down-line" />
+            </a>
+          </div>
+
+          <div className="blob-big" />
         </div>
       </div>
     </section>
