@@ -242,7 +242,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
                 : 'bg-slate-950/50 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-slate-900/40'
             }`}
           >
-            <div className="text-xs font-bold truncate">📱 Mobile Engineer</div>
+            <div className="text-xs font-bold truncate">Mobile Engineer</div>
             <div className="text-[11px] text-slate-400 truncate mt-0.5">Flutter & Dart</div>
           </button>
 
@@ -254,7 +254,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
                 : 'bg-slate-950/50 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-slate-900/40'
             }`}
           >
-            <div className="text-xs font-bold truncate">⚡ Full Stack Web</div>
+            <div className="text-xs font-bold truncate">Full Stack Web</div>
             <div className="text-[11px] text-slate-400 truncate mt-0.5">Laravel + Next.js</div>
           </button>
 
@@ -266,7 +266,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
                 : 'bg-slate-950/50 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-slate-900/40'
             }`}
           >
-            <div className="text-xs font-bold truncate">📊 Data & Power BI</div>
+            <div className="text-xs font-bold truncate">Data & Power BI</div>
             <div className="text-[11px] text-slate-400 truncate mt-0.5">Monitoring Dashboard</div>
           </button>
 
@@ -278,7 +278,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
                 : 'bg-slate-950/50 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-slate-900/40'
             }`}
           >
-            <div className="text-xs font-bold truncate">🚀 Junior / Magang</div>
+            <div className="text-xs font-bold truncate">Rekayasa Sistem</div>
             <div className="text-[11px] text-slate-400 truncate mt-0.5">Juara 1 Bootcamp 2025</div>
           </button>
         </div>

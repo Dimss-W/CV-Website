@@ -15,22 +15,22 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
   const [cliHistory, setCliHistory] = useState<Array<{ command: string; output: string }>>([
     {
       command: 'npx dimas-wijanarko --status',
-      output: '⚡ Full Stack Web Developer & Software Engineer | Next.js, React, Supabase, TypeScript',
+      output: 'Full Stack Web Developer & Software Engineer | Next.js, React, Supabase, TypeScript',
     },
     {
       command: 'dimas.checkAvailability()',
-      output: '🟢 STATUS: READY FOR NEW CONTRACTS & FULL-TIME OPPORTUNITIES',
+      output: 'STATUS: READY FOR NEW CONTRACTS & FULL-TIME OPPORTUNITIES',
     },
   ]);
 
   const runCommand = (cmd: string) => {
     let out = '';
     if (cmd === 'dimas.getTechStack()') {
-      out = '🚀 [Mobile & Web: Flutter, Dart, Next.js, React, Tailwind] | [Backend & DB: Laravel, PHP, Supabase, MySQL, PostgreSQL]';
+      out = '[Mobile & Web: Flutter, Dart, Next.js, React, Tailwind] | [Backend & DB: Laravel, PHP, Supabase, MySQL, PostgreSQL]';
     } else if (cmd === 'dimas.hireMe()') {
-      out = `📬 Hubungi langsung via: ${profile.email} atau formulir kontak di bawah!`;
+      out = `Hubungi langsung via: ${profile.email} atau formulir kontak di bawah`;
     } else if (cmd === 'dimas.getPhilosophy()') {
-      out = '💡 "Clean architecture, high-performance web, and delightful user experiences."';
+      out = '"Clean architecture, high-performance web, and delightful user experiences."';
     } else {
       out = `Command '${cmd}' executed successfully.`;
     }
@@ -42,7 +42,7 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
     navigator.clipboard.writeText(profile.email);
     setCopied(true);
     if (onCopySuccess) {
-      onCopySuccess(`Alamat email ${profile.email} berhasil disalin! 📋`);
+      onCopySuccess(`Alamat email ${profile.email} berhasil disalin!`);
     }
     setTimeout(() => setCopied(false), 2500);
   };

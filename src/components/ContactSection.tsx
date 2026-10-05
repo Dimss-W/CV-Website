@@ -20,7 +20,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.sender_name || !formData.sender_email || !formData.message) {
-      setStatusMessage('Mohon lengkapi Nama, Email, dan Pesan ❌');
+      setStatusMessage('Mohon lengkapi Nama, Email, dan Pesan');
       return;
     }
 
@@ -36,13 +36,13 @@ export default function ContactSection({ profile }: ContactSectionProps) {
       });
 
       if (res.success) {
-        setStatusMessage('Pesan berhasil dikirim ✅');
+        setStatusMessage('Pesan berhasil terkirim.');
         setFormData({ sender_name: '', sender_email: '', message: '' });
       } else {
-        setStatusMessage('Pesan gagal dikirim (gangguan layanan) ❌');
+        setStatusMessage('Pesan gagal dikirim (gangguan layanan).');
       }
     } catch {
-      setStatusMessage('Pesan gagal dikirim (gangguan layanan) ❌');
+      setStatusMessage('Pesan gagal dikirim (gangguan layanan).');
     } finally {
       setLoading(false);
       setTimeout(() => setStatusMessage(''), 5000);

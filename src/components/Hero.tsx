@@ -64,6 +64,26 @@ export default function Hero({ profile }: HeroProps) {
           <p className="home__description">
             Mahasiswa Sistem Informasi UBSI yang merancang dan membangun aplikasi Web, Mobile, serta Dashboard Analitik yang modern dan solutif.
           </p>
+
+          <div className="flex flex-wrap items-center gap-3 mt-6">
+            <a
+              href="#work"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--first-color)] text-[var(--black-color)] text-xs md:text-sm font-semibold hover:brightness-110 transition-all shadow-sm"
+            >
+              <span>Lihat Portofolio</span>
+              <i className="ri-arrow-right-line" />
+            </a>
+
+            <a
+              href={profile.resume_url && profile.resume_url !== '#contact' ? profile.resume_url : '/certificates/sertifikat-bnsp-database-administrator.pdf'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 hover:border-[var(--first-color)] text-xs md:text-sm font-semibold text-white hover:text-[var(--first-color)] transition-colors shadow-sm"
+            >
+              <i className="ri-file-download-line text-sm" />
+              <span>Unduh CV (PDF)</span>
+            </a>
+          </div>
         </div>
 
         <div className="home__images reveal-init">

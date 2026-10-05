@@ -107,11 +107,32 @@ function WorkCardSlider({
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'web' | 'mobile' | 'data-ai'>('all');
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<{
     open: boolean;
     project: Project | null;
     imgIdx: number;
   }>({ open: false, project: null, imgIdx: 0 });
+
+  const categories = [
+    { id: 'all', label: 'Semua Proyek' },
+    { id: 'web', label: 'Aplikasi Web' },
+    { id: 'mobile', label: 'Mobile (Flutter)' },
+    { id: 'data-ai', label: 'Data & AI' },
+  ] as const;
+
+  const filteredProjects = projects.filter((p) => {
+    if (selectedCategory === 'all') return true;
+    return p.category === selectedCategory;
+  });
+
+  const handleCopyCredentials = (title: string, email?: string, pass?: string) => {
+    if (!email || !pass) return;
+    navigator.clipboard.writeText(`Email: ${email} | Password: ${pass}`);
+    setCopiedKey(title);
+    setTimeout(() => setCopiedKey(null), 2500);
+  };
 
   const scrollToCard = (index: number) => {
     setActiveSlide(index);
@@ -131,7 +152,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
     const cardWidth =
       (trackRef.current.children[0] as HTMLElement)?.offsetWidth || 320;
     const index = Math.round(scrollLeft / (cardWidth + 20));
-    if (index >= 0 && index < projects.length) {
+    if (index >= 0 && index < filteredProjects.length) {
       setActiveSlide(index);
     }
   };
@@ -149,8 +170,30 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   return (
     <section className="work section" id="work">
       <h2 className="section__title reveal-init">
-        Karya &amp; <span>Proyek Saya</span>
+        Karya &amp; <span>Proyek Unggulan</span>
       </h2>
+
+      {/* Filter Kategori Interaktif */}
+      <div className="container flex flex-wrap items-center justify-center gap-2 mb-8 reveal-init">
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            type="button"
+            onClick={() => {
+              setSelectedCategory(cat.id);
+              setActiveSlide(0);
+              if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+            }}
+            className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${
+              selectedCategory === cat.id
+                ? 'bg-[var(--first-color)] text-[var(--black-color)] shadow-sm'
+                : 'bg-black/30 border border-white/10 text-[var(--text-color)] hover:text-white hover:border-white/30'
+            }`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
 
       <div className="work__container container reveal-init">
         {/* Mobile: Swipeable Carousel | Web/Desktop (md+): 2 & 3 Column Equal-Size Grid */}
@@ -160,7 +203,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           className="work__grid scrollbar-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {projects.map((project, index) => {
+          {filteredProjects.map((project, index) => {
             const num = String(index + 1).padStart(2, '0');
             const imgs =
               project.images && project.images.length > 0
@@ -172,7 +215,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             return (
               <article
                 key={project.id || project.title}
-                className="work__card snap-start shrink-0 w-[85vw] max-w-[340px] md:w-full md:max-w-none"
+                className="work__card snap-start shrink-0 w-[85vw] max-w-[340px] md:w-full md:max-w-none flex flex-col"
               >
                 <WorkCardSlider
                   images={imgs}
@@ -184,7 +227,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   }}
                 />
 
-                <div className="work__data">
+                <div className="work__data flex flex-col flex-grow">
                   <span className="work__number">{num}</span>
                   <h3 className="work__name" title={project.title}>
                     {project.title}
@@ -193,7 +236,44 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                  {/* Catatan Arsitektur Teknis */}
+                  {project.technical_highlight && (
+                    <div className="mb-3 text-[11px] text-[var(--text-color)]/95 bg-white/[0.04] border-l-2 border-[var(--first-color)] px-3 py-2 rounded-r-lg">
+                      <span className="text-white font-semibold">Arsitektur: </span>
+                      <span>{project.technical_highlight}</span>
+                    </div>
+                  )}
+
+                  {/* Kredensial Uji Coba Demo */}
+                  {project.demo_credentials && (
+                    <div className="mb-3 p-2.5 rounded-xl bg-black/50 border border-white/10 text-xs">
+                      <div className="flex items-center justify-between text-[11px] mb-1">
+                        <span className="inline-flex items-center gap-1 text-[var(--first-color)] font-semibold">
+                          <i className="ri-shield-keyhole-line" />
+                          <span>{project.demo_credentials.note || 'Akun Uji Coba Demo'}</span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleCopyCredentials(
+                              project.title,
+                              project.demo_credentials?.email,
+                              project.demo_credentials?.password
+                            )
+                          }
+                          className="text-[10px] text-white/80 hover:text-[var(--first-color)] transition-colors underline"
+                        >
+                          {copiedKey === project.title ? 'Tersalin' : 'Salin Kredensial'}
+                        </button>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 font-mono text-[11px] text-white/90">
+                        <span>User: {project.demo_credentials.email}</span>
+                        <span>Pass: {project.demo_credentials.password}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap items-center gap-1.5 mb-3 mt-auto">
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
@@ -246,7 +326,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
         {/* Mobile Carousel Pagination Dots (Hidden on Desktop Grid) */}
         <div className="flex md:hidden items-center justify-center gap-2 mt-4">
-          {projects.map((_, i) => (
+          {filteredProjects.map((_, i) => (
             <button
               key={i}
               type="button"

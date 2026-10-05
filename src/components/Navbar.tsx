@@ -6,7 +6,7 @@ interface NavbarProps {
   resumeUrl?: string;
 }
 
-export default function Navbar({}: NavbarProps) {
+export default function Navbar({ resumeUrl }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -78,6 +78,20 @@ export default function Navbar({}: NavbarProps) {
                 </a>
               </li>
             ))}
+
+            <li>
+              <a
+                href={resumeUrl && resumeUrl !== '#contact' ? resumeUrl : '/certificates/sertifikat-bnsp-database-administrator.pdf'}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[var(--first-color)] text-[var(--first-color)] hover:bg-[var(--first-color)] hover:text-[var(--black-color)] text-xs font-semibold transition-all"
+                title="Unduh Berkas CV Resmi (PDF)"
+              >
+                <i className="ri-file-download-line text-sm" />
+                <span>Unduh CV</span>
+              </a>
+            </li>
 
             <li>
               <a

@@ -543,7 +543,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
                     <div className="w-[3px] h-full bg-slate-300" />
                     <div className="w-[1px] h-full bg-slate-400" />
                   </div>
-                  <span className="text-[9px] text-slate-400">DW-SI-2025</span>
+                  <span className="text-[9px] text-slate-400">DW-SI-2026</span>
                 </div>
 
                 {/* Location & Status */}
@@ -558,7 +558,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
             <div className="text-center mt-3">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-[11px] font-medium text-slate-400 shadow-sm backdrop-blur-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
-                <span>👋 Sentuh & ayunkan kartu lanyard ini!</span>
+                <span>Sentuh dan ayunkan kartu lanyard ini</span>
               </span>
             </div>
           </div>

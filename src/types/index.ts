@@ -33,6 +33,13 @@ export interface Project {
   title: string;
   description: string;
   tags: string[];
+  category?: 'web' | 'mobile' | 'data-ai';
+  technical_highlight?: string;
+  demo_credentials?: {
+    email?: string;
+    password?: string;
+    note?: string;
+  };
   demo_url?: string;
   github_url?: string;
   image_url?: string;

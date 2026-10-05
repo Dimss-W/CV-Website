@@ -2,57 +2,72 @@
 
 import React from 'react';
 
-interface TestimonialItem {
-  rating: string;
-  quote: string;
-  name: string;
+interface MilestoneItem {
+  badgeLabel: string;
+  badgeIcon: string;
+  tag: string;
+  title: string;
+  description: string;
+  issuer: string;
   role: string;
   img: string;
 }
 
-const TESTIMONIALS: TestimonialItem[] = [
+const MILESTONES: MilestoneItem[] = [
   {
-    rating: '5.0',
-    quote:
-      '“Sangat disiplin dan berorientasi solusi; berhasil membangun portal Monitoring Realisasi & dashboard analitik Power BI yang sangat membantu operasional perusahaan.”',
-    name: 'Tim Operasional PGNCOM',
-    role: 'PT PGAS Telekomunikasi Nusantara',
-    img: '/projects/pgncom-login.png',
-  },
-  {
-    rating: '5.0',
-    quote:
-      '“Berhasil meraih Juara 1 IT Bootcamp Software Development mengungguli perwakilan seluruh kampus cabang UBSI dengan kualitas arsitektur aplikasi web yang unggul.”',
-    name: 'FTI & Rektorat UBSI',
-    role: 'IT Bootcamp Software Development',
+    badgeLabel: 'Juara 1 Nasional',
+    badgeIcon: 'ri-award-line',
+    tag: 'Kompetisi',
+    title: 'IT Bootcamp Software Development',
+    description:
+      'Meraih peringkat pertama dalam kompetisi pengembangan perangkat lunak tingkat nasional, mengungguli perwakilan mahasiswa dari seluruh cabang universitas se-Indonesia dengan implementasi arsitektur sistem yang teruji.',
+    issuer: 'FTI & Rektorat UBSI',
+    role: 'Kompetisi Nasional Perangkat Lunak',
     img: '/documentation/juara-1-bootcamp-penyerahan-piala.jpg',
   },
   {
-    rating: '5.0',
-    quote:
-      '“Penyampaian materi Framework Laravel & praktik coding kepada siswa jurusan Rekayasa Perangkat Lunak sangat jelas, interaktif, dan mudah dipahami.”',
-    name: 'Jurusan RPL',
-    role: 'SMK Muhammadiyah 15 Jakarta',
-    img: '/documentation/smk-muhammadiyah-pengajar-1.jpg',
+    badgeLabel: 'Lisensi Nasional',
+    badgeIcon: 'ri-shield-check-line',
+    tag: 'Sertifikasi BNSP',
+    title: 'Sertifikat Kompetensi Database Administrator',
+    description:
+      'Tersertifikasi Kompeten secara resmi oleh Badan Nasional Sertifikasi Profesi (No. Reg. DMS.1241.00936 2026) dalam pemodelan data relasional, penulisan kueri tingkat lanjut, dan manajemen basis data.',
+    issuer: 'Badan Nasional Sertifikasi Profesi',
+    role: 'LSP Universitas Bina Sarana Informatika',
+    img: '/certificates/serkom-database-administrator.png',
   },
   {
-    rating: '5.0',
-    quote:
-      '“Tersertifikasi Kompeten secara nasional pada skema Database Administrator oleh BNSP & LSP UBSI dengan penguasaan SQL dan perancangan basis data yang solid.”',
-    name: 'Asesor LSP & BNSP',
-    role: 'Sertifikasi Kompetensi Nasional',
-    img: '/certificates/serkom-database-administrator.png',
+    badgeLabel: 'Sistem Produksi',
+    badgeIcon: 'ri-building-line',
+    tag: 'Implementasi Nyata',
+    title: 'Monitoring Realisasi Biaya & QC BASTO',
+    description:
+      'Mengembangkan sistem web operasional perusahaan dan dashboard analitik Microsoft Power BI untuk pemantauan capaian proyek serta verifikasi mutu dokumen teknik secara real-time.',
+    issuer: 'PT PGAS Telekomunikasi Nusantara',
+    role: 'PGNCOM (Subholding Gas Pertamina)',
+    img: '/projects/pgncom-login.png',
+  },
+  {
+    badgeLabel: 'Instruktur Tamu',
+    badgeIcon: 'ri-presentation-line',
+    tag: 'Transfer Ilmu',
+    title: 'Pelatihan Framework Web Modern',
+    description:
+      'Membawakan materi arsitektur MVC, pengembangan web dengan Framework Laravel, integrasi basis data MySQL, dan alur kolaborasi Git standar industri bagi siswa jurusan RPL.',
+    issuer: 'SMK Muhammadiyah 15 Jakarta',
+    role: 'Jurusan Rekayasa Perangkat Lunak',
+    img: '/documentation/smk-muhammadiyah-pengajar-1.jpg',
   },
 ];
 
 export default function TestimonialsSection() {
-  // Duplicate cards for seamless infinite marquee (exact Bedimcode Bianca JS logic)
-  const marqueeItems = [...TESTIMONIALS, ...TESTIMONIALS];
+  // Gandakan item untuk seamless infinite horizontal marquee
+  const marqueeItems = [...MILESTONES, ...MILESTONES];
 
   return (
-    <section className="testimonials section">
+    <section className="testimonials section" id="achievements">
       <h2 className="section__title reveal-init">
-        <span>Apresiasi</span> & Pencapaian
+        <span>Validasi</span> &amp; Rekam Jejak
       </h2>
 
       <div className="testimonials__container container grid reveal-init">
@@ -60,33 +75,37 @@ export default function TestimonialsSection() {
           {marqueeItems.map((item, idx) => (
             <article key={idx} className="testimonials__card">
               <div>
-                <div className="testimonials__rating">
-                  <span className="testimonials__number">{item.rating}</span>
-
-                  <div className="testimonials__stars">
-                    <i className="ri-star-line" />
-                    <i className="ri-star-line" />
-                    <i className="ri-star-line" />
-                    <i className="ri-star-line" />
-                    <i className="ri-star-line" />
-                  </div>
+                <div className="flex items-center justify-between gap-2 mb-3 z-10 relative">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--first-color)]/10 text-[var(--first-color)] border border-[var(--first-color)]/30">
+                    <i className={`${item.badgeIcon} text-sm`} />
+                    <span>{item.badgeLabel}</span>
+                  </span>
+                  <span className="text-[11px] font-mono text-[var(--text-color)]/80">
+                    {item.tag}
+                  </span>
                 </div>
 
-                <blockquote className="testimonials__description">
-                  {item.quote}
-                </blockquote>
+                <h3 className="text-sm font-bold text-white mb-2 z-10 relative">
+                  {item.title}
+                </h3>
+
+                <p className="testimonials__description text-xs">
+                  {item.description}
+                </p>
               </div>
 
               <div className="testimonials__profile">
                 <img
                   src={item.img}
-                  alt={item.name}
+                  alt={item.issuer}
                   style={{ objectPosition: '50% 62%' }}
                   className="testimonials__img"
                 />
                 <div>
-                  <cite className="testimonials__name block">{item.name}</cite>
-                  <span className="text-xs text-[var(--text-color)]">
+                  <cite className="testimonials__name block text-xs">
+                    {item.issuer}
+                  </cite>
+                  <span className="text-[11px] text-[var(--text-color)]">
                     {item.role}
                   </span>
                 </div>
