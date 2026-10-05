@@ -10,36 +10,38 @@ interface HeroProps {
 const PROFESSIONS = [
   'Aplikasi Web Full Stack',
   'Aplikasi Mobile Flutter',
-  'Analitik Data Power BI',
-  'Arsitektur Basis Data',
+  'Arsitektur Basis Data BNSP',
+  'Dashboard Analitik Power BI',
+  'Sistem Backend & REST API',
+  'Solusi Rekayasa Perangkat Lunak',
 ];
 
 const CIRCULAR_TEXT = 'JELAJAHI • LEBIH • LANJUT • ';
 
 export default function Hero({ profile }: HeroProps) {
   const [wordIndex, setWordIndex] = useState(0);
-  const [currentText, setCurrentText] = useState('Aplikasi Web Full Stack');
+  const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     const currentWord = PROFESSIONS[wordIndex];
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
 
     if (!isDeleting) {
       if (currentText.length < currentWord.length) {
         timer = setTimeout(() => {
           setCurrentText(currentWord.slice(0, currentText.length + 1));
-        }, 80);
+        }, 75);
       } else {
         timer = setTimeout(() => {
           setIsDeleting(true);
-        }, 2200);
+        }, 2000);
       }
     } else {
       if (currentText.length > 0) {
         timer = setTimeout(() => {
           setCurrentText(currentWord.slice(0, currentText.length - 1));
-        }, 40);
+        }, 35);
       } else {
         setIsDeleting(false);
         setWordIndex((prev) => (prev + 1) % PROFESSIONS.length);
