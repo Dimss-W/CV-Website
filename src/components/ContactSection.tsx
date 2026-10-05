@@ -55,7 +55,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
         Hubungi <span>Saya</span>
       </h2>
 
-      <div className="contact__container container grid reveal-init">
+      <div className="contact__container container grid">
         {/* Kolom Kiri: Formulir Kontak Bedimcode Bianca */}
         <form onSubmit={handleSubmit} className="contact__form grid" id="contact-form">
           <div className="contact__group">

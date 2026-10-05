@@ -81,7 +81,7 @@ export default function ServicesSection() {
         <span>Layanan</span> Unggulan
       </h2>
 
-      <div className="services__container container grid reveal-init">
+      <div className="services__container container grid">
         {SERVICES.map((service, idx) => {
           const isOpen = openIndex === idx;
           return (

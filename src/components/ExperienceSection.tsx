@@ -37,7 +37,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
         Pengalaman <span>Profesional</span>
       </h2>
 
-      <div className="container grid max-w-4xl mx-auto gap-6 reveal-init">
+      <div className="container grid max-w-4xl mx-auto gap-6">
         {experiences.map((item, index) => {
           const num = String(index + 1).padStart(2, '0');
           const hasImages = Boolean(item.images && item.images.length > 0);

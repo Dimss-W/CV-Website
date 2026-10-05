@@ -174,7 +174,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
       </h2>
 
       {/* Filter Kategori Interaktif */}
-      <div className="container flex flex-wrap items-center justify-center gap-2 mb-8 reveal-init">
+      <div className="container flex flex-wrap items-center justify-center gap-2 mb-8">
         {categories.map((cat) => (
           <button
             key={cat.id}
@@ -195,7 +195,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
         ))}
       </div>
 
-      <div className="work__container container reveal-init">
+      <div className="work__container container">
         {/* Mobile: Swipeable Carousel | Web/Desktop (md+): 2 & 3 Column Equal-Size Grid */}
         <div
           ref={trackRef}

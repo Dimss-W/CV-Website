@@ -60,12 +60,12 @@ export default function SkillsSection({}: SkillsSectionProps) {
         Keahlian <span>Teknis</span>
       </h2>
 
-      <p className="skills__description reveal-init">
+      <p className="skills__description">
         Keahlian yang saya pelajari dan kembangkan secara konsisten melalui studi
         akademik Sistem Informasi UBSI, proyek nyata, dan kompetisi nasional.
       </p>
 
-      <div className="skills__container container grid reveal-init">
+      <div className="skills__container container grid">
         {BIANCA_SKILLS.map((group) => (
           <article key={group.title} className="skills__card">
             <div className="skills__profession">

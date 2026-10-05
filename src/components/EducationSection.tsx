@@ -14,7 +14,7 @@ export default function EducationSection({ educations }: EducationSectionProps) 
         Pendidikan <span>Tinggi</span>
       </h2>
 
-      <div className="container max-w-3xl mx-auto reveal-init">
+      <div className="container max-w-3xl mx-auto">
         {educations.map((edu, idx) => (
           <article
             key={edu.id || idx}

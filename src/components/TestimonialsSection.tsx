@@ -70,7 +70,7 @@ export default function TestimonialsSection() {
         <span>Validasi</span> &amp; Rekam Jejak
       </h2>
 
-      <div className="testimonials__container container grid reveal-init">
+      <div className="testimonials__container container grid">
         <div className="testimonials__content">
           {marqueeItems.map((item, idx) => (
             <article key={idx} className="testimonials__card">
