@@ -149,7 +149,7 @@ def build_clean_executive_cv(output_path):
         Paragraph("DIMAS WIJANARKO", name_style),
         Paragraph("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI", title_style),
         Paragraph(
-            "NIM: 19230181 &nbsp;|&nbsp; Jakarta, 21 April 2004 &nbsp;|&nbsp; Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat",
+            "Jakarta, 21 April 2004 &nbsp;|&nbsp; Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat",
             contact_style
         ),
         Spacer(1, 1),
@@ -190,7 +190,7 @@ def build_clean_executive_cv(output_path):
 
     summary_text = (
         "Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika (UBSI) dengan spesialisasi rekayasa perangkat lunak web dan mobile. "
-        "Tersertifikasi resmi <b>Database Administrator oleh BNSP</b> dan peraih <b>Juara 1 IT Bootcamp Software Development UBSI</b>. "
+        "Tersertifikasi resmi Database Administrator oleh BNSP dan peraih Juara 1 IT Bootcamp Software Development UBSI. "
         "Berpengalaman mengembangkan sistem operasional korporat internal PT PGAS Telekomunikasi Nusantara (PGNCOM) terintegrasi analitik Power BI, "
         "serta merilis sistem produksi nyata: Otokeep (manajemen armada dengan integrasi Google Gemini Vision AI OCR) dan FindIt (sistem informasi terpadu 27 kampus cabang UBSI)."
     )
@@ -341,7 +341,7 @@ def build_clean_executive_cv(output_path):
 
     edu_table_data = [
         [
-            Paragraph("<b>Universitas Bina Sarana Informatika (UBSI)</b> — S1 Sistem Informasi (NIM: 19230181)", item_title_style),
+            Paragraph("<b>Universitas Bina Sarana Informatika (UBSI)</b> — S1 Sistem Informasi", item_title_style),
             Paragraph("2023 – Sekarang (Aktif)", item_date_style),
         ],
         [
