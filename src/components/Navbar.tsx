@@ -17,11 +17,12 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
       const sections = [
         'home',
+        'about',
         'work',
-        'service',
         'skills',
         'experience',
         'certificates',
+        'education',
         'contact',
       ];
       const scrollPos = window.scrollY + 260;
@@ -46,11 +47,12 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
   const navLinks = [
     { name: 'Beranda', id: 'home', href: '#home' },
-    { name: 'Karya', id: 'work', href: '#work' },
-    { name: 'Layanan', id: 'service', href: '#service' },
+    { name: 'Tentang', id: 'about', href: '#about' },
+    { name: 'Proyek', id: 'work', href: '#work' },
     { name: 'Keahlian', id: 'skills', href: '#skills' },
     { name: 'Pengalaman', id: 'experience', href: '#experience' },
     { name: 'Sertifikat', id: 'certificates', href: '#certificates' },
+    { name: 'Pendidikan', id: 'education', href: '#education' },
   ];
 
   return (

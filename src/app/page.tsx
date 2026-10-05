@@ -3,12 +3,10 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import AboutSection from '@/components/AboutSection';
 import ProjectsSection from '@/components/ProjectsSection';
-import ServicesSection from '@/components/ServicesSection';
 import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import CertificatesSection from '@/components/CertificatesSection';
 import EducationSection from '@/components/EducationSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import ScrollObserver from '@/components/ScrollObserver';
@@ -50,11 +48,8 @@ export default async function HomePage() {
         {/*==================== ABOUT SECTION ====================*/}
         <AboutSection profile={profile} />
 
-        {/*==================== WORK SECTION ====================*/}
+        {/*==================== WORK / PROJECTS SECTION ====================*/}
         <ProjectsSection projects={projects} />
-
-        {/*==================== SERVICES SECTION ====================*/}
-        <ServicesSection />
 
         {/*==================== SKILLS SECTION ====================*/}
         <SkillsSection skills={skills} />
@@ -67,9 +62,6 @@ export default async function HomePage() {
 
         {/*==================== ACADEMIC BACKGROUND ====================*/}
         <EducationSection educations={educations} />
-
-        {/*==================== TESTIMONIALS / HIGHLIGHTS MARQUEE ====================*/}
-        <TestimonialsSection />
 
         {/*==================== CONTACT SECTION ====================*/}
         <ContactSection profile={profile} />

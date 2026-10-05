@@ -274,36 +274,12 @@ export const defaultCertificates: Certificate[] = [
 
 export const defaultEducations: Education[] = [
   {
-    degree: 'S1 Sistem Informasi (NIM: 19230181)',
+    degree: 'S1 Sistem Informasi',
     institution: 'Universitas Bina Sarana Informatika (UBSI)',
     start_year: '2023',
     end_year: 'Sekarang (Mahasiswa Aktif)',
-    description: 'Menempuh pendidikan sarjana Sistem Informasi dengan fokus pada Analisis & Desain Sistem, Rekayasa Perangkat Lunak, Arsitektur Basis Data Relasional, serta Pengembangan Aplikasi Web & Mobile berskala industri.',
+    description: 'Menempuh pendidikan sarjana Sistem Informasi dengan fokus spesialisasi pada Rekayasa Perangkat Lunak Web & Mobile, Arsitektur Basis Data Relasional, serta Analisis & Desain Sistem Terintegrasi.',
     display_order: 1,
-  },
-  {
-    degree: 'Sekolah Menengah Kejuruan (Animasi)',
-    institution: 'SMK Negeri 31 Jakarta',
-    start_year: '2019',
-    end_year: '2022',
-    description: 'Jurusan Animasi dengan pendalaman komposisi visual, aset grafis, dan disiplin perancangan tata letak antarmuka.',
-    display_order: 2,
-  },
-  {
-    degree: 'Sekolah Menengah Pertama',
-    institution: 'SMP Negeri 156 Jakarta',
-    start_year: '2016',
-    end_year: '2019',
-    description: 'Pendidikan Sekolah Menengah Pertama di Johar Baru, Jakarta Pusat.',
-    display_order: 3,
-  },
-  {
-    degree: 'Sekolah Dasar',
-    institution: 'SD Negeri 17 Pagi Jakarta',
-    start_year: '2010',
-    end_year: '2016',
-    description: 'Pendidikan Sekolah Dasar di Johar Baru, Jakarta Pusat.',
-    display_order: 4,
   },
 ];
 

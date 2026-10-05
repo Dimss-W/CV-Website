@@ -1,46 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Profile } from '@/types';
 
 interface HeroProps {
   profile: Profile;
 }
 
-const PROFESSIONS = [
-  'Aplikasi Web Full Stack',
-  'Aplikasi Mobile Flutter',
-  'Analitik Data Power BI',
-  'Arsitektur Basis Data',
-];
-
 const CIRCULAR_TEXT = 'JELAJAHI • LEBIH • LANJUT • ';
 
 export default function Hero({ profile }: HeroProps) {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [currentText, setCurrentText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const fullText = PROFESSIONS[roleIndex];
-    const typeSpeed = isDeleting ? 35 : 65;
-
-    const timer = setTimeout(() => {
-      if (!isDeleting && currentText === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && currentText === '') {
-        setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % PROFESSIONS.length);
-      } else {
-        setCurrentText(
-          fullText.substring(0, currentText.length + (isDeleting ? -1 : 1))
-        );
-      }
-    }, typeSpeed);
-
-    return () => clearTimeout(timer);
-  }, [currentText, isDeleting, roleIndex]);
-
   const letters = CIRCULAR_TEXT.split('');
   const angleStep = 360 / letters.length;
 
@@ -48,21 +17,26 @@ export default function Hero({ profile }: HeroProps) {
     <section className="home section" id="home">
       <div className="home__container container grid">
         <div className="home__data reveal-init">
-          <h3 className="home__subtitle">
-            Halo! Saya {profile.full_name} —{' '}
-            <span className="whitespace-nowrap">Jakarta, Indonesia</span>
+          {/* Status Badge Profesional */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs text-slate-300 mb-4 backdrop-blur-md shadow-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="font-medium tracking-wide">Terbuka untuk Peluang Kerja &amp; Rekayasa Sistem</span>
+          </div>
+
+          <h3 className="text-xs sm:text-sm font-semibold tracking-wider text-[var(--first-color)] uppercase mb-2">
+            Dimas Wijanarko • Jakarta, Indonesia
           </h3>
 
-          <h1 className="home__title">
-            <span className="home__title-top">Pengembang Sistem &amp;</span>
-            <span className="home__title-typed" id="home-typed">
-              <span>{currentText}</span>
-              <span className="home__cursor" aria-hidden="true">|</span>
-            </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.18] mb-3">
+            Full Stack Web &amp; Mobile <br />
+            <span className="text-[var(--first-color)]">Software Engineer</span>
           </h1>
 
-          <p className="home__description">
-            Mahasiswa Sistem Informasi UBSI yang merancang dan membangun aplikasi Web, Mobile, serta Dashboard Analitik yang modern dan solutif.
+          <p className="home__description max-w-xl text-slate-300 text-sm sm:text-base leading-relaxed">
+            Mahasiswa Sistem Informasi UBSI bersertifikasi BNSP Database Administrator. Berfokus pada perancangan arsitektur backend performa tinggi (Laravel, REST API, SQL), aplikasi mobile lintas platform (Flutter), serta integrasi visualisasi data analitik korporat (Power BI &amp; DAX).
           </p>
 
           <div className="flex flex-wrap items-center gap-3 mt-6">
@@ -81,8 +55,17 @@ export default function Hero({ profile }: HeroProps) {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/20 hover:border-[var(--first-color)] text-xs md:text-sm font-semibold text-white hover:text-[var(--first-color)] transition-colors shadow-sm"
             >
               <i className="ri-file-download-line text-sm" />
-              <span>Unduh CV (PDF)</span>
+              <span>Unduh CV Resmi (PDF)</span>
             </a>
+          </div>
+
+          {/* Core Technical Highlights */}
+          <div className="flex flex-wrap items-center gap-2 mt-6 pt-4 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
+            <span className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-slate-300"># Laravel &amp; PHP</span>
+            <span className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-slate-300"># Flutter &amp; Dart</span>
+            <span className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-slate-300"># Relational SQL</span>
+            <span className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-slate-300"># Microsoft Power BI</span>
+            <span className="px-2 py-0.5 rounded bg-slate-900/90 border border-slate-800 text-slate-300"># Gemini Vision AI</span>
           </div>
         </div>
 
