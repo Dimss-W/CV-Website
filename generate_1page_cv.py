@@ -1,6 +1,5 @@
 import os
 import sys
-from PIL import Image as PILImage
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
@@ -9,29 +8,29 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, Image
 )
 
-def build_perfect_1page_cv(output_path):
+def build_refined_1page_cv(output_path):
     # A4: 595.27 x 841.89 pt.
-    # Margins: 32pt left/right (0.44 in), 26pt top/bottom
-    # Usable width: 595.27 - 64 = 531.27 pt.
-    usable_w = 531.27
+    # Margins: 34pt left/right (0.47 in), 24pt top/bottom
+    # Usable width: 595.27 - 68 = 527.27 pt.
+    usable_w = 527.27
     
     doc = SimpleDocTemplate(
         output_path,
         pagesize=A4,
-        leftMargin=32,
-        rightMargin=32,
-        topMargin=26,
-        bottomMargin=26,
+        leftMargin=34,
+        rightMargin=34,
+        topMargin=24,
+        bottomMargin=24,
         title="Curriculum Vitae - Dimas Wijanarko",
         author="Dimas Wijanarko",
-        subject="CV ATS 1 Halaman Rata & Presisi - Dimas Wijanarko",
+        subject="CV ATS 1 Halaman Rapi - Dimas Wijanarko",
     )
 
     styles = getSampleStyleSheet()
 
     # Premium Corporate Color Palette
     c_primary = colors.HexColor("#0f172a")     # Deep Obsidian Slate
-    c_accent = colors.HexColor("#0284c7")      # Professional Tech Azure
+    c_accent = colors.HexColor("#0369a1")      # Professional Tech Azure
     c_body = colors.HexColor("#1e293b")        # Slate 800
     c_muted = colors.HexColor("#475569")       # Slate 600
     c_border = colors.HexColor("#cbd5e1")      # Slate 300
@@ -142,16 +141,15 @@ def build_perfect_1page_cv(output_path):
     story = []
 
     # ==========================================
-    # 1. HEADER: FOTO PASPOR FLUSH TOP & ALIGNED
+    # 1. HEADER: FOTO PASPOR FLUSH TOP & BIODATA PRESISI
     # ==========================================
     passport_img_path = r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\dimas-profile-passport.jpg"
     
-    # 57pt x 76pt (clean 3:4 passport ratio)
-    photo_w = 57
-    photo_h = 76
+    photo_w = 56
+    photo_h = 74.67
     img_element = Image(passport_img_path, width=photo_w, height=photo_h)
 
-    photo_col_w = 68
+    photo_col_w = 66
     meta_col_w = usable_w - photo_col_w
     header_text_block = [
         Paragraph("DIMAS WIJANARKO", name_style),
@@ -207,26 +205,30 @@ def build_perfect_1page_cv(output_path):
     story.append(Spacer(1, 1.5))
 
     # ==========================================
-    # 3. KEAHLIAN TEKNIS & KOMPETENSI
+    # 3. KEAHLIAN TEKNIS & KOMPETENSI (MARGIN RATA & RAPI)
     # ==========================================
     for elem in section_heading("Keahlian Teknis & Kompetensi"):
         story.append(elem)
 
+    # 3-column table: Label (100pt), Colon (8pt), Content (usable_w - 108pt) -> Perfectly aligned!
     skills_data = [
         [
             Paragraph("<b>Bahasa & Framework</b>", item_title_style),
-            Paragraph(": PHP, Laravel, Dart, Flutter, TypeScript, JavaScript, React.js, Next.js, Tailwind CSS, HTML5, CSS3", body_style),
+            Paragraph(":", item_title_style),
+            Paragraph("PHP, Laravel, Dart, Flutter, TypeScript, JavaScript, React.js, Next.js, Tailwind CSS, HTML5, CSS3", body_style),
         ],
         [
             Paragraph("<b>Basis Data & Analitik</b>", item_title_style),
-            Paragraph(": MySQL, PostgreSQL, Supabase Cloud, Microsoft Power BI, Kalkulasi DAX, Optimasi Kueri SQL, Relasi ERD", body_style),
+            Paragraph(":", item_title_style),
+            Paragraph("MySQL, PostgreSQL, Supabase Cloud, Microsoft Power BI, Kalkulasi DAX, Optimasi Kueri SQL, Relasi ERD", body_style),
         ],
         [
             Paragraph("<b>Tools, AI & Arsitektur</b>", item_title_style),
-            Paragraph(": Git, GitHub, RESTful API, Arsitektur MVC, RBAC, Gemini Vision AI (OCR), Postman, Linux/Vercel Cloud", body_style),
+            Paragraph(":", item_title_style),
+            Paragraph("Git, GitHub, RESTful API, Arsitektur MVC, RBAC, Gemini Vision AI (OCR), Postman, Linux/Vercel Cloud", body_style),
         ],
     ]
-    t_skills = Table(skills_data, colWidths=[105, usable_w - 105])
+    t_skills = Table(skills_data, colWidths=[98, 8, usable_w - 106])
     t_skills.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('TOPPADDING', (0,0), (-1,-1), 0.5),
@@ -247,7 +249,7 @@ def build_perfect_1page_cv(output_path):
     exp1_t = Table([
         [Paragraph("<b>Web Developer & Data Analytics Intern</b> — PT PGAS Telekomunikasi Nusantara (PGNCOM)", item_title_style),
          Paragraph("Jan 2026 – Mar 2026", item_date_style)],
-    ], colWidths=[usable_w - 110, 110])
+    ], colWidths=[usable_w - 105, 105])
     exp1_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(exp1_t)
     story.append(Paragraph("• Mengembangkan sistem web internal <i>Monitoring Realisasi Biaya & QC BASTO</i> berbasis Laravel dan MySQL untuk mengotomasi alur validasi dokumen Berita Acara Serah Terima Operasional (BASTO) dan kepatuhan anggaran proyek.", bullet_style))
@@ -259,7 +261,7 @@ def build_perfect_1page_cv(output_path):
     exp2_t = Table([
         [Paragraph("<b>Pengajar Tamu & Instruktur Rekayasa Perangkat Lunak (RPL)</b> — SMK Muhammadiyah 15 Jakarta", item_title_style),
          Paragraph("2025", item_date_style)],
-    ], colWidths=[usable_w - 110, 110])
+    ], colWidths=[usable_w - 105, 105])
     exp2_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(exp2_t)
     story.append(Paragraph("• Menjadi instruktur teknis tamu kurikulum web modern: pengenalan Framework Laravel, struktur MVC, dan administrasi database MySQL.", bullet_style))
@@ -270,59 +272,45 @@ def build_perfect_1page_cv(output_path):
     exp3_t = Table([
         [Paragraph("<b>Pengembang Perangkat Lunak Web & Mobile (Full Stack)</b> — Proyek Mandiri & Klien", item_title_style),
          Paragraph("2023 – Sekarang", item_date_style)],
-    ], colWidths=[usable_w - 110, 110])
+    ], colWidths=[usable_w - 105, 105])
     exp3_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(exp3_t)
     story.append(Paragraph("• Merancang dan membangun aplikasi mobile (Flutter & Dart) serta web berskala enterprise terintegrasi RESTful API terstruktur dan database relasional.", bullet_style))
     story.append(Spacer(1, 1.5))
 
     # ==========================================
-    # 5. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN
+    # 5. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN (TANPA TAHUN & TANPA LINK GITHUB/VERCEL DI JUDUL, KASTRIX & PGNCOM DIPISAH)
     # ==========================================
     for elem in section_heading("Proyek Rekayasa Perangkat Lunak Unggulan"):
         story.append(elem)
 
     # Proj 1: Otokeep
-    p1_t = Table([
-        [Paragraph("<b>Otokeep – Platform Servis Kendaraan Cerdas & Pemindai AI OCR</b>", item_title_style),
-         Paragraph("<a href='https://otokeep-rho.vercel.app/' color='#0284c7'><u>otokeep-rho.vercel.app</u></a> &nbsp;|&nbsp; <a href='https://github.com/Dimss-W/Otokeep.git' color='#0284c7'><u>GitHub</u></a>", item_date_style)],
-    ], colWidths=[330, usable_w - 330])
-    p1_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
-    story.append(p1_t)
+    story.append(Paragraph("<b>Otokeep – Platform Servis Kendaraan Cerdas & Pemindai AI OCR</b>", item_title_style))
     story.append(Paragraph("• Platform pemantauan servis kendaraan dengan integrasi Google Gemini Vision API OCR untuk deteksi otomatis angka odometer dari foto speedometer secara instan, dilengkapi kompresi citra cepat, penjadwalan servis berkala, dan pengingat pajak STNK. <i>(Stack: Laravel, Tailwind CSS, MySQL, Gemini AI, REST API)</i>.", bullet_style))
-    story.append(Spacer(1, 1.2))
+    story.append(Spacer(1, 1))
 
     # Proj 2: FindIt
-    p2_t = Table([
-        [Paragraph("<b>FindIt – Sistem Informasi Barang Hilang & Ditemukan 27 Kampus UBSI</b>", item_title_style),
-         Paragraph("<a href='https://findit-git-main-dim-6414.vercel.app/' color='#0284c7'><u>findit-ubsi.vercel.app</u></a> &nbsp;|&nbsp; <a href='https://github.com/Dimss-W/FindIt.git' color='#0284c7'><u>GitHub</u></a>", item_date_style)],
-    ], colWidths=[330, usable_w - 330])
-    p2_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
-    story.append(p2_t)
+    story.append(Paragraph("<b>FindIt – Sistem Informasi Barang Hilang & Ditemukan 27 Kampus UBSI</b>", item_title_style))
     story.append(Paragraph("• Sistem informasi penemuan dan kehilangan barang terpadu untuk 27 kampus cabang UBSI se-Indonesia dengan partisi data multi-cabang tanpa benturan ID, pencatatan loker brankas penitipan, dan validasi klaim NIM mahasiswa. <i>(Stack: Laravel, Blade, MySQL, REST API)</i>.", bullet_style))
-    story.append(Spacer(1, 1.2))
+    story.append(Spacer(1, 1))
 
-    # Proj 3: CalTrack & Kastrix
-    p3_t = Table([
-        [Paragraph("<b>CalTrack – Aplikasi Mobile Kesehatan & Kalkulator Nutrisi IMT</b>", item_title_style),
-         Paragraph("2024 &nbsp;|&nbsp; <a href='https://github.com/Dimss-W' color='#0284c7'><u>GitHub Profile</u></a>", item_date_style)],
-    ], colWidths=[330, usable_w - 330])
-    p3_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
-    story.append(p3_t)
+    # Proj 3: CalTrack
+    story.append(Paragraph("<b>CalTrack – Aplikasi Mobile Kesehatan & Kalkulator Nutrisi IMT</b>", item_title_style))
     story.append(Paragraph("• Aplikasi mobile Android cross-platform dengan Flutter & MVVM untuk kalkulasi IMT/BMI real-time, panduan nutrisi harian, dan integrasi REST API Laravel. <i>(Stack: Flutter, Dart, Laravel REST API, MySQL)</i>.", bullet_style))
-    story.append(Spacer(1, 1.2))
+    story.append(Spacer(1, 1))
 
-    p4_t = Table([
-        [Paragraph("<b>Kastrix POS & Dashboard Monitoring Realisasi Biaya PGNCOM</b>", item_title_style),
-         Paragraph("2024 – 2026 &nbsp;|&nbsp; <a href='https://github.com/Dimss-W' color='#0284c7'><u>GitHub Profile</u></a>", item_date_style)],
-    ], colWidths=[330, usable_w - 330])
-    p4_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
-    story.append(p4_t)
-    story.append(Paragraph("• Mengembangkan sistem kasir (POS) multi-gerai dengan peran Super Admin & Kasir, serta integrasi dashboard analitik Power BI & formula DAX untuk evaluasi anggaran operasional PGNCOM. <i>(Stack: Laravel, React, Power BI, DAX, MySQL)</i>.", bullet_style))
+    # Proj 4: Kastrix POS (DIPISAH)
+    story.append(Paragraph("<b>Kastrix – Platform Kasir Pintar (POS) & Manajemen Multi-Gerai</b>", item_title_style))
+    story.append(Paragraph("• Membangun sistem Point of Sale (POS) multi-gerai dengan pembagian peran Super Admin dan Kasir, katalog menu dinamis, pencatatan transaksi kasir kilat, serta visualisasi rekap laba kotor real-time. <i>(Stack: Laravel, React, Tailwind CSS, MySQL, REST API)</i>.", bullet_style))
+    story.append(Spacer(1, 1))
+
+    # Proj 5: Sistem Monitoring Realisasi Biaya & Dashboard Power BI PGNCOM (DIPISAH)
+    story.append(Paragraph("<b>Sistem Monitoring Realisasi Biaya & Dashboard Power BI (PGNCOM)</b>", item_title_style))
+    story.append(Paragraph("• Mengembangkan sistem web internal monitoring anggaran dan mengintegrasikan basis data transaksi operasional ke dashboard analitik Microsoft Power BI interaktif menggunakan formula DAX untuk evaluasi deviasi proyek. <i>(Stack: Laravel, Microsoft Power BI, DAX, MySQL)</i>.", bullet_style))
     story.append(Spacer(1, 1.5))
 
     # ==========================================
-    # 6. SERTIFIKASI KOMPETENSI & PENGHARGAAN RESMI
+    # 6. SERTIFIKASI KOMPETENSI & PENGHARGAAN RESMI (TANPA NO REG & NO SERTIFIKAT)
     # ==========================================
     for elem in section_heading("Sertifikasi Kompetensi & Penghargaan Resmi"):
         story.append(elem)
@@ -333,7 +321,7 @@ def build_perfect_1page_cv(output_path):
             Paragraph("Mar 2026 – 2029", item_date_style)
         ],
         [
-            Paragraph("• No. Reg. DMS.1241.00936 2026 / Sertifikat No. 63120 2521 6 0000936 2026. Dinyatakan Kompeten dalam perancangan database relasional, optimasi kueri SQL, dan keamanan integritas data.", bullet_style),
+            Paragraph("• Dinyatakan Kompeten secara nasional dalam unit kompetensi perancangan basis data relasional, penulisan kueri SQL tingkat lanjut, pengoptimalan indeks, dan kebijakan keamanan data.", bullet_style),
             Paragraph("", item_date_style)
         ],
         [
@@ -344,7 +332,7 @@ def build_perfect_1page_cv(output_path):
             Paragraph("• Meraih predikat JUARA 1 tingkat nasional mengungguli perwakilan mahasiswa dari seluruh kampus cabang UBSI se-Indonesia atas keunggulan arsitektur sistem dan clean code.", bullet_style),
             Paragraph("", item_date_style)
         ],
-    ], colWidths=[420, usable_w - 420])
+    ], colWidths=[usable_w - 95, 95])
     cert_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('PADDING', (0,0), (-1,-1), 0),
@@ -378,7 +366,7 @@ def build_perfect_1page_cv(output_path):
             Paragraph("2010 – 2016", item_date_style),
         ],
     ]
-    t_edu = Table(edu_table_data, colWidths=[usable_w - 110, 110])
+    t_edu = Table(edu_table_data, colWidths=[usable_w - 105, 105])
     t_edu.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
         ('TOPPADDING', (0,0), (-1,-1), 0.5),
@@ -398,7 +386,7 @@ def build_perfect_1page_cv(output_path):
     story.append(footer_p)
 
     doc.build(story)
-    print(f"Perfect 1-page CV generated successfully at: {output_path}")
+    print(f"Refined 1-page CV generated successfully at: {output_path}")
 
 if __name__ == "__main__":
     out_dir = r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public"
@@ -407,5 +395,5 @@ if __name__ == "__main__":
     cv_ats_path = os.path.join(out_dir, "CV_Dimas_Wijanarko_ATS.pdf")
     cv_default_path = os.path.join(out_dir, "cv-dimas-wijanarko.pdf")
     
-    build_perfect_1page_cv(cv_ats_path)
-    build_perfect_1page_cv(cv_default_path)
+    build_refined_1page_cv(cv_ats_path)
+    build_refined_1page_cv(cv_default_path)
