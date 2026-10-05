@@ -10,7 +10,7 @@ export const defaultProfile: Profile = {
   phone: '085794770824',
   location: 'Jakarta, Indonesia',
   avatar_url: '/dimas-profile.jpg',
-  resume_url: '#contact',
+  resume_url: '/CV_Dimas_Wijanarko_ATS.pdf',
   github_url: 'https://github.com/Dimss-W',
   linkedin_url: 'https://linkedin.com/in/dimas-wijanarko',
   instagram_url: 'https://instagram.com/dimsswijanark_',
@@ -284,11 +284,36 @@ export const defaultCertificates: Certificate[] = [
 
 export const defaultEducations: Education[] = [
   {
-    degree: 'S1 Sistem Informasi (S.Kom)',
+    degree: 'S1 Sistem Informasi (NIM: 19230181)',
     institution: 'Universitas Bina Sarana Informatika (UBSI)',
     start_year: '2023',
     end_year: 'Sekarang (Mahasiswa Aktif)',
-    description: 'Menempuh pendidikan program studi Sistem Informasi (Fakultas Teknik & Informatika) dengan fokus pada Analisis & Desain Sistem, Rekayasa Perangkat Lunak, Arsitektur Basis Data Relasional, serta Pengembangan Aplikasi Web & Mobile berskala industri.',
+    description: 'Menempuh pendidikan sarjana Sistem Informasi dengan fokus pada Analisis & Desain Sistem, Rekayasa Perangkat Lunak, Arsitektur Basis Data Relasional, serta Pengembangan Aplikasi Web & Mobile berskala industri.',
+    display_order: 1,
+  },
+  {
+    degree: 'Sekolah Menengah Kejuruan (Animasi)',
+    institution: 'SMK Negeri 31 Jakarta',
+    start_year: '2019',
+    end_year: '2022',
+    description: 'Jurusan Animasi dengan pendalaman komposisi visual, aset grafis, dan disiplin perancangan tata letak antarmuka.',
+    display_order: 2,
+  },
+  {
+    degree: 'Sekolah Menengah Pertama',
+    institution: 'SMP Negeri 156 Jakarta',
+    start_year: '2016',
+    end_year: '2019',
+    description: 'Pendidikan Sekolah Menengah Pertama di Johar Baru, Jakarta Pusat.',
+    display_order: 3,
+  },
+  {
+    degree: 'Sekolah Dasar',
+    institution: 'SD Negeri 17 Pagi Jakarta',
+    start_year: '2010',
+    end_year: '2016',
+    description: 'Pendidikan Sekolah Dasar di Johar Baru, Jakarta Pusat.',
+    display_order: 4,
   },
 ];
 
