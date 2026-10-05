@@ -52,8 +52,21 @@ export default function ScrollObserver() {
       hasPointerMoved = true;
       rawMouseX = e.clientX;
       rawMouseY = e.clientY;
+      // Responsif instan: jika mouse digerakkan, kurangi mode scroll agar kursor langsung responsif
+      scrollBlend = Math.max(0, scrollBlend - 0.2);
+      isScrolling = false;
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches && e.touches.length > 0) {
+        hasPointerMoved = true;
+        rawMouseX = e.touches[0].clientX;
+        rawMouseY = e.touches[0].clientY;
+        scrollBlend = Math.max(0, scrollBlend - 0.2);
+        isScrolling = false;
+      }
     };
 
     const handleScroll = () => {
@@ -68,29 +81,30 @@ export default function ScrollObserver() {
         setShowScrollUp(shouldShow);
       }
 
-      // Saat user scroll, aktifkan mode otomatis pindah ke tengah
+      // Saat user scroll, aktifkan mode otomatis pindah ke tengah secara responsif
       isScrolling = true;
+      scrollBlend = Math.min(1.0, scrollBlend + 0.35);
       if (scrollTimeout) clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         isScrolling = false;
-      }, 420);
+      }, 220);
     };
 
     const animateCursor = (now: number) => {
       const dt = Math.min((now - lastTime) / 16.667, 2.5);
       lastTime = now;
 
-      // Interpolasi scrollY super-halus
+      // Interpolasi scrollY responsif & mulus
       rawScrollY = window.scrollY;
-      smoothScrollY += (rawScrollY - smoothScrollY) * (0.075 * dt);
+      smoothScrollY += (rawScrollY - smoothScrollY) * (0.12 * dt);
 
-      // Transisi ultra-smooth: saat scroll pindah ke tengah (blend -> 1), saat kursor diam/selesai scroll kembali ke kursor (blend -> 0)
+      // Transisi responsif & mulus ke tengah saat scroll dan kembali ke mouse
       const targetBlend = isScrolling ? 1.0 : 0.0;
-      const blendRate = isScrolling ? 0.07 : 0.035;
+      const blendRate = isScrolling ? 0.22 : 0.08;
       scrollBlend += (targetBlend - scrollBlend) * (blendRate * dt);
 
       // Gelombang matematis anggun di area tengah layar (Center Undulating Wave)
-      const scrollPhase = smoothScrollY * 0.003;
+      const scrollPhase = smoothScrollY * 0.0035;
       const centerWaveX =
         winW * 0.5 +
         Math.sin(scrollPhase) * (winW * 0.22) +
@@ -104,45 +118,36 @@ export default function ScrollObserver() {
       let targetY: number;
 
       if (!hasPointerMoved || isMobileView()) {
-        // Mode Otonom / Mobile: Selalu bergerak mengalir di tengah layar
-        targetX =
-          centerWaveX +
-          Math.sin(now * 0.001) * 14;
-        targetY =
-          centerWaveY +
-          Math.cos(now * 0.0014) * 10;
+        targetX = centerWaveX + Math.sin(now * 0.0012) * 14;
+        targetY = centerWaveY + Math.cos(now * 0.0016) * 10;
       } else {
-        // Mode Transisi Halus (Smooth Hermite Ease antara Kursor Mouse & Tengah Layar)
         const easeFactor = scrollBlend * scrollBlend * (3 - 2 * scrollBlend);
         targetX = (1 - easeFactor) * rawMouseX + easeFactor * centerWaveX;
         targetY = (1 - easeFactor) * rawMouseY + easeFactor * centerWaveY;
       }
 
-      // Pastikan tetap berada dalam batas layar yang nyaman
       targetX = Math.max(16, Math.min(winW - 16, targetX));
       targetY = Math.max(16, Math.min(winH - 16, targetY));
 
-      // Damping super-halus bebas patah-patah (Buttery Smooth Damping)
-      const leadFactor = 1 - Math.pow(1 - 0.12, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.065, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.035, dt);
+      // Damping gesit, responsif, dan sangat halus (Snappy & Responsive)
+      const leadFactor = 1 - Math.pow(1 - 0.26, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.13, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.065, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
 
-      // Bayangan 1 (Trail) membuntuti inti secara halus
       trailX += (currentX - trailX) * trailFactor;
       trailY += (currentY - trailY) * trailFactor;
 
-      // Bayangan 2 (Aura Pendaran) membuntuti bayangan 1 dengan lag lebih panjang
       auraX += (trailX - auraX) * auraFactor;
       auraY += (trailY - auraY) * auraFactor;
 
-      scrollVelocity *= 0.9;
+      scrollVelocity *= 0.88;
       const dx = targetX - currentX;
       const dy = targetY - currentY;
       const instantSpeed = Math.hypot(dx, dy);
-      smoothSpeed += (instantSpeed - smoothSpeed) * (0.09 * dt);
+      smoothSpeed += (instantSpeed - smoothSpeed) * (0.16 * dt);
 
       const mobile = isMobileView();
       const halfCursor = mobile ? 11 : 16;
@@ -186,7 +191,7 @@ export default function ScrollObserver() {
         ).toFixed(2)}px, ${(auraY - halfAura).toFixed(2)}px, 0) scale(${auraScale.toFixed(2)})`;
       }
 
-      // Ambient Spotlight Halus di Latar Belakang
+      // Ambient Spotlight Responsif di Latar Belakang
       if (spotlightRef.current) {
         spotlightRef.current.style.background = `radial-gradient(620px circle at ${currentX.toFixed(
           1
@@ -199,6 +204,7 @@ export default function ScrollObserver() {
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
     rafId = requestAnimationFrame(animateCursor);
 
@@ -211,7 +217,7 @@ export default function ScrollObserver() {
       document.body.appendChild(ripple);
       setTimeout(() => {
         ripple.remove();
-      }, 550);
+      }, 500);
     };
 
     window.addEventListener('click', handleClick, { passive: true });
@@ -261,7 +267,7 @@ export default function ScrollObserver() {
 
     interactiveCards.forEach((card) => focusObserver.observe(card));
 
-    // Smooth ScrollReveal Observer (Tanpa Pernah Menyembunyikan Bagian Konten)
+    // Smooth ScrollReveal Observer Responsif
     const revealTargetsSelector = [
       '.reveal-init',
       '.section__title',
@@ -286,7 +292,7 @@ export default function ScrollObserver() {
         el.classList.add('reveal-init');
       }
       const siblingIndex = index % 3;
-      el.style.transitionDelay = `${siblingIndex * 60}ms`;
+      el.style.transitionDelay = `${siblingIndex * 40}ms`;
 
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight * 1.15 && rect.bottom > -50) {
@@ -310,6 +316,7 @@ export default function ScrollObserver() {
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('click', handleClick);
       document.removeEventListener('mouseover', handleMouseOver);

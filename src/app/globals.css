@@ -1857,15 +1857,15 @@ textarea.contact__input {
   bottom: 2.5rem;
 }
 
-/*=============== SMOOTH SCROLL REVEAL ===============*/
+/*=============== RESPONSIVE SMOOTH SCROLL REVEAL ===============*/
 .reveal-init {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
   transition:
-    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.45s ease,
-    border-color 0.45s ease;
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
   will-change: opacity, transform;
 }
 

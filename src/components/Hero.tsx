@@ -31,20 +31,22 @@ export default function Hero({ profile }: HeroProps) {
       if (currentText.length < currentWord.length) {
         timer = setTimeout(() => {
           setCurrentText(currentWord.slice(0, currentText.length + 1));
-        }, 75);
+        }, 45);
       } else {
         timer = setTimeout(() => {
           setIsDeleting(true);
-        }, 2000);
+        }, 1400);
       }
     } else {
       if (currentText.length > 0) {
         timer = setTimeout(() => {
           setCurrentText(currentWord.slice(0, currentText.length - 1));
-        }, 35);
+        }, 22);
       } else {
-        setIsDeleting(false);
-        setWordIndex((prev) => (prev + 1) % PROFESSIONS.length);
+        timer = setTimeout(() => {
+          setIsDeleting(false);
+          setWordIndex((prev) => (prev + 1) % PROFESSIONS.length);
+        }, 200);
       }
     }
 
