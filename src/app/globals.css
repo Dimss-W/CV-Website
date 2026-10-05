@@ -343,6 +343,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
 }
 
 .nav__logo {
@@ -351,6 +352,8 @@ img {
   font-weight: var(--font-semi-bold);
   font-size: 1.35rem;
   transition: color 0.4s;
+  flex-shrink: 0;
+  margin-right: 1.5rem;
 }
 
 .nav__logo:hover {
@@ -409,7 +412,8 @@ img {
     display: flex;
     flex-direction: row;
     align-items: center;
-    column-gap: clamp(1.35rem, 2.4vw, 2.75rem);
+    column-gap: clamp(0.75rem, 1.25vw, 1.4rem);
+    flex-shrink: 0;
   }
 }
 
@@ -1755,11 +1759,9 @@ textarea.contact__input {
 
 /*=============== SCROLL REVEAL & MOBILE SCROLL INTERACTIVITY ===============*/
 .reveal-init {
-  opacity: 0;
-  transform: translateY(38px) scale(0.97);
+  opacity: 1;
+  transform: none;
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s ease,
     border-color 0.45s ease;
 }

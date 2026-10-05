@@ -16,7 +16,7 @@ export default function Hero({ profile }: HeroProps) {
   return (
     <section className="home section" id="home">
       <div className="home__container container grid">
-        <div className="home__data reveal-init">
+        <div className="home__data">
           {/* Status Badge Profesional */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs text-slate-300 mb-4 backdrop-blur-md shadow-sm">
             <span className="relative flex h-2 w-2">
@@ -69,7 +69,7 @@ export default function Hero({ profile }: HeroProps) {
           </div>
         </div>
 
-        <div className="home__images reveal-init">
+        <div className="home__images">
           <div className="home__box-1" />
           <div className="home__box-2" />
           <div className="home__box-3" />

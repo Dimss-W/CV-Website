@@ -46,7 +46,6 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
   }, []);
 
   const navLinks = [
-    { name: 'Beranda', id: 'home', href: '#home' },
     { name: 'Tentang', id: 'about', href: '#about' },
     { name: 'Proyek', id: 'work', href: '#work' },
     { name: 'Keahlian', id: 'skills', href: '#skills' },
@@ -58,8 +57,11 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
   return (
     <header className={`header ${scrolled ? 'scroll-header' : ''}`} id="header">
       <nav className="nav container">
-        <a href="#home" className="nav__logo">
-          Dimas
+        <a href="#home" className="nav__logo flex items-center gap-2.5">
+          <span className="w-8 h-8 rounded-lg bg-[var(--first-color)]/15 border border-[var(--first-color)]/30 flex items-center justify-center text-[var(--first-color)] text-xs font-bold font-mono shrink-0">
+            DW
+          </span>
+          <span className="text-white font-bold tracking-tight">Dimas</span>
         </a>
 
         <div
