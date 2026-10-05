@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Syne:wght@400..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -27,7 +27,7 @@
 
   /*========== Font and typography (Mobile Default) ==========*/
   --body-font: "Poppins", sans-serif;
-  --second-font: "Syne", sans-serif;
+  --second-font: "Plus Jakarta Sans", sans-serif;
   --biggest-font-size: clamp(1.55rem, 5.5vw, 2.1rem);
   --bigger-font-size: clamp(1.5rem, 4.4vw, 1.95rem);
   --h1-font-size: clamp(1.2rem, 3.2vw, 1.5rem);

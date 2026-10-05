@@ -26,7 +26,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Poppins', 'Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        syne: ['Syne', 'sans-serif'],
+        heading: ['Plus Jakarta Sans', 'sans-serif'],
+        syne: ['Plus Jakarta Sans', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
