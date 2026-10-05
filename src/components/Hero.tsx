@@ -17,29 +17,37 @@ const PROFESSIONS = [
 const CIRCULAR_TEXT = 'JELAJAHI • LEBIH • LANJUT • ';
 
 export default function Hero({ profile }: HeroProps) {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [currentText, setCurrentText] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('Aplikasi Web Full Stack');
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const fullText = PROFESSIONS[roleIndex];
-    const typeSpeed = isDeleting ? 35 : 65;
+    const currentWord = PROFESSIONS[wordIndex];
+    let timer: NodeJS.Timeout;
 
-    const timer = setTimeout(() => {
-      if (!isDeleting && currentText === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000);
-      } else if (isDeleting && currentText === '') {
-        setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % PROFESSIONS.length);
+    if (!isDeleting) {
+      if (currentText.length < currentWord.length) {
+        timer = setTimeout(() => {
+          setCurrentText(currentWord.slice(0, currentText.length + 1));
+        }, 80);
       } else {
-        setCurrentText(
-          fullText.substring(0, currentText.length + (isDeleting ? -1 : 1))
-        );
+        timer = setTimeout(() => {
+          setIsDeleting(true);
+        }, 2200);
       }
-    }, typeSpeed);
+    } else {
+      if (currentText.length > 0) {
+        timer = setTimeout(() => {
+          setCurrentText(currentWord.slice(0, currentText.length - 1));
+        }, 40);
+      } else {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % PROFESSIONS.length);
+      }
+    }
 
     return () => clearTimeout(timer);
-  }, [currentText, isDeleting, roleIndex]);
+  }, [currentText, isDeleting, wordIndex]);
 
   const letters = CIRCULAR_TEXT.split('');
   const angleStep = 360 / letters.length;
@@ -56,7 +64,7 @@ export default function Hero({ profile }: HeroProps) {
           <h1 className="home__title">
             <span className="home__title-top">Pengembang Sistem &amp;</span>
             <span className="home__title-typed" id="home-typed">
-              <span>{currentText}</span>
+              <span className="text-[var(--first-color)] drop-shadow-[0_0_20px_rgba(56,189,248,0.45)] font-bold">{currentText}</span>
               <span className="home__cursor" aria-hidden="true">|</span>
             </span>
           </h1>

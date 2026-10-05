@@ -184,13 +184,13 @@ export default function ScrollObserver() {
 
     interactiveCards.forEach((card) => focusObserver.observe(card));
 
-    // IntersectionObserver untuk animasi kemunculan (ScrollReveal)
+    // IntersectionObserver untuk animasi kemunculan halus saat di-scroll (Smooth ScrollReveal)
     const revealTargetsSelector = [
-      '.reveal-init',
+      '.about__container',
       '.work__card',
-      '.services__card',
       '.skills__card',
       '#experience article',
+      '#certificates article',
       '#education article',
       '.contact__form',
       '.contact__card',
@@ -205,8 +205,8 @@ export default function ScrollObserver() {
       if (!el.classList.contains('reveal-init')) {
         el.classList.add('reveal-init');
       }
-      const siblingIndex = index % 4;
-      el.style.transitionDelay = `${siblingIndex * 65}ms`;
+      const siblingIndex = index % 3;
+      el.style.transitionDelay = `${siblingIndex * 75}ms`;
     });
 
     const revealObserver = new IntersectionObserver(
@@ -214,15 +214,10 @@ export default function ScrollObserver() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-revealed');
-          } else {
-            const rect = entry.boundingClientRect;
-            if (rect.top > window.innerHeight * 0.92 || rect.bottom < 40) {
-              entry.target.classList.remove('is-revealed');
-            }
           }
         });
       },
-      { threshold: 0.08, rootMargin: '0px 0px -24px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     );
 
     allTargets.forEach((el) => revealObserver.observe(el));
