@@ -258,7 +258,7 @@ def build_executive_1page_cv(output_path):
     # 3. Proyek Mandiri
     exp3_t = Table([
         [Paragraph("<b>Pengembang Perangkat Lunak Web & Mobile (Full Stack)</b> — Proyek Mandiri & Klien", item_title_style),
-         Paragraph("2023 – Sekarang", item_date_style)],
+         Paragraph("2023", item_date_style)],
     ], colWidths=[usable_w - 135, 135])
     exp3_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(exp3_t)
@@ -313,7 +313,7 @@ def build_executive_1page_cv(output_path):
         ],
         [
             Paragraph("<b>Sertifikasi Kompetensi Analis Program (Program Analyst)</b> — BNSP & LSP UBSI", item_title_style),
-            Paragraph("Agustus 2026", item_date_style)
+            Paragraph("Agustus 2026 – 2029", item_date_style)
         ],
         [
             Paragraph("• Lulus uji asesmen 10 unit kompetensi SKKNI: skalabilitas sistem, SQL, algoritma, debugging, profiling, code review, dan pengujian program. <i>(Blangko fisik dalam proses penerbitan BNSP)</i>.", bullet_style),
@@ -327,7 +327,7 @@ def build_executive_1page_cv(output_path):
             Paragraph("• Meraih predikat JUARA 1 tingkat nasional mengungguli perwakilan mahasiswa dari seluruh kampus cabang UBSI se-Indonesia atas keunggulan arsitektur sistem dan mutu kode.", bullet_style),
             Paragraph("", item_date_style)
         ],
-    ], colWidths=[usable_w - 95, 95])
+    ], colWidths=[usable_w - 110, 110])
     cert_table.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('PADDING', (0,0), (-1,-1), 0),

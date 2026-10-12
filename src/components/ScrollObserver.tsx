@@ -30,10 +30,10 @@ export default function ScrollObserver() {
     let rawScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
     let smoothScrollY = rawScrollY;
     let lastScrollY = rawScrollY;
-    let scrollVelocity = 0;
-    let isScrolling = false;
-    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
-    let scrollBlend = 0; // 0 = kursor mouse, 1 = otomatis pindah ke tengah layar saat scroll
+    let scrollEnergy = 0;
+    let lastScrollTime = 0;
+    let lastPointerTime = 0;
+    let scrollBlend = 0; // 0 = mouse kursor, 1 = floating center wave saat scroll
     let lastScrollUpState = rawScrollY >= 350;
 
     // Koordinat animasi 3-layer (Inti, Bayangan Ekor, dan Aura)
@@ -52,9 +52,9 @@ export default function ScrollObserver() {
       hasPointerMoved = true;
       rawMouseX = e.clientX;
       rawMouseY = e.clientY;
-      // Responsif instan: jika mouse digerakkan, kurangi mode scroll agar kursor langsung responsif
-      scrollBlend = Math.max(0, scrollBlend - 0.2);
-      isScrolling = false;
+      lastPointerTime = performance.now();
+      // Saat pointer aktif digerakkan, redam energi scroll secara halus
+      scrollEnergy = Math.max(0, scrollEnergy - 0.15);
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     };
@@ -64,75 +64,87 @@ export default function ScrollObserver() {
         hasPointerMoved = true;
         rawMouseX = e.touches[0].clientX;
         rawMouseY = e.touches[0].clientY;
-        scrollBlend = Math.max(0, scrollBlend - 0.2);
-        isScrolling = false;
+        lastPointerTime = performance.now();
+        scrollEnergy = Math.max(0, scrollEnergy - 0.15);
       }
     };
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const scrollDiff = currentScrollY - lastScrollY;
-      scrollVelocity = scrollDiff;
+      const scrollDiff = Math.abs(currentScrollY - lastScrollY);
       lastScrollY = currentScrollY;
+      lastScrollTime = performance.now();
+
+      // Akumulasi energi scroll secara proporsional dan halus (tanpa hentakan timer)
+      scrollEnergy = Math.min(1.0, scrollEnergy + Math.min(0.35, scrollDiff * 0.015 + 0.12));
 
       const shouldShow = currentScrollY >= 350;
       if (shouldShow !== lastScrollUpState) {
         lastScrollUpState = shouldShow;
         setShowScrollUp(shouldShow);
       }
-
-      // Saat user scroll, aktifkan mode otomatis pindah ke tengah secara lembut & elegan
-      isScrolling = true;
-      scrollBlend = Math.min(1.0, scrollBlend + 0.25);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        isScrolling = false;
-      }, 300);
     };
 
     const animateCursor = (now: number) => {
-      const dt = Math.min((now - lastTime) / 16.667, 2.5);
+      const dt = Math.min((now - lastTime) / 16.667, 2.0);
       lastTime = now;
 
-      // Interpolasi scrollY super mulus
+      // 1. Interpolasi posisi scroll sangat halus
       rawScrollY = window.scrollY;
-      smoothScrollY += (rawScrollY - smoothScrollY) * (0.09 * dt);
+      smoothScrollY += (rawScrollY - smoothScrollY) * (0.08 * dt);
 
-      // Transisi lembut ke tengah saat scroll dan kembali ke posisi mouse
-      const targetBlend = isScrolling ? 1.0 : 0.0;
-      const blendRate = isScrolling ? 0.15 : 0.06;
-      scrollBlend += (targetBlend - scrollBlend) * (blendRate * dt);
+      // Redam energi scroll secara alami menggunakan continuous exponential decay
+      scrollEnergy *= Math.pow(0.94, dt);
+      if (scrollEnergy < 0.001) scrollEnergy = 0;
 
-      // Gelombang matematis anggun di area tengah layar (Center Undulating Wave)
-      const scrollPhase = smoothScrollY * 0.0032;
+      // 2. Transisi mulus antara posisi pointer vs mode melayang di tengah layar saat scroll
+      const isRecentScroll = scrollEnergy > 0.03 || (now - lastScrollTime < 650);
+      const isRecentPointer = hasPointerMoved && (now - lastPointerTime < 500);
+
+      let targetBlend = 0;
+      if (isRecentScroll && !isRecentPointer) {
+        targetBlend = 1.0;
+      } else if (isRecentScroll && isRecentPointer) {
+        targetBlend = 0.35; // Perpaduan elegan jika user scroll sambil gerak mouse
+      } else {
+        targetBlend = 0.0;
+      }
+
+      const blendSpeed = targetBlend > scrollBlend ? 0.08 : 0.05;
+      scrollBlend += (targetBlend - scrollBlend) * (blendSpeed * dt);
+      // Hermite smoothstep untuk kurva transisi super mulus
+      const easedBlend = scrollBlend * scrollBlend * (3 - 2 * scrollBlend);
+
+      // 3. Gelombang harmonik lembut di tengah layar (Organic Center Wave)
+      const scrollPhase = smoothScrollY * 0.0016;
+      const timePhase = now * 0.0008;
       const centerWaveX =
         winW * 0.5 +
-        Math.sin(scrollPhase) * (winW * 0.20) +
-        Math.cos(scrollPhase * 1.6) * 30;
+        Math.sin(scrollPhase + timePhase) * (winW * 0.17) +
+        Math.cos(scrollPhase * 1.4 + timePhase * 0.5) * 24;
       const centerWaveY =
-        winH * 0.45 +
-        Math.cos(scrollPhase * 1.1) * (winH * 0.16) +
-        Math.sin(scrollPhase * 0.55) * 20;
+        winH * 0.44 +
+        Math.cos(scrollPhase * 0.9 + timePhase * 0.7) * (winH * 0.13) +
+        Math.sin(scrollPhase * 0.5 + timePhase) * 16;
 
       let targetX: number;
       let targetY: number;
 
       if (!hasPointerMoved || isMobileView()) {
-        targetX = centerWaveX + Math.sin(now * 0.001) * 12;
-        targetY = centerWaveY + Math.cos(now * 0.0014) * 8;
+        targetX = centerWaveX;
+        targetY = centerWaveY;
       } else {
-        const easeFactor = scrollBlend * scrollBlend * (3 - 2 * scrollBlend);
-        targetX = (1 - easeFactor) * rawMouseX + easeFactor * centerWaveX;
-        targetY = (1 - easeFactor) * rawMouseY + easeFactor * centerWaveY;
+        targetX = (1 - easedBlend) * rawMouseX + easedBlend * centerWaveX;
+        targetY = (1 - easedBlend) * rawMouseY + easedBlend * centerWaveY;
       }
 
       targetX = Math.max(16, Math.min(winW - 16, targetX));
       targetY = Math.max(16, Math.min(winH - 16, targetY));
 
-      // Damping sangat halus & nyaman (Ultra-Smooth Fluid Damping)
-      const leadFactor = 1 - Math.pow(1 - 0.18, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.09, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.045, dt);
+      // 4. Spring Damping Buttery-Smooth (Tanpa Jitter)
+      const leadFactor = 1 - Math.pow(1 - 0.115, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.062, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.035, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
@@ -143,61 +155,41 @@ export default function ScrollObserver() {
       auraX += (trailX - auraX) * auraFactor;
       auraY += (trailY - auraY) * auraFactor;
 
-      scrollVelocity *= 0.90;
       const dx = targetX - currentX;
       const dy = targetY - currentY;
       const instantSpeed = Math.hypot(dx, dy);
-      smoothSpeed += (instantSpeed - smoothSpeed) * (0.16 * dt);
+      smoothSpeed += (instantSpeed - smoothSpeed) * (0.10 * dt);
 
       const mobile = isMobileView();
       const halfCursor = mobile ? 11 : 16;
       const halfTrail = mobile ? 26 : 32;
       const halfAura = mobile ? 40 : 48;
 
-      // Render Inti Bulat Biru
+      // 5. Render 100% GPU Hardware Accelerated (translate3d & scale)
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${(
           currentX - halfCursor
         ).toFixed(2)}px, ${(currentY - halfCursor).toFixed(2)}px, 0)`;
-
-        const offsetX = Math.max(-26, Math.min(26, -dx * 0.35));
-        const offsetY = Math.max(-28, Math.min(28, -dy * 0.35));
-        const glowBlur1 = 16 + smoothSpeed * 0.35;
-        const glowBlur2 = 32 + smoothSpeed * 0.65;
-        const glowAlpha = Math.min(0.95, 0.46 + smoothSpeed * 0.012);
-
-        cursorRef.current.style.boxShadow = `
-          0 0 16px hsla(196, 100%, 85%, ${glowAlpha.toFixed(2)}),
-          ${(offsetX * 0.5).toFixed(1)}px ${(offsetY * 0.5).toFixed(1)}px ${glowBlur1.toFixed(0)}px hsla(208, 95%, 65%, ${(glowAlpha * 0.9).toFixed(2)}),
-          ${offsetX.toFixed(1)}px ${offsetY.toFixed(1)}px ${glowBlur2.toFixed(0)}px hsla(232, 90%, 62%, ${(glowAlpha * 0.68).toFixed(2)})
-        `;
       }
 
-      // Render Bayangan Ekor yang Mengikuti (Trailing Shadow 1)
       if (trailRef.current) {
-        const trailScale = 1 + (smoothSpeed / 80) * 0.35;
-        const trailOpacity = Math.min(0.92, 0.36 + (smoothSpeed / 80) * 0.45);
+        const trailScale = 1 + Math.min(0.35, (smoothSpeed / 90) * 0.28);
         trailRef.current.style.transform = `translate3d(${(
           trailX - halfTrail
         ).toFixed(2)}px, ${(trailY - halfTrail).toFixed(2)}px, 0) scale(${trailScale.toFixed(2)})`;
-        trailRef.current.style.opacity = String(trailOpacity.toFixed(2));
       }
 
-      // Render Aura Atmosfer Terluar (Aura Shadow 2)
       if (auraRef.current) {
-        const auraScale = 1 + (smoothSpeed / 90) * 0.22;
+        const auraScale = 1 + Math.min(0.25, (smoothSpeed / 100) * 0.18);
         auraRef.current.style.transform = `translate3d(${(
           auraX - halfAura
         ).toFixed(2)}px, ${(auraY - halfAura).toFixed(2)}px, 0) scale(${auraScale.toFixed(2)})`;
       }
 
-      // Ambient Spotlight Responsif di Latar Belakang
       if (spotlightRef.current) {
-        spotlightRef.current.style.background = `radial-gradient(620px circle at ${currentX.toFixed(
-          1
-        )}px ${currentY.toFixed(
-          1
-        )}px, hsla(210, 90%, 62%, 0.08), transparent 70%)`;
+        spotlightRef.current.style.transform = `translate3d(${currentX.toFixed(
+          2
+        )}px, ${currentY.toFixed(2)}px, 0)`;
       }
 
       rafId = requestAnimationFrame(animateCursor);
@@ -320,7 +312,6 @@ export default function ScrollObserver() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('click', handleClick);
       document.removeEventListener('mouseover', handleMouseOver);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
       cancelAnimationFrame(rafId);
       focusObserver.disconnect();
       revealObserver.disconnect();
