@@ -281,7 +281,7 @@ img {
   }
 }
 
-/*=============== CUSTOM CURSOR & 3-LAYER GPU GRADIENT SHADOW ===============*/
+/*=============== RESPONSIVE & RESPONSIBLE INTERACTIVE CURSOR ===============*/
 .cursor,
 .cursor-trail,
 .cursor-aura {
@@ -297,67 +297,121 @@ img {
   transition: opacity 0.3s ease;
 }
 
+/* Core Interactive Droplet */
 .cursor {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
   z-index: 9999;
   background: radial-gradient(
-    circle at 32% 28%,
+    circle at 35% 30%,
     #ffffff 0%,
-    hsla(196, 100%, 86%, 0.98) 25%,
-    hsla(208, 96%, 64%, 0.94) 58%,
-    hsla(228, 90%, 58%, 0.85) 100%
+    hsla(196, 100%, 82%, 0.95) 30%,
+    hsla(208, 96%, 64%, 0.9) 65%,
+    hsla(228, 90%, 58%, 0.82) 100%
   );
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
   box-shadow:
-    0 0 16px hsla(196, 100%, 82%, 0.85),
-    0 0 32px hsla(208, 95%, 64%, 0.65),
-    0 0 48px hsla(222, 90%, 58%, 0.4);
+    0 0 12px hsla(196, 100%, 82%, 0.9),
+    0 0 24px hsla(208, 95%, 64%, 0.7),
+    0 0 38px hsla(222, 90%, 58%, 0.45);
+  transition: width 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border 0.25s ease,
+              box-shadow 0.25s ease,
+              opacity 0.25s ease;
 }
 
-/* Bayangan yang ngikutin (Primary Trailing Shadow) */
+/* Trailing Fluid Shadow */
 .cursor-trail {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   z-index: 9998;
   background: radial-gradient(
     circle,
-    hsla(198, 100%, 84%, 0.55) 0%,
-    hsla(208, 95%, 64%, 0.32) 42%,
-    hsla(232, 88%, 60%, 0.12) 68%,
-    transparent 78%
+    hsla(198, 100%, 84%, 0.45) 0%,
+    hsla(208, 95%, 64%, 0.24) 45%,
+    hsla(232, 88%, 60%, 0.08) 70%,
+    transparent 80%
   );
-  filter: blur(1.5px);
+  filter: blur(2px);
+  transition: width 0.28s ease, height 0.28s ease, opacity 0.25s ease;
 }
 
-/* Pendaran Aura Luar (Secondary Atmospheric Shadow) */
+/* Outer Atmospheric Aura */
 .cursor-aura {
-  width: 96px;
-  height: 96px;
+  width: 86px;
+  height: 86px;
   z-index: 9997;
   background: radial-gradient(
     circle,
-    hsla(214, 95%, 68%, 0.35) 0%,
-    hsla(238, 88%, 62%, 0.16) 48%,
+    hsla(214, 95%, 68%, 0.22) 0%,
+    hsla(238, 88%, 62%, 0.09) 50%,
     transparent 75%
   );
   filter: blur(4px);
+  transition: width 0.32s ease, height 0.32s ease, opacity 0.3s ease;
 }
 
-.cursor.cursor-hover {
-  scale: 1.45;
+/* STATE: Action Hover (Tombol, Tautan, Item yang Bisa Diklik) */
+.cursor.cursor--action {
+  width: 46px;
+  height: 46px;
+  background: radial-gradient(
+    circle,
+    rgba(56, 189, 248, 0.22) 0%,
+    rgba(37, 99, 235, 0.12) 65%,
+    transparent 100%
+  );
+  border: 2px solid rgba(56, 189, 248, 0.95);
   box-shadow:
-    0 0 24px hsla(198, 100%, 85%, 1),
-    0 0 52px hsla(208, 95%, 65%, 0.85);
+    0 0 20px rgba(56, 189, 248, 0.7),
+    0 0 36px rgba(37, 99, 235, 0.45),
+    inset 0 0 12px rgba(56, 189, 248, 0.35);
+  backdrop-filter: blur(2px);
 }
 
-.cursor-trail.cursor-hover {
-  scale: 1.35;
-  opacity: 0.92;
+.cursor-trail.cursor--action {
+  width: 68px;
+  height: 68px;
+  opacity: 0.85;
 }
 
-.cursor-aura.cursor-hover {
-  scale: 1.25;
-  opacity: 0.95;
+/* STATE: Card Hover (Menelusuri Kartu Informasi Proyek, Keahlian, Pengalaman) */
+.cursor.cursor--card {
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ffffff 0%,
+    hsla(196, 100%, 85%, 0.9) 35%,
+    hsla(208, 96%, 64%, 0.75) 70%,
+    transparent 100%
+  );
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 0 18px hsla(196, 100%, 82%, 0.95),
+    0 0 34px hsla(208, 95%, 64%, 0.75);
+}
+
+.cursor-trail.cursor--card {
+  width: 60px;
+  height: 60px;
+}
+
+/* STATE: Click Active (Kompresi Taktil Saat Mengklik) */
+.cursor.cursor--click {
+  scale: 0.75;
+  filter: brightness(1.3);
+}
+
+/* Responsible Mobile & Touch: Nonaktifkan kursor mouse pada perangkat sentuh agar tidak menghalangi jari */
+@media (max-width: 859px), (pointer: coarse) {
+  .cursor,
+  .cursor-trail,
+  .cursor-aura {
+    display: none !important;
+  }
 }
 
 /*=============== INTERACTIVE CLICK RIPPLE ===============*/
@@ -382,24 +436,6 @@ img {
   100% {
     transform: translate(-50%, -50%) scale(2.4);
     opacity: 0;
-  }
-}
-
-@media (max-width: 859px) {
-  .cursor {
-    width: 22px;
-    height: 22px;
-    opacity: 0.9;
-  }
-
-  .cursor-trail {
-    width: 52px;
-    height: 52px;
-  }
-
-  .cursor-aura {
-    width: 80px;
-    height: 80px;
   }
 }
 

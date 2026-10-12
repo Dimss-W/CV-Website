@@ -123,9 +123,9 @@ export default function ScrollObserver() {
       const targetY = hasMovedMouse ? rawMouseY : winH * 0.45;
 
       // Fisika pergerakan fluida yang leluasa, lincah, dan sangat halus (Fluid Spring)
-      const leadFactor = 1 - Math.pow(1 - 0.32, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.14, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.065, dt);
+      const leadFactor = 1 - Math.pow(1 - 0.35, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.16, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.075, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
@@ -139,33 +139,36 @@ export default function ScrollObserver() {
 
       const dx = targetX - currentX;
       const dy = targetY - currentY;
-      const instantSpeed = Math.hypot(dx, dy) + Math.abs(scrollVelocity);
-      smoothSpeed += (instantSpeed - smoothSpeed) * (0.15 * dt);
+      const moveSpeed = Math.hypot(dx, dy);
+      smoothSpeed += (moveSpeed - smoothSpeed) * (0.15 * dt);
 
-      const mobile = isMobileView();
-      const halfCursor = mobile ? 11 : 16;
-      const halfTrail = mobile ? 26 : 32;
-      const halfAura = mobile ? 40 : 48;
+      // Efek Fisika Hidup: Deformasi Bentuk Droplet Fluida (Squash & Stretch berdasarkan arah gerak)
+      const angle = Math.atan2(dy, dx);
+      const stretch = Math.min(0.42, (moveSpeed / 65) * 0.32 + (Math.abs(scrollVelocity) / 40) * 0.22);
+      const scaleX = 1 + stretch;
+      const scaleY = 1 / (1 + stretch * 0.65);
 
-      // Render 100% GPU Hardware Accelerated (translate3d)
+      // Render 100% GPU Hardware Accelerated - Terpusat Sempurna (-50%, -50%)
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${(
-          currentX - halfCursor
-        ).toFixed(2)}px, ${(currentY - halfCursor).toFixed(2)}px, 0)`;
+        cursorRef.current.style.transform = `translate3d(${currentX.toFixed(
+          2
+        )}px, ${currentY.toFixed(2)}px, 0) translate(-50%, -50%) rotate(${angle.toFixed(
+          3
+        )}rad) scale(${scaleX.toFixed(2)}, ${scaleY.toFixed(2)})`;
       }
 
       if (trailRef.current) {
         const trailScale = 1 + Math.min(0.35, (smoothSpeed / 80) * 0.28);
-        trailRef.current.style.transform = `translate3d(${(
-          trailX - halfTrail
-        ).toFixed(2)}px, ${(trailY - halfTrail).toFixed(2)}px, 0) scale(${trailScale.toFixed(2)})`;
+        trailRef.current.style.transform = `translate3d(${trailX.toFixed(
+          2
+        )}px, ${trailY.toFixed(2)}px, 0) translate(-50%, -50%) scale(${trailScale.toFixed(2)})`;
       }
 
       if (auraRef.current) {
         const auraScale = 1 + Math.min(0.25, (smoothSpeed / 90) * 0.18);
-        auraRef.current.style.transform = `translate3d(${(
-          auraX - halfAura
-        ).toFixed(2)}px, ${(auraY - halfAura).toFixed(2)}px, 0) scale(${auraScale.toFixed(2)})`;
+        auraRef.current.style.transform = `translate3d(${auraX.toFixed(
+          2
+        )}px, ${auraY.toFixed(2)}px, 0) translate(-50%, -50%) scale(${auraScale.toFixed(2)})`;
       }
 
       if (spotlightRef.current) {
@@ -182,7 +185,17 @@ export default function ScrollObserver() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     document.addEventListener('mouseleave', handleMouseLeave, { passive: true });
     document.addEventListener('mouseenter', handleMouseEnter, { passive: true });
-    rafId = requestAnimationFrame(animateCursor);
+
+    // Efek Sentuhan Taktil Interaktif: MouseDown & MouseUp
+    const handleMouseDown = () => {
+      if (cursorRef.current) cursorRef.current.classList.add('cursor--click');
+    };
+    const handleMouseUp = () => {
+      if (cursorRef.current) cursorRef.current.classList.remove('cursor--click');
+    };
+
+    window.addEventListener('mousedown', handleMouseDown, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
 
     // Efek Sentuhan Interaktif: Click Ripple Shockwave
     const handleClick = (e: MouseEvent) => {
@@ -198,27 +211,34 @@ export default function ScrollObserver() {
 
     window.addEventListener('click', handleClick, { passive: true });
 
-    // Efek Sentuhan Interaktif: Hover Reaction pada Elemen Interaktif
+    // Efek Interaksi Cerdas: Respon Berbeda pada Tombol/Link vs Kartu Konten
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
-      if (!target || !cursorRef.current || !trailRef.current || !auraRef.current)
-        return;
-      if (
-        target.closest(
-          'a, button, input, textarea, [role="button"], .work__card, .skills__card, .experience__card, article'
-        )
-      ) {
-        cursorRef.current.classList.add('cursor-hover');
-        trailRef.current.classList.add('cursor-hover');
-        auraRef.current.classList.add('cursor-hover');
+      if (!target || !cursorRef.current) return;
+
+      const isAction = target.closest(
+        'a, button, [role="button"], input, textarea, select, .tag-pill, .filter-btn, #scroll-up'
+      );
+      const isCard = target.closest(
+        '.work__card, .skills__card, .experience__card, .services__card, #education article, #certificates article, .contact__card'
+      );
+
+      if (isAction) {
+        cursorRef.current.classList.add('cursor--action');
+        cursorRef.current.classList.remove('cursor--card');
+        if (trailRef.current) trailRef.current.classList.add('cursor--action');
+      } else if (isCard) {
+        cursorRef.current.classList.add('cursor--card');
+        cursorRef.current.classList.remove('cursor--action');
+        if (trailRef.current) trailRef.current.classList.remove('cursor--action');
       } else {
-        cursorRef.current.classList.remove('cursor-hover');
-        trailRef.current.classList.remove('cursor-hover');
-        auraRef.current.classList.remove('cursor-hover');
+        cursorRef.current.classList.remove('cursor--action', 'cursor--card');
+        if (trailRef.current) trailRef.current.classList.remove('cursor--action');
       }
     };
 
     document.addEventListener('mouseover', handleMouseOver, { passive: true });
+    rafId = requestAnimationFrame(animateCursor);
 
     // IntersectionObserver untuk fokus kartu saat di-scroll di Mobile
     const interactiveCards = Array.from(
@@ -295,6 +315,8 @@ export default function ScrollObserver() {
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('click', handleClick);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
