@@ -30,10 +30,9 @@ export default function ScrollObserver() {
     let rawScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
     let smoothScrollY = rawScrollY;
     let lastScrollY = rawScrollY;
-    let scrollEnergy = 0;
-    let lastScrollTime = 0;
-    let lastPointerTime = 0;
-    let scrollBlend = 0; // 0 = mouse kursor, 1 = floating center wave saat scroll
+    let isScrollingActive = false;
+    let scrollStopTimer: ReturnType<typeof setTimeout> | null = null;
+    let scrollBlend = 0; // 0 = kursor mouse, 1 = floating center wave saat scroll
     let lastScrollUpState = rawScrollY >= 350;
 
     // Koordinat animasi 3-layer (Inti, Bayangan Ekor, dan Aura)
@@ -52,9 +51,12 @@ export default function ScrollObserver() {
       hasPointerMoved = true;
       rawMouseX = e.clientX;
       rawMouseY = e.clientY;
-      lastPointerTime = performance.now();
-      // Saat pointer aktif digerakkan, redam energi scroll secara halus
-      scrollEnergy = Math.max(0, scrollEnergy - 0.15);
+
+      // Jika user menggerakkan mouse, segera nonaktifkan mode scroll
+      // agar bola biru langsung menuju kursor tanpa jeda
+      if (scrollStopTimer) clearTimeout(scrollStopTimer);
+      isScrollingActive = false;
+
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     };
@@ -64,19 +66,22 @@ export default function ScrollObserver() {
         hasPointerMoved = true;
         rawMouseX = e.touches[0].clientX;
         rawMouseY = e.touches[0].clientY;
-        lastPointerTime = performance.now();
-        scrollEnergy = Math.max(0, scrollEnergy - 0.15);
+        if (scrollStopTimer) clearTimeout(scrollStopTimer);
+        isScrollingActive = false;
       }
     };
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      const scrollDiff = Math.abs(currentScrollY - lastScrollY);
       lastScrollY = currentScrollY;
-      lastScrollTime = performance.now();
 
-      // Akumulasi energi scroll secara proporsional dan halus (tanpa hentakan timer)
-      scrollEnergy = Math.min(1.0, scrollEnergy + Math.min(0.35, scrollDiff * 0.015 + 0.12));
+      // Masuk ke mode scroll mulus di tengah
+      isScrollingActive = true;
+      if (scrollStopTimer) clearTimeout(scrollStopTimer);
+      // Ketika scroll berhenti selama 160ms, kembalikan kontrol ke kursor secara responsif
+      scrollStopTimer = setTimeout(() => {
+        isScrollingActive = false;
+      }, 160);
 
       const shouldShow = currentScrollY >= 350;
       if (shouldShow !== lastScrollUpState) {
@@ -91,41 +96,26 @@ export default function ScrollObserver() {
 
       // 1. Interpolasi posisi scroll sangat halus
       rawScrollY = window.scrollY;
-      smoothScrollY += (rawScrollY - smoothScrollY) * (0.08 * dt);
+      smoothScrollY += (rawScrollY - smoothScrollY) * (0.09 * dt);
 
-      // Redam energi scroll secara alami menggunakan continuous exponential decay
-      scrollEnergy *= Math.pow(0.94, dt);
-      if (scrollEnergy < 0.001) scrollEnergy = 0;
-
-      // 2. Transisi mulus antara posisi pointer vs mode melayang di tengah layar saat scroll
-      const isRecentScroll = scrollEnergy > 0.03 || (now - lastScrollTime < 650);
-      const isRecentPointer = hasPointerMoved && (now - lastPointerTime < 500);
-
-      let targetBlend = 0;
-      if (isRecentScroll && !isRecentPointer) {
-        targetBlend = 1.0;
-      } else if (isRecentScroll && isRecentPointer) {
-        targetBlend = 0.35; // Perpaduan elegan jika user scroll sambil gerak mouse
-      } else {
-        targetBlend = 0.0;
-      }
-
-      const blendSpeed = targetBlend > scrollBlend ? 0.08 : 0.05;
-      scrollBlend += (targetBlend - scrollBlend) * (blendSpeed * dt);
-      // Hermite smoothstep untuk kurva transisi super mulus
+      // 2. Transisi mode: saat scroll -> melayang di tengah, saat berhenti -> langsung responsif di kursor
+      const targetBlend = isScrollingActive ? 1.0 : 0.0;
+      // Menuju tengah: transisi mengalir anggun (0.10). Menuju kursor user: sangat cepat & tanggap (0.28)
+      const blendRate = targetBlend > scrollBlend ? 0.10 : 0.28;
+      scrollBlend += (targetBlend - scrollBlend) * (blendRate * dt);
       const easedBlend = scrollBlend * scrollBlend * (3 - 2 * scrollBlend);
 
-      // 3. Gelombang harmonik lembut di tengah layar (Organic Center Wave)
+      // 3. Gelombang harmonik lembut di tengah layar saat di-scroll
       const scrollPhase = smoothScrollY * 0.0016;
       const timePhase = now * 0.0008;
       const centerWaveX =
         winW * 0.5 +
-        Math.sin(scrollPhase + timePhase) * (winW * 0.17) +
-        Math.cos(scrollPhase * 1.4 + timePhase * 0.5) * 24;
+        Math.sin(scrollPhase + timePhase) * (winW * 0.16) +
+        Math.cos(scrollPhase * 1.3 + timePhase * 0.6) * 20;
       const centerWaveY =
         winH * 0.44 +
-        Math.cos(scrollPhase * 0.9 + timePhase * 0.7) * (winH * 0.13) +
-        Math.sin(scrollPhase * 0.5 + timePhase) * 16;
+        Math.cos(scrollPhase * 0.85 + timePhase * 0.7) * (winH * 0.12) +
+        Math.sin(scrollPhase * 0.5 + timePhase) * 14;
 
       let targetX: number;
       let targetY: number;
@@ -141,10 +131,13 @@ export default function ScrollObserver() {
       targetX = Math.max(16, Math.min(winW - 16, targetX));
       targetY = Math.max(16, Math.min(winH - 16, targetY));
 
-      // 4. Spring Damping Buttery-Smooth (Tanpa Jitter)
-      const leadFactor = 1 - Math.pow(1 - 0.115, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.062, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.035, dt);
+      // 4. Fisika Responsif:
+      // Saat di kursor mouse: tingkat responsivitas tinggi (0.36) agar LANGSUNG MERESPON tanpa jeda
+      // Saat di scroll tengah: tingkat melayang halus (0.12)
+      const currentLead = (1 - easedBlend) * 0.36 + easedBlend * 0.12;
+      const leadFactor = 1 - Math.pow(1 - currentLead, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.12, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.055, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
@@ -158,7 +151,7 @@ export default function ScrollObserver() {
       const dx = targetX - currentX;
       const dy = targetY - currentY;
       const instantSpeed = Math.hypot(dx, dy);
-      smoothSpeed += (instantSpeed - smoothSpeed) * (0.10 * dt);
+      smoothSpeed += (instantSpeed - smoothSpeed) * (0.15 * dt);
 
       const mobile = isMobileView();
       const halfCursor = mobile ? 11 : 16;
@@ -312,6 +305,7 @@ export default function ScrollObserver() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('click', handleClick);
       document.removeEventListener('mouseover', handleMouseOver);
+      if (scrollStopTimer) clearTimeout(scrollStopTimer);
       cancelAnimationFrame(rafId);
       focusObserver.disconnect();
       revealObserver.disconnect();
