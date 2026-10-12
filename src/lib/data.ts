@@ -70,7 +70,7 @@ export const defaultProjects: Project[] = [
     category: 'data-ai',
     technical_highlight: 'Kompresi gambar JPEG otomatis dan pipeline Google Gemini Vision OCR untuk ekstraksi angka odometer tanpa latensi server berlebih.',
     demo_url: 'https://otokeep-rho.vercel.app/',
-    github_url: 'https://github.com/Dimss-W/Otokeep.git',
+    github_url: '',
     image_url: '/projects/otokeep-landing.png',
     images: [
       '/projects/otokeep-landing.png',
@@ -109,8 +109,8 @@ export const defaultProjects: Project[] = [
     tags: ['Power BI', 'Laravel', 'Blade', 'MySQL', 'Sistem Perusahaan'],
     category: 'data-ai',
     technical_highlight: 'Pola arsitektur data relasional MySQL terintegrasi ke dashboard analitik Microsoft Power BI dengan formula DAX pemantauan deviasi anggaran proyek.',
-    demo_url: 'https://github.com/Dimss-W/Sistem-Input-Realisasi',
-    github_url: 'https://github.com/Dimss-W/Sistem-Input-Realisasi.git',
+    demo_url: '',
+    github_url: '',
     image_url: '/projects/pgncom-login.png',
     images: [
       '/projects/pgncom-login.png',

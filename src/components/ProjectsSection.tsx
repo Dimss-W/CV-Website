@@ -108,7 +108,6 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'web' | 'mobile' | 'data-ai'>('all');
-  const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [lightbox, setLightbox] = useState<{
     open: boolean;
     project: Project | null;
@@ -126,13 +125,6 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
     if (selectedCategory === 'all') return true;
     return p.category === selectedCategory;
   });
-
-  const handleCopyCredentials = (title: string, email?: string, pass?: string) => {
-    if (!email || !pass) return;
-    navigator.clipboard.writeText(`Email: ${email} | Password: ${pass}`);
-    setCopiedKey(title);
-    setTimeout(() => setCopiedKey(null), 2500);
-  };
 
   const scrollToCard = (index: number) => {
     setActiveSlide(index);
@@ -244,34 +236,6 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     </div>
                   )}
 
-                  {/* Kredensial Uji Coba Demo */}
-                  {project.demo_credentials && (
-                    <div className="mb-3 p-2.5 rounded-xl bg-black/50 border border-white/10 text-xs">
-                      <div className="flex items-center justify-between text-[11px] mb-1">
-                        <span className="inline-flex items-center gap-1 text-[var(--first-color)] font-semibold">
-                          <i className="ri-shield-keyhole-line" />
-                          <span>{project.demo_credentials.note || 'Akun Uji Coba Demo'}</span>
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleCopyCredentials(
-                              project.title,
-                              project.demo_credentials?.email,
-                              project.demo_credentials?.password
-                            )
-                          }
-                          className="text-[10px] text-white/80 hover:text-[var(--first-color)] transition-colors underline"
-                        >
-                          {copiedKey === project.title ? 'Tersalin' : 'Salin Kredensial'}
-                        </button>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 font-mono text-[11px] text-white/90">
-                        <span>User: {project.demo_credentials.email}</span>
-                        <span>Pass: {project.demo_credentials.password}</span>
-                      </div>
-                    </div>
-                  )}
 
                   <div className="flex flex-wrap items-center gap-1.5 mb-3 mt-auto">
                     {project.tags.slice(0, 3).map((tag) => (

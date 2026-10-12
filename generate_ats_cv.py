@@ -394,7 +394,7 @@ def create_ats_cv(output_path):
         ],
         [
             Paragraph("<i>Teknologi: Laravel, Tailwind CSS, MySQL, Google Gemini Vision AI, REST API</i>", item_subtitle_style),
-            Paragraph("<a href='https://github.com/Dimss-W/Otokeep.git' color='#0369a1'><u>GitHub Repository</u></a>", item_date_style),
+            Paragraph("Live Production App", item_date_style),
         ]
     ]
     t_p1 = Table(p1_head, colWidths=[380, 143])
@@ -402,7 +402,6 @@ def create_ats_cv(output_path):
     story.append(t_p1)
     story.append(Paragraph("• Mengembangkan platform cerdas pemantauan perawatan kendaraan dan manajemen armada dengan integrasi Google Gemini Vision API untuk mendeteksi serta mengekstraksi angka odometer dari foto speedometer secara instan.", bullet_style))
     story.append(Paragraph("• Mengimplementasikan kompresi citra JPEG sisi klien untuk memangkas latensi upload di bawah 1,5 detik serta fitur penjadwalan servis berkala, estimasi biaya suku cadang, dan pengingat pajak STNK.", bullet_style))
-    story.append(Paragraph("• Menyediakan panel login kredensial tamu untuk memudahkan verifikasi dan pengujian fungsionalitas sistem secara live.", bullet_style))
     story.append(Spacer(1, 3.5))
 
     # Project 2: FindIt
@@ -467,7 +466,7 @@ def create_ats_cv(output_path):
         ],
         [
             Paragraph("<i>Teknologi: Microsoft Power BI, DAX, Laravel, MySQL, Corporate Architecture</i>", item_subtitle_style),
-            Paragraph("<a href='https://github.com/Dimss-W/Sistem-Input-Realisasi.git' color='#0369a1'><u>GitHub Repo</u></a>", item_date_style),
+            Paragraph("Proyek Internal Perusahaan", item_date_style),
         ]
     ]
     t_p5 = Table(p5_head, colWidths=[380, 143])
