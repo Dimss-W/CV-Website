@@ -26,14 +26,7 @@ export default function ScrollObserver() {
     let rawMouseX = winW * 0.5;
     let rawMouseY = winH * 0.42;
     let hasPointerMoved = false;
-
-    let rawScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-    let smoothScrollY = rawScrollY;
-    let lastScrollY = rawScrollY;
-    let isScrollingActive = false;
-    let scrollStopTimer: ReturnType<typeof setTimeout> | null = null;
-    let scrollBlend = 0; // 0 = kursor mouse, 1 = floating center wave saat scroll
-    let lastScrollUpState = rawScrollY >= 350;
+    let lastScrollUpState = (typeof window !== 'undefined' ? window.scrollY : 0) >= 350;
 
     // Koordinat animasi 3-layer (Inti, Bayangan Ekor, dan Aura)
     let currentX = rawMouseX;
@@ -47,15 +40,27 @@ export default function ScrollObserver() {
     let lastTime = performance.now();
     let rafId: number;
 
+    const setCursorOpacity = (opacity: string) => {
+      if (cursorRef.current) cursorRef.current.style.opacity = opacity;
+      if (trailRef.current) trailRef.current.style.opacity = opacity;
+      if (auraRef.current) auraRef.current.style.opacity = opacity;
+      if (spotlightRef.current) spotlightRef.current.style.opacity = opacity;
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
-      hasPointerMoved = true;
+      if (!hasPointerMoved) {
+        hasPointerMoved = true;
+        // Pada gerakan pertama, langsung posisikan bola biru tepat di kursor tanpa jeda
+        currentX = e.clientX;
+        currentY = e.clientY;
+        trailX = e.clientX;
+        trailY = e.clientY;
+        auraX = e.clientX;
+        auraY = e.clientY;
+        setCursorOpacity('1');
+      }
       rawMouseX = e.clientX;
       rawMouseY = e.clientY;
-
-      // Jika user menggerakkan mouse, segera nonaktifkan mode scroll
-      // agar bola biru langsung menuju kursor tanpa jeda
-      if (scrollStopTimer) clearTimeout(scrollStopTimer);
-      isScrollingActive = false;
 
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
@@ -63,26 +68,35 @@ export default function ScrollObserver() {
 
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches && e.touches.length > 0) {
-        hasPointerMoved = true;
+        if (!hasPointerMoved) {
+          hasPointerMoved = true;
+          currentX = e.touches[0].clientX;
+          currentY = e.touches[0].clientY;
+          trailX = e.touches[0].clientX;
+          trailY = e.touches[0].clientY;
+          auraX = e.touches[0].clientX;
+          auraY = e.touches[0].clientY;
+          setCursorOpacity('1');
+        }
         rawMouseX = e.touches[0].clientX;
         rawMouseY = e.touches[0].clientY;
-        if (scrollStopTimer) clearTimeout(scrollStopTimer);
-        isScrollingActive = false;
       }
+    };
+
+    const handleMouseLeave = () => {
+      setCursorOpacity('0');
+    };
+
+    const handleMouseEnter = (e: MouseEvent) => {
+      rawMouseX = e.clientX;
+      rawMouseY = e.clientY;
+      currentX = e.clientX;
+      currentY = e.clientY;
+      setCursorOpacity('1');
     };
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      lastScrollY = currentScrollY;
-
-      // Masuk ke mode scroll mulus di tengah
-      isScrollingActive = true;
-      if (scrollStopTimer) clearTimeout(scrollStopTimer);
-      // Ketika scroll berhenti selama 160ms, kembalikan kontrol ke kursor secara responsif
-      scrollStopTimer = setTimeout(() => {
-        isScrollingActive = false;
-      }, 160);
-
       const shouldShow = currentScrollY >= 350;
       if (shouldShow !== lastScrollUpState) {
         lastScrollUpState = shouldShow;
@@ -94,50 +108,16 @@ export default function ScrollObserver() {
       const dt = Math.min((now - lastTime) / 16.667, 2.0);
       lastTime = now;
 
-      // 1. Interpolasi posisi scroll sangat halus
-      rawScrollY = window.scrollY;
-      smoothScrollY += (rawScrollY - smoothScrollY) * (0.09 * dt);
+      // Bola biru SELALU mengikuti kursor mouse user secara presisi (1:1 Target)
+      const targetX = rawMouseX;
+      const targetY = rawMouseY;
 
-      // 2. Transisi mode: saat scroll -> melayang di tengah, saat berhenti -> langsung responsif di kursor
-      const targetBlend = isScrollingActive ? 1.0 : 0.0;
-      // Menuju tengah: transisi mengalir anggun (0.10). Menuju kursor user: sangat cepat & tanggap (0.28)
-      const blendRate = targetBlend > scrollBlend ? 0.10 : 0.28;
-      scrollBlend += (targetBlend - scrollBlend) * (blendRate * dt);
-      const easedBlend = scrollBlend * scrollBlend * (3 - 2 * scrollBlend);
-
-      // 3. Gelombang harmonik lembut di tengah layar saat di-scroll
-      const scrollPhase = smoothScrollY * 0.0016;
-      const timePhase = now * 0.0008;
-      const centerWaveX =
-        winW * 0.5 +
-        Math.sin(scrollPhase + timePhase) * (winW * 0.16) +
-        Math.cos(scrollPhase * 1.3 + timePhase * 0.6) * 20;
-      const centerWaveY =
-        winH * 0.44 +
-        Math.cos(scrollPhase * 0.85 + timePhase * 0.7) * (winH * 0.12) +
-        Math.sin(scrollPhase * 0.5 + timePhase) * 14;
-
-      let targetX: number;
-      let targetY: number;
-
-      if (!hasPointerMoved || isMobileView()) {
-        targetX = centerWaveX;
-        targetY = centerWaveY;
-      } else {
-        targetX = (1 - easedBlend) * rawMouseX + easedBlend * centerWaveX;
-        targetY = (1 - easedBlend) * rawMouseY + easedBlend * centerWaveY;
-      }
-
-      targetX = Math.max(16, Math.min(winW - 16, targetX));
-      targetY = Math.max(16, Math.min(winH - 16, targetY));
-
-      // 4. Fisika Responsif:
-      // Saat di kursor mouse: tingkat responsivitas tinggi (0.36) agar LANGSUNG MERESPON tanpa jeda
-      // Saat di scroll tengah: tingkat melayang halus (0.12)
-      const currentLead = (1 - easedBlend) * 0.36 + easedBlend * 0.12;
-      const leadFactor = 1 - Math.pow(1 - currentLead, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.12, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.055, dt);
+      // Inti bola biru: sangat tanggap & presisi menempel di kursor (0.45)
+      const leadFactor = 1 - Math.pow(1 - 0.45, dt);
+      // Ekor bayangan: mengalir elastis di belakang kursor (0.16)
+      const trailFactor = 1 - Math.pow(1 - 0.16, dt);
+      // Aura atmosfer luar: pendaran lembut (0.075)
+      const auraFactor = 1 - Math.pow(1 - 0.075, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
@@ -158,7 +138,7 @@ export default function ScrollObserver() {
       const halfTrail = mobile ? 26 : 32;
       const halfAura = mobile ? 40 : 48;
 
-      // 5. Render 100% GPU Hardware Accelerated (translate3d & scale)
+      // Render 100% GPU Hardware Accelerated (translate3d)
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${(
           currentX - halfCursor
@@ -166,14 +146,14 @@ export default function ScrollObserver() {
       }
 
       if (trailRef.current) {
-        const trailScale = 1 + Math.min(0.35, (smoothSpeed / 90) * 0.28);
+        const trailScale = 1 + Math.min(0.35, (smoothSpeed / 80) * 0.28);
         trailRef.current.style.transform = `translate3d(${(
           trailX - halfTrail
         ).toFixed(2)}px, ${(trailY - halfTrail).toFixed(2)}px, 0) scale(${trailScale.toFixed(2)})`;
       }
 
       if (auraRef.current) {
-        const auraScale = 1 + Math.min(0.25, (smoothSpeed / 100) * 0.18);
+        const auraScale = 1 + Math.min(0.25, (smoothSpeed / 90) * 0.18);
         auraRef.current.style.transform = `translate3d(${(
           auraX - halfAura
         ).toFixed(2)}px, ${(auraY - halfAura).toFixed(2)}px, 0) scale(${auraScale.toFixed(2)})`;
@@ -191,6 +171,8 @@ export default function ScrollObserver() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('mouseleave', handleMouseLeave, { passive: true });
+    document.addEventListener('mouseenter', handleMouseEnter, { passive: true });
     rafId = requestAnimationFrame(animateCursor);
 
     // Efek Sentuhan Interaktif: Click Ripple Shockwave
@@ -305,7 +287,8 @@ export default function ScrollObserver() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('click', handleClick);
       document.removeEventListener('mouseover', handleMouseOver);
-      if (scrollStopTimer) clearTimeout(scrollStopTimer);
+      document.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener('mouseenter', handleMouseEnter);
       cancelAnimationFrame(rafId);
       focusObserver.disconnect();
       revealObserver.disconnect();

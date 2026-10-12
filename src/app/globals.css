@@ -294,6 +294,7 @@ img {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translate3d(calc(50vw - 16px), calc(42vh - 16px), 0);
+  opacity: 0;
   transition: opacity 0.25s ease;
 }
 
