@@ -25,8 +25,15 @@ export default function ScrollObserver() {
 
     let rawMouseX = winW * 0.5;
     let rawMouseY = winH * 0.42;
-    let hasPointerMoved = false;
+    let hasMovedMouse = false;
     let lastScrollUpState = (typeof window !== 'undefined' ? window.scrollY : 0) >= 350;
+
+    // Scroll state tracking
+    let smoothScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
+    let targetScrollY = smoothScrollY;
+    let isScrolling = false;
+    let scrollActivity = 0; // 0 = mode kursor mouse, 1 = mode gelombang mengalir saat scroll
+    let scrollTimer: ReturnType<typeof setTimeout> | null = null;
 
     // Koordinat animasi 3-layer (Inti, Bayangan Ekor, dan Aura)
     let currentX = rawMouseX;
@@ -48,9 +55,8 @@ export default function ScrollObserver() {
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!hasPointerMoved) {
-        hasPointerMoved = true;
-        // Pada gerakan pertama, langsung posisikan bola biru tepat di kursor tanpa jeda
+      if (!hasMovedMouse) {
+        hasMovedMouse = true;
         currentX = e.clientX;
         currentY = e.clientY;
         trailX = e.clientX;
@@ -62,14 +68,18 @@ export default function ScrollObserver() {
       rawMouseX = e.clientX;
       rawMouseY = e.clientY;
 
+      // Saat mouse digerakkan aktif, kurangi mode scroll agar kursor lekas diprioritaskan
+      scrollActivity = Math.max(0, scrollActivity - 0.25);
+      isScrolling = false;
+
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches && e.touches.length > 0) {
-        if (!hasPointerMoved) {
-          hasPointerMoved = true;
+        if (!hasMovedMouse) {
+          hasMovedMouse = true;
           currentX = e.touches[0].clientX;
           currentY = e.touches[0].clientY;
           trailX = e.touches[0].clientX;
@@ -90,13 +100,23 @@ export default function ScrollObserver() {
     const handleMouseEnter = (e: MouseEvent) => {
       rawMouseX = e.clientX;
       rawMouseY = e.clientY;
-      currentX = e.clientX;
-      currentY = e.clientY;
       setCursorOpacity('1');
     };
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      targetScrollY = currentScrollY;
+
+      // Masuk ke mode scroll mulus
+      isScrolling = true;
+      scrollActivity = Math.min(1.0, scrollActivity + 0.35);
+
+      if (scrollTimer) clearTimeout(scrollTimer);
+      // Ketika berhenti scroll selama 220ms, perlahan kembali ke kursor mouse
+      scrollTimer = setTimeout(() => {
+        isScrolling = false;
+      }, 220);
+
       const shouldShow = currentScrollY >= 350;
       if (shouldShow !== lastScrollUpState) {
         lastScrollUpState = shouldShow;
@@ -108,16 +128,38 @@ export default function ScrollObserver() {
       const dt = Math.min((now - lastTime) / 16.667, 2.0);
       lastTime = now;
 
-      // Bola biru SELALU mengikuti kursor mouse user secara presisi (1:1 Target)
-      const targetX = rawMouseX;
-      const targetY = rawMouseY;
+      // Interpolasi scroll halus
+      targetScrollY = window.scrollY;
+      smoothScrollY += (targetScrollY - smoothScrollY) * (0.08 * dt);
 
-      // Inti bola biru: sangat tanggap & presisi menempel di kursor (0.45)
-      const leadFactor = 1 - Math.pow(1 - 0.45, dt);
-      // Ekor bayangan: mengalir elastis di belakang kursor (0.16)
-      const trailFactor = 1 - Math.pow(1 - 0.16, dt);
-      // Aura atmosfer luar: pendaran lembut (0.075)
-      const auraFactor = 1 - Math.pow(1 - 0.075, dt);
+      // Redam aktivitas scroll secara kontinu jika tidak sedang aktif scroll
+      if (!isScrolling) {
+        scrollActivity *= Math.pow(0.91, dt);
+        if (scrollActivity < 0.005) scrollActivity = 0;
+      }
+
+      // Kurva blend halus (Hermite smoothstep)
+      const blend = scrollActivity * scrollActivity * (3 - 2 * scrollActivity);
+
+      // 1. Target Posisi saat Mode Scroll (Gelombang tenang melayang di tengah layar, tidak ke pinggir)
+      const timePhase = now * 0.001;
+      const scrollPhase = smoothScrollY * 0.0018;
+      const waveX = winW * 0.5 + Math.sin(timePhase + scrollPhase) * 55;
+      const waveY = winH * 0.45 + Math.cos(timePhase * 0.8 + scrollPhase * 0.9) * 40;
+
+      // 2. Target Posisi saat Mode Kursor Mouse
+      const mouseTargetX = hasMovedMouse ? rawMouseX : winW * 0.5;
+      const mouseTargetY = hasMovedMouse ? rawMouseY : winH * 0.45;
+
+      // 3. Interpolasi Posisi: Saat scroll -> melayang anggun di tengah; saat berhenti -> meluncur halus ke kursor
+      const targetX = (1 - blend) * mouseTargetX + blend * waveX;
+      const targetY = (1 - blend) * mouseTargetY + blend * waveY;
+
+      // 4. Fisika Fluida Organik (Tidak kaku dikunci, bergerak lembut & elastis)
+      const springK = (1 - blend) * 0.28 + blend * 0.12;
+      const leadFactor = 1 - Math.pow(1 - springK, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.11, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.055, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
@@ -289,6 +331,7 @@ export default function ScrollObserver() {
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
+      if (scrollTimer) clearTimeout(scrollTimer);
       cancelAnimationFrame(rafId);
       focusObserver.disconnect();
       revealObserver.disconnect();
