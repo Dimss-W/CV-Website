@@ -7,21 +7,20 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer__container container grid">
         <h2 className="footer__title">
-          MARI BERKOLABORASI <span>BERSAMA DIMAS</span> <br />
-          DAN WUJUDKAN <span>SOLUSI INOVASI</span> <br />
-          DIGITAL ANDA HARI INI.
+          MARI BERKOLABORASI <span>MEMBANGUN SOLUSI</span> <br />
+          DIGITAL INOVATIF &amp; <span>BERKELANJUTAN.</span>
         </h2>
 
         <div className="footer__content">
           <div className="footer__links">
             <a href="#work" className="footer__link">
-              Karya
-            </a>
-            <a href="#service" className="footer__link">
-              Layanan
+              Proyek
             </a>
             <a href="#skills" className="footer__link">
               Keahlian
+            </a>
+            <a href="#experience" className="footer__link">
+              Pengalaman
             </a>
             <a href="#certificates" className="footer__link">
               Sertifikat
@@ -73,7 +72,7 @@ export default function Footer() {
       </div>
 
       <span className="footer__copy">
-        &#169; Hak Cipta Dilindungi Oleh Dimas Wijanarko
+        &#169; 2026 Dimas Wijanarko. Hak Cipta Dilindungi.
       </span>
 
       <div className="blob-big" />
