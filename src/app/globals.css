@@ -1860,12 +1860,12 @@ textarea.contact__input {
 /*=============== RESPONSIVE SMOOTH SCROLL REVEAL ===============*/
 .reveal-init {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(14px);
   transition:
-    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.35s ease,
-    border-color 0.35s ease;
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
   will-change: opacity, transform;
 }
 

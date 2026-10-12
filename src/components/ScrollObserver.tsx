@@ -81,45 +81,45 @@ export default function ScrollObserver() {
         setShowScrollUp(shouldShow);
       }
 
-      // Saat user scroll, aktifkan mode otomatis pindah ke tengah secara responsif
+      // Saat user scroll, aktifkan mode otomatis pindah ke tengah secara lembut & elegan
       isScrolling = true;
-      scrollBlend = Math.min(1.0, scrollBlend + 0.35);
+      scrollBlend = Math.min(1.0, scrollBlend + 0.25);
       if (scrollTimeout) clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         isScrolling = false;
-      }, 220);
+      }, 300);
     };
 
     const animateCursor = (now: number) => {
       const dt = Math.min((now - lastTime) / 16.667, 2.5);
       lastTime = now;
 
-      // Interpolasi scrollY responsif & mulus
+      // Interpolasi scrollY super mulus
       rawScrollY = window.scrollY;
-      smoothScrollY += (rawScrollY - smoothScrollY) * (0.12 * dt);
+      smoothScrollY += (rawScrollY - smoothScrollY) * (0.09 * dt);
 
-      // Transisi responsif & mulus ke tengah saat scroll dan kembali ke mouse
+      // Transisi lembut ke tengah saat scroll dan kembali ke posisi mouse
       const targetBlend = isScrolling ? 1.0 : 0.0;
-      const blendRate = isScrolling ? 0.22 : 0.08;
+      const blendRate = isScrolling ? 0.15 : 0.06;
       scrollBlend += (targetBlend - scrollBlend) * (blendRate * dt);
 
       // Gelombang matematis anggun di area tengah layar (Center Undulating Wave)
-      const scrollPhase = smoothScrollY * 0.0035;
+      const scrollPhase = smoothScrollY * 0.0032;
       const centerWaveX =
         winW * 0.5 +
-        Math.sin(scrollPhase) * (winW * 0.22) +
-        Math.cos(scrollPhase * 1.7) * 35;
+        Math.sin(scrollPhase) * (winW * 0.20) +
+        Math.cos(scrollPhase * 1.6) * 30;
       const centerWaveY =
         winH * 0.45 +
-        Math.cos(scrollPhase * 1.15) * (winH * 0.18) +
-        Math.sin(scrollPhase * 0.6) * 25;
+        Math.cos(scrollPhase * 1.1) * (winH * 0.16) +
+        Math.sin(scrollPhase * 0.55) * 20;
 
       let targetX: number;
       let targetY: number;
 
       if (!hasPointerMoved || isMobileView()) {
-        targetX = centerWaveX + Math.sin(now * 0.0012) * 14;
-        targetY = centerWaveY + Math.cos(now * 0.0016) * 10;
+        targetX = centerWaveX + Math.sin(now * 0.001) * 12;
+        targetY = centerWaveY + Math.cos(now * 0.0014) * 8;
       } else {
         const easeFactor = scrollBlend * scrollBlend * (3 - 2 * scrollBlend);
         targetX = (1 - easeFactor) * rawMouseX + easeFactor * centerWaveX;
@@ -129,10 +129,10 @@ export default function ScrollObserver() {
       targetX = Math.max(16, Math.min(winW - 16, targetX));
       targetY = Math.max(16, Math.min(winH - 16, targetY));
 
-      // Damping gesit, responsif, dan sangat halus (Snappy & Responsive)
-      const leadFactor = 1 - Math.pow(1 - 0.26, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.13, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.065, dt);
+      // Damping sangat halus & nyaman (Ultra-Smooth Fluid Damping)
+      const leadFactor = 1 - Math.pow(1 - 0.18, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.09, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.045, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
@@ -143,7 +143,7 @@ export default function ScrollObserver() {
       auraX += (trailX - auraX) * auraFactor;
       auraY += (trailY - auraY) * auraFactor;
 
-      scrollVelocity *= 0.88;
+      scrollVelocity *= 0.90;
       const dx = targetX - currentX;
       const dy = targetY - currentY;
       const instantSpeed = Math.hypot(dx, dy);

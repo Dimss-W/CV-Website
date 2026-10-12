@@ -4,7 +4,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, PageBreak
+    SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
 )
 from reportlab.pdfgen import canvas
 
@@ -27,14 +27,10 @@ class NumberedCanvas(canvas.Canvas):
 
     def draw_footer(self, page_count):
         self.saveState()
-        self.setFont("Helvetica", 8)
+        self.setFont("Helvetica", 9)
         self.setFillColor(colors.HexColor("#64748b"))
         footer_text = f"Curriculum Vitae — Dimas Wijanarko | Halaman {self._pageNumber} dari {page_count}"
         self.drawRightString(A4[0] - 36, 18, footer_text)
-        self.drawString(36, 18, "Terverifikasi Sistem ATS • Standar Profesional Rekayasa Perangkat Lunak")
-        self.setStrokeColor(colors.HexColor("#cbd5e1"))
-        self.setLineWidth(0.5)
-        self.line(36, 28, A4[0] - 36, 28)
         self.restoreState()
 
 def create_ats_cv(output_path):
@@ -44,7 +40,7 @@ def create_ats_cv(output_path):
         leftMargin=36,
         rightMargin=36,
         topMargin=32,
-        bottomMargin=34,
+        bottomMargin=32,
         title="Curriculum Vitae - Dimas Wijanarko",
         author="Dimas Wijanarko",
         subject="CV ATS - Full Stack Web & Mobile Software Engineer",
@@ -61,8 +57,8 @@ def create_ats_cv(output_path):
         'DocName',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=19,
-        leading=22,
+        fontSize=22,
+        leading=26,
         textColor=primary_color,
         spaceAfter=2,
     )
@@ -71,8 +67,8 @@ def create_ats_cv(output_path):
         'DocTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=9.5,
-        leading=13,
+        fontSize=12,
+        leading=16,
         textColor=accent_color,
         spaceAfter=3,
     )
@@ -81,8 +77,8 @@ def create_ats_cv(output_path):
         'DocContact',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.2,
-        leading=11.5,
+        fontSize=10,
+        leading=14,
         textColor=body_color,
     )
 
@@ -90,11 +86,11 @@ def create_ats_cv(output_path):
         'SectionHeader',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=10,
-        leading=13,
+        fontSize=12.5,
+        leading=16,
         textColor=primary_color,
-        spaceBefore=6,
-        spaceAfter=2,
+        spaceBefore=7,
+        spaceAfter=3,
         keepWithNext=True,
     )
 
@@ -102,8 +98,8 @@ def create_ats_cv(output_path):
         'ItemTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=8.8,
-        leading=11.8,
+        fontSize=12,
+        leading=16,
         textColor=primary_color,
     )
 
@@ -111,8 +107,8 @@ def create_ats_cv(output_path):
         'ItemSubtitle',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.2,
-        leading=11.2,
+        fontSize=11,
+        leading=15,
         textColor=accent_color,
     )
 
@@ -120,8 +116,8 @@ def create_ats_cv(output_path):
         'ItemDate',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=8,
-        leading=11.2,
+        fontSize=11,
+        leading=15,
         textColor=muted_color,
         alignment=2,
     )
@@ -130,36 +126,32 @@ def create_ats_cv(output_path):
         'DocBody',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.2,
-        leading=11.2,
+        fontSize=12,
+        leading=16.5,
         textColor=body_color,
-        spaceAfter=1.5,
+        spaceAfter=2,
     )
 
     bullet_style = ParagraphStyle(
         'DocBullet',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.2,
-        leading=11.4,
+        fontSize=12,
+        leading=16.5,
         textColor=body_color,
-        leftIndent=11,
-        firstLineIndent=-7,
-        spaceAfter=2,
+        leftIndent=14,
+        firstLineIndent=-9,
+        spaceAfter=2.5,
     )
 
     def section_heading(title_text):
         return [
             Paragraph(title_text.upper(), section_header_style),
-            HRFlowable(width="100%", thickness=0.6, color=accent_color, spaceAfter=3, spaceBefore=1)
+            HRFlowable(width="100%", thickness=0.8, color=accent_color, spaceAfter=4, spaceBefore=1)
         ]
 
     story = []
 
-    # ==========================================
-    # HALAMAN 1: IDENTITAS, BIODATA, PENDIDIKAN, KEAHLIAN & PENGALAMAN KERJA
-    # ==========================================
-    
     # 1. HEADER
     story.append(Paragraph("DIMAS WIJANARKO", name_style))
     story.append(Paragraph("Full Stack Web & Mobile Software Engineer • Mahasiswa Sistem Informasi UBSI", title_style))
@@ -172,13 +164,13 @@ def create_ats_cv(output_path):
     story.append(Paragraph(contact_text, contact_style))
 
     links_text = (
-        "LinkedIn: <a href='https://linkedin.com/in/dimas-wijanarko' color='#0369a1'><u>linkedin.com/in/dimas-wijanarko</u></a> &nbsp;|&nbsp; "
+        "LinkedIn: <a href='https://linkedin.com/in/dimas-wijanarko' color='#0369a1'><u>in/dimas-wijanarko</u></a> &nbsp;|&nbsp; "
         "GitHub: <a href='https://github.com/Dimss-W' color='#0369a1'><u>github.com/Dimss-W</u></a> &nbsp;|&nbsp; "
         "Portofolio: <a href='https://github.com/Dimss-W/CV-Website' color='#0369a1'><u>github.com/Dimss-W/CV-Website</u></a>"
     )
     story.append(Paragraph(links_text, contact_style))
     story.append(Spacer(1, 3))
-    story.append(HRFlowable(width="100%", thickness=1.2, color=primary_color, spaceAfter=4, spaceBefore=1))
+    story.append(HRFlowable(width="100%", thickness=1.2, color=primary_color, spaceAfter=5, spaceBefore=1))
 
     # 2. BIODATA MAHASISWA & PROFIL RINGKAS
     for elem in section_heading("Biodata Mahasiswa & Profil Profesional"):
@@ -205,13 +197,13 @@ def create_ats_cv(output_path):
         ],
         [
             Paragraph("<b>Alamat Lengkap</b>", body_style),
-            Paragraph(": Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat", body_style),
+            Paragraph(": Jl. Kramat Jaya, Johar Baru, Jakarta Pusat", body_style),
             Paragraph("<b>Fokus Keahlian</b>", body_style),
-            Paragraph(": Full Stack Web, Mobile Flutter & Power BI", body_style),
+            Paragraph(": Web Full Stack, Mobile & Power BI", body_style),
         ],
     ]
 
-    t_biodata = Table(biodata_data, colWidths=[120, 160, 95, 148])
+    t_biodata = Table(biodata_data, colWidths=[130, 150, 105, 138])
     t_biodata.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
         ('TOPPADDING', (0,0), (-1,-1), 1),
@@ -220,18 +212,19 @@ def create_ats_cv(output_path):
         ('RIGHTPADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(t_biodata)
-    story.append(Spacer(1, 2))
+    story.append(Spacer(1, 3))
 
     summary_p = (
-        "Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika dengan keahlian mendalam pada rekayasa perangkat lunak web dan mobile. "
-        "Memegang sertifikasi resmi <b>Database Administrator oleh BNSP</b> serta peraih <b>Juara 1 IT Bootcamp Software Development UBSI</b>. "
-        "Berpengalaman membangun sistem operasional korporat di PT PGAS Telekomunikasi Nusantara (PGNCOM) terintegrasi analitik Power BI, "
-        "serta merilis sistem produksi nyata seperti Otokeep (manajemen armada dengan integrasi Google Gemini Vision AI OCR) dan FindIt (sistem terpadu 27 kampus cabang UBSI)."
+        "Pengembang Perangkat Lunak Web & Mobile (Full Stack) dan Mahasiswa S1 Sistem Informasi di Universitas Bina Sarana Informatika "
+        "dengan spesialisasi arsitektur RESTful API, Laravel, basis data relasional MySQL, mobile framework Flutter/Dart, serta dashboard analitik "
+        "Microsoft Power BI. Telah tersertifikasi secara nasional oleh BNSP sebagai <b>Database Administrator</b> dan memenangkan predikat "
+        "<b>Juara 1 IT Bootcamp Software Development</b> se-UBSI tingkat nasional. Berpengalaman membangun aplikasi sistem informasi operasional enterprise, "
+        "integrasi AI Vision OCR, serta pendampingan teknis pemrograman."
     )
     story.append(Paragraph(summary_p, body_style))
     story.append(Spacer(1, 3))
 
-    # 3. PENDIDIKAN FORMAL (Lengkap sesuai berkas asli)
+    # 3. PENDIDIKAN FORMAL (Perguruan Tinggi S1 Sistem Informasi UBSI)
     for elem in section_heading("Pendidikan Formal"):
         story.append(elem)
 
@@ -244,36 +237,12 @@ def create_ats_cv(output_path):
             Paragraph("S1 Sistem Informasi &nbsp;|&nbsp; NIM: 19230181 &nbsp;|&nbsp; Mahasiswa Aktif", body_style),
             Paragraph("Jakarta, Indonesia", item_date_style),
         ],
-        [
-            Paragraph("<b>SMK Negeri 31 Jakarta</b>", item_title_style),
-            Paragraph("2019 – 2022", item_date_style),
-        ],
-        [
-            Paragraph("Jurusan Animasi &nbsp;|&nbsp; Tahun Lulus: 2022", body_style),
-            Paragraph("Jakarta Pusat, Indonesia", item_date_style),
-        ],
-        [
-            Paragraph("<b>SMP Negeri 156 Jakarta</b>", item_title_style),
-            Paragraph("2016 – 2019", item_date_style),
-        ],
-        [
-            Paragraph("Pendidikan Sekolah Menengah Pertama &nbsp;|&nbsp; Tahun Lulus: 2019", body_style),
-            Paragraph("Jakarta Pusat, Indonesia", item_date_style),
-        ],
-        [
-            Paragraph("<b>SD Negeri 17 Pagi Jakarta</b>", item_title_style),
-            Paragraph("2010 – 2016", item_date_style),
-        ],
-        [
-            Paragraph("Pendidikan Sekolah Dasar &nbsp;|&nbsp; Tahun Lulus: 2016", body_style),
-            Paragraph("Jakarta Pusat, Indonesia", item_date_style),
-        ],
     ]
-    t_edu = Table(edu_table_data, colWidths=[380, 143])
+    t_edu = Table(edu_table_data, colWidths=[365, 158])
     t_edu.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('TOPPADDING', (0,0), (-1,-1), 0.8),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 1.2),
+        ('TOPPADDING', (0,0), (-1,-1), 1),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1),
         ('LEFTPADDING', (0,0), (-1,-1), 0),
         ('RIGHTPADDING', (0,0), (-1,-1), 0),
     ]))
@@ -306,18 +275,18 @@ def create_ats_cv(output_path):
             Paragraph(": Git, GitHub, Gemini Vision AI (OCR), Postman, Figma, Linux/Vercel Deployment", body_style),
         ],
     ]
-    t_skills = Table(skills_data, colWidths=[130, 393])
+    t_skills = Table(skills_data, colWidths=[150, 373])
     t_skills.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('TOPPADDING', (0,0), (-1,-1), 0.8),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 0.8),
+        ('TOPPADDING', (0,0), (-1,-1), 1),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1),
         ('LEFTPADDING', (0,0), (-1,-1), 0),
         ('RIGHTPADDING', (0,0), (-1,-1), 0),
     ]))
     story.append(t_skills)
     story.append(Spacer(1, 3))
 
-    # 5. PENGALAMAN KERJA (PGNCOM & SMK Muhammadiyah 15)
+    # 5. PENGALAMAN KERJA & PROFESIONAL
     for elem in section_heading("Pengalaman Kerja & Profesional"):
         story.append(elem)
 
@@ -332,7 +301,7 @@ def create_ats_cv(output_path):
             Paragraph("Jakarta, Indonesia", item_date_style),
         ]
     ]
-    t_exp1 = Table(exp1_header, colWidths=[380, 143])
+    t_exp1 = Table(exp1_header, colWidths=[365, 158])
     t_exp1.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_exp1)
     story.append(Paragraph("• Membangun portal web internal <i>Monitoring Realisasi Biaya & QC BASTO</i> berbasis Laravel dan MySQL untuk mengotomasi alur validasi dokumen Berita Acara Serah Terima Operasional (BASTO) dan kepatuhan anggaran proyek.", bullet_style))
@@ -351,21 +320,14 @@ def create_ats_cv(output_path):
             Paragraph("Jakarta Selatan, Indonesia", item_date_style),
         ]
     ]
-    t_exp2 = Table(exp2_header, colWidths=[380, 143])
+    t_exp2 = Table(exp2_header, colWidths=[365, 158])
     t_exp2.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_exp2)
     story.append(Paragraph("• Menjadi instruktur teknis tamu yang membawakan kurikulum pengembangan web modern: pengenalan Framework Laravel, struktur MVC, dan administrasi database relasional MySQL kepada siswa kejuruan RPL.", bullet_style))
     story.append(Paragraph("• Membimbing sesi praktikum laboratorium komputer mengenai penerapan kode bersih (clean code) dan alur kerja kolaborasi version control berbasis Git & GitHub standar industri perangkat lunak.", bullet_style))
-
-    # ==========================================
-    # HALAMAN 2: PROYEK REKAYASA SISTEM & SERTIFIKASI
-    # ==========================================
-    story.append(PageBreak())
+    story.append(Spacer(1, 3))
 
     # Experience 3: Proyek Independen
-    for elem in section_heading("Pengalaman Rekayasa Perangkat Lunak Mandiri"):
-        story.append(elem)
-
     exp3_header = [
         [
             Paragraph("<b>Pengembang Perangkat Lunak Web & Mobile (Full Stack)</b>", item_title_style),
@@ -376,13 +338,14 @@ def create_ats_cv(output_path):
             Paragraph("Jakarta, Indonesia", item_date_style),
         ]
     ]
-    t_exp3 = Table(exp3_header, colWidths=[380, 143])
+    t_exp3 = Table(exp3_header, colWidths=[365, 158])
     t_exp3.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_exp3)
     story.append(Paragraph("• Merancang, membangun, dan merilis aplikasi mobile berbasis Flutter & Dart serta aplikasi web berskala enterprise terintegrasi backend RESTful API terstruktur dan basis data relasional.", bullet_style))
     story.append(Paragraph("• Mengelola siklus hidup pengembangan perangkat lunak (SDLC) end-to-end: analisis kebutuhan sistem bisnis, perancangan skema database, pembuatan antarmuka responsif, pengujian fungsionalitas, hingga rilis produksi.", bullet_style))
     story.append(Spacer(1, 4))
 
+    # 6. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN
     for elem in section_heading("Proyek Rekayasa Perangkat Lunak Unggulan"):
         story.append(elem)
 
@@ -397,7 +360,7 @@ def create_ats_cv(output_path):
             Paragraph("Live Production App", item_date_style),
         ]
     ]
-    t_p1 = Table(p1_head, colWidths=[380, 143])
+    t_p1 = Table(p1_head, colWidths=[365, 158])
     t_p1.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_p1)
     story.append(Paragraph("• Mengembangkan platform cerdas pemantauan perawatan kendaraan dan manajemen armada dengan integrasi Google Gemini Vision API untuk mendeteksi serta mengekstraksi angka odometer dari foto speedometer secara instan.", bullet_style))
@@ -415,7 +378,7 @@ def create_ats_cv(output_path):
             Paragraph("<a href='https://github.com/Dimss-W/FindIt.git' color='#0369a1'><u>GitHub Repository</u></a>", item_date_style),
         ]
     ]
-    t_p2 = Table(p2_head, colWidths=[380, 143])
+    t_p2 = Table(p2_head, colWidths=[365, 158])
     t_p2.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_p2)
     story.append(Paragraph("• Membangun sistem informasi pengelolaan barang hilang dan temuan terpusat yang melayani civitas akademika di 27 kampus cabang Universitas Bina Sarana Informatika se-Indonesia.", bullet_style))
@@ -434,7 +397,7 @@ def create_ats_cv(output_path):
             Paragraph("<a href='https://github.com/Dimss-W' color='#0369a1'><u>GitHub Profile</u></a>", item_date_style),
         ]
     ]
-    t_p3 = Table(p3_head, colWidths=[380, 143])
+    t_p3 = Table(p3_head, colWidths=[365, 158])
     t_p3.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_p3)
     story.append(Paragraph("• Mengembangkan aplikasi mobile Android cross-platform menggunakan Flutter dengan arsitektur MVVM dan konsumsi REST API Laravel untuk kalkulasi Indeks Massa Tubuh (IMT/BMI) real-time.", bullet_style))
@@ -452,7 +415,7 @@ def create_ats_cv(output_path):
             Paragraph("<a href='https://github.com/Dimss-W' color='#0369a1'><u>GitHub Profile</u></a>", item_date_style),
         ]
     ]
-    t_p4 = Table(p4_head, colWidths=[380, 143])
+    t_p4 = Table(p4_head, colWidths=[365, 158])
     t_p4.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_p4)
     story.append(Paragraph("• Membangun sistem Point of Sale (POS) multi-gerai dengan pembagian peran Super Admin dan Kasir, katalog menu dinamis, pencatatan transaksi kasir kilat, serta visualisasi rekap laba kotor real-time.", bullet_style))
@@ -469,13 +432,13 @@ def create_ats_cv(output_path):
             Paragraph("Proyek Internal Perusahaan", item_date_style),
         ]
     ]
-    t_p5 = Table(p5_head, colWidths=[380, 143])
+    t_p5 = Table(p5_head, colWidths=[365, 158])
     t_p5.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_p5)
     story.append(Paragraph("• Mengintegrasikan basis data transaksi operasional ke visualisasi analitik Microsoft Power BI interaktif untuk memudahkan evaluasi deviasi anggaran proyek dan status dokumen BASTO.", bullet_style))
     story.append(Spacer(1, 4))
 
-    # SERTIFIKASI & LISENSI
+    # 7. SERTIFIKASI & PENGHARGAAN
     for elem in section_heading("Sertifikasi Kompetensi & Penghargaan Resmi"):
         story.append(elem)
 
@@ -489,7 +452,7 @@ def create_ats_cv(output_path):
             Paragraph("No. Reg. DMS.1241.00936 2026", item_date_style),
         ],
     ]
-    t_c1 = Table(cert_data, colWidths=[370, 153])
+    t_c1 = Table(cert_data, colWidths=[365, 158])
     t_c1.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_c1)
     story.append(Paragraph("• Dinyatakan Kompeten secara nasional (No. Sertifikat: 63120 2521 6 0000936 2026) dalam unit kompetensi: merancang arsitektur basis data konseptual dan logikal, menulis kueri SQL tingkat lanjut, mengoptimalkan indeks tabel, dan mengimplementasikan kebijakan integritas keamanan data.", bullet_style))
@@ -505,7 +468,7 @@ def create_ats_cv(output_path):
             Paragraph("Tingkat Nasional Se-UBSI", item_date_style),
         ],
     ]
-    t_a1 = Table(award_data, colWidths=[370, 153])
+    t_a1 = Table(award_data, colWidths=[365, 158])
     t_a1.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0), ('BOTTOMPADDING', (0,1), (-1,1), 1.5)]))
     story.append(t_a1)
     story.append(Paragraph("• Meraih penghargaan peringkat pertama dalam kompetisi pengembangan sistem web intensif, mengungguli perwakilan mahasiswa dari seluruh kampus cabang UBSI di Indonesia dengan penilaian mutu arsitektur, clean code, dan fungsionalitas aplikasi.", bullet_style))
