@@ -28,12 +28,9 @@ export default function ScrollObserver() {
     let hasMovedMouse = false;
     let lastScrollUpState = (typeof window !== 'undefined' ? window.scrollY : 0) >= 350;
 
-    // Scroll state tracking
-    let smoothScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
-    let targetScrollY = smoothScrollY;
-    let isScrolling = false;
-    let scrollActivity = 0; // 0 = mode kursor mouse, 1 = mode gelombang mengalir saat scroll
-    let scrollTimer: ReturnType<typeof setTimeout> | null = null;
+    // Scroll tracking untuk inersia fluida
+    let lastScrollY = typeof window !== 'undefined' ? window.scrollY : 0;
+    let scrollVelocity = 0;
 
     // Koordinat animasi 3-layer (Inti, Bayangan Ekor, dan Aura)
     let currentX = rawMouseX;
@@ -68,10 +65,6 @@ export default function ScrollObserver() {
       rawMouseX = e.clientX;
       rawMouseY = e.clientY;
 
-      // Saat mouse digerakkan aktif, kurangi mode scroll agar kursor lekas diprioritaskan
-      scrollActivity = Math.max(0, scrollActivity - 0.25);
-      isScrolling = false;
-
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     };
@@ -105,17 +98,11 @@ export default function ScrollObserver() {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      targetScrollY = currentScrollY;
+      const diff = currentScrollY - lastScrollY;
+      lastScrollY = currentScrollY;
 
-      // Masuk ke mode scroll mulus
-      isScrolling = true;
-      scrollActivity = Math.min(1.0, scrollActivity + 0.35);
-
-      if (scrollTimer) clearTimeout(scrollTimer);
-      // Ketika berhenti scroll selama 220ms, perlahan kembali ke kursor mouse
-      scrollTimer = setTimeout(() => {
-        isScrolling = false;
-      }, 220);
+      // Inersia kecepatan scroll untuk efek fluida
+      scrollVelocity = Math.max(-45, Math.min(45, diff));
 
       const shouldShow = currentScrollY >= 350;
       if (shouldShow !== lastScrollUpState) {
@@ -128,51 +115,31 @@ export default function ScrollObserver() {
       const dt = Math.min((now - lastTime) / 16.667, 2.0);
       lastTime = now;
 
-      // Interpolasi scroll halus
-      targetScrollY = window.scrollY;
-      smoothScrollY += (targetScrollY - smoothScrollY) * (0.08 * dt);
+      // Redam inersia scroll secara kontinu
+      scrollVelocity *= Math.pow(0.88, dt);
 
-      // Redam aktivitas scroll secara kontinu jika tidak sedang aktif scroll
-      if (!isScrolling) {
-        scrollActivity *= Math.pow(0.91, dt);
-        if (scrollActivity < 0.005) scrollActivity = 0;
-      }
+      // Target bergerak leluasa ke posisi kursor pengguna di manapun kursor berada (kiri, tengah, kanan)
+      const targetX = hasMovedMouse ? rawMouseX : winW * 0.5;
+      const targetY = hasMovedMouse ? rawMouseY : winH * 0.45;
 
-      // Kurva blend halus (Hermite smoothstep)
-      const blend = scrollActivity * scrollActivity * (3 - 2 * scrollActivity);
-
-      // 1. Target Posisi saat Mode Scroll (Gelombang tenang melayang di tengah layar, tidak ke pinggir)
-      const timePhase = now * 0.001;
-      const scrollPhase = smoothScrollY * 0.0018;
-      const waveX = winW * 0.5 + Math.sin(timePhase + scrollPhase) * 55;
-      const waveY = winH * 0.45 + Math.cos(timePhase * 0.8 + scrollPhase * 0.9) * 40;
-
-      // 2. Target Posisi saat Mode Kursor Mouse
-      const mouseTargetX = hasMovedMouse ? rawMouseX : winW * 0.5;
-      const mouseTargetY = hasMovedMouse ? rawMouseY : winH * 0.45;
-
-      // 3. Interpolasi Posisi: Saat scroll -> melayang anggun di tengah; saat berhenti -> meluncur halus ke kursor
-      const targetX = (1 - blend) * mouseTargetX + blend * waveX;
-      const targetY = (1 - blend) * mouseTargetY + blend * waveY;
-
-      // 4. Fisika Fluida Organik (Tidak kaku dikunci, bergerak lembut & elastis)
-      const springK = (1 - blend) * 0.28 + blend * 0.12;
-      const leadFactor = 1 - Math.pow(1 - springK, dt);
-      const trailFactor = 1 - Math.pow(1 - 0.11, dt);
-      const auraFactor = 1 - Math.pow(1 - 0.055, dt);
+      // Fisika pergerakan fluida yang leluasa, lincah, dan sangat halus (Fluid Spring)
+      const leadFactor = 1 - Math.pow(1 - 0.32, dt);
+      const trailFactor = 1 - Math.pow(1 - 0.14, dt);
+      const auraFactor = 1 - Math.pow(1 - 0.065, dt);
 
       currentX += (targetX - currentX) * leadFactor;
       currentY += (targetY - currentY) * leadFactor;
 
+      // Lapisan ekor dan aura merespons aliran scroll dengan inersia elastis
       trailX += (currentX - trailX) * trailFactor;
-      trailY += (currentY - trailY) * trailFactor;
+      trailY += (currentY - trailY + scrollVelocity * 0.25) * trailFactor;
 
       auraX += (trailX - auraX) * auraFactor;
-      auraY += (trailY - auraY) * auraFactor;
+      auraY += (trailY - auraY + scrollVelocity * 0.5) * auraFactor;
 
       const dx = targetX - currentX;
       const dy = targetY - currentY;
-      const instantSpeed = Math.hypot(dx, dy);
+      const instantSpeed = Math.hypot(dx, dy) + Math.abs(scrollVelocity);
       smoothSpeed += (instantSpeed - smoothSpeed) * (0.15 * dt);
 
       const mobile = isMobileView();
@@ -331,7 +298,6 @@ export default function ScrollObserver() {
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
-      if (scrollTimer) clearTimeout(scrollTimer);
       cancelAnimationFrame(rafId);
       focusObserver.disconnect();
       revealObserver.disconnect();
