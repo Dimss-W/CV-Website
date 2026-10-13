@@ -79,11 +79,11 @@ export default function Footer() {
               <div className="flex items-center gap-2 mb-1">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--first-color)]">
-                  Spesifikasi &amp; Teknologi Pembuatan Website
+                  Teknologi Pembuatan Website
                 </span>
               </div>
               <p className="text-xs text-[var(--text-color)] max-w-xl leading-relaxed">
-                Platform portofolio ini dibangun dengan standar rekayasa perangkat lunak modern, performa tinggi, sistem komponen modular, dan pipeline otomatis.
+                Website CV ini dibangun menggunakan Next.js 14, TypeScript, Tailwind CSS, basis data Supabase, dan generator CV ATS berbasis Python.
               </p>
             </div>
             <span className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-[var(--body-color)] border border-[var(--border-color)] text-[var(--first-color)] whitespace-nowrap self-start md:self-auto">
