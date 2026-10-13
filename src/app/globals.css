@@ -988,17 +988,17 @@ img {
   scroll-snap-type: x mandatory;
   padding-bottom: 1rem;
   padding-top: 0.25rem;
-  align-items: stretch;
+  align-items: flex-start;
 }
 
 @media (min-width: 768px) {
   .work__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 1fr;
     gap: 1.75rem;
     overflow: visible;
     padding-bottom: 0;
+    align-items: start;
   }
 }
 
@@ -1006,6 +1006,7 @@ img {
   .work__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.75rem;
+    align-items: start;
   }
 }
 
@@ -1018,7 +1019,7 @@ img {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: auto;
   min-height: 490px;
   transition:
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1115,24 +1116,35 @@ img {
 }
 
 .work__description {
+  position: relative;
   color: var(--text-color);
   font-size: var(--small-font-size);
   line-height: 1.6;
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+  margin-bottom: 0.5rem;
+  max-height: 6.4em;
   overflow: hidden;
-  min-height: 6.4em;
-  flex: 1;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work__description::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2em;
+  background: linear-gradient(to bottom, transparent, var(--container-color) 92%);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.35s ease;
 }
 
 .work__description--expanded {
-  display: block;
-  -webkit-line-clamp: unset;
-  overflow: visible;
-  min-height: auto;
+  max-height: 35em;
+}
+
+.work__description--expanded::after {
+  opacity: 0;
 }
 
 .work__card:hover .work__img {

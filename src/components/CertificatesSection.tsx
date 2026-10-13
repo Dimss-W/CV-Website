@@ -61,7 +61,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
         Sertifikat & <span>Penghargaan</span>
       </h2>
 
-      <div className="container grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto auto-rows-fr gap-6">
+      <div className="container grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto items-start gap-6">
         {certificates.map((cert, index) => {
           const currentPage = activeImageMap[cert.id] ?? 0;
           const currentImg = cert.images[currentPage] || cert.images[0];
@@ -72,7 +72,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
           return (
             <article
               key={cert.id}
-              className="work__card h-full flex flex-col"
+              className="work__card h-auto flex flex-col"
               onMouseEnter={() => setPausedCardId(cert.id)}
               onMouseLeave={() => setPausedCardId(null)}
             >
