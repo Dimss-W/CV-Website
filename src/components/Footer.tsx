@@ -83,7 +83,7 @@ export default function Footer() {
                 </span>
               </div>
               <p className="text-xs text-[var(--text-color)] max-w-xl leading-relaxed">
-                Website CV ini dibangun menggunakan Next.js 14, TypeScript, Tailwind CSS, basis data Supabase, dan generator CV ATS berbasis Python.
+                Website CV ini dibangun menggunakan Next.js 14, TypeScript, Tailwind CSS, dan generator CV ATS berbasis Python.
               </p>
             </div>
             <span className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-[var(--body-color)] border border-[var(--border-color)] text-[var(--first-color)] whitespace-nowrap self-start md:self-auto">
@@ -91,7 +91,7 @@ export default function Footer() {
             </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 text-xs">
             <div className="p-2.5 rounded-xl bg-[var(--body-color)]/60 border border-[var(--border-color)] flex flex-col gap-1">
               <span className="text-[10px] text-[var(--text-color-light)] font-mono">Framework</span>
               <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
@@ -110,13 +110,6 @@ export default function Footer() {
               <span className="text-[10px] text-[var(--text-color-light)] font-mono">Styling UI</span>
               <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-teal-400"></span> Tailwind CSS
-              </span>
-            </div>
-
-            <div className="p-2.5 rounded-xl bg-[var(--body-color)]/60 border border-[var(--border-color)] flex flex-col gap-1">
-              <span className="text-[10px] text-[var(--text-color-light)] font-mono">Basis Data</span>
-              <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Supabase
               </span>
             </div>
 
