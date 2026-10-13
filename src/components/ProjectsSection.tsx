@@ -108,11 +108,19 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'web' | 'mobile' | 'data-ai'>('all');
+  const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({});
   const [lightbox, setLightbox] = useState<{
     open: boolean;
     project: Project | null;
     imgIdx: number;
   }>({ open: false, project: null, imgIdx: 0 });
+
+  const toggleExpandProject = (id: string) => {
+    setExpandedProjects((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   const categories = [
     { id: 'all', label: 'Semua Proyek' },
@@ -203,6 +211,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                 : project.image_url
                 ? [project.image_url]
                 : [];
+            const projectKey = project.id || project.title;
+            const isExpanded = !!expandedProjects[projectKey];
 
             return (
               <article
@@ -224,9 +234,23 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   <h3 className="work__name" title={project.title}>
                     {project.title}
                   </h3>
-                  <p className="work__description" title={project.description}>
+                  <p
+                    className={`work__description ${
+                      isExpanded ? 'work__description--expanded !mb-1.5' : ''
+                    }`}
+                    title={project.description}
+                  >
                     {project.description}
                   </p>
+
+                  <button
+                    type="button"
+                    onClick={() => toggleExpandProject(projectKey)}
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-3 self-start py-0.5 cursor-pointer"
+                  >
+                    <span>{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
+                    <i className={isExpanded ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} />
+                  </button>
 
                   {/* Catatan Arsitektur Teknis */}
                   {project.technical_highlight && (

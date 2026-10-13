@@ -1125,6 +1125,14 @@ img {
   overflow: hidden;
   min-height: 6.4em;
   flex: 1;
+  transition: max-height 0.3s ease;
+}
+
+.work__description--expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+  min-height: auto;
 }
 
 .work__card:hover .work__img {

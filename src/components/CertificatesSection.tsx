@@ -17,9 +17,17 @@ function getCertFocalPoint(url: string): string {
 
 export default function CertificatesSection({ certificates }: CertificatesSectionProps) {
   const [activeImageMap, setActiveImageMap] = useState<Record<string, number>>({});
+  const [expandedCerts, setExpandedCerts] = useState<Record<string, boolean>>({});
   const [pausedCardId, setPausedCardId] = useState<string | null>(null);
   const [modalCert, setModalCert] = useState<Certificate | null>(null);
   const [modalPageIndex, setModalPageIndex] = useState<number>(0);
+
+  const toggleExpandCert = (id: string) => {
+    setExpandedCerts((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -58,11 +66,13 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
           const currentPage = activeImageMap[cert.id] ?? 0;
           const currentImg = cert.images[currentPage] || cert.images[0];
           const num = String(index + 1).padStart(2, '0');
+          const certKey = cert.id || cert.title;
+          const isExpanded = !!expandedCerts[certKey];
 
           return (
             <article
               key={cert.id}
-              className="work__card h-full"
+              className="work__card h-full flex flex-col"
               onMouseEnter={() => setPausedCardId(cert.id)}
               onMouseLeave={() => setPausedCardId(null)}
             >
@@ -132,7 +142,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 )}
               </div>
 
-              <div className="work__data">
+              <div className="work__data flex flex-col flex-grow">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="work__number !mb-0">{num}</span>
                   <span className="px-3 py-1 rounded-full border border-[var(--first-color)] text-xs font-semibold text-white truncate">
@@ -145,7 +155,22 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   {cert.issuer} • {cert.issue_date}
                 </p>
 
-                <p className="work__description">{cert.description}</p>
+                <p
+                  className={`work__description ${
+                    isExpanded ? 'work__description--expanded !mb-1.5' : ''
+                  }`}
+                >
+                  {cert.description}
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => toggleExpandCert(certKey)}
+                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-3 self-start py-0.5 cursor-pointer"
+                >
+                  <span>{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
+                  <i className={isExpanded ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} />
+                </button>
 
                 <ul className="services__list mt-auto pt-3 border-t border-white/10">
                   {cert.skills.slice(0, 4).map((s) => (
