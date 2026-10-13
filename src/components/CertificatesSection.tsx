@@ -166,19 +166,22 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 <button
                   type="button"
                   onClick={() => toggleExpandCert(certKey)}
-                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-3 self-start py-0.5 cursor-pointer"
+                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-2.5 self-start py-0.5 cursor-pointer"
                 >
                   <span>{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
                   <i className={isExpanded ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} />
                 </button>
 
-                <ul className="services__list mt-auto pt-3 border-t border-white/10">
+                <div className="flex flex-wrap items-center gap-1.5 mt-auto pt-2.5 border-t border-white/10">
                   {cert.skills.slice(0, 4).map((s) => (
-                    <li key={s} className="services__item !text-xs">
+                    <span
+                      key={s}
+                      className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium whitespace-nowrap"
+                    >
                       {s}
-                    </li>
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
 
               <div className="blob-big" />

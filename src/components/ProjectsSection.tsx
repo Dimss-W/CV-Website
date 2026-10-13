@@ -248,7 +248,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   <button
                     type="button"
                     onClick={() => toggleExpandProject(projectKey)}
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-3 self-start py-0.5 cursor-pointer"
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-2.5 self-start py-0.5 cursor-pointer"
                   >
                     <span>{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
                     <i className={isExpanded ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} />
@@ -256,14 +256,15 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
                   {/* Catatan Arsitektur Teknis */}
                   {project.technical_highlight && (
-                    <div className="mb-3 text-[11px] text-[var(--text-color)]/95 bg-white/[0.04] border-l-2 border-[var(--first-color)] px-3 py-2 rounded-r-lg">
-                      <span className="text-white font-semibold">Arsitektur: </span>
-                      <span>{project.technical_highlight}</span>
+                    <div className="mb-2.5 text-[11px] text-[var(--text-color)]/95 bg-white/[0.04] border-l-2 border-[var(--first-color)] px-2.5 py-1.5 rounded-r-lg min-h-[46px] flex items-center">
+                      <p className="line-clamp-2">
+                        <span className="text-white font-semibold">Arsitektur: </span>
+                        <span>{project.technical_highlight}</span>
+                      </p>
                     </div>
                   )}
 
-
-                  <div className="flex flex-wrap items-center gap-1.5 mb-3 mt-auto">
+                  <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
@@ -274,7 +275,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 pt-3 border-t border-white/10 mt-auto min-h-[44px]">
+                  <div className="flex items-center justify-between gap-2 pt-2.5 border-t border-white/10 mt-auto min-h-[42px]">
                     {project.demo_url &&
                     !project.demo_url.includes('github.com') ? (
                       <a
