@@ -237,26 +237,47 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     {project.title}
                   </h3>
                   <p
-                    className={`work__description ${
-                      isExpanded ? 'work__description--expanded !mb-1.5' : ''
-                    }`}
+                    className="text-xs text-[var(--text-color)]/95 leading-relaxed min-h-[4.4em] line-clamp-3 mb-1"
                     title={project.description}
                   >
                     {project.description}
                   </p>
 
+                  <div
+                    className="grid transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                    style={{
+                      gridTemplateRows: isExpanded ? '1fr' : '0fr',
+                      opacity: isExpanded ? 1 : 0,
+                    }}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="pt-2 pb-2 text-xs text-white/90 leading-relaxed border-t border-white/10 mt-1 mb-2 bg-white/[0.03] px-3 py-2 rounded-xl border border-white/5">
+                        <span className="text-[var(--first-color)] font-semibold block mb-1 text-[11px]">
+                          Rincian Fitur & Solusi Teknis:
+                        </span>
+                        <p className="text-[var(--text-color)]/95 leading-relaxed">
+                          {project.details || project.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   <button
                     type="button"
                     onClick={() => toggleExpandProject(projectKey)}
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-2.5 self-start py-0.5 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-3 self-start py-1 px-2 -ml-2 rounded-lg hover:bg-white/5 cursor-pointer group"
                   >
                     <span>{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
-                    <i className={isExpanded ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} />
+                    <i
+                      className={`ri-arrow-down-s-line text-sm transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                        isExpanded ? 'rotate-180 text-white' : ''
+                      }`}
+                    />
                   </button>
 
                   {/* Catatan Arsitektur Teknis */}
                   {project.technical_highlight && (
-                    <div className="mb-2.5 text-[11px] text-[var(--text-color)]/95 bg-white/[0.04] border-l-2 border-[var(--first-color)] px-2.5 py-1.5 rounded-r-lg min-h-[46px] max-h-[46px] overflow-hidden flex items-center">
+                    <div className="mb-3 text-[11px] text-[var(--text-color)]/95 bg-white/[0.04] border-l-2 border-[var(--first-color)] px-2.5 py-1.5 rounded-r-lg flex items-center">
                       <p className="line-clamp-2">
                         <span className="text-white font-semibold">Arsitektur: </span>
                         <span>{project.technical_highlight}</span>
@@ -264,11 +285,11 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap items-center gap-1.5 mb-2.5 min-h-[26px] max-h-[26px] overflow-hidden">
-                    {project.tags.slice(0, 3).map((tag) => (
+                  <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                    {project.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
-                        className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium whitespace-nowrap"
+                        className="text-[11px] px-2.5 py-1 rounded-full border border-[var(--first-color)]/35 bg-[var(--first-color)]/5 text-white/90 font-medium whitespace-nowrap shadow-sm"
                       >
                         {tag}
                       </span>

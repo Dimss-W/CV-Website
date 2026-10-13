@@ -64,7 +64,8 @@ export const defaultExperiences: Experience[] = [
 export const defaultProjects: Project[] = [
   {
     title: 'Otokeep - Manajemen Perawatan Kendaraan & Pemindai AI',
-    description: 'Platform cerdas pemantauan servis kendaraan & manajemen armada dengan integrasi Pemindai Speedometer AI (Gemini Vision), pengingat servis otomatis, pemantauan pajak & STNK berkala, serta riwayat perawatan real-time.',
+    description: 'Platform cerdas pemantauan servis kendaraan & manajemen armada terintegrasi dengan pemindai speedometer AI berbasis Gemini Vision.',
+    details: 'Menyediakan pengingat servis otomatis berbasis kalkulasi jarak tempuh, pemantauan berkala masa aktif pajak & STNK, kompresi gambar JPEG otomatis di sisi klien, pipeline Google Gemini Vision OCR tanpa latensi berlebih, serta riwayat perawatan real-time.',
     tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Gemini Vision AI', 'REST API'],
     category: 'data-ai',
     technical_highlight: 'Kompresi gambar JPEG otomatis dan pipeline Google Gemini Vision OCR untuk ekstraksi angka odometer tanpa latensi server berlebih.',
@@ -84,7 +85,8 @@ export const defaultProjects: Project[] = [
   },
   {
     title: 'FindIt - Sistem Terpadu Kehilangan & Penemuan Barang UBSI',
-    description: 'Sistem informasi pengelolaan barang hilang & ditemukan terpadu untuk 27 kampus Universitas Bina Sarana Informatika se-Indonesia, dilengkapi alur verifikasi temuan, brankas loker, validasi klaim, dan dashboard kontrol pusat.',
+    description: 'Sistem informasi pengelolaan barang hilang & ditemukan terpadu untuk 27 kampus Universitas Bina Sarana Informatika se-Indonesia.',
+    details: 'Menyediakan partisi relasi data multi-kampus untuk 27 cabang UBSI, penanganan brankas loker penitipan terpusat, validasi klaim identitas mahasiswa, alur verifikasi penemuan bertingkat, serta panel kontrol audit admin pusat.',
     tags: ['Laravel', 'Blade', 'MySQL', 'Multi-Kampus', 'REST API'],
     category: 'web',
     technical_highlight: 'Partisi relasi data multi-kampus untuk 27 cabang UBSI dengan penanganan loker penitipan terpusat dan verifikasi identitas mahasiswa.',
@@ -104,7 +106,8 @@ export const defaultProjects: Project[] = [
   },
   {
     title: 'Sistem Monitoring Realisasi & Dashboard Power BI',
-    description: 'Sistem manajemen perusahaan terintegrasi untuk pemantauan realisasi anggaran proyek, pengesahan dokumen BASTO, verifikasi mutu QC teknis, dan administrasi penagihan PT PGAS Telekomunikasi Nusantara (PGNCOM) dengan visualisasi analitik Microsoft Power BI interaktif.',
+    description: 'Sistem manajemen operasional perusahaan untuk pemantauan realisasi anggaran proyek dan administrasi penagihan PT PGAS Telekomunikasi Nusantara.',
+    details: 'Mengintegrasikan alur pengesahan dokumen BASTO, verifikasi mutu QC teknis, data relasional MySQL, serta dashboard visualisasi analitik Microsoft Power BI interaktif berbasis rumus DAX untuk analisis deviasi prognosa anggaran secara real-time.',
     tags: ['Power BI', 'Laravel', 'Blade', 'MySQL', 'Sistem Perusahaan'],
     category: 'data-ai',
     technical_highlight: 'Pola arsitektur data relasional MySQL terintegrasi ke dashboard analitik Microsoft Power BI dengan formula DAX pemantauan deviasi anggaran proyek.',
@@ -126,7 +129,8 @@ export const defaultProjects: Project[] = [
   },
   {
     title: 'CalTrack - Aplikasi Mobile Kesehatan & Nutrisi',
-    description: 'Aplikasi mobile kesehatan cerdas berbasis Flutter & Dart dengan arsitektur backend RESTful API Laravel & MySQL. Menyediakan fitur kalkulasi IMT/BMI real-time, rekomendasi nutrisi & olahraga personal, konsultasi dokter, manajemen langganan, dan dashboard admin terpusat.',
+    description: 'Aplikasi mobile kesehatan cerdas berbasis Flutter & Dart dengan arsitektur backend RESTful API Laravel & MySQL.',
+    details: 'Menyediakan kalkulasi IMT/BMI real-time dengan rumus terstandarisasi, kurasi rekomendasi nutrisi harian & olahraga personal, konsultasi dokter, manajemen akun langganan, dan panel dashboard administrator.',
     tags: ['Flutter', 'Dart', 'Aplikasi Mobile', 'Laravel', 'REST API', 'MySQL'],
     category: 'mobile',
     technical_highlight: 'Arsitektur MVVM di Flutter dengan konsumsi RESTful API Laravel, kalkulasi IMT real-time, dan penyimpanan token aman.',
@@ -149,7 +153,8 @@ export const defaultProjects: Project[] = [
   },
   {
     title: 'Kastrix - Sistem Kasir Pintar & Manajemen Multi-Gerai',
-    description: 'Platform Point of Sale (POS) & manajemen inventaris cerdas untuk otomasi kasir, pengelolaan menu gerai, verifikasi akun mitra pemilik, dan visualisasi laporan omzet real-time dengan peran Super Admin & Kasir.',
+    description: 'Platform Point of Sale (POS) & inventaris cerdas untuk otomasi transaksi kasir dan manajemen multi-gerai.',
+    details: 'Mendukung pengelolaan menu gerai, verifikasi akun mitra pemilik, visualisasi laporan omzet harian & bulanan real-time, serta otentikasi role-based access control (RBAC) untuk peran Super Admin dan Kasir.',
     tags: ['Laravel', 'React', 'Tailwind CSS', 'MySQL', 'Sistem Kasir', 'REST API'],
     category: 'web',
     technical_highlight: 'Manajemen otentikasi role-based access control (RBAC) untuk super-admin dan multi-outlet kasir secara real-time.',
@@ -169,7 +174,8 @@ export const defaultProjects: Project[] = [
   },
   {
     title: 'Website CV & Portofolio Profesional',
-    description: 'Website portofolio dan CV personal modern berbasis Next.js 14, TypeScript, dan Tailwind CSS dengan antarmuka interaktif, efek 3D lanyard, kursor fluida responsif, dan generator CV ATS berbasis Python.',
+    description: 'Website portofolio dan CV personal interaktif modern berbasis Next.js 14, TypeScript, dan Tailwind CSS.',
+    details: 'Dilengkapi kursor fluida responsif dengan efek aura partikel, simulasi kartu 3D lanyard dinamis, generator CV ATS 1 halaman berbasis Python ReportLab, arsitektur komponen modular, dan performa akses ultra-cepat.',
     tags: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Python', 'ReportLab'],
     category: 'web',
     technical_highlight: 'Arsitektur komponen modular Next.js 14 dengan animasi kursor kustom fluida, efek kartu 3D lanyard interaktif, dan integrasi ekspor PDF ATS 1 halaman penuh.',
@@ -232,7 +238,8 @@ export const defaultCertificates: Certificate[] = [
       },
     ],
     pdf_url: '/certificates/sertifikat-bnsp-database-administrator.pdf',
-    description: 'Dinyatakan KOMPETEN secara nasional oleh Badan Nasional Sertifikasi Profesi (BNSP) dan Lembaga Sertifikasi Profesi (LSP) UBSI pada skema Database Administrator. Menguasai arsitektur basis data, integrasi data, optimalisasi kueri SQL, pemeliharaan kualitas data, serta tata kelola keamanan dan hak akses basis data.',
+    description: 'Dinyatakan KOMPETEN secara nasional oleh Badan Nasional Sertifikasi Profesi (BNSP) dan Lembaga Sertifikasi Profesi (LSP) UBSI pada skema Database Administrator.',
+    details: 'Menguasai 7 unit kompetensi standar SKKNI meliputi perancangan basis data & ERD, integrasi & migrasi data, optimalisasi kueri SQL kompleks, pemeliharaan kualitas & integritas data, serta tata kelola keamanan dan manajemen hak akses sistem basis data.',
     skills: [
       'Optimalisasi Kueri SQL',
       'Perancangan Basis Data & ERD',
@@ -261,7 +268,8 @@ export const defaultCertificates: Certificate[] = [
       },
     ],
     pdf_url: '',
-    description: 'Telah menyelesaikan asesmen uji kompetensi nasional skema Analis Program oleh BNSP dan Lembaga Sertifikasi Profesi (LSP) UBSI pada awal Agustus 2026 dan dinyatakan KOMPETEN. Menguasai 10 unit kompetensi SKKNI: analisis skalabilitas sistem, query SQL & akses basis data, implementasi algoritma pemrograman, dokumentasi kode, debugging, profiling, code review, serta pengujian unit dan integrasi program. Berkas fisik sertifikat dalam alur penerbitan resmi oleh BNSP.',
+    description: 'Telah menyelesaikan asesmen uji kompetensi nasional skema Analis Program oleh BNSP dan Lembaga Sertifikasi Profesi (LSP) UBSI pada awal Agustus 2026 dan dinyatakan KOMPETEN.',
+    details: 'Menguasai 10 unit kompetensi standar SKKNI: analisis skalabilitas sistem, query SQL & akses basis data, implementasi algoritma pemrograman, dokumentasi kode, debugging, profiling, code review, serta pengujian unit dan integrasi program. Berkas fisik sertifikat dalam alur penerbitan resmi oleh BNSP.',
     skills: [
       'Analisis Skalabilitas Perangkat Lunak',
       'Query SQL & Akses Basis Data',
@@ -298,7 +306,8 @@ export const defaultCertificates: Certificate[] = [
       },
     ],
     pdf_url: '',
-    description: 'Meraih predikat JUARA 1 mengungguli seluruh perwakilan mahasiswa dari seluruh kampus cabang Universitas Bina Sarana Informatika (UBSI) se-Indonesia dalam ajang kompetisi intensif IT Bootcamp "Software Development for Industry" di Hotel Asyana Sentul - Bogor. Diberikan apresiasi langsung oleh Rektor UBSI atas keunggulan aplikasi web "Website Madrasah Aliyah Smart Tahfidz School".',
+    description: 'Meraih predikat JUARA 1 mengungguli seluruh perwakilan mahasiswa dari seluruh kampus cabang Universitas Bina Sarana Informatika (UBSI) se-Indonesia dalam ajang IT Bootcamp "Software Development for Industry".',
+    details: 'Diberikan apresiasi langsung oleh Rektor UBSI di Hotel Asyana Sentul Bogor atas keunggulan aplikasi web "Website Madrasah Aliyah Smart Tahfidz School" yang dinilai unggul dalam arsitektur perangkat lunak, fungsionalitas sistem, kode bersih, dan kesiapan implementasi industri.',
     skills: [
       'Pengembangan Perangkat Lunak Full Stack',
       'Arsitektur Aplikasi Web',

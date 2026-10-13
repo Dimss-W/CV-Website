@@ -32,6 +32,7 @@ export interface Project {
   id?: string;
   title: string;
   description: string;
+  details?: string;
   tags: string[];
   category?: 'web' | 'mobile' | 'data-ai';
   technical_highlight?: string;
@@ -73,6 +74,7 @@ export interface Certificate {
   images: { title: string; url: string }[];
   pdf_url: string;
   description: string;
+  details?: string;
   skills: string[];
   competency_units?: { code: string; title: string }[];
 }

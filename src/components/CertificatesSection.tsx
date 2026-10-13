@@ -151,32 +151,51 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 </div>
 
                 <h3 className="work__name mt-2">{cert.title}</h3>
-                <p className="text-xs text-[var(--first-color)] font-medium mb-2 truncate min-h-[1.5em] max-h-[1.5em]">
+                <p className="text-xs text-[var(--first-color)] font-medium mb-2 min-h-[2.6em] line-clamp-2 leading-snug">
                   {cert.issuer} • {cert.issue_date}
                 </p>
 
-                <p
-                  className={`work__description ${
-                    isExpanded ? 'work__description--expanded !mb-1.5' : ''
-                  }`}
-                >
+                <p className="text-xs text-[var(--text-color)]/95 leading-relaxed min-h-[4.4em] line-clamp-3 mb-1">
                   {cert.description}
                 </p>
+
+                <div
+                  className="grid transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  style={{
+                    gridTemplateRows: isExpanded ? '1fr' : '0fr',
+                    opacity: isExpanded ? 1 : 0,
+                  }}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pt-2 pb-2 text-xs text-white/90 leading-relaxed border-t border-white/10 mt-1 mb-2 bg-white/[0.03] px-3 py-2 rounded-xl border border-white/5">
+                      <span className="text-[var(--first-color)] font-semibold block mb-1 text-[11px]">
+                        Rincian Kompetensi & Penjelasan:
+                      </span>
+                      <p className="text-[var(--text-color)]/95 leading-relaxed">
+                        {cert.details || cert.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 <button
                   type="button"
                   onClick={() => toggleExpandCert(certKey)}
-                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-2.5 self-start py-0.5 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--first-color)] hover:text-white transition-colors mb-3 self-start py-1 px-2 -ml-2 rounded-lg hover:bg-white/5 cursor-pointer group"
                 >
                   <span>{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
-                  <i className={isExpanded ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} />
+                  <i
+                    className={`ri-arrow-down-s-line text-sm transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isExpanded ? 'rotate-180 text-white' : ''
+                    }`}
+                  />
                 </button>
 
-                <div className="flex flex-wrap items-center gap-1.5 mt-auto pt-2.5 border-t border-white/10 min-h-[26px] max-h-[26px] overflow-hidden">
-                  {cert.skills.slice(0, 4).map((s) => (
+                <div className="flex flex-wrap items-center gap-1.5 mt-auto pt-3 border-t border-white/10">
+                  {cert.skills.map((s) => (
                     <span
                       key={s}
-                      className="text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--first-color)]/40 text-white/90 font-medium whitespace-nowrap"
+                      className="text-[11px] px-2.5 py-1 rounded-full border border-[var(--first-color)]/35 bg-[var(--first-color)]/5 text-white/90 font-medium whitespace-nowrap shadow-sm"
                     >
                       {s}
                     </span>
