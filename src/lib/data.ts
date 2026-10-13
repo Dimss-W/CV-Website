@@ -88,7 +88,7 @@ export const defaultProjects: Project[] = [
     tags: ['Laravel', 'Blade', 'MySQL', 'Multi-Kampus', 'REST API'],
     category: 'web',
     technical_highlight: 'Partisi relasi data multi-kampus untuk 27 cabang UBSI dengan penanganan loker penitipan terpusat dan verifikasi identitas mahasiswa.',
-    demo_url: 'https://findit-git-main-dim-6414.vercel.app/',
+    demo_url: 'https://findit-bice-omega.vercel.app/',
     github_url: 'https://github.com/Dimss-W/FindIt.git',
     image_url: '/projects/findit-landing.png',
     images: [
