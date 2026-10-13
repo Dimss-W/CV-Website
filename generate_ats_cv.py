@@ -150,14 +150,9 @@ def build_executive_1page_cv(output_path):
         ),
         Spacer(1, 0.6),
         Paragraph(
-            "Kontak: +62 857-9477-0824 &nbsp;|&nbsp; "
             "Email: <a href='mailto:dmswijanarko@gmail.com' color='#0369a1'><u>dmswijanarko@gmail.com</u></a> &nbsp;|&nbsp; "
+            "LinkedIn: <a href='https://linkedin.com/in/dimas-wijanarko' color='#0369a1'><u>in/dimas-wijanarko</u></a> &nbsp;|&nbsp; "
             "GitHub: <a href='https://github.com/Dimss-W' color='#0369a1'><u>github.com/Dimss-W</u></a>",
-            contact_style
-        ),
-        Spacer(1, 0.6),
-        Paragraph(
-            "LinkedIn: <a href='https://linkedin.com/in/dimas-wijanarko' color='#0369a1'><u>in/dimas-wijanarko</u></a>",
             contact_style
         ),
     ]

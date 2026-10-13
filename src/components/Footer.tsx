@@ -58,15 +58,6 @@ export default function Footer() {
               <i className="ri-linkedin-box-line" />
             </a>
 
-            <a
-              href="https://wa.me/6285794770824"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer__social-link"
-              aria-label="WhatsApp"
-            >
-              <i className="ri-whatsapp-line" />
-            </a>
           </div>
         </div>
       </div>

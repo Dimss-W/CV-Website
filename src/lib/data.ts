@@ -7,7 +7,6 @@ export const defaultProfile: Profile = {
   title: 'Full Stack Web & Mobile Software Engineer',
   bio: 'Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika (2023 - Sekarang) yang berdedikasi membangun solusi digital Web & Mobile berkualitas tinggi. Berpengalaman merancang aplikasi mobile dengan Flutter & Dart terintegrasi backend Laravel, serta membangun website analitik enterprise terintegrasi Microsoft Power BI.',
   email: 'dmswijanarko@gmail.com',
-  phone: '085794770824',
   location: 'Jakarta, Indonesia',
   avatar_url: '/dimas-profile.jpg',
   resume_url: '/CV_Dimas_Wijanarko_ATS.pdf',

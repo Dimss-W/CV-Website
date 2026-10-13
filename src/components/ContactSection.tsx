@@ -133,17 +133,17 @@ export default function ContactSection({ profile }: ContactSectionProps) {
           </div>
 
           <div className="contact__card">
-            <i className="ri-phone-line contact__icon" />
+            <i className="ri-linkedin-box-line contact__icon" />
             <div className="contact__data">
-              <h3 className="contact__title">Nomor Telepon / WhatsApp</h3>
-              <span className="contact__address">{profile.phone || '085794770824'}</span>
+              <h3 className="contact__title">LinkedIn</h3>
+              <span className="contact__address">in/dimas-wijanarko</span>
             </div>
             <a
-              href="https://wa.me/6285794770824"
+              href={profile.linkedin_url || 'https://linkedin.com/in/dimas-wijanarko'}
               target="_blank"
               rel="noopener noreferrer"
               className="contact__link"
-              aria-label="WhatsApp"
+              aria-label="LinkedIn"
             >
               <i className="ri-arrow-right-up-line" />
             </a>
