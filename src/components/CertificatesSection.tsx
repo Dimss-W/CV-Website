@@ -151,7 +151,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 </div>
 
                 <h3 className="work__name mt-2">{cert.title}</h3>
-                <p className="text-xs text-[var(--first-color)] font-medium mb-2 truncate">
+                <p className="text-xs text-[var(--first-color)] font-medium mb-2 truncate min-h-[1.5em] max-h-[1.5em]">
                   {cert.issuer} • {cert.issue_date}
                 </p>
 
@@ -172,7 +172,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   <i className={isExpanded ? 'ri-arrow-up-s-line' : 'ri-arrow-down-s-line'} />
                 </button>
 
-                <div className="flex flex-wrap items-center gap-1.5 mt-auto pt-2.5 border-t border-white/10">
+                <div className="flex flex-wrap items-center gap-1.5 mt-auto pt-2.5 border-t border-white/10 min-h-[26px] max-h-[26px] overflow-hidden">
                   {cert.skills.slice(0, 4).map((s) => (
                     <span
                       key={s}

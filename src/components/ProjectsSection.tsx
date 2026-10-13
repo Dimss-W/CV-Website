@@ -256,7 +256,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
                   {/* Catatan Arsitektur Teknis */}
                   {project.technical_highlight && (
-                    <div className="mb-2.5 text-[11px] text-[var(--text-color)]/95 bg-white/[0.04] border-l-2 border-[var(--first-color)] px-2.5 py-1.5 rounded-r-lg min-h-[46px] flex items-center">
+                    <div className="mb-2.5 text-[11px] text-[var(--text-color)]/95 bg-white/[0.04] border-l-2 border-[var(--first-color)] px-2.5 py-1.5 rounded-r-lg min-h-[46px] max-h-[46px] overflow-hidden flex items-center">
                       <p className="line-clamp-2">
                         <span className="text-white font-semibold">Arsitektur: </span>
                         <span>{project.technical_highlight}</span>
@@ -264,7 +264,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap items-center gap-1.5 mb-2.5">
+                  <div className="flex flex-wrap items-center gap-1.5 mb-2.5 min-h-[26px] max-h-[26px] overflow-hidden">
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
