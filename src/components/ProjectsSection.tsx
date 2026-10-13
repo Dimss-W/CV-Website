@@ -217,7 +217,9 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             return (
               <article
                 key={project.id || project.title}
-                className="work__card snap-start shrink-0 w-[85vw] max-w-[340px] md:w-full md:max-w-none flex flex-col"
+                className={`work__card snap-start shrink-0 w-[85vw] max-w-[340px] md:w-full md:max-w-none flex flex-col ${
+                  isExpanded ? 'is-expanded' : ''
+                }`}
               >
                 <WorkCardSlider
                   images={imgs}

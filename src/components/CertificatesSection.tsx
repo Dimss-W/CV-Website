@@ -72,7 +72,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
           return (
             <article
               key={cert.id}
-              className="work__card h-auto flex flex-col"
+              className={`work__card flex flex-col ${isExpanded ? 'is-expanded' : ''}`}
               onMouseEnter={() => setPausedCardId(cert.id)}
               onMouseLeave={() => setPausedCardId(null)}
             >
