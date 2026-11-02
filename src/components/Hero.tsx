@@ -143,7 +143,7 @@ export default function Hero({ profile }: HeroProps) {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[95vh] lg:min-h-screen flex items-center justify-center overflow-x-clip overflow-y-hidden pt-24 md:pt-28 pb-12 px-4 sm:px-6 lg:px-8 select-none bg-[var(--body-color)] transition-colors duration-500"
+      className="relative min-h-[95vh] lg:min-h-screen flex items-center justify-center overflow-x-clip overflow-y-hidden pt-24 md:pt-28 pb-16 lg:pb-12 px-4 sm:px-6 lg:px-8 select-none bg-[var(--body-color)] transition-colors duration-500"
       id="home"
       aria-label="Beranda Portofolio Dimas Wijanarko"
     >
@@ -474,8 +474,8 @@ export default function Hero({ profile }: HeroProps) {
 
       </div>
 
-      {/* 6. SUBTLE ACCESSIBLE SCROLL INDICATOR */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 opacity-70 hover:opacity-100 transition-opacity">
+      {/* 6. SUBTLE ACCESSIBLE SCROLL INDICATOR (Desktop Only untuk Menghindari Tumpang Tindih di Layar Mobile) */}
+      <div className="hidden lg:flex absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-1 opacity-70 hover:opacity-100 transition-opacity">
         <a
           href="#about"
           aria-label="Gulir ke bagian Tentang Saya"
