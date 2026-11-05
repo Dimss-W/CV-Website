@@ -3,129 +3,75 @@
 import React from 'react';
 
 export default function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="footer">
-      <div className="footer__container container grid">
-        <h2 className="footer__title">
-          MARI BERKOLABORASI <span>MEMBANGUN SOLUSI</span> <br />
-          DIGITAL INOVATIF &amp; <span>BERKELANJUTAN.</span>
-        </h2>
-
-        <div className="footer__content">
-          <div className="footer__links">
-            <a href="#work" className="footer__link">
-              Proyek
-            </a>
-            <a href="#skills" className="footer__link">
-              Keahlian
-            </a>
-            <a href="#experience" className="footer__link">
-              Pengalaman
-            </a>
-            <a href="#certificates" className="footer__link">
-              Sertifikat
-            </a>
-          </div>
-
-          <div className="footer__social">
-            <a
-              href="https://github.com/Dimss-W"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer__social-link"
-              aria-label="GitHub"
-            >
-              <i className="ri-github-line" />
-            </a>
-
-            <a
-              href="https://instagram.com/dimsswijanark_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer__social-link"
-              aria-label="Instagram"
-            >
-              <i className="ri-instagram-line" />
-            </a>
-
-            <a
-              href="https://linkedin.com/in/dimas-wijanarko"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer__social-link"
-              aria-label="LinkedIn"
-            >
-              <i className="ri-linkedin-box-line" />
-            </a>
-
-          </div>
-        </div>
-      </div>
-
-      {/* Informasi Spesifikasi & Teknologi Pembuatan Website */}
-      <div className="container max-w-4xl mx-auto mt-12 pt-8 border-t border-[var(--border-color)]/50 relative z-[2]">
-        <div className="bg-[var(--container-color)]/70 border border-[var(--border-color)]/80 rounded-2xl p-5 sm:p-6 backdrop-blur-md">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-4 pb-4 border-b border-[var(--border-color)]/50">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-[var(--first-color)]">
-                  Teknologi Pembuatan Website
-                </span>
+    <footer className="relative bg-[#040609] border-t border-white/8 pt-12 pb-8 overflow-hidden text-slate-400">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Main Footer Row */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-8 border-b border-white/6">
+          
+          {/* Brand & Identity */}
+          <div className="md:col-span-5 flex flex-col gap-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 font-mono font-bold text-xs">
+                DW
               </div>
-              <p className="text-xs text-[var(--text-color)] max-w-xl leading-relaxed">
-                Website CV ini dibangun menggunakan Next.js 14, TypeScript, Tailwind CSS, dan generator CV ATS berbasis Python.
-              </p>
+              <span className="text-base font-bold text-white tracking-tight">
+                Dimas Wijanarko
+              </span>
             </div>
-            <span className="text-[11px] font-mono px-2.5 py-1 rounded-md bg-[var(--body-color)] border border-[var(--border-color)] text-[var(--first-color)] whitespace-nowrap self-start md:self-auto">
-              v2.4 Production
-            </span>
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              Full Stack Web &amp; Mobile Software Engineer. Mahasiswa Sistem Informasi UBSI berdedikasi membangun produk digital teruji skala produksi.
+            </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5 text-xs">
-            <div className="p-2.5 rounded-xl bg-[var(--body-color)]/60 border border-[var(--border-color)] flex flex-col gap-1">
-              <span className="text-[10px] text-[var(--text-color-light)] font-mono">Framework</span>
-              <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Next.js 14
-              </span>
-            </div>
+          {/* Quick Links */}
+          <div className="md:col-span-5 flex flex-wrap gap-x-6 gap-y-2 text-xs">
+            <a href="#home" className="hover:text-cyan-300 transition-colors">Beranda</a>
+            <a href="#about" className="hover:text-cyan-300 transition-colors">Tentang</a>
+            <a href="#projects" className="hover:text-cyan-300 transition-colors">Proyek</a>
+            <a href="#skills" className="hover:text-cyan-300 transition-colors">Keahlian</a>
+            <a href="#experience" className="hover:text-cyan-300 transition-colors">Pengalaman</a>
+            <a href="#certificates" className="hover:text-cyan-300 transition-colors">Sertifikasi</a>
+            <a href="#contact" className="hover:text-cyan-300 transition-colors">Kontak</a>
+          </div>
 
-            <div className="p-2.5 rounded-xl bg-[var(--body-color)]/60 border border-[var(--border-color)] flex flex-col gap-1">
-              <span className="text-[10px] text-[var(--text-color-light)] font-mono">Bahasa</span>
-              <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span> TypeScript
-              </span>
-            </div>
+          {/* Back to top button */}
+          <div className="md:col-span-2 flex justify-start md:justify-end">
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-500/15 border border-white/10 hover:border-cyan-400/30 text-xs text-slate-300 hover:text-cyan-300 transition-all group"
+              aria-label="Kembali ke atas halaman"
+            >
+              <span>Ke Atas</span>
+              <i className="ri-arrow-up-line text-sm group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+          </div>
 
-            <div className="p-2.5 rounded-xl bg-[var(--body-color)]/60 border border-[var(--border-color)] flex flex-col gap-1">
-              <span className="text-[10px] text-[var(--text-color-light)] font-mono">Styling UI</span>
-              <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-400"></span> Tailwind CSS
-              </span>
-            </div>
+        </div>
 
-            <div className="p-2.5 rounded-xl bg-[var(--body-color)]/60 border border-[var(--border-color)] flex flex-col gap-1">
-              <span className="text-[10px] text-[var(--text-color-light)] font-mono">Engine CV ATS</span>
-              <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Python (ReportLab)
-              </span>
-            </div>
-
-            <div className="p-2.5 rounded-xl bg-[var(--body-color)]/60 border border-[var(--border-color)] flex flex-col gap-1">
-              <span className="text-[10px] text-[var(--text-color-light)] font-mono">Deployment</span>
-              <span className="font-semibold text-white flex items-center gap-1.5 text-xs">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Vercel Cloud
-              </span>
-            </div>
+        {/* Bottom Copyright & Tech Stack Credits */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-mono text-center sm:text-left">
+          <div>
+            &copy; {new Date().getFullYear()} Dimas Wijanarko. Hak cipta dilindungi.
+          </div>
+          <div className="flex items-center gap-2 text-[11px]">
+            <span>Next.js 14</span>
+            <span>•</span>
+            <span>TypeScript</span>
+            <span>•</span>
+            <span>Tailwind CSS</span>
+            <span>•</span>
+            <span className="text-cyan-400">Production Ready</span>
           </div>
         </div>
+
       </div>
-
-      <span className="footer__copy">
-        &#169; 2026 Dimas Wijanarko. Hak Cipta Dilindungi.
-      </span>
-
-      <div className="blob-big" />
     </footer>
   );
 }

@@ -10,14 +10,13 @@ interface HeroProps {
 export default function Hero({ profile }: HeroProps) {
   const containerRef = useRef<HTMLElement | null>(null);
 
-  // Smooth lerp coordinates for buttery 60fps physics
+  // Smooth lerping coordinates for 60fps buttery physics
   const [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [pixelPos, setPixelPos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
-  // Check prefers-reduced-motion for accessibility
+  // Check prefers-reduced-motion
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -28,16 +27,15 @@ export default function Hero({ profile }: HeroProps) {
     }
   }, []);
 
-  // Mouse / Pointer Move Handler
+  // Pointer / Mouse Move Handler
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
 
     const relX = e.clientX - rect.left;
     const relY = e.clientY - rect.top;
-    setPixelPos({ x: relX, y: relY });
 
-    // Normalised coordinates (-1 to +1) from center
+    // Normalised coordinates (-1 to 1) from center
     const normX = ((relX / rect.width) - 0.5) * 2;
     const normY = ((relY / rect.height) - 0.5) * 2;
 
@@ -48,34 +46,12 @@ export default function Hero({ profile }: HeroProps) {
     setIsHovered(true);
   }, []);
 
-  // Touch Move Handler for Mobile Devices
-  const handleTouchMove = useCallback((e: TouchEvent) => {
-    if (!containerRef.current || !e.touches || e.touches.length === 0) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const touch = e.touches[0];
-
-    const relX = touch.clientX - rect.left;
-    const relY = touch.clientY - rect.top;
-    setPixelPos({ x: relX, y: relY });
-
-    const normX = ((relX / rect.width) - 0.5) * 2;
-    const normY = ((relY / rect.height) - 0.5) * 2;
-
-    setTargetPos({
-      x: Math.max(-1, Math.min(1, normX)),
-      y: Math.max(-1, Math.min(1, normY)),
-    });
-    setIsHovered(true);
-  }, []);
-
-  // Gyroscope / Device Orientation on supported mobile devices
+  // Gyroscope / Device Orientation for mobile
   useEffect(() => {
     if (reducedMotion || typeof window === 'undefined') return;
 
     const handleOrientation = (e: DeviceOrientationEvent) => {
       if (e.gamma !== null && e.beta !== null) {
-        // gamma: left-to-right tilt in [-90, 90]
-        // beta: front-to-back tilt in [-180, 180]
         const normX = Math.max(-1, Math.min(1, e.gamma / 30));
         const normY = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
         setTargetPos({ x: normX, y: normY });
@@ -88,7 +64,7 @@ export default function Hero({ profile }: HeroProps) {
     }
   }, [reducedMotion]);
 
-  // Event Listeners for Container
+  // Event listeners for container
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -98,20 +74,16 @@ export default function Hero({ profile }: HeroProps) {
       setIsHovered(false);
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    el.addEventListener('mousemove', handleMouseMove, { passive: true });
     el.addEventListener('mouseleave', onLeave);
-    el.addEventListener('touchmove', handleTouchMove, { passive: true });
-    el.addEventListener('touchend', onLeave);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+      el.removeEventListener('mousemove', handleMouseMove);
       el.removeEventListener('mouseleave', onLeave);
-      el.removeEventListener('touchmove', handleTouchMove);
-      el.removeEventListener('touchend', onLeave);
     };
-  }, [handleMouseMove, handleTouchMove]);
+  }, [handleMouseMove]);
 
-  // Smooth lerp animation loop (spring physics)
+  // Spring animation loop (Lerp with friction)
   useEffect(() => {
     if (reducedMotion) {
       setCurrentPos({ x: 0, y: 0 });
@@ -119,371 +91,279 @@ export default function Hero({ profile }: HeroProps) {
     }
 
     let rafId: number;
+    const lerpFactor = 0.08;
+
     const animate = () => {
       setCurrentPos((prev) => {
         const dx = targetPos.x - prev.x;
         const dy = targetPos.y - prev.y;
-        // Damp factor for silky response
+        if (Math.abs(dx) < 0.0005 && Math.abs(dy) < 0.0005) {
+          return targetPos;
+        }
         return {
-          x: prev.x + dx * 0.12,
-          y: prev.y + dy * 0.12,
+          x: prev.x + dx * lerpFactor,
+          y: prev.y + dy * lerpFactor,
         };
       });
       rafId = requestAnimationFrame(animate);
     };
+
     rafId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(rafId);
   }, [targetPos, reducedMotion]);
 
-  const cvDownloadUrl =
-    profile.resume_url && profile.resume_url !== '#contact'
-      ? profile.resume_url
-      : '/CV_Dimas_Wijanarko_ATS.pdf';
+  // Computed 3D transformations
+  const photoRotateX = reducedMotion ? 0 : -currentPos.y * 12;
+  const photoRotateY = reducedMotion ? 0 : currentPos.x * 14;
+  const photoTranslateX = reducedMotion ? 0 : currentPos.x * 20;
+  const photoTranslateY = reducedMotion ? 0 : currentPos.y * 12;
+
+  const bgTextTranslateX = reducedMotion ? 0 : -currentPos.x * 35;
+  const bgTextTranslateY = reducedMotion ? 0 : -currentPos.y * 15;
+
+  const badge1TranslateX = reducedMotion ? 0 : currentPos.x * 28;
+  const badge1TranslateY = reducedMotion ? 0 : currentPos.y * 22;
+
+  const badge2TranslateX = reducedMotion ? 0 : -currentPos.x * 24;
+  const badge2TranslateY = reducedMotion ? 0 : currentPos.y * 18;
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[95vh] lg:min-h-screen flex items-center justify-center overflow-x-clip overflow-y-hidden pt-24 md:pt-28 pb-16 lg:pb-12 px-4 sm:px-6 lg:px-8 select-none bg-[var(--body-color)] transition-colors duration-500"
       id="home"
-      aria-label="Beranda Portofolio Dimas Wijanarko"
+      className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-24 pb-16 sm:py-28 overflow-hidden bg-cyber-grid"
+      aria-label="Beranda Profil Dimas Wijanarko"
     >
-      {/* 1. DYNAMIC CURSOR-TRACKING SPOTLIGHT (Cahaya Panggung Mengikuti Kursor) */}
+      {/* Background Glowing Ambient Orbs */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-700 ease-out"
+        className="glow-orb w-[500px] h-[500px] bg-cyan-600/20 top-[-10%] left-[-10%]"
         style={{
-          opacity: isHovered ? 1 : 0.45,
-          background: isHovered
-            ? `radial-gradient(850px circle at ${pixelPos.x}px ${pixelPos.y}px, rgba(56, 189, 248, 0.16) 0%, rgba(14, 165, 233, 0.05) 50%, transparent 75%)`
-            : `radial-gradient(900px circle at 50% 45%, rgba(56, 189, 248, 0.12) 0%, transparent 70%)`,
+          transform: `translate3d(${currentPos.x * 40}px, ${currentPos.y * 40}px, 0)`,
+          transition: 'transform 0.4s ease-out',
         }}
-        aria-hidden="true"
       />
-
-      {/* 2. ATMOSPHERIC AMBIENT HALO (Pijar Biru Neon di Tengah) */}
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[480px] lg:w-[680px] h-[300px] sm:h-[480px] lg:h-[680px] rounded-full bg-gradient-to-tr from-[var(--first-color)]/25 via-sky-500/10 to-transparent blur-[110px] md:blur-[140px] -z-10"
-        aria-hidden="true"
-      />
-
-      {/* 3. FLOATING CYBER GEOMETRIC PARTICLES (Partikel Kedalaman Multi-Layer) */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[2] overflow-hidden will-change-transform hidden sm:block"
-        aria-hidden="true"
-      >
-        {/* Particle 1: Diamond top left */}
-        <span
-          className="absolute top-[22%] left-[12%] text-[var(--first-color)]/40 font-mono text-sm"
-          style={{
-            transform: `translate3d(${currentPos.x * 24}px, ${currentPos.y * 18}px, 0)`,
-            transition: 'transform 0.1s linear',
-          }}
-        >
-          ✦
-        </span>
-
-        {/* Particle 2: Plus marker mid left */}
-        <span
-          className="absolute top-[68%] left-[8%] text-white/30 font-mono text-lg font-bold"
-          style={{
-            transform: `translate3d(${currentPos.x * -18}px, ${currentPos.y * -14}px, 0)`,
-            transition: 'transform 0.1s linear',
-          }}
-        >
-          +
-        </span>
-
-        {/* Particle 3: Code bracket top right */}
-        <span
-          className="absolute top-[20%] right-[14%] text-[var(--first-color)]/35 font-mono text-base font-semibold"
-          style={{
-            transform: `translate3d(${currentPos.x * 30}px, ${currentPos.y * 22}px, 0)`,
-            transition: 'transform 0.1s linear',
-          }}
-        >
-          {'{ }'}
-        </span>
-
-        {/* Particle 4: Tech dot bottom right */}
-        <span
-          className="absolute bottom-[24%] right-[10%] w-2 h-2 rounded-full bg-[var(--first-color)]/40 shadow-[0_0_12px_var(--first-color)]"
-          style={{
-            transform: `translate3d(${currentPos.x * -22}px, ${currentPos.y * -16}px, 0)`,
-            transition: 'transform 0.1s linear',
-          }}
-        />
-      </div>
-
-      {/* 4. GIANT ARCHITECTURAL 3D DISPLAY TEXT "PORTFOLIO" (Teks Raksasa di Belakang Subjek) */}
-      <div
-        className="pointer-events-none absolute inset-x-0 top-[48%] -translate-y-1/2 z-[1] flex items-center justify-center overflow-hidden will-change-transform"
+        className="glow-orb w-[600px] h-[600px] bg-indigo-600/15 bottom-[-15%] right-[-10%]"
         style={{
-          transform: `translate3d(${-currentPos.x * 38}px, calc(-50% + ${-currentPos.y * 22}px), 0)`,
-          transition: 'transform 0.08s linear',
+          transform: `translate3d(${-currentPos.x * 40}px, ${-currentPos.y * 40}px, 0)`,
+          transition: 'transform 0.4s ease-out',
+        }}
+      />
+      <div className="glow-orb w-[350px] h-[350px] bg-sky-500/15 top-[40%] left-[30%]" />
+
+      {/* Parallax Background Typographic Watermark */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden"
+        style={{
+          transform: `translate3d(${bgTextTranslateX}px, ${bgTextTranslateY}px, 0)`,
+          transition: reducedMotion ? 'none' : 'transform 0.1s linear',
         }}
         aria-hidden="true"
       >
-        <span
-          className="text-[19vw] md:text-[16vw] lg:text-[14.5vw] font-black uppercase tracking-tighter leading-none select-none whitespace-nowrap opacity-80 md:opacity-90"
-          style={{
-            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(56, 189, 248, 0.22) 55%, rgba(15, 23, 42, 0) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            WebkitTextStroke: '1.2px rgba(56, 189, 248, 0.42)',
-            textShadow: '0 0 70px rgba(56, 189, 248, 0.2)',
-          }}
-        >
-          PORTFOLIO
+        <span className="text-[14vw] font-black uppercase tracking-tighter text-white/[0.025] leading-none whitespace-nowrap">
+          DIMAS WIJANARKO
         </span>
       </div>
 
-      {/* 5. MAIN CONTAINER (PROPORTIONAL 3-COLUMN COMPOSITION) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-6 items-center">
-
-        {/* LEFT COLUMN: IDENTITAS & CALL TO ACTION (Desktop: Span 5) */}
-        <div className="w-full lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
-          {/* Cursive / Script Accent */}
-          <span className="font-serif italic text-2xl sm:text-3xl text-[var(--first-color)] drop-shadow-[0_0_18px_rgba(56,189,248,0.45)] mb-1.5 tracking-wide">
-            Hello, I&apos;m
-          </span>
-
-          {/* Main Headline Display Name */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white uppercase leading-[1.06] mb-3">
-            DIMAS<br className="hidden sm:inline" /> WIJANARKO<span className="text-[var(--first-color)]">.</span>
-          </h1>
-
-          {/* Professional Role Pill Badge with Live Beacon */}
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[var(--first-color)]/60 bg-[var(--first-color)]/10 backdrop-blur-md text-[11px] sm:text-xs font-bold tracking-wider text-white uppercase mb-4 shadow-[0_0_24px_rgba(56,189,248,0.25)] hover:border-[var(--first-color)] transition-colors">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--first-color)] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--first-color)]" />
-            </span>
-            <span>Full Stack Web &amp; Mobile Engineer</span>
-          </div>
-
-          {/* Concise Professional Summary */}
-          <p className="text-xs sm:text-sm md:text-base text-[var(--text-color)]/95 leading-relaxed max-w-md lg:max-w-[430px] mb-6 font-normal">
-            Mahasiswa S1 Sistem Informasi UBSI yang memadukan rekayasa perangkat lunak modern, arsitektur basis data relasional tersertifikasi BNSP, serta analitik data interaktif menjadi solusi digital bernilai tinggi.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full">
-            <a
-              href={cvDownloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Unduh CV Format ATS Dimas Wijanarko"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--first-color)] text-[var(--black-color)] text-xs sm:text-sm font-bold hover:brightness-110 active:scale-95 transition-all shadow-[0_0_28px_rgba(56,189,248,0.55)] cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              <i className="ri-file-download-line text-base transition-transform group-hover:-translate-y-0.5" />
-              <span>UNDUH CV ATS</span>
-            </a>
-
-            <a
-              href="#work"
-              aria-label="Navigasi ke bagian karya dan proyek unggulan"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 hover:border-[var(--first-color)] text-xs sm:text-sm font-bold text-white hover:text-[var(--first-color)] active:scale-95 transition-all bg-white/[0.04] hover:bg-white/[0.09] backdrop-blur-md cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-            >
-              <span>LIHAT KARYA</span>
-              <i className="ri-arrow-right-up-line text-base transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-          </div>
-        </div>
-
-        {/* CENTER COLUMN: MAJESTIC 3D PARALLAX SUBJECT CUTOUT (Desktop: Span 4) */}
-        <div className="w-full lg:col-span-4 flex items-center justify-center order-1 lg:order-2 relative my-2 lg:my-0">
-          <div
-            className="relative w-[260px] sm:w-[320px] md:w-[360px] lg:w-[410px] xl:w-[450px] aspect-[3/4] flex items-end justify-center will-change-transform"
-            style={{
-              transform: reducedMotion
-                ? 'none'
-                : `perspective(1100px) rotateY(${currentPos.x * 10}deg) rotateX(${-currentPos.y * 8}deg) translate3d(${currentPos.x * 16}px, ${currentPos.y * 12}px, 0)`,
-              transition: 'transform 0.08s linear',
-            }}
-          >
-            {/* Ambient Aura Halo Circle behind head */}
-            <div
-              className="absolute inset-0 m-auto w-[220px] sm:w-[280px] lg:w-[320px] h-[220px] sm:h-[280px] lg:h-[320px] rounded-full border border-[var(--first-color)]/35 bg-gradient-to-b from-[var(--first-color)]/20 via-sky-500/10 to-transparent blur-md -z-10"
-              style={{
-                transform: `translate3d(${-currentPos.x * 12}px, ${-currentPos.y * 8}px, 0)`,
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Futuristic Tech Compass Ring */}
-            <div
-              className="absolute inset-0 m-auto w-[250px] sm:w-[320px] lg:w-[360px] h-[250px] sm:h-[320px] lg:h-[360px] rounded-full border border-dashed border-[var(--first-color)]/30 -z-10 will-change-transform"
-              style={{
-                transform: `rotate(${currentPos.x * 28}deg)`,
-                transition: 'transform 0.2s ease-out',
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Specular Interactive Light Glare on Subject */}
-            <div
-              className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay transition-opacity duration-300"
-              style={{
-                background: `radial-gradient(circle at ${50 + currentPos.x * 25}% ${35 + currentPos.y * 20}%, rgba(255, 255, 255, 0.45) 0%, transparent 60%)`,
-                opacity: isHovered ? 0.7 : 0.2,
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Transparent Cutout Subject Photo */}
-            <img
-              src="/dimas-cutout.png"
-              alt={`Foto profesional ${profile.full_name}`}
-              className="relative z-10 w-full h-full object-contain object-bottom pointer-events-none drop-shadow-[0_24px_50px_rgba(0,0,0,0.92)] select-none"
-              style={{
-                maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-              }}
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (!target.src.includes('dimas-profile.jpg')) {
-                  target.src = '/dimas-profile.jpg';
-                }
-              }}
-            />
-          </div>
-        </div>
-
-        {/* RIGHT COLUMN: KEY HIGHLIGHT STATS (Desktop: Span 3 | Mobile: Adaptive Row/Grid) */}
-        <div className="w-full lg:col-span-3 flex flex-col justify-center order-3 mt-2 lg:mt-0">
-
-          {/* DESKTOP LAYOUT (Vertical Sleek Cards) */}
-          <div className="hidden lg:flex flex-col gap-4 max-w-sm w-full">
-            {/* Stat Item 1 */}
-            <div
-              className="p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[var(--first-color)]/60 backdrop-blur-md transition-all duration-300 flex items-center gap-4 group cursor-default shadow-sm hover:shadow-[0_8px_30px_rgba(56,189,248,0.18)]"
-              style={{
-                transform: reducedMotion ? 'none' : `translate3d(${currentPos.x * 8}px, ${currentPos.y * 6}px, 0)`,
-                transition: 'transform 0.12s linear, border-color 0.3s, background-color 0.3s, box-shadow 0.3s',
-              }}
-            >
-              <span className="text-3xl xl:text-4xl font-black text-[var(--first-color)] group-hover:scale-110 transition-transform tracking-tight drop-shadow-[0_0_12px_rgba(56,189,248,0.4)]">
-                03+
-              </span>
-              <div className="flex flex-col text-left">
-                <span className="text-xs xl:text-sm font-bold text-white tracking-wide">
-                  Proyek Skala Nasional
-                </span>
-                <span className="text-[11px] text-[var(--text-color)]/80">
-                  PGNCOM, Otokeep &amp; FindIt UBSI
-                </span>
-              </div>
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* Left Column: Hero Content & Value Proposition (7 Cols on Desktop) */}
+          <div className="lg:col-span-7 flex flex-col justify-center text-left">
+            {/* Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/25 text-cyan-300 text-xs font-semibold w-fit mb-5 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
+              <span>Tersedia untuk Peluang Full-Time &amp; Proyek Industri</span>
             </div>
 
-            {/* Stat Item 2 */}
-            <div
-              className="p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[var(--first-color)]/60 backdrop-blur-md transition-all duration-300 flex items-center gap-4 group cursor-default shadow-sm hover:shadow-[0_8px_30px_rgba(56,189,248,0.18)]"
-              style={{
-                transform: reducedMotion ? 'none' : `translate3d(${currentPos.x * 12}px, ${currentPos.y * 9}px, 0)`,
-                transition: 'transform 0.12s linear, border-color 0.3s, background-color 0.3s, box-shadow 0.3s',
-              }}
-            >
-              <span className="text-3xl xl:text-4xl font-black text-[var(--first-color)] group-hover:scale-110 transition-transform tracking-tight drop-shadow-[0_0_12px_rgba(56,189,248,0.4)]">
-                06+
-              </span>
-              <div className="flex flex-col text-left">
-                <span className="text-xs xl:text-sm font-bold text-white tracking-wide">
-                  Karya Unggulan Rilis
-                </span>
-                <span className="text-[11px] text-[var(--text-color)]/80">
-                  Aplikasi Web, Mobile &amp; AI OCR
-                </span>
-              </div>
+            {/* Name & Role */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] mb-4">
+              Halo, Saya <br className="hidden sm:inline" />
+              <span className="gradient-text-cyan">Dimas Wijanarko</span>
+            </h1>
+
+            <p className="text-base sm:text-xl text-slate-300 font-medium leading-snug mb-3">
+              Full Stack Web &amp; Mobile Software Engineer <br className="hidden sm:inline" />
+              <span className="text-cyan-400">&amp; Enterprise Data Analytics Specialist</span>
+            </p>
+
+            <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl mb-8">
+              Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika (UBSI). Berpengalaman 
+              merancang arsitektur aplikasi mobile berbasis Flutter terintegrasi backend Laravel, 
+              serta membangun dashboard analitik Power BI &amp; kecerdasan visual Gemini AI untuk sistem operasional nyata.
+            </p>
+
+            {/* Interactive CTAs */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-10">
+              <a
+                href="#projects"
+                className="btn-primary"
+                aria-label="Jelajahi portofolio proyek"
+              >
+                <span>Eksplorasi Proyek</span>
+                <i className="ri-arrow-right-line text-lg" />
+              </a>
+
+              <a
+                href="/CV_Dimas_Wijanarko_ATS.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                aria-label="Unduh CV ATS resmi Dimas Wijanarko"
+              >
+                <i className="ri-file-pdf-2-line text-cyan-400 text-lg" />
+                <span>Unduh CV (ATS PDF)</span>
+              </a>
+
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
+              >
+                <i className="ri-chat-1-line text-cyan-400 text-base" />
+                <span>Hubungi Saya</span>
+              </a>
             </div>
 
-            {/* Stat Item 3 */}
-            <div
-              className="p-4 rounded-2xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/10 hover:border-[var(--first-color)]/60 backdrop-blur-md transition-all duration-300 flex items-center gap-4 group cursor-default shadow-sm hover:shadow-[0_8px_30px_rgba(56,189,248,0.18)]"
-              style={{
-                transform: reducedMotion ? 'none' : `translate3d(${currentPos.x * 16}px, ${currentPos.y * 12}px, 0)`,
-                transition: 'transform 0.12s linear, border-color 0.3s, background-color 0.3s, box-shadow 0.3s',
-              }}
-            >
-              <span className="text-3xl xl:text-4xl font-black text-[var(--first-color)] group-hover:scale-110 transition-transform tracking-tight drop-shadow-[0_0_12px_rgba(56,189,248,0.4)]">
-                02+
-              </span>
-              <div className="flex flex-col text-left">
-                <span className="text-xs xl:text-sm font-bold text-white tracking-wide">
-                  Sertifikasi Profesi BNSP
-                </span>
-                <span className="text-[11px] text-[var(--text-color)]/80">
-                  Database Admin &amp; Analis Program
-                </span>
+            {/* Quick Metrics Bento Bar */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-6 border-t border-white/8">
+              <div className="glass-panel p-3.5 sm:p-4 text-center sm:text-left">
+                <div className="text-xl sm:text-2xl font-black text-white font-mono">
+                  6+
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-0.5">
+                  Proyek Produksi Nyata
+                </div>
               </div>
-            </div>
 
-            {/* Extra Award Pill */}
-            <div
-              className="flex items-center gap-2 pt-1 text-xs text-[var(--first-color)] font-semibold"
-              style={{
-                transform: reducedMotion ? 'none' : `translate3d(${currentPos.x * 8}px, ${currentPos.y * 6}px, 0)`,
-                transition: 'transform 0.12s linear',
-              }}
-            >
-              <i className="ri-award-fill text-base text-[var(--first-color)]" />
-              <span>Juara 1 IT Bootcamp Software Development</span>
+              <div className="glass-panel p-3.5 sm:p-4 text-center sm:text-left">
+                <div className="text-xl sm:text-2xl font-black text-cyan-400 font-mono">
+                  2 BNSP
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-0.5">
+                  Sertifikasi Profesi Nasional
+                </div>
+              </div>
+
+              <div className="glass-panel p-3.5 sm:p-4 text-center sm:text-left">
+                <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono">
+                  Juara 1
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-400 font-medium mt-0.5">
+                  IT Bootcamp se-UBSI
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* MOBILE & TABLET LAYOUT (Sleek Horizontal 3-Column Compact Grid) */}
-          <div className="lg:hidden w-full max-w-lg mx-auto flex flex-col gap-3 pt-2">
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-3 w-full">
-              {/* Mobile Stat 1 */}
-              <div className="p-3 sm:p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-center flex flex-col items-center justify-center">
-                <span className="text-2xl sm:text-3xl font-black text-[var(--first-color)] drop-shadow-[0_0_10px_rgba(56,189,248,0.4)] leading-tight">
-                  03+
-                </span>
-                <span className="text-[10px] sm:text-xs font-bold text-white mt-1 leading-tight">
-                  Proyek Nasional
-                </span>
+          {/* Right Column: 3D Interactive Parallax Portrait Stage (5 Cols on Desktop) */}
+          <div className="lg:col-span-5 relative flex items-center justify-center mt-6 lg:mt-0">
+            <div
+              className="relative w-full max-w-[360px] sm:max-w-[420px] lg:max-w-[450px] aspect-[4/5] flex items-center justify-center"
+              style={{
+                perspective: '1200px',
+              }}
+            >
+              {/* Backing Luminous Halo Ring */}
+              <div
+                className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-cyan-500/20 via-sky-500/10 to-indigo-500/20 border border-cyan-400/20 blur-xl opacity-75"
+                style={{
+                  transform: `translate3d(${-photoTranslateX * 0.5}px, ${-photoTranslateY * 0.5}px, -40px)`,
+                  transition: reducedMotion ? 'none' : 'transform 0.15s ease-out',
+                }}
+              />
+
+              {/* Geometric Cyber Frame */}
+              <div
+                className="absolute inset-2 sm:inset-4 rounded-3xl border border-white/10 bg-slate-950/40 backdrop-blur-md overflow-hidden shadow-2xl"
+                style={{
+                  transform: `rotateX(${photoRotateX * 0.6}deg) rotateY(${photoRotateY * 0.6}deg)`,
+                  transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
+              >
+                {/* Tech Grid Pattern inside frame */}
+                <div className="absolute inset-0 bg-cyber-dots opacity-40" />
+                <div className="absolute top-3 left-3 text-[10px] font-mono text-cyan-400/60 uppercase">
+                  UBSI // SYS-INF // 2026
+                </div>
+                <div className="absolute bottom-3 right-3 text-[10px] font-mono text-slate-500">
+                  LAT: -6.2088 • LONG: 106.8456
+                </div>
               </div>
 
-              {/* Mobile Stat 2 */}
-              <div className="p-3 sm:p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-center flex flex-col items-center justify-center">
-                <span className="text-2xl sm:text-3xl font-black text-[var(--first-color)] drop-shadow-[0_0_10px_rgba(56,189,248,0.4)] leading-tight">
-                  06+
-                </span>
-                <span className="text-[10px] sm:text-xs font-bold text-white mt-1 leading-tight">
-                  Karya Unggulan
-                </span>
+              {/* 3D Parallax Cutout Photo with Lerp Physics */}
+              <div
+                className="relative z-20 w-full h-full flex items-end justify-center select-none pointer-events-none"
+                style={{
+                  transform: `translate3d(${photoTranslateX}px, ${photoTranslateY}px, 30px) rotateX(${photoRotateX}deg) rotateY(${photoRotateY}deg)`,
+                  transformStyle: 'preserve-3d',
+                  transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
+              >
+                <img
+                  src="/dimas-cutout.png"
+                  alt="Dimas Wijanarko - Full Stack Engineer"
+                  className="w-auto h-[95%] sm:h-[98%] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] filter brightness-105 contrast-105"
+                  loading="eager"
+                />
+
+                {/* Subtle Interactive Specular Light Glint */}
+                <div
+                  className="absolute inset-0 rounded-3xl pointer-events-none"
+                  style={{
+                    background: `radial-gradient(circle at ${(currentPos.x + 1) * 50}% ${(currentPos.y + 1) * 50}%, rgba(255,255,255,0.18) 0%, transparent 60%)`,
+                    mixBlendMode: 'overlay',
+                    opacity: isHovered ? 0.8 : 0.3,
+                    transition: 'opacity 0.3s ease',
+                  }}
+                />
               </div>
 
-              {/* Mobile Stat 3 */}
-              <div className="p-3 sm:p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-center flex flex-col items-center justify-center">
-                <span className="text-2xl sm:text-3xl font-black text-[var(--first-color)] drop-shadow-[0_0_10px_rgba(56,189,248,0.4)] leading-tight">
-                  02+
-                </span>
-                <span className="text-[10px] sm:text-xs font-bold text-white mt-1 leading-tight">
-                  Sertifikat BNSP
-                </span>
+              {/* Floating Glass Bento Badge 1: BNSP Certified */}
+              <div
+                className="absolute -top-3 -right-2 sm:-right-4 z-30 glass-panel p-3 sm:p-3.5 flex items-center gap-3 shadow-xl border-cyan-400/30"
+                style={{
+                  transform: `translate3d(${badge1TranslateX}px, ${badge1TranslateY}px, 60px)`,
+                  transition: reducedMotion ? 'none' : 'transform 0.14s ease-out',
+                }}
+              >
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300 text-xl shrink-0">
+                  <i className="ri-shield-check-fill" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white leading-tight">
+                    Tersertifikasi BNSP RI
+                  </div>
+                  <div className="text-[10px] text-cyan-300/80 font-mono">
+                    Database Administrator
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Mobile Award Badge */}
-            <div className="inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-[var(--first-color)]/10 border border-[var(--first-color)]/30 text-[11px] text-[var(--first-color)] font-semibold text-center mx-auto">
-              <i className="ri-award-fill text-sm" />
-              <span>Juara 1 IT Bootcamp Software Development se-UBSI</span>
+              {/* Floating Glass Bento Badge 2: Juara 1 IT Bootcamp */}
+              <div
+                className="absolute -bottom-4 -left-2 sm:-left-4 z-30 glass-panel p-3 sm:p-3.5 flex items-center gap-3 shadow-xl border-amber-400/30"
+                style={{
+                  transform: `translate3d(${badge2TranslateX}px, ${badge2TranslateY}px, 70px)`,
+                  transition: reducedMotion ? 'none' : 'transform 0.16s ease-out',
+                }}
+              >
+                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-300 text-xl shrink-0">
+                  <i className="ri-trophy-fill" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-white leading-tight">
+                    Juara 1 IT Bootcamp
+                  </div>
+                  <div className="text-[10px] text-amber-300/80 font-mono">
+                    Seluruh Kampus UBSI
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
         </div>
-
-      </div>
-
-      {/* 6. SUBTLE ACCESSIBLE SCROLL INDICATOR (Desktop Only untuk Menghindari Tumpang Tindih di Layar Mobile) */}
-      <div className="hidden lg:flex absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-1 opacity-70 hover:opacity-100 transition-opacity">
-        <a
-          href="#about"
-          aria-label="Gulir ke bagian Tentang Saya"
-          className="flex flex-col items-center text-[10px] uppercase tracking-widest text-[var(--text-color)] hover:text-white transition-colors"
-        >
-          <span>Scroll</span>
-          <i className="ri-arrow-down-s-line text-lg animate-bounce text-[var(--first-color)]" />
-        </a>
       </div>
     </section>
   );
