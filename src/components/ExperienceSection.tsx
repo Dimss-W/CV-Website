@@ -46,21 +46,21 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
   }, [modal.open, modal.exp?.images]);
 
   return (
-    <section id="experience" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
-      {/* Background glow in Violet & Indigo */}
-      <div className="glow-orb w-[500px] h-[500px] bg-violet-600/12 top-1/4 right-[-10%]" />
-      <div className="glow-orb w-[450px] h-[450px] bg-indigo-600/10 bottom-10 left-[-10%]" />
+    <section id="experience" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
+      {/* Background glow in Ruby & Flame */}
+      <div className="glow-orb w-[500px] h-[500px] bg-rose-600/12 top-1/4 right-[-10%]" />
+      <div className="glow-orb w-[450px] h-[450px] bg-red-700/10 bottom-10 left-[-10%]" />
 
       <div className="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header with Scroll Reveal */}
         <div className="flex flex-col items-center text-center mb-14 sm:mb-20 reveal-scale">
           <div className="section-tag">
-            <i className="ri-briefcase-line text-violet-400" />
+            <i className="ri-briefcase-line text-rose-400" />
             <span>Rekam Jejak &amp; Pengabdian</span>
           </div>
           <h2 className="section-heading mb-4">
-            Pengalaman <span className="gradient-text-violet">Profesional &amp; Industri</span>
+            Pengalaman <span className="gradient-text-ruby">Profesional &amp; Industri</span>
           </h2>
           <p className="section-description">
             Keterlibatan nyata dalam membangun produk perangkat lunak berskala besar, 
@@ -69,16 +69,16 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
         </div>
 
         {/* Vertical Interactive Timeline with Directional Reveals */}
-        <div className="relative pl-6 sm:pl-10 border-l-2 border-violet-500/20 space-y-10 sm:space-y-12">
+        <div className="relative pl-6 sm:pl-10 border-l-2 border-rose-500/25 space-y-10 sm:space-y-12">
           {experiences.map((item, index) => {
             const hasImages = Boolean(item.images && item.images.length > 0);
             const revealClass = index % 2 === 0 ? 'reveal-left' : 'reveal-right';
 
             return (
               <div key={item.id || index} className={`relative group ${revealClass}`}>
-                {/* Glowing Node Marker in Electric Violet */}
-                <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-6 h-6 rounded-full bg-[#06070a] border-2 border-violet-400 flex items-center justify-center group-hover:scale-125 group-hover:border-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.7)]">
-                  <div className="w-2 h-2 rounded-full bg-violet-300" />
+                {/* Glowing Node Marker in Cyber Crimson */}
+                <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-6 h-6 rounded-full bg-[#080608] border-2 border-rose-400 flex items-center justify-center group-hover:scale-125 group-hover:border-white transition-all shadow-[0_0_15px_rgba(244,63,94,0.7)]">
+                  <div className="w-2 h-2 rounded-full bg-rose-400" />
                 </div>
 
                 {/* Experience Card */}
@@ -86,10 +86,10 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                   {/* Card Header */}
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div>
-                      <span className="text-xs font-mono font-semibold text-violet-400 tracking-wider uppercase block mb-1">
+                      <span className="text-xs font-mono font-semibold text-rose-400 tracking-wider uppercase block mb-1">
                         {item.company} {item.location ? `• ${item.location}` : ''}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-violet-300 transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-rose-300 transition-colors">
                         {item.role}
                       </h3>
                     </div>
@@ -115,7 +115,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                     <div className="mb-6 pt-5 border-t border-white/8">
                       <div className="flex items-center justify-between mb-3">
                         <span className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
-                          <i className="ri-camera-3-line text-violet-400 text-sm" />
+                          <i className="ri-camera-3-line text-rose-400 text-sm" />
                           Dokumentasi Pembelajaran ({item.images!.length} Foto)
                         </span>
                         <span className="text-[11px] text-slate-400 font-mono">
@@ -134,7 +134,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                                 setModal({ open: true, exp: item, imgIdx: i });
                                 playTactileClick();
                               }}
-                              className="group/img relative aspect-[4/3] rounded-xl overflow-hidden bg-black/40 border border-white/10 hover:border-violet-400/60 transition-all text-left"
+                              className="group/img relative aspect-[4/3] rounded-xl overflow-hidden bg-black/40 border border-white/10 hover:border-rose-400/60 transition-all text-left"
                             >
                               <img
                                 src={img}
@@ -181,13 +181,13 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
           onClick={() => setModal((p) => ({ ...p, open: false }))}
         >
           <div
-            className="relative max-w-4xl w-full bg-[#0a0e17] border border-white/15 rounded-3xl p-5 sm:p-7 shadow-2xl modal-enter overflow-hidden"
+            className="relative max-w-4xl w-full bg-[#0e0a0d] border border-white/15 rounded-3xl p-5 sm:p-7 shadow-2xl modal-enter overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
               <div>
-                <span className="text-xs font-mono text-violet-400 uppercase">
+                <span className="text-xs font-mono text-rose-400 uppercase">
                   {modal.exp.company}
                 </span>
                 <h4 className="text-base sm:text-lg font-bold text-white">
@@ -266,7 +266,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                     }}
                     className={`h-10 w-14 rounded-lg overflow-hidden border-2 transition-all ${
                       modal.imgIdx === idx
-                        ? 'border-violet-400 scale-105'
+                        ? 'border-rose-400 scale-105'
                         : 'border-white/20 opacity-50 hover:opacity-100'
                     }`}
                   >

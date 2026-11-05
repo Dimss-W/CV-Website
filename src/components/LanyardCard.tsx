@@ -242,7 +242,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
           onClick={() => setViewMode('lanyard')}
           className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
             viewMode === 'lanyard'
-              ? 'bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/25'
+              ? 'bg-gradient-to-r from-rose-600 via-red-500 to-amber-500 text-white shadow-md shadow-rose-500/25'
               : 'text-slate-400 hover:text-slate-200'
           }`}
         >
@@ -254,7 +254,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
           onClick={() => setViewMode('terminal')}
           className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
             viewMode === 'terminal'
-              ? 'bg-gradient-to-r from-indigo-500 via-sky-500 to-indigo-600 text-white shadow-md shadow-sky-500/25'
+              ? 'bg-gradient-to-r from-rose-600 via-red-500 to-amber-500 text-white shadow-md shadow-rose-500/25'
               : 'text-slate-400 hover:text-slate-200'
           }`}
         >
@@ -275,7 +275,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
         >
           {/* Top Industrial Mount / Stealth Anchor */}
           <div className="absolute top-0 w-24 h-3 bg-gradient-to-b from-slate-800 to-slate-950 rounded-b-md border-x border-b border-slate-700/80 shadow-xl z-30 flex items-center justify-between px-3">
-            <div className="w-2 h-1 bg-sky-400/80 rounded-full shadow-[0_0_6px_#38bdf8]" />
+            <div className="w-2 h-1 bg-rose-400/80 rounded-full shadow-[0_0_6px_#f43f5e]" />
             <div className="text-[7px] font-mono tracking-widest text-slate-500 uppercase">DEV-SYS</div>
             <div className="w-2 h-1 bg-emerald-400/80 rounded-full shadow-[0_0_6px_#34d399]" />
           </div>
@@ -286,18 +286,18 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
             viewBox="0 0 360 144"
           >
             <defs>
-              {/* Futuristic Cyber Carbon & Indigo-Violet Ribbon Gradient */}
+              {/* Futuristic Cyber Crimson & Ruby-Amber Ribbon Gradient */}
               <linearGradient id="modernStrapGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#1e1b4b" />
-                <stop offset="40%" stopColor="#4338ca" />
-                <stop offset="85%" stopColor="#0284c7" />
-                <stop offset="100%" stopColor="#38bdf8" />
+                <stop offset="0%" stopColor="#4c0519" />
+                <stop offset="40%" stopColor="#9f1239" />
+                <stop offset="85%" stopColor="#e11d48" />
+                <stop offset="100%" stopColor="#f43f5e" />
               </linearGradient>
               <linearGradient id="modernStrapGradRight" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#0369a1" />
-                <stop offset="40%" stopColor="#6366f1" />
-                <stop offset="85%" stopColor="#312e81" />
-                <stop offset="100%" stopColor="#1e1b4b" />
+                <stop offset="0%" stopColor="#881337" />
+                <stop offset="40%" stopColor="#be123c" />
+                <stop offset="85%" stopColor="#e11d48" />
+                <stop offset="100%" stopColor="#fbbf24" />
               </linearGradient>
               <filter id="modernRibbonShadow" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#000000" floodOpacity="0.7" />
@@ -318,7 +318,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
             <path
               d={`M ${anchorLeftX} ${anchorY} Q ${leftCtrlX} ${leftCtrlY} ${clipX - 3} ${clipY}`}
               fill="none"
-              stroke="#38bdf8"
+              stroke="#f43f5e"
               strokeWidth="1.2"
               strokeOpacity="0.6"
             />
@@ -346,7 +346,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
             <path
               d={`M ${anchorRightX} ${anchorY} Q ${rightCtrlX} ${rightCtrlY} ${clipX + 3} ${clipY}`}
               fill="none"
-              stroke="#6366f1"
+              stroke="#fbbf24"
               strokeWidth="1.2"
               strokeOpacity="0.6"
             />
@@ -397,7 +397,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
               </div>
               {/* Matte Titanium Carabiner Body */}
               <div className="w-6 h-8 rounded-md bg-gradient-to-b from-slate-700 via-slate-800 to-slate-950 border border-slate-600 shadow-xl flex flex-col items-center justify-between p-1">
-                <div className="w-3.5 h-1 bg-sky-400/80 rounded-full" />
+                <div className="w-3.5 h-1 bg-rose-400/80 rounded-full" />
                 <div className="w-2 h-3 bg-slate-900 rounded-sm border border-slate-700" />
               </div>
               {/* Badge Slot Gripper */}
@@ -405,13 +405,13 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
             </div>
 
             {/* The Ultra-Modern Glassmorphic ID Badge Card */}
-            <div className="relative rounded-3xl p-6 bg-gradient-to-b from-slate-900/95 via-slate-950/90 to-black/95 border border-white/10 ring-1 ring-sky-500/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] backdrop-blur-2xl overflow-hidden transition-all duration-300 group-hover:border-sky-500/40 group-hover:ring-sky-500/30">
+            <div className="relative rounded-3xl p-6 bg-gradient-to-b from-slate-900/95 via-slate-950/90 to-black/95 border border-white/10 ring-1 ring-rose-500/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] backdrop-blur-2xl overflow-hidden transition-all duration-300 group-hover:border-rose-500/40 group-hover:ring-rose-500/30">
               
               {/* Prismatic Rainbow Holographic Reflection Layer */}
               <div
                 className="absolute inset-0 pointer-events-none opacity-20 mix-blend-color-dodge transition-opacity duration-300 group-hover:opacity-40"
                 style={{
-                  background: `linear-gradient(${115 + rotation * 2.5 + tilt3D.y * 2}deg, transparent 10%, rgba(56, 189, 248, 0.4) 30%, rgba(168, 85, 247, 0.4) 50%, rgba(244, 63, 94, 0.35) 70%, transparent 90%)`,
+                  background: `linear-gradient(${115 + rotation * 2.5 + tilt3D.y * 2}deg, transparent 10%, rgba(244, 63, 94, 0.4) 30%, rgba(225, 29, 72, 0.4) 50%, rgba(245, 158, 11, 0.35) 70%, transparent 90%)`,
                 }}
               />
 
@@ -419,7 +419,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
               <div 
                 className="absolute inset-0 pointer-events-none opacity-5"
                 style={{
-                  backgroundImage: 'radial-gradient(circle, #38bdf8 1px, transparent 1px)',
+                  backgroundImage: 'radial-gradient(circle, #f43f5e 1px, transparent 1px)',
                   backgroundSize: '16px 16px',
                 }}
               />
@@ -430,7 +430,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
               {/* Top Bar: Institution Brand & Holographic NFC Microchip */}
               <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-800/80">
                 <div>
-                  <div className="text-[10px] font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-indigo-300 to-sky-300 uppercase">
+                  <div className="text-[10px] font-extrabold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-red-300 to-amber-300 uppercase">
                     Universitas Bina Sarana Informatika
                   </div>
                   <div className="text-[11px] font-medium text-slate-400 flex items-center gap-1.5 mt-0.5">
@@ -458,7 +458,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
               {/* Avatar Section: Full Portrait Pasfoto ID Card */}
               <div className="flex flex-col items-center text-center mb-4">
                 <div className="relative mb-3.5">
-                  <div className="w-28 h-36 rounded-2xl overflow-hidden ring-2 ring-sky-500/60 shadow-xl shadow-sky-500/20 bg-slate-950/90 relative group/avatar">
+                  <div className="w-28 h-36 rounded-2xl overflow-hidden ring-2 ring-rose-500/60 shadow-xl shadow-rose-500/20 bg-slate-950/90 relative group/avatar">
                     <img
                       src={profile.avatar_url || '/dimas-profile.jpg'}
                       alt={profile.full_name}
@@ -479,12 +479,12 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
                   <span>{profile.full_name}</span>
                 </h3>
 
-                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-sky-950/70 border border-sky-500/40 text-[11px] font-bold text-sky-300 mt-1 shadow-sm">
-                  <Cpu size={12} className="text-sky-400" />
+                <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-rose-950/70 border border-rose-500/40 text-[11px] font-bold text-rose-300 mt-1 shadow-sm">
+                  <Cpu size={12} className="text-rose-400" />
                   <span>Full Stack Web & Mobile Engineer</span>
                 </div>
 
-                <div className="text-[11px] text-slate-400 font-mono mt-1.5 select-all hover:text-sky-300 transition-colors">
+                <div className="text-[11px] text-slate-400 font-mono mt-1.5 select-all hover:text-rose-300 transition-colors">
                   dmswijanarko@gmail.com
                 </div>
               </div>
@@ -498,9 +498,9 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
                   <span className="truncate font-semibold text-[11px]">Juara 1 IT Bootcamp Software Dev (2025)</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-sky-300 font-medium">
-                  <div className="w-5 h-5 rounded-md bg-sky-500/10 border border-sky-500/30 flex items-center justify-center shrink-0">
-                    <Mic size={13} className="text-sky-400" />
+                <div className="flex items-center gap-2 text-rose-300 font-medium">
+                  <div className="w-5 h-5 rounded-md bg-rose-500/10 border border-rose-500/30 flex items-center justify-center shrink-0">
+                    <Mic size={13} className="text-rose-400" />
                   </div>
                   <span className="truncate font-semibold text-[11px]">Pembicara Bootcamp Software SMK (2025)</span>
                 </div>
@@ -508,16 +508,16 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
 
               {/* Modern Tech Stack Badges */}
               <div className="flex flex-wrap gap-1.5 justify-center mb-4">
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-300">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300">
                   Flutter
                 </span>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-300">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300">
                   Dart
                 </span>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300">
                   Laravel
                 </span>
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-300">
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-300">
                   PHP
                 </span>
                 <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300">
@@ -548,7 +548,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
 
                 {/* Location & Status */}
                 <div className="flex items-center gap-1 text-slate-300">
-                  <MapPin size={11} className="text-sky-400" />
+                  <MapPin size={11} className="text-rose-400" />
                   <span>JAKARTA, ID</span>
                 </div>
               </div>
@@ -557,7 +557,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
             {/* Interactive Drag Hint */}
             <div className="text-center mt-3">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-[11px] font-medium text-slate-400 shadow-sm backdrop-blur-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-ping" />
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-ping" />
                 <span>Sentuh dan ayunkan kartu lanyard ini</span>
               </span>
             </div>

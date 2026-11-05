@@ -64,7 +64,7 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
             onClick={() => setActiveTab('config')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-medium transition-colors ${
               activeTab === 'config'
-                ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -76,7 +76,7 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
             onClick={() => setActiveTab('cli')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-medium transition-colors ${
               activeTab === 'cli'
-                ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -88,7 +88,7 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
             onClick={() => setActiveTab('architecture')}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-mono font-medium transition-colors ${
               activeTab === 'architecture'
-                ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
@@ -117,8 +117,8 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
         {activeTab === 'config' && (
           <div className="space-y-1 animate-in fade-in duration-300">
             <div>
-              <span className="text-purple-400">export const</span>{' '}
-              <span className="text-sky-400">softwareEngineer</span> = &#123;
+              <span className="text-red-400">export const</span>{' '}
+              <span className="text-rose-400">softwareEngineer</span> = &#123;
             </div>
             <div className="pl-4">
               nama: <span className="text-emerald-400">&apos;{profile.full_name}&apos;</span>,
@@ -147,7 +147,7 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
               domisili: <span className="text-emerald-400">&apos;{profile.location}&apos;</span>,
             </div>
             <div className="pl-4">
-              status: <span className="text-indigo-400">&apos;Terbuka untuk Kerja Sama & Proyek&apos;</span>,
+              status: <span className="text-rose-400">&apos;Terbuka untuk Kerja Sama & Proyek&apos;</span>,
             </div>
             <div className="pl-4">
               prestasi: <span className="text-emerald-400">&apos;Juara 1 IT Bootcamp Software Development 2025&apos;</span>
@@ -160,8 +160,8 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
           <div className="animate-in fade-in duration-300">
             {cliHistory.map((item, i) => (
               <div key={i} className="mb-3">
-                <div className="flex items-center gap-2 text-sky-400">
-                  <span className="text-purple-400">❯</span>
+                <div className="flex items-center gap-2 text-rose-400">
+                  <span className="text-red-400">❯</span>
                   <span>{item.command}</span>
                 </div>
                 <div className="text-slate-400 text-xs pl-4 mt-0.5">
@@ -174,17 +174,17 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
             <div className="flex flex-wrap gap-2 pt-3 mt-3 border-t border-slate-800">
               <button
                 onClick={() => runCommand('dimas.getTechStack()')}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-sky-400 text-xs transition-colors active:scale-95"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-rose-400 text-xs transition-colors active:scale-95"
               >
-                <Play size={10} className="fill-sky-400" />
+                <Play size={10} className="fill-rose-400" />
                 <span>dimas.getTechStack()</span>
               </button>
 
               <button
                 onClick={() => runCommand('dimas.getPhilosophy()')}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-purple-300 text-xs transition-colors active:scale-95"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-amber-300 text-xs transition-colors active:scale-95"
               >
-                <Play size={10} className="fill-purple-300" />
+                <Play size={10} className="fill-amber-300" />
                 <span>dimas.getPhilosophy()</span>
               </button>
 
@@ -203,23 +203,23 @@ export default function InteractiveTerminal({ profile, onCopySuccess }: Interact
           <div className="space-y-1 animate-in fade-in duration-300">
             <span className="text-amber-400">&#123;</span>
             <div className="pl-4">
-              <span className="text-sky-400">&quot;prinsipCoding&quot;</span>:{' '}
+              <span className="text-rose-400">&quot;prinsipCoding&quot;</span>:{' '}
               <span className="text-emerald-400">&quot;Bersih, Terstruktur, Modular, Type-Safe&quot;</span>,
             </div>
             <div className="pl-4">
-              <span className="text-sky-400">&quot;arsitekturMobile&quot;</span>:{' '}
+              <span className="text-rose-400">&quot;arsitekturMobile&quot;</span>:{' '}
               <span className="text-emerald-400">&quot;Flutter, Dart, Clean Architecture & BLoC&quot;</span>,
             </div>
             <div className="pl-4">
-              <span className="text-sky-400">&quot;arsitekturBackend&quot;</span>:{' '}
+              <span className="text-rose-400">&quot;arsitekturBackend&quot;</span>:{' '}
               <span className="text-emerald-400">&quot;Laravel REST API, Relational DB & Supabase&quot;</span>,
             </div>
             <div className="pl-4">
-              <span className="text-sky-400">&quot;analisisData&quot;</span>:{' '}
+              <span className="text-rose-400">&quot;analisisData&quot;</span>:{' '}
               <span className="text-emerald-400">&quot;Microsoft Power BI Executive Dashboard&quot;</span>,
             </div>
             <div className="pl-4">
-              <span className="text-sky-400">&quot;standarKualitas&quot;</span>:{' '}
+              <span className="text-rose-400">&quot;standarKualitas&quot;</span>:{' '}
               <span className="text-emerald-400">&quot;Performa Tinggi, Pengalaman Pengguna Mulus&quot;</span>
             </div>
             <span className="text-amber-400">&#125;</span>

@@ -94,21 +94,21 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   };
 
   return (
-    <section id="projects" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
-      {/* Background radial glows in Violet & Indigo */}
-      <div className="glow-orb w-[500px] h-[500px] bg-violet-600/12 top-20 left-[-15%]" />
-      <div className="glow-orb w-[600px] h-[600px] bg-indigo-600/10 bottom-20 right-[-15%]" />
+    <section id="projects" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
+      {/* Background radial glows in Ruby & Flame */}
+      <div className="glow-orb w-[500px] h-[500px] bg-rose-600/12 top-20 left-[-15%]" />
+      <div className="glow-orb w-[600px] h-[600px] bg-red-700/10 bottom-20 right-[-15%]" />
 
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header with Scroll Reveal */}
         <div className="flex flex-col items-center text-center mb-10 sm:mb-14 reveal-scale">
           <div className="section-tag">
-            <i className="ri-code-s-slash-line text-violet-400" />
+            <i className="ri-code-s-slash-line text-rose-400" />
             <span>Karya &amp; Rekayasa Nyata</span>
           </div>
           <h2 className="section-heading mb-4">
-            Portofolio <span className="gradient-text-violet">Produk &amp; Solusi Digital</span>
+            Portofolio <span className="gradient-text-ruby">Produk &amp; Solusi Digital</span>
           </h2>
           <p className="section-description">
             Koleksi aplikasi web enterprise, aplikasi mobile terintegrasi, dan dashboard analitik
@@ -125,7 +125,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                 placeholder="Cari teknologi/proyek..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs focus:border-violet-400 focus:bg-white/[0.07] transition-all"
+                className="w-full pl-9 pr-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs focus:border-rose-400 focus:bg-white/[0.07] transition-all"
               />
               {searchQuery && (
                 <button
@@ -152,7 +152,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     }}
                     className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 active:scale-95 ${
                       isActive
-                        ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-[0_0_18px_rgba(139,92,246,0.45)]'
+                        ? 'bg-gradient-to-r from-rose-600 to-red-600 text-white shadow-[0_0_18px_rgba(244,63,94,0.45)]'
                         : 'text-slate-400 hover:text-white hover:bg-white/5'
                     }`}
                   >
@@ -165,7 +165,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           </div>
 
           <div className="text-[11px] font-mono text-slate-400 mt-3">
-            Menampilkan <span className="text-violet-400 font-bold">{filteredProjects.length}</span> dari {projects.length} proyek
+            Menampilkan <span className="text-rose-400 font-bold">{filteredProjects.length}</span> dari {projects.length} proyek
           </div>
         </div>
 
@@ -220,9 +220,9 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     ))}
                   </div>
 
-                  {/* Category Pill Tag */}
+                  {/* Category Pill Tag in Ruby */}
                   <div className="absolute top-3 left-3 z-20 pointer-events-none">
-                    <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-violet-300 uppercase tracking-wider">
+                    <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-rose-300 uppercase tracking-wider">
                       {project.is_mobile ? 'Mobile App' : project.category === 'data-ai' ? 'Data & AI' : 'Web App'}
                     </span>
                   </div>
@@ -247,7 +247,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                             aria-label={`Slide ${dotIdx + 1}`}
                             className={`h-1.5 rounded-full transition-all duration-300 ${
                               currentSlide === dotIdx
-                                ? 'w-4 bg-violet-400 shadow-[0_0_8px_rgba(168,85,247,0.9)]'
+                                ? 'w-4 bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.9)]'
                                 : 'w-1.5 bg-white/40 hover:bg-white/80'
                             }`}
                           />
@@ -263,7 +263,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       setSelectedProject(project);
                       playTactileClick();
                     }}
-                    className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90 hover:text-violet-300 hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+                    className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90 hover:text-rose-300 hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
                     title="Buka Pratinjau Penuh"
                     aria-label="Lihat detail lengkap proyek"
                   >
@@ -274,7 +274,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                 {/* Card Body Content */}
                 <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-violet-300 transition-colors leading-snug">
+                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-rose-300 transition-colors leading-snug">
                       {project.title}
                     </h3>
 
@@ -319,7 +319,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                           setSelectedProject(project);
                           playTactileClick();
                         }}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-violet-400 hover:text-violet-300 active:scale-95 transition-all"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-400 hover:text-rose-300 active:scale-95 transition-all"
                       >
                         <span>Studi Kasus</span>
                         <i className="ri-arrow-right-up-line text-sm" />
@@ -346,7 +346,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={playTactileClick}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-violet-600/15 hover:bg-violet-600/25 border border-violet-400/35 text-xs font-semibold text-violet-300 active:scale-95 transition-all"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-rose-600/15 hover:bg-rose-600/25 border border-rose-400/35 text-xs font-semibold text-rose-300 active:scale-95 transition-all"
                             title="Buka Demo Langsung"
                           >
                             <span>Live Demo</span>
@@ -373,13 +373,13 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-4xl bg-[#090d16] border border-white/15 rounded-3xl p-5 sm:p-8 shadow-2xl modal-enter my-auto overflow-hidden max-h-[90vh] flex flex-col"
+            className="relative w-full max-w-4xl bg-[#0e0a0d] border border-white/15 rounded-3xl p-5 sm:p-8 shadow-2xl modal-enter my-auto overflow-hidden max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
             <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/10 shrink-0">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono text-violet-400 uppercase tracking-wider mb-1">
+                <div className="flex items-center gap-2 text-xs font-mono text-rose-400 uppercase tracking-wider mb-1">
                   <span>{selectedProject.is_mobile ? 'Aplikasi Mobile' : selectedProject.category === 'data-ai' ? 'Sistem Data & AI' : 'Web Aplikasi'}</span>
                   <span>•</span>
                   <span>Dimas Wijanarko</span>
@@ -426,7 +426,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                               playTactileClick();
                             }}
                             className={`relative h-14 sm:h-16 w-20 sm:w-24 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
-                              isCurrent ? 'border-violet-400 scale-105' : 'border-white/20 opacity-60 hover:opacity-100'
+                              isCurrent ? 'border-rose-400 scale-105' : 'border-white/20 opacity-60 hover:opacity-100'
                             }`}
                           >
                             <img src={img} alt="Thumb" className="w-full h-full object-cover" />
@@ -451,7 +451,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
                 {selectedProject.details && (
                   <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/8">
-                    <h4 className="text-xs font-mono uppercase text-violet-300 tracking-wider mb-2 flex items-center gap-2">
+                    <h4 className="text-xs font-mono uppercase text-rose-300 tracking-wider mb-2 flex items-center gap-2">
                       <i className="ri-settings-4-line text-sm" />
                       <span>Arsitektur &amp; Fitur Unggulan</span>
                     </h4>
@@ -483,7 +483,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   {selectedProject.tags.map((tag, tIdx) => (
                     <span
                       key={tIdx}
-                      className="px-3 py-1 rounded-lg bg-violet-600/15 border border-violet-400/25 text-xs font-mono text-violet-300"
+                      className="px-3 py-1 rounded-lg bg-rose-600/15 border border-rose-400/25 text-xs font-mono text-rose-300"
                     >
                       {tag}
                     </span>
@@ -518,7 +518,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={playTactileClick}
-                    className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-semibold hover:shadow-[0_0_18px_rgba(139,92,246,0.5)] transition-all"
+                    className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 text-white text-xs font-semibold hover:shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all"
                   >
                     <span>Buka Aplikasi Langsung</span>
                     <i className="ri-external-link-line text-sm" />

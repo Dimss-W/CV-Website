@@ -33,7 +33,7 @@ export default function RecruiterQuickBar({ profile }: RecruiterQuickBarProps) {
       <div className="fixed bottom-5 right-5 z-40 animate-in fade-in slide-in-from-bottom-3 duration-300">
         <button
           onClick={() => setIsMinimized(false)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-xl shadow-indigo-600/30 transition-all transform hover:scale-105 border border-indigo-400/40"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-xl shadow-rose-600/30 transition-all transform hover:scale-105 border border-rose-400/40"
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <Briefcase size={14} />

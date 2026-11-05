@@ -10,20 +10,20 @@ interface EducationSectionProps {
 export default function EducationSection({ educations }: EducationSectionProps) {
   return (
     <section id="education" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
-      {/* Background glow in Violet & Amber */}
-      <div className="glow-orb w-[450px] h-[450px] bg-violet-600/12 top-1/4 right-[-10%]" />
-      <div className="glow-orb w-[450px] h-[450px] bg-indigo-600/10 bottom-10 left-[-10%]" />
+      {/* Background glow in Ruby Crimson & Scarlet */}
+      <div className="glow-orb w-[450px] h-[450px] bg-rose-600/12 top-1/4 right-[-10%]" />
+      <div className="glow-orb w-[450px] h-[450px] bg-red-600/10 bottom-10 left-[-10%]" />
 
       <div className="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header with Scroll Reveal */}
         <div className="flex flex-col items-center text-center mb-14 sm:mb-20 reveal-scale">
           <div className="section-tag">
-            <i className="ri-graduation-cap-line text-violet-400" />
+            <i className="ri-graduation-cap-line text-rose-400" />
             <span>Pendidikan Tinggi &amp; Akademik</span>
           </div>
           <h2 className="section-heading mb-4">
-            Latar Belakang <span className="gradient-text-violet">Studi Sistem Informasi</span>
+            Latar Belakang <span className="gradient-text-ruby">Studi Sistem Informasi</span>
           </h2>
           <p className="section-description">
             Pondasi keilmuan teknologi informasi terstruktur yang memadukan rekayasa perangkat lunak, 
@@ -39,25 +39,25 @@ export default function EducationSection({ educations }: EducationSectionProps) 
               className="glass-panel glass-panel-hover p-6 sm:p-9 relative overflow-hidden group reveal-scale delay-100"
             >
               {/* Background gradient decorative element */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-violet-600/8 rounded-full blur-3xl pointer-events-none group-hover:bg-violet-600/15 transition-colors" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-rose-600/8 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-600/15 transition-colors" />
 
               <div className="relative z-10">
                 <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-violet-600/25 to-purple-500/15 border border-violet-400/35 flex items-center justify-center text-violet-300 text-2xl shrink-0 group-hover:scale-105 transition-transform shadow-lg shadow-violet-600/15">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600/25 to-red-500/15 border border-rose-400/35 flex items-center justify-center text-rose-300 text-2xl shrink-0 group-hover:scale-105 transition-transform shadow-lg shadow-rose-600/15">
                       <i className="ri-graduation-cap-fill" />
                     </div>
                     <div>
-                      <span className="text-xs font-mono text-violet-400 font-semibold uppercase tracking-wider block mb-0.5">
+                      <span className="text-xs font-mono text-rose-400 font-semibold uppercase tracking-wider block mb-0.5">
                         {edu.institution}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-violet-300 transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-rose-300 transition-colors">
                         {edu.degree}
                       </h3>
                     </div>
                   </div>
 
-                  <span className="px-4 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/25 text-violet-300 text-xs font-mono font-semibold">
+                  <span className="px-4 py-1.5 rounded-full bg-rose-500/10 border border-rose-400/25 text-rose-300 text-xs font-mono font-semibold">
                     {edu.start_year} — {edu.end_year || 'Sekarang (Aktif)'}
                   </span>
                 </div>

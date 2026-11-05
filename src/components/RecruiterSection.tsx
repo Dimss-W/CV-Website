@@ -63,7 +63,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
     fullstack: {
       title: 'Full Stack Web & API Developer (Laravel + Next.js)',
       badge: 'Solusi End-to-End',
-      icon: <Database className="text-indigo-400" size={22} />,
+      icon: <Database className="text-rose-400" size={22} />,
       matchScore: 96,
       highlight: 'Menghubungkan frontend interaktif dengan backend API berbasis Laravel/PHP yang aman, terstruktur, dan siap diskalakan dengan database relasional.',
       readiness: 'Siap Onboard Segera (< 1 Minggu)',
@@ -127,7 +127,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
   return (
     <section id="why-hire-me" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
       {/* Decorative Glow Elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-gradient-to-r from-indigo-500/10 via-sky-500/10 to-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-gradient-to-r from-rose-500/10 via-red-500/10 to-amber-500/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Header Badge & Title */}
       <div className="text-center max-w-3xl mx-auto mb-16">
@@ -180,11 +180,11 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
         </div>
 
         {/* Pillar 3 */}
-        <div className="glass-card p-6 border border-slate-800/80 bg-slate-900/60 hover:border-indigo-500/50 transition-all duration-300 group">
-          <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center mb-5 text-indigo-400 group-hover:scale-110 transition-transform">
+        <div className="glass-card p-6 border border-slate-800/80 bg-slate-900/60 hover:border-rose-500/50 transition-all duration-300 group">
+          <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center mb-5 text-rose-400 group-hover:scale-110 transition-transform">
             <BarChart3 size={24} />
           </div>
-          <div className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">
+          <div className="text-xs font-bold text-rose-400 uppercase tracking-wider mb-1">
             Enterprise Insight
           </div>
           <h3 className="text-lg font-bold text-slate-100 mb-2">
@@ -250,7 +250,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
             onClick={() => setSelectedRole('fullstack')}
             className={`p-3.5 rounded-2xl text-left transition-all duration-300 ease-out border ${
               selectedRole === 'fullstack'
-                ? 'bg-indigo-950/60 border-indigo-500/80 text-white shadow-lg shadow-indigo-500/15 scale-[1.02]'
+                ? 'bg-rose-950/60 border-rose-500/80 text-white shadow-lg shadow-rose-500/15 scale-[1.02]'
                 : 'bg-slate-950/50 border-slate-800/80 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-slate-900/40'
             }`}
           >
@@ -363,7 +363,7 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <a
                 href="#contact"
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/25 transition-all transform hover:-translate-y-0.5"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white text-xs font-bold shadow-lg shadow-rose-600/25 transition-all transform hover:-translate-y-0.5"
               >
                 <Send size={14} />
                 <span>Ajukan Tawaran / Wawancara</span>

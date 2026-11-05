@@ -39,9 +39,9 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
   const getImgIdx = (id: string) => activeImgIdx[id] || 0;
 
   return (
-    <section id="certificates" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
-      {/* Background glow in Violet & Amber */}
-      <div className="glow-orb w-[500px] h-[500px] bg-violet-600/12 top-1/3 left-[-15%]" />
+    <section id="certificates" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
+      {/* Background glow in Ruby & Amber */}
+      <div className="glow-orb w-[500px] h-[500px] bg-rose-600/12 top-1/3 left-[-15%]" />
       <div className="glow-orb w-[500px] h-[500px] bg-amber-600/10 bottom-10 right-[-15%]" />
 
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -49,11 +49,11 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
         {/* Section Header with Scroll Reveal */}
         <div className="flex flex-col items-center text-center mb-14 sm:mb-20 reveal-scale">
           <div className="section-tag">
-            <i className="ri-award-line text-violet-400" />
+            <i className="ri-award-line text-rose-400" />
             <span>Kredensial &amp; Pengakuan Resmi</span>
           </div>
           <h2 className="section-heading mb-4">
-            Sertifikasi <span className="gradient-text-violet">Standar Kompetensi Nasional</span>
+            Sertifikasi <span className="gradient-text-ruby">Standar Kompetensi Nasional</span>
           </h2>
           <p className="section-description">
             Validasi keahlian teknis resmi dari Badan Nasional Sertifikasi Profesi (BNSP), 
@@ -92,7 +92,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
 
                   {/* Issuer Pill */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-violet-300">
+                    <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-rose-300">
                       {cert.badge}
                     </span>
                   </div>
@@ -111,7 +111,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                           }}
                           aria-label={`Lihat Halaman ${dotI + 1}`}
                           className={`w-2 h-2 rounded-full transition-all ${
-                            currentImgIdx === dotI ? 'bg-violet-400 w-4' : 'bg-white/40'
+                            currentImgIdx === dotI ? 'bg-rose-500 w-4' : 'bg-white/40'
                           }`}
                         />
                       ))}
@@ -127,11 +127,11 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 {/* Card Content */}
                 <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                   <div>
-                    <div className="text-[11px] font-mono text-violet-400 mb-1.5">
+                    <div className="text-[11px] font-mono text-rose-400 mb-1.5">
                       {cert.issuer}
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-snug group-hover:text-violet-300 transition-colors">
+                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-snug group-hover:text-rose-300 transition-colors">
                       {cert.title}
                     </h3>
 
@@ -153,7 +153,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                       <button
                         type="button"
                         onClick={() => handleCopy(cert.credential_id, cert.title)}
-                        className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-violet-600/25 text-slate-300 hover:text-violet-300 border border-white/10 text-[11px] font-mono transition-colors shrink-0 flex items-center gap-1 active:scale-95"
+                        className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-rose-600/25 text-slate-300 hover:text-rose-300 border border-white/10 text-[11px] font-mono transition-colors shrink-0 flex items-center gap-1 active:scale-95"
                         title="Salin ID Kredensial"
                       >
                         <i className="ri-file-copy-line text-xs" />
@@ -188,7 +188,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                           setSelectedCert(cert);
                           playTactileClick();
                         }}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-violet-400 hover:text-violet-300 active:scale-95 transition-all"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-rose-400 hover:text-rose-300 active:scale-95 transition-all"
                       >
                         <span>Pratinjau Detail</span>
                         <i className="ri-arrow-right-up-line text-sm" />
@@ -219,7 +219,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
 
       {/* Toast Notification */}
       {copyToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0a0e17] border border-violet-400/50 text-violet-200 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-semibold animate-in fade-in slide-in-from-bottom duration-200">
+        <div className="fixed bottom-6 right-6 z-50 bg-[#0e0a0d] border border-rose-400/50 text-rose-200 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-semibold animate-in fade-in slide-in-from-bottom duration-200">
           <i className="ri-checkbox-circle-fill text-emerald-400 text-base" />
           <span>{copyToast}</span>
         </div>
@@ -234,13 +234,13 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-4xl bg-[#0a0e17] border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl modal-enter my-auto overflow-hidden max-h-[90vh] flex flex-col"
+            className="relative w-full max-w-4xl bg-[#0e0a0d] border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl modal-enter my-auto overflow-hidden max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/10 shrink-0">
               <div>
-                <span className="text-xs font-mono text-violet-400 uppercase">
+                <span className="text-xs font-mono text-rose-400 uppercase">
                   {selectedCert.badge}
                 </span>
                 <h3 className="text-xl sm:text-2xl font-bold text-white mt-0.5">
@@ -286,7 +286,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                           }}
                           className={`h-14 w-20 rounded-lg overflow-hidden border-2 transition-all ${
                             getImgIdx(selectedCert.id) === idx
-                              ? 'border-violet-400 scale-105'
+                              ? 'border-rose-400 scale-105'
                               : 'border-white/20 opacity-60 hover:opacity-100'
                           }`}
                         >
@@ -306,7 +306,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
 
                 {selectedCert.details && (
                   <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/8">
-                    <h4 className="text-xs font-mono uppercase text-violet-300 tracking-wider mb-2 flex items-center gap-2">
+                    <h4 className="text-xs font-mono uppercase text-rose-300 tracking-wider mb-2 flex items-center gap-2">
                       <i className="ri-shield-star-line text-sm" />
                       <span>Cakupan Standar Kompetensi Kerja Nasional (SKKNI)</span>
                     </h4>
@@ -325,7 +325,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                     {selectedCert.skills.map((sk, sIdx) => (
                       <span
                         key={sIdx}
-                        className="px-3 py-1 rounded-lg bg-violet-600/15 border border-violet-400/25 text-xs font-mono text-violet-300"
+                        className="px-3 py-1 rounded-lg bg-rose-600/15 border border-rose-400/25 text-xs font-mono text-rose-300"
                       >
                         {sk}
                       </span>
@@ -347,7 +347,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playTactileClick}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-semibold hover:shadow-[0_0_18px_rgba(139,92,246,0.5)] transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 text-white text-xs font-semibold hover:shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all"
                 >
                   <i className="ri-file-download-line text-sm" />
                   <span>Unduh Dokumen Asli (PDF)</span>

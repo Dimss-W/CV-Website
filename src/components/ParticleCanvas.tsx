@@ -81,15 +81,15 @@ export default function ParticleCanvas() {
     window.addEventListener('mouseleave', handleMouseLeave, { passive: true });
     window.addEventListener('mousedown', handleMouseDown, { passive: true });
 
-    // Particle Setup with optimal density & vibrant tech palette
+    // Particle Setup with optimal density & Cyber Crimson / Ruby Red tech palette
     const particleCount = Math.min(Math.floor(width / 26), 48);
     const particles: Particle[] = [];
 
     const colors = [
-      'rgba(99, 102, 241, ', // Indigo
-      'rgba(56, 189, 248, ', // Sky
-      'rgba(168, 85, 247, ', // Purple
-      'rgba(14, 165, 233, ', // Cyan
+      'rgba(244, 63, 94, ',  // Cyber Rose / Crimson
+      'rgba(225, 29, 72, ',  // Ruby Red
+      'rgba(245, 158, 11, ', // Amber Gold
+      'rgba(190, 18, 60, ',  // Deep Scarlet
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -132,8 +132,8 @@ export default function ParticleCanvas() {
         aurora1Y,
         width * 0.45
       );
-      grad1.addColorStop(0, 'rgba(79, 70, 229, 0.07)'); // Subtle Indigo
-      grad1.addColorStop(0.6, 'rgba(56, 189, 248, 0.03)'); // Sky Blue
+      grad1.addColorStop(0, 'rgba(225, 29, 72, 0.08)'); // Subtle Ruby
+      grad1.addColorStop(0.6, 'rgba(244, 63, 94, 0.03)'); // Crimson
       grad1.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = grad1;
       ctx.fillRect(0, 0, width, height);
@@ -148,7 +148,7 @@ export default function ParticleCanvas() {
         aurora2Y,
         width * 0.4
       );
-      grad2.addColorStop(0, 'rgba(168, 85, 247, 0.05)'); // Purple
+      grad2.addColorStop(0, 'rgba(159, 18, 57, 0.06)'); // Deep Rose / Wine
       grad2.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = grad2;
       ctx.fillRect(0, 0, width, height);
@@ -163,8 +163,8 @@ export default function ParticleCanvas() {
           mouse.y,
           260
         );
-        mouseGlow.addColorStop(0, 'rgba(56, 189, 248, 0.08)');
-        mouseGlow.addColorStop(0.5, 'rgba(99, 102, 241, 0.03)');
+        mouseGlow.addColorStop(0, 'rgba(244, 63, 94, 0.09)');
+        mouseGlow.addColorStop(0.5, 'rgba(225, 29, 72, 0.03)');
         mouseGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = mouseGlow;
         ctx.fillRect(0, 0, width, height);
@@ -178,7 +178,7 @@ export default function ParticleCanvas() {
 
         ctx.beginPath();
         ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(56, 189, 248, ${rip.alpha})`;
+        ctx.strokeStyle = `rgba(244, 63, 94, ${rip.alpha})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
 
@@ -208,7 +208,7 @@ export default function ParticleCanvas() {
           if (distM < mouse.connectDist) {
             // Draw interactive connector line to cursor
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - distM / mouse.connectDist) * 0.35})`;
+            ctx.strokeStyle = `rgba(244, 63, 94, ${(1 - distM / mouse.connectDist) * 0.35})`;
             ctx.lineWidth = 0.8;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(mouse.x, mouse.y);
@@ -240,7 +240,7 @@ export default function ParticleCanvas() {
 
           if (dist < 110) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(99, 102, 241, ${0.14 * (1 - dist / 110)})`;
+            ctx.strokeStyle = `rgba(225, 29, 72, ${0.14 * (1 - dist / 110)})`;
             ctx.lineWidth = 0.7;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);

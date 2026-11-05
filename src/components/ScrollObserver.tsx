@@ -5,10 +5,13 @@ import React, { useEffect, useRef, useState } from 'react';
 export default function ScrollObserver() {
   const cursorDotRef = useRef<HTMLDivElement | null>(null);
   const cursorRingRef = useRef<HTMLDivElement | null>(null);
+  const cursorTrailRef = useRef<HTMLDivElement | null>(null);
+
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showScrollUp, setShowScrollUp] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     // Check touch device & reduced motion
@@ -46,18 +49,20 @@ export default function ScrollObserver() {
       },
       {
         threshold: 0.12,
-        rootMargin: '0px 0px -50px 0px',
+        rootMargin: '0px 0px -40px 0px',
       }
     );
 
     revealElements.forEach((el) => observer.observe(el));
 
-    // Magnetic Cursor Physics (Desktop only)
+    // Multi-Layer Cyber Ruby Cursor Physics (Desktop only)
     if (!touch && !mediaQuery.matches) {
       let mouseX = window.innerWidth / 2;
       let mouseY = window.innerHeight / 2;
       let ringX = mouseX;
       let ringY = mouseY;
+      let trailX = mouseX;
+      let trailY = mouseY;
       let isHoveringInteractive = false;
       let rafId: number;
 
@@ -86,36 +91,46 @@ export default function ScrollObserver() {
           target.closest('.spotlight-card');
 
         isHoveringInteractive = Boolean(isClickable);
+        setIsHovering(Boolean(isClickable));
       };
 
       const handleMouseLeave = () => {
         if (cursorDotRef.current) cursorDotRef.current.style.opacity = '0';
         if (cursorRingRef.current) cursorRingRef.current.style.opacity = '0';
+        if (cursorTrailRef.current) cursorTrailRef.current.style.opacity = '0';
       };
 
-      // Smooth lerp loop for the outer cursor ring
-      const animateRing = () => {
-        const lerp = 0.18;
-        ringX += (mouseX - ringX) * lerp;
-        ringY += (mouseY - ringY) * lerp;
+      // 60fps Physics loop for dual concentric trailing layers
+      const animateCursor = () => {
+        // Fast ring lerp
+        const ringLerp = 0.2;
+        ringX += (mouseX - ringX) * ringLerp;
+        ringY += (mouseY - ringY) * ringLerp;
+
+        // Fluid lagging comet tail lerp
+        const trailLerp = 0.09;
+        trailX += (mouseX - trailX) * trailLerp;
+        trailY += (mouseY - trailY) * trailLerp;
 
         if (cursorRingRef.current) {
-          const scale = isHoveringInteractive ? 1.6 : 1;
+          const scale = isHoveringInteractive ? 1.85 : 1;
           cursorRingRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) scale(${scale})`;
           cursorRingRef.current.style.opacity = '1';
-          cursorRingRef.current.style.borderColor = isHoveringInteractive
-            ? 'rgba(168, 85, 247, 0.9)'
-            : 'rgba(139, 92, 246, 0.4)';
         }
 
-        rafId = requestAnimationFrame(animateRing);
+        if (cursorTrailRef.current) {
+          cursorTrailRef.current.style.transform = `translate3d(${trailX}px, ${trailY}px, 0)`;
+          cursorTrailRef.current.style.opacity = '1';
+        }
+
+        rafId = requestAnimationFrame(animateCursor);
       };
 
       window.addEventListener('mousemove', handleMouseMove, { passive: true });
       window.addEventListener('mouseover', handleMouseOver, { passive: true });
       document.addEventListener('mouseleave', handleMouseLeave);
 
-      rafId = requestAnimationFrame(animateRing);
+      rafId = requestAnimationFrame(animateCursor);
 
       return () => {
         window.removeEventListener('scroll', handleScroll);
@@ -139,37 +154,61 @@ export default function ScrollObserver() {
 
   return (
     <>
-      {/* Silky Top Scroll Progress Indicator */}
+      {/* Silky Top Scroll Progress Indicator in Ruby Flame */}
       <div
-        className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-violet-600 via-purple-500 to-amber-400 z-[100] transition-all duration-150 ease-out pointer-events-none"
+        className="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-rose-600 via-red-500 to-amber-400 z-[100] transition-all duration-150 ease-out pointer-events-none shadow-[0_0_12px_rgba(244,63,94,0.8)]"
         style={{ width: `${scrollProgress}%` }}
         aria-hidden="true"
       />
 
-      {/* Custom Fluid Cursor in Electric Violet (Desktop only) */}
+      {/* Spectacular Multi-Layer Cyber Ruby Cursor (Desktop only) */}
       {!isTouchDevice && !reducedMotion && (
         <>
-          {/* Inner Sharp Dot */}
+          {/* Layer 3: Lagging Fluid Ambient Aura */}
           <div
-            ref={cursorDotRef}
-            className="fixed top-0 left-0 w-2 h-2 -ml-1 -mt-1 rounded-full bg-violet-400 pointer-events-none z-[9999] opacity-0 transition-opacity duration-200 shadow-[0_0_10px_rgba(168,85,247,0.9)]"
+            ref={cursorTrailRef}
+            className="fixed top-0 left-0 w-12 h-12 -ml-6 -mt-6 rounded-full bg-rose-500/10 blur-md pointer-events-none z-[9997] opacity-0 transition-opacity duration-300 pointer-events-none"
             style={{ willChange: 'transform' }}
           />
-          {/* Outer Smooth Ring */}
+
+          {/* Layer 2: Cyber Reticle Aura Ring with Shadows & Crosshairs */}
           <div
             ref={cursorRingRef}
-            className="fixed top-0 left-0 w-8 h-8 -ml-4 -mt-4 rounded-full border border-violet-400/40 pointer-events-none z-[9998] opacity-0 transition-[transform,border-color,opacity] duration-150 ease-out"
+            className={`fixed top-0 left-0 w-10 h-10 -ml-5 -mt-5 rounded-full pointer-events-none z-[9998] opacity-0 transition-[border-color,background-color] duration-200 ease-out flex items-center justify-center ${
+              isHovering
+                ? 'border-2 border-rose-400 bg-rose-500/15 backdrop-blur-[2px] shadow-[0_0_30px_rgba(244,63,94,0.65),inset_0_0_15px_rgba(244,63,94,0.35)]'
+                : 'border border-rose-500/40 shadow-[0_0_20px_rgba(225,29,72,0.35),inset_0_0_8px_rgba(225,29,72,0.15)]'
+            }`}
+            style={{ willChange: 'transform' }}
+          >
+            {/* Subtle Crosshair Reticle Notches on Hover */}
+            {isHovering && (
+              <>
+                <div className="absolute -top-1 w-1 h-1 rounded-full bg-rose-300" />
+                <div className="absolute -bottom-1 w-1 h-1 rounded-full bg-rose-300" />
+                <div className="absolute -left-1 w-1 h-1 rounded-full bg-rose-300" />
+                <div className="absolute -right-1 w-1 h-1 rounded-full bg-rose-300" />
+              </>
+            )}
+          </div>
+
+          {/* Layer 1: Core Glowing Ruby Nucleus with Deep Shadow */}
+          <div
+            ref={cursorDotRef}
+            className={`fixed top-0 left-0 w-3 h-3 -ml-1.5 -mt-1.5 rounded-full bg-gradient-to-tr from-rose-500 to-amber-300 pointer-events-none z-[9999] opacity-0 transition-[transform,opacity] duration-150 shadow-[0_0_12px_#f43f5e,0_0_24px_#e11d48,0_0_36px_rgba(244,63,94,0.6)] ${
+              isHovering ? 'scale-75' : 'scale-100'
+            }`}
             style={{ willChange: 'transform' }}
           />
         </>
       )}
 
-      {/* Floating Scroll To Top Pill */}
+      {/* Floating Scroll To Top Pill with Ruby Glow */}
       {showScrollUp && (
         <button
           type="button"
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#0b0e15]/90 backdrop-blur-md border border-violet-500/35 text-violet-300 hover:text-white hover:bg-violet-600/25 hover:scale-110 active:scale-95 flex items-center justify-center shadow-[0_8px_25px_rgba(0,0,0,0.7),0_0_20px_rgba(139,92,246,0.3)] transition-all duration-300 group"
+          className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#0e0a0d]/90 backdrop-blur-md border border-rose-500/40 text-rose-300 hover:text-white hover:bg-rose-600/25 hover:scale-110 active:scale-95 flex items-center justify-center shadow-[0_8px_25px_rgba(0,0,0,0.8),0_0_25px_rgba(225,29,72,0.4)] transition-all duration-300 group"
           aria-label="Kembali ke atas halaman"
         >
           <i className="ri-arrow-up-line text-lg group-hover:-translate-y-0.5 transition-transform" />

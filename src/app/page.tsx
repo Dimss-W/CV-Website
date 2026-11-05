@@ -10,6 +10,7 @@ import EducationSection from '@/components/EducationSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import ScrollObserver from '@/components/ScrollObserver';
+import ParticleCanvas from '@/components/ParticleCanvas';
 import MobileQuickDock from '@/components/MobileQuickDock';
 import {
   getProfileData,
@@ -37,6 +38,9 @@ export default async function HomePage() {
     <>
       {/* Custom Fluid Cursor, Ambient Tracker & Scroll Observer */}
       <ScrollObserver />
+
+      {/* Living Interactive Constellation Canvas & Ambient Ripples */}
+      <ParticleCanvas />
 
       {/* Floating Dynamic Island Header */}
       <Navbar resumeUrl={profile.resume_url} />

@@ -5,27 +5,27 @@
 @tailwind utilities;
 
 /*===================================================================
-  DESIGN SYSTEM: ROYAL VIOLET, INDIGO & AMBER GOLD (ZERO CYAN)
+  DESIGN SYSTEM: CYBER CRIMSON, RUBY FLAME & ONYX VOID
 ===================================================================*/
 :root {
   --header-height: 4.25rem;
 
-  /* Colors: Obsidian Void, Electric Violet, Royal Indigo & Amber Gold */
-  --bg-deep: #06070a;
-  --bg-surface: #0b0e15;
-  --bg-card: rgba(16, 20, 31, 0.7);
-  --bg-card-hover: rgba(24, 29, 46, 0.88);
+  /* Colors: Onyx Void, Vivid Crimson, Ruby & Amber Gold */
+  --bg-deep: #080608;
+  --bg-surface: #0e0a0d;
+  --bg-card: rgba(22, 14, 18, 0.72);
+  --bg-card-hover: rgba(34, 20, 27, 0.9);
 
-  --accent-violet: #8b5cf6;
-  --accent-purple: #a855f7;
-  --accent-indigo: #6366f1;
+  --accent-crimson: #f43f5e;
+  --accent-ruby: #e11d48;
+  --accent-scarlet: #be123c;
   --accent-amber: #f59e0b;
   --accent-gold: #fbbf24;
   --accent-emerald: #10b981;
 
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(139, 92, 246, 0.35);
-  --border-hover: rgba(168, 85, 247, 0.55);
+  --border-glow: rgba(244, 63, 94, 0.38);
+  --border-hover: rgba(225, 29, 72, 0.6);
 
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
@@ -66,67 +66,67 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Sleek Scrollbar */
+/* Custom Sleek Scrollbar in Ruby */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #06070a;
+  background: #080608;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.3);
+  background: rgba(225, 29, 72, 0.35);
   border-radius: 9999px;
-  border: 2px solid #06070a;
+  border: 2px solid #080608;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.7);
+  background: rgba(244, 63, 94, 0.75);
 }
 
 /* Text Selection */
 ::selection {
-  background: rgba(139, 92, 246, 0.35);
+  background: rgba(225, 29, 72, 0.35);
   color: #ffffff;
 }
 
 /* Focus styles for keyboard accessibility */
 :focus-visible {
-  outline: 2px solid var(--accent-violet);
+  outline: 2px solid var(--accent-crimson);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
 /*===================================================================
-  UNIQUE SCROLL-TRIGGERED ANIMATIONS
+  UNIQUE SCROLL-TRIGGERED ANIMATIONS (SMOOTH SPRINGS)
 ===================================================================*/
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(35px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal-left {
   opacity: 0;
   transform: translateX(-50px) rotateY(-5deg);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal-right {
   opacity: 0;
   transform: translateX(50px) rotateY(5deg);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
 .reveal-scale {
   opacity: 0;
   transform: scale(0.92) translateY(25px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -161,11 +161,11 @@ body {
 .glass-panel-hover:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-hover);
-  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.7), 0 0 28px -6px rgba(139, 92, 246, 0.22);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px -6px rgba(225, 29, 72, 0.28);
   transform: translateY(-4px);
 }
 
-/* Spotlight Card effect following cursor */
+/* Spotlight Card effect following cursor in Ruby Flame */
 .spotlight-card {
   position: relative;
   overflow: hidden;
@@ -182,7 +182,7 @@ body {
   border-radius: inherit;
   background: radial-gradient(
     600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(168, 85, 247, 0.12),
+    rgba(244, 63, 94, 0.14),
     transparent 40%
   );
   opacity: 0;
@@ -197,13 +197,13 @@ body {
 
 .spotlight-card:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.8), 0 0 35px -8px rgba(139, 92, 246, 0.28);
+  box-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.85), 0 0 35px -8px rgba(225, 29, 72, 0.32);
   transform: translateY(-5px);
 }
 
-/* Gradient Headings & Text (Electric Violet & Amber Gold) */
-.gradient-text-violet {
-  background: linear-gradient(135deg, #ffffff 0%, #c084fc 50%, #8b5cf6 100%);
+/* Gradient Headings & Text (Cyber Crimson & Amber Flame) */
+.gradient-text-ruby {
+  background: linear-gradient(135deg, #ffffff 0%, #fb7185 45%, #e11d48 85%, #be123c 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -214,22 +214,22 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.gradient-text-sunset {
-  background: linear-gradient(135deg, #ffffff 10%, #a855f7 50%, #f59e0b 100%);
+.gradient-text-flame {
+  background: linear-gradient(135deg, #ffffff 10%, #f43f5e 50%, #f59e0b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Luminous Cyber Badges */
-.badge-violet {
+/* Luminous Cyber Badges in Ruby Red */
+.badge-ruby {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.28);
-  color: #c084fc;
+  background: rgba(225, 29, 72, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.32);
+  color: #fb7185;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.025em;
@@ -248,7 +248,7 @@ body {
   font-weight: 600;
 }
 
-/* Interactive Magnetic Button */
+/* Interactive Magnetic Button (Cyber Crimson) */
 .btn-primary {
   position: relative;
   display: inline-flex;
@@ -259,18 +259,18 @@ body {
   font-weight: 600;
   font-size: 0.938rem;
   color: #ffffff;
-  background: linear-gradient(135deg, #7c3aed 0%, #6366f1 100%);
-  border: 1px solid rgba(168, 85, 247, 0.45);
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  border: 1px solid rgba(244, 63, 94, 0.5);
   border-radius: 0.875rem;
-  box-shadow: 0 4px 22px -2px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 4px 22px -2px rgba(225, 29, 72, 0.45);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  border-color: #c084fc;
-  box-shadow: 0 6px 30px rgba(168, 85, 247, 0.55), 0 0 18px rgba(139, 92, 246, 0.35);
+  background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+  border-color: #fda4af;
+  box-shadow: 0 6px 32px rgba(244, 63, 94, 0.6), 0 0 20px rgba(225, 29, 72, 0.4);
   transform: translateY(-2px);
 }
 
@@ -293,8 +293,8 @@ body {
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(168, 85, 247, 0.45);
-  color: #c084fc;
+  border-color: rgba(244, 63, 94, 0.48);
+  color: #fb7185;
   transform: translateY(-2px);
 }
 
@@ -311,12 +311,12 @@ body {
   background-size: 24px 24px;
 }
 
-/* Glowing Radial Orbs */
+/* Glowing Radial Orbs in Ruby & Flame */
 .glow-orb {
   position: absolute;
   border-radius: 9999px;
   filter: blur(95px);
-  opacity: 0.26;
+  opacity: 0.28;
   pointer-events: none;
   z-index: 0;
 }
@@ -331,7 +331,7 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #c084fc;
+  color: #fb7185;
   margin-bottom: 0.75rem;
 }
 
@@ -340,7 +340,7 @@ body {
   display: inline-block;
   width: 1.5rem;
   height: 2px;
-  background: linear-gradient(90deg, #a855f7, transparent);
+  background: linear-gradient(90deg, #f43f5e, transparent);
   border-radius: 2px;
 }
 
@@ -403,6 +403,20 @@ body {
 
 .animate-float {
   animation: floatGentle 4s ease-in-out infinite;
+}
+
+/* Rotating Cyber Radar for Cursor Aura */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 8s linear infinite;
 }
 
 /* Accessibility: Prefers Reduced Motion */

@@ -145,21 +145,21 @@ export default function SkillsSection({}: SkillsSectionProps) {
   });
 
   return (
-    <section id="skills" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
-      {/* Background glow in Violet & Indigo */}
-      <div className="glow-orb w-[450px] h-[450px] bg-violet-600/12 top-1/3 left-[-10%]" />
-      <div className="glow-orb w-[450px] h-[450px] bg-indigo-600/10 bottom-10 right-[-10%]" />
+    <section id="skills" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
+      {/* Background glow in Ruby & Flame */}
+      <div className="glow-orb w-[450px] h-[450px] bg-rose-600/12 top-1/3 left-[-10%]" />
+      <div className="glow-orb w-[450px] h-[450px] bg-red-700/10 bottom-10 right-[-10%]" />
 
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header with Scroll Reveal */}
         <div className="flex flex-col items-center text-center mb-10 sm:mb-14 reveal-scale">
           <div className="section-tag">
-            <i className="ri-cpu-line text-violet-400" />
+            <i className="ri-cpu-line text-rose-400" />
             <span>Matriks Kompetensi Teknis</span>
           </div>
           <h2 className="section-heading mb-4">
-            Keahlian <span className="gradient-text-violet">&amp; Instrumen Rekayasa</span>
+            Keahlian <span className="gradient-text-ruby">&amp; Instrumen Rekayasa</span>
           </h2>
           <p className="section-description">
             Kombinasi kemampuan pengembangan aplikasi full-stack, tata kelola arsitektur basis data, 
@@ -176,7 +176,7 @@ export default function SkillsSection({}: SkillsSectionProps) {
                 placeholder="Cari keahlian..."
                 value={searchSkill}
                 onChange={(e) => setSearchSkill(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs focus:border-violet-400 focus:bg-white/[0.07] transition-all"
+                className="w-full pl-9 pr-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs focus:border-rose-400 focus:bg-white/[0.07] transition-all"
               />
             </div>
 
@@ -194,7 +194,7 @@ export default function SkillsSection({}: SkillsSectionProps) {
                     }}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 active:scale-95 ${
                       isActive
-                        ? 'bg-violet-600/25 text-violet-200 border border-violet-400/40 shadow-[0_0_18px_rgba(139,92,246,0.35)] font-semibold'
+                        ? 'bg-rose-600/25 text-rose-200 border border-rose-400/40 shadow-[0_0_18px_rgba(244,63,94,0.35)] font-semibold'
                         : 'text-slate-400 hover:text-white hover:bg-white/5'
                     }`}
                   >
@@ -220,7 +220,7 @@ export default function SkillsSection({}: SkillsSectionProps) {
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-2 group-hover:scale-110 group-hover:border-violet-400/45 transition-all shrink-0">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-2 group-hover:scale-110 group-hover:border-rose-400/45 transition-all shrink-0">
                         <img
                           src={skill.icon}
                           alt={skill.name}
@@ -228,10 +228,10 @@ export default function SkillsSection({}: SkillsSectionProps) {
                         />
                       </div>
                       <div>
-                        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-violet-300 transition-colors">
+                        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-rose-300 transition-colors">
                           {skill.name}
                         </h3>
-                        <span className="text-[10px] sm:text-[11px] font-mono text-violet-400/80">
+                        <span className="text-[10px] sm:text-[11px] font-mono text-rose-400/80">
                           {skill.category}
                         </span>
                       </div>
@@ -242,10 +242,10 @@ export default function SkillsSection({}: SkillsSectionProps) {
                     </span>
                   </div>
 
-                  {/* Animated progress bar */}
+                  {/* Animated progress bar in Ruby to Amber flame */}
                   <div className="w-full h-1.5 rounded-full bg-white/[0.08] overflow-hidden mb-2.5 sm:mb-3">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-violet-600 via-purple-500 to-amber-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.8)] transition-all duration-1000 ease-out"
+                      className="h-full rounded-full bg-gradient-to-r from-rose-600 via-red-500 to-amber-400 group-hover:shadow-[0_0_10px_rgba(244,63,94,0.8)] transition-all duration-1000 ease-out"
                       style={{ width: `${skill.level}%` }}
                     />
                   </div>
@@ -258,7 +258,7 @@ export default function SkillsSection({}: SkillsSectionProps) {
 
                 <div className="pt-3 mt-3 sm:mt-4 border-t border-white/5 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 font-mono">
                   <span>Penggunaan Produksi</span>
-                  <i className="ri-checkbox-circle-fill text-violet-400/80 text-xs" />
+                  <i className="ri-checkbox-circle-fill text-rose-400/80 text-xs" />
                 </div>
               </div>
             );

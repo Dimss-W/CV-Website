@@ -19,7 +19,7 @@ export default function Footer() {
           {/* Brand & Identity */}
           <div className="md:col-span-5 flex flex-col gap-2">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-violet-600/20 border border-violet-400/40 flex items-center justify-center text-violet-300 font-mono font-bold text-xs">
+              <div className="w-8 h-8 rounded-full bg-rose-600/20 border border-rose-400/40 flex items-center justify-center text-rose-300 font-mono font-bold text-xs">
                 DW
               </div>
               <span className="text-base font-bold text-white tracking-tight">
@@ -33,13 +33,13 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="md:col-span-5 flex flex-wrap gap-x-6 gap-y-2 text-xs">
-            <a href="#home" onClick={playTactileClick} className="hover:text-violet-300 transition-colors">Beranda</a>
-            <a href="#about" onClick={playTactileClick} className="hover:text-violet-300 transition-colors">Tentang</a>
-            <a href="#projects" onClick={playTactileClick} className="hover:text-violet-300 transition-colors">Proyek</a>
-            <a href="#skills" onClick={playTactileClick} className="hover:text-violet-300 transition-colors">Keahlian</a>
-            <a href="#experience" onClick={playTactileClick} className="hover:text-violet-300 transition-colors">Pengalaman</a>
-            <a href="#certificates" onClick={playTactileClick} className="hover:text-violet-300 transition-colors">Sertifikasi</a>
-            <a href="#contact" onClick={playTactileClick} className="hover:text-violet-300 transition-colors">Kontak</a>
+            <a href="#home" onClick={playTactileClick} className="hover:text-rose-300 transition-colors">Beranda</a>
+            <a href="#about" onClick={playTactileClick} className="hover:text-rose-300 transition-colors">Tentang</a>
+            <a href="#projects" onClick={playTactileClick} className="hover:text-rose-300 transition-colors">Proyek</a>
+            <a href="#skills" onClick={playTactileClick} className="hover:text-rose-300 transition-colors">Keahlian</a>
+            <a href="#experience" onClick={playTactileClick} className="hover:text-rose-300 transition-colors">Pengalaman</a>
+            <a href="#certificates" onClick={playTactileClick} className="hover:text-rose-300 transition-colors">Sertifikasi</a>
+            <a href="#contact" onClick={playTactileClick} className="hover:text-rose-300 transition-colors">Kontak</a>
           </div>
 
           {/* Back to top button */}
@@ -47,7 +47,7 @@ export default function Footer() {
             <button
               type="button"
               onClick={scrollToTop}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-violet-600/20 border border-white/10 hover:border-violet-400/35 text-xs text-slate-300 hover:text-violet-300 transition-all group active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-rose-600/20 border border-white/10 hover:border-rose-400/35 text-xs text-slate-300 hover:text-rose-300 transition-all group active:scale-95"
               aria-label="Kembali ke atas halaman"
             >
               <span>Ke Atas</span>
@@ -69,7 +69,7 @@ export default function Footer() {
             <span>•</span>
             <span>Tailwind CSS</span>
             <span>•</span>
-            <span className="text-violet-400">Production Ready</span>
+            <span className="text-rose-400">Production Ready</span>
           </div>
         </div>
 
