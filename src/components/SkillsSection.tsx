@@ -207,7 +207,8 @@ export default function SkillsSection({}: SkillsSectionProps) {
             return (
               <div
                 key={idx}
-                className="p-4 sm:p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 flex flex-col justify-between group reveal-on-scroll"
+                className="p-4 sm:p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 flex flex-col justify-between group reveal-card spotlight-card"
+                style={{ transitionDelay: `${(idx % 6) * 60}ms` }}
               >
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-3">

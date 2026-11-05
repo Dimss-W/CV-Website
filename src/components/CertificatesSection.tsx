@@ -58,7 +58,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
 
         {/* Certificates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6">
-          {certificates.map((cert) => {
+          {certificates.map((cert, idx) => {
             const hasMultipleImages = cert.images && cert.images.length > 1;
             const currentImgIdx = getImgIdx(cert.id);
             const currentImg = cert.images?.[currentImgIdx]?.url || cert.images?.[0]?.url;
@@ -66,7 +66,8 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
             return (
               <article
                 key={cert.id}
-                className="flex flex-col justify-between rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 overflow-hidden group h-full reveal-on-scroll"
+                className="flex flex-col justify-between rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 overflow-hidden group h-full reveal-card spotlight-card"
+                style={{ transitionDelay: `${(idx % 3) * 100}ms` }}
               >
                 {/* Visual Preview */}
                 <div

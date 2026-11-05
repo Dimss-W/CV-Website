@@ -88,29 +88,86 @@ body {
 }
 
 /*===================================================================
-  SILKY NATURAL SCROLL REVEAL (SUBTLE & HUMANIZED)
+  SILKY MULTI-ARCHETYPE SCROLL REVEALS (OPTICAL FOCUS & TACTILE 3D)
 ===================================================================*/
-.reveal-on-scroll,
-.reveal-left,
-.reveal-right,
+.reveal-on-scroll {
+  opacity: 0;
+  transform: perspective(1000px) translateY(28px) scale(0.98);
+  filter: blur(8px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
 .reveal-scale {
   opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transform: perspective(1000px) scale(0.92) translateY(24px);
+  filter: blur(10px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
 }
 
-/* Triggered State */
+.reveal-left {
+  opacity: 0;
+  transform: perspective(1200px) translateX(-36px) rotateY(-5deg) scale(0.98);
+  filter: blur(7px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: perspective(1200px) translateX(36px) rotateY(5deg) scale(0.98);
+  filter: blur(7px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-card {
+  opacity: 0;
+  transform: perspective(1000px) translateY(24px) scale(0.96) rotateX(3deg);
+  filter: blur(6px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+/* Triggered State: restores to crisp resting geometry */
 .is-revealed {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  transform: perspective(1000px) translate3d(0, 0, 0) scale(1) rotateX(0deg) rotateY(0deg) !important;
+  filter: blur(0px) !important;
 }
 
-/* Delays */
-.delay-100 { transition-delay: 80ms; }
-.delay-200 { transition-delay: 160ms; }
-.delay-300 { transition-delay: 240ms; }
-.delay-400 { transition-delay: 320ms; }
+/* Stagger Delays */
+.delay-75  { transition-delay: 75ms; }
+.delay-100 { transition-delay: 100ms; }
+.delay-150 { transition-delay: 150ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-250 { transition-delay: 250ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale,
+  .reveal-card {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
 
 /*===================================================================
   HUMAN-CRAFTED CARDS & SURFACES
@@ -133,19 +190,37 @@ body {
   transform: translateY(-2px);
 }
 
-/* Refined Spotlight Card (Very soft, non-neon illumination) */
+/* Refined Spotlight Card with subtle interactive mouse-following glow */
 .spotlight-card {
   position: relative;
   border-radius: 1.25rem;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.05), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .spotlight-card:hover {
   border-color: var(--border-hover);
   background: var(--bg-card-hover);
   transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
 }
 
 /* Clean, Solid Headings (NO tacky rainbow or neon gradients) */

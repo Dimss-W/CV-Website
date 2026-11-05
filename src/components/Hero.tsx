@@ -136,7 +136,7 @@ export default function Hero({ profile }: HeroProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           {/* Left Column: Human Content & Value Proposition (7 Cols) */}
-          <div className="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1 reveal-on-scroll">
+          <div className="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1 reveal-left">
             
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-medium w-fit mb-5 shadow-sm">
@@ -225,7 +225,7 @@ export default function Hero({ profile }: HeroProps) {
           </div>
 
           {/* Right Column: Clean Visual Showcase (5 Cols) */}
-          <div className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2 reveal-on-scroll delay-100">
+          <div className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2 reveal-right delay-100">
             
             {/* Minimalist Switcher */}
             <div className="flex items-center gap-1 p-1 rounded-full bg-zinc-900 border border-zinc-800 mb-4 z-20">
@@ -270,7 +270,7 @@ export default function Hero({ profile }: HeroProps) {
               >
                 {/* Clean Frame Background */}
                 <div
-                  className="absolute inset-2 rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-sm overflow-hidden shadow-2xl"
+                  className="absolute inset-2 rounded-2xl border border-zinc-800/90 bg-gradient-to-b from-zinc-900/80 via-zinc-900/50 to-zinc-950/90 backdrop-blur-sm overflow-hidden shadow-2xl"
                   style={{
                     transform: `rotateX(${photoRotateX * 0.5}deg) rotateY(${photoRotateY * 0.5}deg)`,
                     transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',

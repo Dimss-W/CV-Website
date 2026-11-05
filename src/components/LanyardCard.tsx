@@ -375,7 +375,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
               <div className="flex flex-col items-center text-center mb-4">
                 <div className="w-24 h-32 rounded-xl overflow-hidden border border-zinc-700 bg-zinc-900 mb-3 shadow-md">
                   <img
-                    src={profile.avatar_url || '/dimas-profile.jpg'}
+                    src={profile.avatar_url || '/dimas-profile-web.jpg'}
                     alt={profile.full_name}
                     className="w-full h-full object-cover object-center"
                   />

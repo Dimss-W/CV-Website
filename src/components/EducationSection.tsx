@@ -31,7 +31,7 @@ export default function EducationSection({ educations }: EducationSectionProps) 
           {educations.map((edu, idx) => (
             <div
               key={edu.id || idx}
-              className="p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 relative overflow-hidden group reveal-on-scroll"
+              className="p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 relative overflow-hidden group reveal-scale spotlight-card"
             >
               <div className="relative z-10">
                 <div className="flex flex-wrap items-start justify-between gap-4 mb-5">

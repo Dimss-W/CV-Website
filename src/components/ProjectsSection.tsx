@@ -176,7 +176,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             return (
               <article
                 key={project.id || project.title || idx}
-                className="flex flex-col justify-between rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 overflow-hidden group h-full reveal-on-scroll"
+                className="flex flex-col justify-between rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 overflow-hidden group h-full reveal-card spotlight-card"
+                style={{ transitionDelay: `${(idx % 3) * 100}ms` }}
               >
                 {/* Media Showcase */}
                 <div

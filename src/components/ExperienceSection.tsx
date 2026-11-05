@@ -69,14 +69,18 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
             const hasImages = Boolean(item.images && item.images.length > 0);
 
             return (
-              <div key={item.id || index} className="relative group reveal-on-scroll">
+              <div
+                key={item.id || index}
+                className={`relative group ${index % 2 === 0 ? 'reveal-left' : 'reveal-right'}`}
+                style={{ transitionDelay: `${(index % 3) * 100}ms` }}
+              >
                 {/* Clean Timeline Dot */}
                 <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-zinc-950 border-2 border-zinc-600 flex items-center justify-center group-hover:border-zinc-300 transition-colors">
                   <div className="w-1.5 h-1.5 rounded-full bg-zinc-400 group-hover:bg-white transition-colors" />
                 </div>
 
                 {/* Experience Card */}
-                <div className="p-6 sm:p-7 rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200">
+                <div className="p-6 sm:p-7 rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-300 spotlight-card">
                   {/* Card Header */}
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div>

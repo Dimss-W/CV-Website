@@ -92,7 +92,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* Left Column: Direct Access Hub (5 Cols) */}
-          <div className="lg:col-span-5 space-y-4 reveal-on-scroll">
+          <div className="lg:col-span-5 space-y-4 reveal-left">
             {/* Availability Banner */}
             <div className="p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800">
               <div className="flex items-center gap-2 text-xs font-mono font-medium text-emerald-400 uppercase tracking-wider mb-2">
@@ -190,7 +190,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
           </div>
 
           {/* Right Column: Modern Form (7 Cols) */}
-          <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 reveal-on-scroll delay-100">
+          <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 reveal-right delay-100 spotlight-card">
             <h3 className="text-lg font-semibold text-white mb-1.5">
               Kirimkan Pesan atau Brief Kebutuhan
             </h3>

@@ -52,7 +52,7 @@ export default function RecruiterQuickBar({ profile }: RecruiterQuickBarProps) {
           <div className="relative shrink-0">
             <div className="w-8 h-8 rounded-full overflow-hidden ring-1 ring-emerald-500/60">
               <img
-                src={profile.avatar_url || '/dimas-profile.jpg'}
+                src={profile.avatar_url || '/dimas-profile-web.jpg'}
                 alt={profile.full_name}
                 className="w-full h-full object-cover object-center"
               />

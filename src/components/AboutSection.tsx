@@ -55,7 +55,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
           
           {/* Bento Card 1: Narasi Profil Utama (Col 7) */}
-          <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-on-scroll">
+          <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-left spotlight-card">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono font-semibold text-zinc-400 uppercase tracking-wider mb-4">
                 <i className="ri-user-line text-sm" />
@@ -99,7 +99,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
           </div>
 
           {/* Bento Card 2: Clean Developer Terminal (Col 5) */}
-          <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-zinc-950 border border-zinc-800 flex flex-col justify-between font-mono text-xs shadow-xl reveal-on-scroll delay-100">
+          <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-zinc-950 border border-zinc-800 flex flex-col justify-between font-mono text-xs shadow-xl reveal-right delay-100">
             <div>
               {/* Window chrome header */}
               <div className="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
@@ -244,7 +244,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
           </div>
 
           {/* Bento Card 3: Pengalaman Industri (Col 6) */}
-          <div className="lg:col-span-6 p-6 sm:p-7 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-on-scroll delay-200">
+          <div className="lg:col-span-6 p-6 sm:p-7 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-left delay-150 spotlight-card">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 text-xl">
@@ -281,7 +281,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
           </div>
 
           {/* Bento Card 4: Pengabdian & Mentoring (Col 6) */}
-          <div className="lg:col-span-6 p-6 sm:p-7 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-on-scroll delay-200">
+          <div className="lg:col-span-6 p-6 sm:p-7 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-right delay-200 spotlight-card">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 text-xl">
