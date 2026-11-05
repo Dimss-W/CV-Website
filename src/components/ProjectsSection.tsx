@@ -14,10 +14,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [activeSlideIdx, setActiveSlideIdx] = useState<{ [key: string]: number }>({});
 
-  // Touch swipe tracking refs
   const touchStartRef = useRef<number | null>(null);
 
-  // Keyboard navigation for modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -38,9 +36,9 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
   const categories = [
     { id: 'all', label: 'Semua Proyek', icon: 'ri-apps-2-line' },
-    { id: 'web', label: 'Web Enterprise', icon: 'ri-global-line' },
+    { id: 'web', label: 'Web Platform', icon: 'ri-global-line' },
     { id: 'mobile', label: 'Mobile App', icon: 'ri-smartphone-line' },
-    { id: 'data-ai', label: 'Data & AI', icon: 'ri-brain-line' },
+    { id: 'data-ai', label: 'Data & BI', icon: 'ri-line-chart-line' },
   ];
 
   const filteredProjects = projects.filter((p) => {
@@ -79,7 +77,6 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
     const touchEnd = e.changedTouches[0].clientX;
     const diff = touchStartRef.current - touchEnd;
 
-    // Minimum swipe distance threshold of 40px
     if (Math.abs(diff) > 40) {
       const current = getSlideIdx(projTitle);
       if (diff > 0) {
@@ -94,44 +91,39 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   };
 
   return (
-    <section id="projects" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
-      {/* Background radial glows in Ruby & Flame */}
-      <div className="glow-orb w-[500px] h-[500px] bg-rose-600/12 top-20 left-[-15%]" />
-      <div className="glow-orb w-[600px] h-[600px] bg-red-700/10 bottom-20 right-[-15%]" />
-
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="projects" className="py-20 sm:py-28 relative border-t border-zinc-800/80">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Scroll Reveal */}
-        <div className="flex flex-col items-center text-center mb-10 sm:mb-14 reveal-scale">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center mb-12 sm:mb-14 reveal-on-scroll">
           <div className="section-tag">
-            <i className="ri-code-s-slash-line text-rose-400" />
-            <span>Karya &amp; Rekayasa Nyata</span>
+            <span>Portofolio</span>
           </div>
           <h2 className="section-heading mb-4">
-            Portofolio <span className="gradient-text-ruby">Produk &amp; Solusi Digital</span>
+            Produk Digital &amp; Solusi Rekayasa
           </h2>
           <p className="section-description">
             Koleksi aplikasi web enterprise, aplikasi mobile terintegrasi, dan dashboard analitik
             data yang dirancang dengan arsitektur tangguh dan digunakan secara nyata.
           </p>
 
-          {/* Interactive Search & Filter Controls */}
+          {/* Search & Filter Controls */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 w-full max-w-2xl">
-            {/* Search Bar */}
+            {/* Search Input */}
             <div className="relative w-full sm:w-64">
-              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
+              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-sm" />
               <input
                 type="text"
-                placeholder="Cari teknologi/proyek..."
+                placeholder="Cari proyek / teknologi..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs focus:border-rose-400 focus:bg-white/[0.07] transition-all"
+                className="w-full pl-9 pr-8 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:border-zinc-600 focus:outline-none transition-colors"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white"
                 >
                   <i className="ri-close-line text-xs" />
                 </button>
@@ -139,7 +131,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             </div>
 
             {/* Category Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 p-1 rounded-full bg-white/[0.04] border border-white/8 backdrop-blur-md">
+            <div className="flex flex-wrap items-center justify-center gap-1 p-1 rounded-full bg-zinc-900 border border-zinc-800">
               {categories.map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
@@ -150,10 +142,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       setActiveCategory(cat.id);
                       playSoftPop();
                     }}
-                    className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 active:scale-95 ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
                       isActive
-                        ? 'bg-gradient-to-r from-rose-600 to-red-600 text-white shadow-[0_0_18px_rgba(244,63,94,0.45)]'
-                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                        ? 'bg-zinc-800 text-white font-semibold shadow-sm'
+                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
                     }`}
                   >
                     <i className={`${cat.icon} text-sm`} />
@@ -164,13 +156,13 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             </div>
           </div>
 
-          <div className="text-[11px] font-mono text-slate-400 mt-3">
-            Menampilkan <span className="text-rose-400 font-bold">{filteredProjects.length}</span> dari {projects.length} proyek
+          <div className="text-xs text-zinc-500 mt-3 font-mono">
+            Menampilkan {filteredProjects.length} dari {projects.length} proyek
           </div>
         </div>
 
-        {/* Projects Bento Grid with Staggered Directional Reveals */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6">
           {filteredProjects.map((project, idx) => {
             const images = project.images && project.images.length > 0 
               ? project.images 
@@ -180,21 +172,18 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
             const currentSlide = getSlideIdx(project.title);
             const currentCaption = project.captions?.[currentSlide] || `${currentSlide + 1} / ${images.length}`;
-            const revealClass = idx % 2 === 0 ? 'reveal-left' : 'reveal-right';
-            const delayClass = idx === 1 || idx === 4 ? 'delay-100' : idx === 2 || idx === 5 ? 'delay-200' : '';
 
             return (
               <article
                 key={project.id || project.title || idx}
-                className={`spotlight-card flex flex-col justify-between group h-full ${revealClass} ${delayClass}`}
+                className="flex flex-col justify-between rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 overflow-hidden group h-full reveal-on-scroll"
               >
-                {/* Media Showcase / Carousel with Touch Swipe */}
+                {/* Media Showcase */}
                 <div
-                  className="relative aspect-[16/10] w-full overflow-hidden bg-black/60 border-b border-white/8 select-none"
+                  className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-950 border-b border-zinc-800 select-none"
                   onTouchStart={handleTouchStart}
                   onTouchEnd={(e) => handleTouchEnd(e, project.title, images.length)}
                 >
-                  {/* Image Track with smooth GPU sliding */}
                   <div
                     className="flex w-full h-full transition-transform duration-500 ease-out"
                     style={{
@@ -213,28 +202,28 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                         <img
                           src={img}
                           alt={`${project.title} - ${imgIdx + 1}`}
-                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+                          className="w-full h-full object-cover object-top group-hover:scale-103 transition-transform duration-500 ease-out"
                           loading="lazy"
                         />
                       </div>
                     ))}
                   </div>
 
-                  {/* Category Pill Tag in Ruby */}
+                  {/* Category Pill Tag */}
                   <div className="absolute top-3 left-3 z-20 pointer-events-none">
-                    <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-rose-300 uppercase tracking-wider">
-                      {project.is_mobile ? 'Mobile App' : project.category === 'data-ai' ? 'Data & AI' : 'Web App'}
+                    <span className="px-2.5 py-0.5 rounded-full bg-zinc-950/80 backdrop-blur-md border border-zinc-700 text-[10px] font-mono text-zinc-300">
+                      {project.is_mobile ? 'Mobile App' : project.category === 'data-ai' ? 'Data & BI' : 'Web Platform'}
                     </span>
                   </div>
 
-                  {/* Slide controls & indicators */}
+                  {/* Slide controls */}
                   {images.length > 1 && (
                     <div className="absolute bottom-2.5 left-2.5 right-2.5 z-20 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-2 py-0.5 rounded-full bg-black/80 backdrop-blur-md text-[10px] text-white/90 truncate max-w-[65%]">
+                      <span className="px-2 py-0.5 rounded-md bg-zinc-950/80 backdrop-blur-md text-[10px] text-zinc-300 truncate max-w-[65%]">
                         {currentCaption}
                       </span>
 
-                      <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-black/80 backdrop-blur-md pointer-events-auto">
+                      <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-zinc-950/80 backdrop-blur-md pointer-events-auto">
                         {images.map((_, dotIdx) => (
                           <button
                             key={dotIdx}
@@ -245,10 +234,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                               playTactileClick();
                             }}
                             aria-label={`Slide ${dotIdx + 1}`}
-                            className={`h-1.5 rounded-full transition-all duration-300 ${
+                            className={`h-1.5 rounded-full transition-all duration-200 ${
                               currentSlide === dotIdx
-                                ? 'w-4 bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.9)]'
-                                : 'w-1.5 bg-white/40 hover:bg-white/80'
+                                ? 'w-3.5 bg-white'
+                                : 'w-1.5 bg-zinc-600 hover:bg-zinc-400'
                             }`}
                           />
                         ))}
@@ -263,32 +252,28 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       setSelectedProject(project);
                       playTactileClick();
                     }}
-                    className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/90 hover:text-rose-300 hover:scale-110 transition-all opacity-0 group-hover:opacity-100"
+                    className="absolute top-3 right-3 z-20 w-7 h-7 rounded-full bg-zinc-950/80 border border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition-opacity opacity-0 group-hover:opacity-100"
                     title="Buka Pratinjau Penuh"
                     aria-label="Lihat detail lengkap proyek"
                   >
-                    <i className="ri-fullscreen-line text-sm" />
+                    <i className="ri-fullscreen-line text-xs" />
                   </button>
                 </div>
 
-                {/* Card Body Content */}
+                {/* Card Body */}
                 <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-rose-300 transition-colors leading-snug">
+                    <h3 className="text-base font-semibold text-white mb-2 leading-snug">
                       {project.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-slate-400 line-clamp-3 leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-zinc-400 line-clamp-3 leading-relaxed mb-4">
                       {project.description}
                     </p>
 
-                    {/* Tech highlight chip */}
                     {project.technical_highlight && (
-                      <div className="mb-4 p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-start gap-2">
-                        <i className="ri-flashlight-line text-amber-400 text-xs shrink-0 mt-0.5" />
-                        <span className="text-[11px] text-slate-300 leading-tight">
-                          {project.technical_highlight}
-                        </span>
+                      <div className="mb-4 p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-[11px] text-zinc-300 leading-tight">
+                        {project.technical_highlight}
                       </div>
                     )}
                   </div>
@@ -299,44 +284,39 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       {project.tags.slice(0, 4).map((tag, tIdx) => (
                         <span
                           key={tIdx}
-                          className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/8 text-[11px] font-mono text-slate-300"
+                          className="px-2 py-0.5 rounded-md bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400"
                         >
                           {tag}
                         </span>
                       ))}
-                      {project.tags.length > 4 && (
-                        <span className="px-1.5 py-0.5 rounded-md bg-white/[0.04] text-[10px] text-slate-500 font-mono">
-                          +{project.tags.length - 4}
-                        </span>
-                      )}
                     </div>
 
                     {/* Action Links */}
-                    <div className="flex items-center justify-between pt-4 border-t border-white/8 gap-2">
+                    <div className="flex items-center justify-between pt-4 border-t border-zinc-800 gap-2">
                       <button
                         type="button"
                         onClick={() => {
                           setSelectedProject(project);
                           playTactileClick();
                         }}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-rose-400 hover:text-rose-300 active:scale-95 transition-all"
+                        className="inline-flex items-center gap-1 text-xs font-medium text-zinc-300 hover:text-white transition-colors"
                       >
-                        <span>Studi Kasus</span>
-                        <i className="ri-arrow-right-up-line text-sm" />
+                        <span>Detail Studi Kasus</span>
+                        <i className="ri-arrow-right-line text-xs" />
                       </button>
 
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5">
                         {project.github_url && (
                           <a
                             href={project.github_url}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={playTactileClick}
-                            className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 hover:text-white active:scale-95 transition-all"
+                            className="w-7 h-7 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-colors"
                             title="Repositori GitHub"
                             aria-label={`GitHub repositori ${project.title}`}
                           >
-                            <i className="ri-github-fill text-base" />
+                            <i className="ri-github-fill text-sm" />
                           </a>
                         )}
 
@@ -346,10 +326,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={playTactileClick}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-rose-600/15 hover:bg-rose-600/25 border border-rose-400/35 text-xs font-semibold text-rose-300 active:scale-95 transition-all"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-medium text-zinc-200 hover:text-white transition-colors"
                             title="Buka Demo Langsung"
                           >
-                            <span>Live Demo</span>
+                            <span>Demo</span>
                             <i className="ri-external-link-line text-xs" />
                           </a>
                         )}
@@ -364,27 +344,25 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
       </div>
 
-      {/* Comprehensive Case Study Modal */}
+      {/* Case Study Modal */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
           onClick={() => setSelectedProject(null)}
           role="dialog"
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-4xl bg-[#0e0a0d] border border-white/15 rounded-3xl p-5 sm:p-8 shadow-2xl modal-enter my-auto overflow-hidden max-h-[90vh] flex flex-col"
+            className="relative w-full max-w-3xl bg-zinc-950 border border-zinc-800 rounded-2xl p-5 sm:p-7 shadow-2xl my-auto overflow-hidden max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/10 shrink-0">
+            <div className="flex items-start justify-between gap-4 pb-4 border-b border-zinc-800 shrink-0">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono text-rose-400 uppercase tracking-wider mb-1">
-                  <span>{selectedProject.is_mobile ? 'Aplikasi Mobile' : selectedProject.category === 'data-ai' ? 'Sistem Data & AI' : 'Web Aplikasi'}</span>
-                  <span>•</span>
-                  <span>Dimas Wijanarko</span>
+                <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-1">
+                  {selectedProject.is_mobile ? 'Aplikasi Mobile' : selectedProject.category === 'data-ai' ? 'Sistem Data & BI' : 'Aplikasi Web'}
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white">
+                <h3 className="text-xl font-bold text-white">
                   {selectedProject.title}
                 </h3>
               </div>
@@ -392,7 +370,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
               <button
                 type="button"
                 onClick={() => setSelectedProject(null)}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 flex items-center justify-center text-white text-lg transition-colors shrink-0"
+                className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-colors shrink-0"
                 aria-label="Tutup jendela studi kasus"
               >
                 <i className="ri-close-line" />
@@ -400,11 +378,11 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="overflow-y-auto space-y-6 py-4 pr-1">
-              {/* Media Gallery Carousel */}
+            <div className="overflow-y-auto space-y-5 py-4 pr-1">
+              {/* Media Carousel */}
               {selectedProject.images && selectedProject.images.length > 0 && (
                 <div className="space-y-3">
-                  <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-black/80 border border-white/10">
+                  <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden bg-black border border-zinc-800">
                     <img
                       src={selectedProject.images[getSlideIdx(selectedProject.title)] || selectedProject.images[0]}
                       alt={selectedProject.title}
@@ -425,8 +403,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                               setSlideIdx(selectedProject.title, thumbIdx);
                               playTactileClick();
                             }}
-                            className={`relative h-14 sm:h-16 w-20 sm:w-24 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
-                              isCurrent ? 'border-rose-400 scale-105' : 'border-white/20 opacity-60 hover:opacity-100'
+                            className={`relative h-12 w-18 shrink-0 rounded-lg overflow-hidden border transition-all ${
+                              isCurrent ? 'border-white' : 'border-zinc-800 opacity-50 hover:opacity-100'
                             }`}
                           >
                             <img src={img} alt="Thumb" className="w-full h-full object-cover" />
@@ -439,35 +417,35 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
               )}
 
               {/* Description & In-Depth Details */}
-              <div className="space-y-4">
+              <div className="space-y-3 text-sm">
                 <div>
-                  <h4 className="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1.5">
+                  <h4 className="text-xs font-mono uppercase text-zinc-400 mb-1">
                     Ringkasan Proyek
                   </h4>
-                  <p className="text-xs sm:text-sm sm:text-base text-slate-200 leading-relaxed">
+                  <p className="text-zinc-300 leading-relaxed">
                     {selectedProject.description}
                   </p>
                 </div>
 
                 {selectedProject.details && (
-                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/8">
-                    <h4 className="text-xs font-mono uppercase text-rose-300 tracking-wider mb-2 flex items-center gap-2">
+                  <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
+                    <h4 className="text-xs font-mono uppercase text-zinc-300 mb-1.5 flex items-center gap-1.5">
                       <i className="ri-settings-4-line text-sm" />
-                      <span>Arsitektur &amp; Fitur Unggulan</span>
+                      <span>Arsitektur &amp; Fitur</span>
                     </h4>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    <p className="text-zinc-300 leading-relaxed">
                       {selectedProject.details}
                     </p>
                   </div>
                 )}
 
                 {selectedProject.technical_highlight && (
-                  <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/20">
-                    <h4 className="text-xs font-mono uppercase text-amber-300 tracking-wider mb-1.5 flex items-center gap-2">
-                      <i className="ri-flashlight-fill text-sm" />
-                      <span>Sorotan Teknis Khusus</span>
+                  <div className="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
+                    <h4 className="text-xs font-mono uppercase text-zinc-300 mb-1.5 flex items-center gap-1.5">
+                      <i className="ri-flashlight-line text-sm" />
+                      <span>Sorotan Teknis</span>
                     </h4>
-                    <p className="text-xs sm:text-sm text-amber-100/90 leading-relaxed">
+                    <p className="text-zinc-300 leading-relaxed">
                       {selectedProject.technical_highlight}
                     </p>
                   </div>
@@ -476,14 +454,14 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
               {/* Technologies Used */}
               <div>
-                <h4 className="text-xs font-mono uppercase text-slate-400 tracking-wider mb-2.5">
+                <h4 className="text-xs font-mono uppercase text-zinc-400 mb-2">
                   Teknologi &amp; Framework
                 </h4>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {selectedProject.tags.map((tag, tIdx) => (
                     <span
                       key={tIdx}
-                      className="px-3 py-1 rounded-lg bg-rose-600/15 border border-rose-400/25 text-xs font-mono text-rose-300"
+                      className="px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300"
                     >
                       {tag}
                     </span>
@@ -493,22 +471,22 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 shrink-0">
-              <span className="text-xs text-slate-500 font-mono">
-                Portofolio Produksi Dimas Wijanarko
+            <div className="pt-4 border-t border-zinc-800 flex items-center justify-between gap-3 shrink-0">
+              <span className="text-xs text-zinc-500 font-mono">
+                Portofolio Dimas Wijanarko
               </span>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 {selectedProject.github_url && (
                   <a
                     href={selectedProject.github_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={playTactileClick}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white text-xs font-medium transition-colors"
                   >
-                    <i className="ri-github-fill text-base" />
-                    <span>Lihat Kode (GitHub)</span>
+                    <i className="ri-github-fill text-sm" />
+                    <span>Lihat di GitHub</span>
                   </a>
                 )}
 
@@ -518,10 +496,10 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={playTactileClick}
-                    className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 text-white text-xs font-semibold hover:shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white text-zinc-950 text-xs font-semibold hover:bg-zinc-200 transition-colors"
                   >
-                    <span>Buka Aplikasi Langsung</span>
-                    <i className="ri-external-link-line text-sm" />
+                    <span>Buka Aplikasi</span>
+                    <i className="ri-external-link-line text-xs" />
                   </a>
                 )}
               </div>

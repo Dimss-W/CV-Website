@@ -32,52 +32,45 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
   const handleCopy = (text: string, title: string) => {
     playTactileClick();
     navigator.clipboard.writeText(text);
-    setCopyToast(`ID Kredensial untuk "${title}" berhasil disalin!`);
+    setCopyToast(`ID Kredensial untuk "${title}" berhasil disalin.`);
     setTimeout(() => setCopyToast(null), 3000);
   };
 
   const getImgIdx = (id: string) => activeImgIdx[id] || 0;
 
   return (
-    <section id="certificates" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
-      {/* Background glow in Ruby & Amber */}
-      <div className="glow-orb w-[500px] h-[500px] bg-rose-600/12 top-1/3 left-[-15%]" />
-      <div className="glow-orb w-[500px] h-[500px] bg-amber-600/10 bottom-10 right-[-15%]" />
-
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="certificates" className="py-20 sm:py-28 relative border-t border-zinc-800/80">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Scroll Reveal */}
-        <div className="flex flex-col items-center text-center mb-14 sm:mb-20 reveal-scale">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center mb-14 sm:mb-16 reveal-on-scroll">
           <div className="section-tag">
-            <i className="ri-award-line text-rose-400" />
-            <span>Kredensial &amp; Pengakuan Resmi</span>
+            <span>Sertifikasi &amp; Prestasi</span>
           </div>
           <h2 className="section-heading mb-4">
-            Sertifikasi <span className="gradient-text-ruby">Standar Kompetensi Nasional</span>
+            Standar Kompetensi &amp; Pengakuan Resmi
           </h2>
           <p className="section-description">
             Validasi keahlian teknis resmi dari Badan Nasional Sertifikasi Profesi (BNSP), 
-            Lembaga Sertifikasi Profesi (LSP) UBSI, dan penghargaan prestisius Rektorat UBSI.
+            Lembaga Sertifikasi Profesi (LSP) UBSI, dan penghargaan akademik Juara 1 Software Development.
           </p>
         </div>
 
-        {/* Certificates Bento Grid with Directional Reveals */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
-          {certificates.map((cert, idx) => {
+        {/* Certificates Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6">
+          {certificates.map((cert) => {
             const hasMultipleImages = cert.images && cert.images.length > 1;
             const currentImgIdx = getImgIdx(cert.id);
             const currentImg = cert.images?.[currentImgIdx]?.url || cert.images?.[0]?.url;
-            const revealClass = idx % 2 === 0 ? 'reveal-left' : 'reveal-right';
-            const delayClass = idx === 1 ? 'delay-100' : idx === 2 ? 'delay-200' : '';
 
             return (
               <article
                 key={cert.id}
-                className={`spotlight-card flex flex-col justify-between group h-full ${revealClass} ${delayClass}`}
+                className="flex flex-col justify-between rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 overflow-hidden group h-full reveal-on-scroll"
               >
-                {/* Certificate Visual Preview */}
+                {/* Visual Preview */}
                 <div
-                  className="relative aspect-[16/11] w-full overflow-hidden bg-black/70 border-b border-white/8 cursor-pointer"
+                  className="relative aspect-[16/11] w-full overflow-hidden bg-zinc-950 border-b border-zinc-800 cursor-pointer"
                   onClick={() => {
                     setSelectedCert(cert);
                     playTactileClick();
@@ -86,20 +79,20 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   <img
                     src={currentImg}
                     alt={cert.title}
-                    className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
+                    className="w-full h-full object-contain p-2 group-hover:scale-103 transition-transform duration-300"
                     loading="lazy"
                   />
 
                   {/* Issuer Pill */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono font-bold text-rose-300">
+                    <span className="px-2.5 py-0.5 rounded-full bg-zinc-950/80 backdrop-blur-md border border-zinc-700 text-[10px] font-mono text-zinc-300">
                       {cert.badge}
                     </span>
                   </div>
 
-                  {/* Multi-page indicator */}
+                  {/* Multi-page dots */}
                   {hasMultipleImages && (
-                    <div className="absolute bottom-2.5 right-2.5 z-10 flex gap-1.5">
+                    <div className="absolute bottom-2.5 right-2.5 z-10 flex gap-1">
                       {cert.images.map((_, dotI) => (
                         <button
                           key={dotI}
@@ -109,9 +102,9 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                             setActiveImgIdx((prev) => ({ ...prev, [cert.id]: dotI }));
                             playTactileClick();
                           }}
-                          aria-label={`Lihat Halaman ${dotI + 1}`}
+                          aria-label={`Halaman ${dotI + 1}`}
                           className={`w-2 h-2 rounded-full transition-all ${
-                            currentImgIdx === dotI ? 'bg-rose-500 w-4' : 'bg-white/40'
+                            currentImgIdx === dotI ? 'bg-white w-4' : 'bg-zinc-600'
                           }`}
                         />
                       ))}
@@ -119,7 +112,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   )}
 
                   {/* Expand icon */}
-                  <div className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-zinc-950/80 border border-zinc-700 flex items-center justify-center text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity">
                     <i className="ri-fullscreen-line text-xs" />
                   </div>
                 </div>
@@ -127,25 +120,25 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                 {/* Card Content */}
                 <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
                   <div>
-                    <div className="text-[11px] font-mono text-rose-400 mb-1.5">
+                    <div className="text-[11px] font-mono text-zinc-400 mb-1">
                       {cert.issuer}
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-bold text-white mb-2 leading-snug group-hover:text-rose-300 transition-colors">
+                    <h3 className="text-base font-semibold text-white mb-2 leading-snug">
                       {cert.title}
                     </h3>
 
-                    <p className="text-xs sm:text-sm text-slate-400 line-clamp-2 leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-zinc-400 line-clamp-2 leading-relaxed mb-4">
                       {cert.description}
                     </p>
 
                     {/* Credential ID chip with 1-click copy */}
-                    <div className="mb-4 p-2.5 rounded-xl bg-white/[0.03] border border-white/6 flex items-center justify-between gap-2">
+                    <div className="mb-4 p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-between gap-2">
                       <div className="truncate">
-                        <span className="text-[10px] uppercase font-mono text-slate-400 block">
+                        <span className="text-[10px] uppercase font-mono text-zinc-500 block">
                           ID Kredensial
                         </span>
-                        <span className="text-xs font-mono text-slate-200 truncate block">
+                        <span className="text-xs font-mono text-zinc-300 truncate block">
                           {cert.credential_id}
                         </span>
                       </div>
@@ -153,7 +146,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                       <button
                         type="button"
                         onClick={() => handleCopy(cert.credential_id, cert.title)}
-                        className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-rose-600/25 text-slate-300 hover:text-rose-300 border border-white/10 text-[11px] font-mono transition-colors shrink-0 flex items-center gap-1 active:scale-95"
+                        className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700 text-[11px] font-mono transition-colors shrink-0 flex items-center gap-1 active:scale-95"
                         title="Salin ID Kredensial"
                       >
                         <i className="ri-file-copy-line text-xs" />
@@ -163,35 +156,30 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   </div>
 
                   <div>
-                    {/* Skills list preview */}
+                    {/* Skills list */}
                     <div className="flex flex-wrap gap-1.5 mb-5">
                       {cert.skills.slice(0, 3).map((sk, sIdx) => (
                         <span
                           key={sIdx}
-                          className="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/8 text-[11px] font-mono text-slate-300"
+                          className="px-2 py-0.5 rounded-md bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400"
                         >
                           {sk}
                         </span>
                       ))}
-                      {cert.skills.length > 3 && (
-                        <span className="px-1.5 py-0.5 rounded-md bg-white/[0.04] text-[10px] text-slate-500 font-mono">
-                          +{cert.skills.length - 3}
-                        </span>
-                      )}
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center justify-between pt-4 border-t border-white/8">
+                    <div className="flex items-center justify-between pt-4 border-t border-zinc-800">
                       <button
                         type="button"
                         onClick={() => {
                           setSelectedCert(cert);
                           playTactileClick();
                         }}
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-rose-400 hover:text-rose-300 active:scale-95 transition-all"
+                        className="inline-flex items-center gap-1 text-xs font-medium text-zinc-300 hover:text-white transition-colors"
                       >
                         <span>Pratinjau Detail</span>
-                        <i className="ri-arrow-right-up-line text-sm" />
+                        <i className="ri-arrow-right-line text-xs" />
                       </button>
 
                       {cert.pdf_url && (
@@ -200,10 +188,10 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={playTactileClick}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-slate-200 hover:text-white active:scale-95 transition-all"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-medium text-zinc-300 hover:text-white transition-colors"
                           title="Unduh Berkas PDF Resmi"
                         >
-                          <i className="ri-file-pdf-2-line text-amber-400 text-sm" />
+                          <i className="ri-file-pdf-2-line text-xs text-zinc-400" />
                           <span>PDF</span>
                         </a>
                       )}
@@ -219,34 +207,34 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
 
       {/* Toast Notification */}
       {copyToast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0e0a0d] border border-rose-400/50 text-rose-200 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-semibold animate-in fade-in slide-in-from-bottom duration-200">
-          <i className="ri-checkbox-circle-fill text-emerald-400 text-base" />
+        <div className="fixed bottom-6 right-6 z-50 bg-zinc-900 border border-zinc-700 text-zinc-200 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-medium animate-in fade-in duration-200">
+          <i className="ri-check-line text-emerald-400 text-base" />
           <span>{copyToast}</span>
         </div>
       )}
 
-      {/* Detailed Certificate Modal */}
+      {/* Detailed Modal */}
       {selectedCert && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
           onClick={() => setSelectedCert(null)}
           role="dialog"
           aria-modal="true"
         >
           <div
-            className="relative w-full max-w-4xl bg-[#0e0a0d] border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl modal-enter my-auto overflow-hidden max-h-[90vh] flex flex-col"
+            className="relative w-full max-w-3xl bg-zinc-950 border border-zinc-800 rounded-2xl p-5 sm:p-7 shadow-2xl my-auto overflow-hidden max-h-[90vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-start justify-between gap-4 pb-4 border-b border-white/10 shrink-0">
+            <div className="flex items-start justify-between gap-4 pb-4 border-b border-zinc-800 shrink-0">
               <div>
-                <span className="text-xs font-mono text-rose-400 uppercase">
+                <span className="text-xs font-mono text-zinc-400 uppercase">
                   {selectedCert.badge}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mt-0.5">
+                <h3 className="text-xl font-bold text-white mt-0.5">
                   {selectedCert.title}
                 </h3>
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-zinc-400 mt-1">
                   {selectedCert.issuer} • Diterbitkan: {selectedCert.issue_date}
                 </p>
               </div>
@@ -254,105 +242,103 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
               <button
                 type="button"
                 onClick={() => setSelectedCert(null)}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-lg transition-colors shrink-0"
-                aria-label="Tutup pratinjau sertifikat"
+                className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition-colors shrink-0"
+                aria-label="Tutup jendela sertifikat"
               >
                 <i className="ri-close-line" />
               </button>
             </div>
 
             {/* Body */}
-            <div className="overflow-y-auto space-y-6 py-4 pr-1">
-              {/* Image viewer */}
-              {selectedCert.images && selectedCert.images.length > 0 && (
-                <div className="space-y-3">
-                  <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden bg-black/80 border border-white/10 flex items-center justify-center">
-                    <img
-                      src={selectedCert.images[getImgIdx(selectedCert.id)]?.url || selectedCert.images[0].url}
-                      alt={selectedCert.title}
-                      className="w-full h-full object-contain p-2"
-                    />
-                  </div>
+            <div className="overflow-y-auto space-y-5 py-4 pr-1">
+              {/* Document Image */}
+              <div className="relative aspect-[16/11] w-full rounded-xl overflow-hidden bg-black border border-zinc-800 flex items-center justify-center p-2">
+                <img
+                  src={selectedCert.images?.[getImgIdx(selectedCert.id)]?.url || selectedCert.images?.[0]?.url}
+                  alt={selectedCert.title}
+                  className="w-full h-full object-contain"
+                />
+              </div>
 
-                  {selectedCert.images.length > 1 && (
-                    <div className="flex gap-2">
-                      {selectedCert.images.map((img, idx) => (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => {
-                            setActiveImgIdx((prev) => ({ ...prev, [selectedCert.id]: idx }));
-                            playTactileClick();
-                          }}
-                          className={`h-14 w-20 rounded-lg overflow-hidden border-2 transition-all ${
-                            getImgIdx(selectedCert.id) === idx
-                              ? 'border-rose-400 scale-105'
-                              : 'border-white/20 opacity-60 hover:opacity-100'
-                          }`}
-                        >
-                          <img src={img.url} alt={img.title} className="w-full h-full object-cover" />
-                        </button>
-                      ))}
-                    </div>
-                  )}
+              {/* Thumbnails */}
+              {selectedCert.images && selectedCert.images.length > 1 && (
+                <div className="flex gap-2">
+                  {selectedCert.images.map((imgObj, idx) => {
+                    const isCur = getImgIdx(selectedCert.id) === idx;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setActiveImgIdx((prev) => ({ ...prev, [selectedCert.id]: idx }));
+                          playTactileClick();
+                        }}
+                        className={`h-12 w-16 rounded-lg overflow-hidden border transition-all ${
+                          isCur ? 'border-white' : 'border-zinc-800 opacity-50 hover:opacity-100'
+                        }`}
+                      >
+                        <img src={imgObj.url} alt="Page" className="w-full h-full object-cover" />
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
-              {/* In-depth details */}
-              <div className="space-y-4">
-                <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
+              {/* Description */}
+              <div>
+                <h4 className="text-xs font-mono uppercase text-zinc-400 mb-1">
+                  Deskripsi Kredensial
+                </h4>
+                <p className="text-sm text-zinc-300 leading-relaxed">
                   {selectedCert.description}
                 </p>
+              </div>
 
-                {selectedCert.details && (
-                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/8">
-                    <h4 className="text-xs font-mono uppercase text-rose-300 tracking-wider mb-2 flex items-center gap-2">
-                      <i className="ri-shield-star-line text-sm" />
-                      <span>Cakupan Standar Kompetensi Kerja Nasional (SKKNI)</span>
-                    </h4>
-                    <p className="text-sm text-slate-300 leading-relaxed">
-                      {selectedCert.details}
-                    </p>
-                  </div>
-                )}
-
-                {/* Skills tags */}
-                <div>
-                  <h4 className="text-xs font-mono uppercase text-slate-400 tracking-wider mb-2.5">
-                    Unit Kompetensi Terverifikasi
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedCert.skills.map((sk, sIdx) => (
-                      <span
-                        key={sIdx}
-                        className="px-3 py-1 rounded-lg bg-rose-600/15 border border-rose-400/25 text-xs font-mono text-rose-300"
-                      >
-                        {sk}
-                      </span>
-                    ))}
-                  </div>
+              {/* Skills */}
+              <div>
+                <h4 className="text-xs font-mono uppercase text-zinc-400 mb-2">
+                  Unit Kompetensi Teruji
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedCert.skills.map((sk, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300"
+                    >
+                      {sk}
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3 shrink-0">
-              <span className="text-xs font-mono text-slate-400">
-                {selectedCert.reg_number || selectedCert.credential_id}
+            {/* Footer Actions */}
+            <div className="pt-4 border-t border-zinc-800 flex items-center justify-between gap-3 shrink-0">
+              <span className="text-xs font-mono text-zinc-500 truncate">
+                ID: {selectedCert.credential_id}
               </span>
 
-              {selectedCert.pdf_url && (
-                <a
-                  href={selectedCert.pdf_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={playTactileClick}
-                  className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 text-white text-xs font-semibold hover:shadow-[0_0_18px_rgba(244,63,94,0.5)] transition-all"
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleCopy(selectedCert.credential_id, selectedCert.title)}
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-medium text-zinc-300 hover:text-white transition-colors"
                 >
-                  <i className="ri-file-download-line text-sm" />
-                  <span>Unduh Dokumen Asli (PDF)</span>
-                </a>
-              )}
+                  Salin ID
+                </button>
+
+                {selectedCert.pdf_url && (
+                  <a
+                    href={selectedCert.pdf_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={playTactileClick}
+                    className="px-3.5 py-1.5 rounded-lg bg-white text-zinc-950 text-xs font-semibold hover:bg-zinc-200 transition-colors"
+                  >
+                    Buka PDF
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>

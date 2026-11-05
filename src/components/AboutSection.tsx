@@ -13,7 +13,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
   const [cliHistory, setCliHistory] = useState<Array<{ cmd: string; res: string }>>([
     {
       cmd: 'dimas.checkStatus()',
-      res: '🟢 STATUS: TERSEDIA UNTUK FULL-TIME & KONTRAK INDUSTRI',
+      res: 'TERSEDIA UNTUK FULL-TIME & KONTRAK INDUSTRI',
     },
   ]);
 
@@ -21,113 +21,105 @@ export default function AboutSection({ profile }: AboutSectionProps) {
     playTactileClick();
     let res = '';
     if (cmd === 'dimas.getTechStack()') {
-      res = '⚡ Flutter, Dart, Laravel, PHP, React, Next.js, Power BI, DAX, MySQL, Gemini AI';
+      res = 'Flutter, Dart, Laravel, PHP, React, Next.js, Power BI, DAX, MySQL, Gemini AI';
     } else if (cmd === 'dimas.getCertifications()') {
-      res = '🛡️ BNSP Database Administrator (No. Reg. DMS.1241.00936 2026) | BNSP Analis Program';
+      res = 'BNSP Database Administrator (No. Reg. DMS.1241.00936 2026) | BNSP Analis Program';
     } else if (cmd === 'dimas.getHonors()') {
-      res = '🏆 JUARA 1 IT Bootcamp Software Development se-Seluruh Kampus Cabang UBSI';
+      res = 'Juara 1 IT Bootcamp Software Development se-Seluruh Kampus Cabang UBSI';
     } else if (cmd === 'dimas.getEducation()') {
-      res = '🎓 S1 Sistem Informasi - Universitas Bina Sarana Informatika (2023 - Sekarang)';
+      res = 'S1 Sistem Informasi - Universitas Bina Sarana Informatika (2023 - Sekarang)';
     }
 
     setCliHistory((prev) => [...prev, { cmd, res }]);
   };
 
   return (
-    <section id="about" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
-      {/* Decorative background glow in Ruby & Amber */}
-      <div className="glow-orb w-[450px] h-[450px] bg-rose-600/12 top-1/4 right-[-10%]" />
-      <div className="glow-orb w-[400px] h-[400px] bg-red-700/10 bottom-10 left-[-10%]" />
-
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="about" className="py-20 sm:py-28 relative border-t border-zinc-800/80">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Scroll Reveal */}
-        <div className="flex flex-col items-center text-center mb-12 sm:mb-16 reveal-scale">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center mb-14 sm:mb-16 reveal-on-scroll">
           <div className="section-tag">
-            <i className="ri-user-smile-line text-rose-400" />
-            <span>Tentang &amp; Filosofi Rekayasa</span>
+            <span>Profil &amp; Filosofi</span>
           </div>
           <h2 className="section-heading mb-4">
-            Menggabungkan <span className="gradient-text-ruby">Ketajaman Analisis</span> <br className="hidden sm:inline" />
-            dengan Presisi Rekayasa Perangkat Lunak
+            Ketajaman Analisis Bisnis &amp; Rekayasa Kode
           </h2>
           <p className="section-description">
             Sebagai mahasiswa Sistem Informasi Universitas Bina Sarana Informatika (UBSI), saya memadukan
-            pemodelan proses bisnis terstruktur, disiplin arsitektur basis data, dan pengembangan aplikasi interaktif modern.
+            pemodelan proses bisnis, disiplin arsitektur basis data relasional, dan pengembangan aplikasi interaktif modern.
           </p>
         </div>
 
         {/* 12-Column Bento Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
           
-          {/* Bento Card 1: Narasi Profil Utama (Col 7 on Desktop) */}
-          <div className="lg:col-span-7 glass-panel p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group reveal-left">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-rose-600/10 rounded-bl-full pointer-events-none group-hover:bg-rose-600/20 transition-colors" />
-
+          {/* Bento Card 1: Narasi Profil Utama (Col 7) */}
+          <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-on-scroll">
             <div>
-              <div className="flex items-center gap-2.5 text-xs font-mono font-semibold text-rose-300 uppercase tracking-wider mb-4">
-                <i className="ri-compass-3-line text-sm" />
-                <span>Profil &amp; Dedikasi Profesional</span>
+              <div className="flex items-center gap-2 text-xs font-mono font-semibold text-zinc-400 uppercase tracking-wider mb-4">
+                <i className="ri-user-line text-sm" />
+                <span>Dedikasi Profesional</span>
               </div>
 
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 leading-snug">
                 Fokus Pada Solusi Digital yang Bekerja Nyata di Lingkungan Produksi.
               </h3>
 
-              <p className="text-xs sm:text-sm sm:text-base text-slate-300 leading-relaxed mb-4">
+              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed mb-4">
                 {profile.bio}
               </p>
 
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
                 Tidak sekadar menulis baris kode, saya menaruh perhatian besar pada 
-                arsitektur sistem yang dapat diskalakan (*clean architecture*), integritas relasi basis data, 
-                efisiensi kueri SQL, serta kenyamanan antarmuka pengguna di berbagai resolusi perangkat.
+                arsitektur sistem yang bersih (*clean architecture*), integritas relasi basis data, 
+                efisiensi kueri SQL, serta kenyamanan antarmuka pengguna di berbagai resolusi layar.
               </p>
             </div>
 
             {/* Core Values Badges */}
-            <div className="pt-5 border-t border-white/8 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-center">
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-rose-400/40 transition-all">
-                <i className="ri-code-box-line text-rose-400 text-lg mb-1 block" />
-                <span className="text-xs font-semibold text-slate-200">Clean Code</span>
+            <div className="pt-5 border-t border-zinc-800 grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center">
+              <div className="p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
+                <i className="ri-code-box-line text-zinc-300 text-lg mb-1 block" />
+                <span className="text-xs font-medium text-zinc-300">Clean Code</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-rose-400/40 transition-all">
-                <i className="ri-database-2-line text-rose-400 text-lg mb-1 block" />
-                <span className="text-xs font-semibold text-slate-200">Relational DB</span>
+              <div className="p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
+                <i className="ri-database-2-line text-zinc-300 text-lg mb-1 block" />
+                <span className="text-xs font-medium text-zinc-300">Relational DB</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-rose-400/40 transition-all">
-                <i className="ri-speed-up-line text-rose-400 text-lg mb-1 block" />
-                <span className="text-xs font-semibold text-slate-200">High Speed</span>
+              <div className="p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
+                <i className="ri-speed-up-line text-zinc-300 text-lg mb-1 block" />
+                <span className="text-xs font-medium text-zinc-300">High Speed</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-rose-400/40 transition-all">
-                <i className="ri-shield-keyhole-line text-rose-400 text-lg mb-1 block" />
-                <span className="text-xs font-semibold text-slate-200">Security</span>
+              <div className="p-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80">
+                <i className="ri-shield-keyhole-line text-zinc-300 text-lg mb-1 block" />
+                <span className="text-xs font-medium text-zinc-300">Security</span>
               </div>
             </div>
           </div>
 
-          {/* Bento Card 2: Interactive Developer Terminal (Col 5 on Desktop) */}
-          <div className="lg:col-span-5 glass-panel p-5 sm:p-6 flex flex-col justify-between font-mono text-xs border-rose-500/25 shadow-xl bg-[#0e0a0d] reveal-right">
+          {/* Bento Card 2: Clean Developer Terminal (Col 5) */}
+          <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-zinc-950 border border-zinc-800 flex flex-col justify-between font-mono text-xs shadow-xl reveal-on-scroll delay-100">
             <div>
-              {/* Window chrome header with tab toggle */}
-              <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+              {/* Window chrome header */}
+              <div className="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
                 <div className="flex items-center gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-rose-500" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
                 </div>
 
-                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/40 border border-white/10">
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-zinc-900 border border-zinc-800">
                   <button
                     type="button"
                     onClick={() => {
                       setActiveCodeTab('spec');
                       playSoftPop();
                     }}
-                    className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
+                    className={`px-2.5 py-0.5 rounded text-[11px] font-medium transition-all ${
                       activeCodeTab === 'spec'
-                        ? 'bg-rose-600/25 text-rose-200 border border-rose-400/35'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-zinc-800 text-white font-semibold'
+                        : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                   >
                     dimas_spec.ts
@@ -139,10 +131,10 @@ export default function AboutSection({ profile }: AboutSectionProps) {
                       setActiveCodeTab('cli');
                       playSoftPop();
                     }}
-                    className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
+                    className={`px-2.5 py-0.5 rounded text-[11px] font-medium transition-all ${
                       activeCodeTab === 'cli'
-                        ? 'bg-rose-600/25 text-rose-200 border border-rose-400/35'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-zinc-800 text-white font-semibold'
+                        : 'text-zinc-400 hover:text-zinc-200'
                     }`}
                   >
                     interactive_cli.sh
@@ -152,23 +144,23 @@ export default function AboutSection({ profile }: AboutSectionProps) {
 
               {/* Tab 1: TypeScript Specification */}
               {activeCodeTab === 'spec' ? (
-                <div className="space-y-1.5 text-slate-300 leading-relaxed overflow-x-auto py-1">
+                <div className="space-y-1.5 text-zinc-300 leading-relaxed overflow-x-auto py-1">
                   <div>
-                    <span className="text-rose-400">interface</span> <span className="text-amber-300">EngineerProfile</span> &#123;
+                    <span className="text-zinc-400">interface</span> <span className="text-white font-semibold">EngineerProfile</span> &#123;
                   </div>
                   <div className="pl-4">
-                    <span className="text-slate-400">name:</span> <span className="text-emerald-400">&quot;Dimas Wijanarko&quot;</span>;
+                    <span className="text-zinc-500">name:</span> <span className="text-zinc-200">&quot;Dimas Wijanarko&quot;</span>;
                   </div>
                   <div className="pl-4">
-                    <span className="text-slate-400">degree:</span> <span className="text-emerald-400">&quot;S1 Sistem Informasi (UBSI)&quot;</span>;
+                    <span className="text-zinc-500">degree:</span> <span className="text-zinc-200">&quot;S1 Sistem Informasi (UBSI)&quot;</span>;
                   </div>
                   <div className="pl-4">
-                    <span className="text-slate-400">status:</span> <span className="text-rose-300">&quot;Active Student &amp; Builder&quot;</span>;
+                    <span className="text-zinc-500">status:</span> <span className="text-emerald-400">&quot;Active Student &amp; Builder&quot;</span>;
                   </div>
                   <div className="pl-4">
-                    <span className="text-slate-400">specialization:</span> [
+                    <span className="text-zinc-500">specialization:</span> [
                   </div>
-                  <div className="pl-8 text-rose-200">
+                  <div className="pl-8 text-zinc-300">
                     &quot;Flutter &amp; Dart Mobile&quot;,<br />
                     &quot;Laravel &amp; RESTful API&quot;,<br />
                     &quot;Power BI &amp; DAX Analytics&quot;,<br />
@@ -176,12 +168,12 @@ export default function AboutSection({ profile }: AboutSectionProps) {
                   </div>
                   <div className="pl-4">];</div>
                   <div className="pl-4">
-                    <span className="text-slate-400">certifications:</span> &#123;
+                    <span className="text-zinc-500">certifications:</span> &#123;
                   </div>
-                  <div className="pl-8 text-amber-300">
-                    bnsp_dba: <span className="text-rose-400">true</span>,<br />
-                    bnsp_analyst: <span className="text-rose-400">true</span>,<br />
-                    juara1_bootcamp: <span className="text-rose-400">true</span>
+                  <div className="pl-8 text-zinc-300">
+                    bnsp_dba: <span className="text-zinc-100 font-semibold">true</span>,<br />
+                    bnsp_analyst: <span className="text-zinc-100 font-semibold">true</span>,<br />
+                    juara1_bootcamp: <span className="text-zinc-100 font-semibold">true</span>
                   </div>
                   <div className="pl-4">&#125;;</div>
                   <div>&#125;</div>
@@ -189,49 +181,49 @@ export default function AboutSection({ profile }: AboutSectionProps) {
               ) : (
                 /* Tab 2: Interactive Terminal CLI */
                 <div className="space-y-3 py-1">
-                  <div className="text-[11px] text-slate-400">
-                    Klik perintah interaktif di bawah untuk mengeksekusi langsung:
+                  <div className="text-[11px] text-zinc-400">
+                    Pilih perintah di bawah untuk mengeksekusi langsung:
                   </div>
 
                   <div className="flex flex-wrap gap-1.5">
                     <button
                       type="button"
                       onClick={() => handleRunCommand('dimas.getTechStack()')}
-                      className="px-2.5 py-1 rounded bg-rose-600/15 hover:bg-rose-600/30 border border-rose-400/30 text-rose-300 text-[11px] font-mono transition-colors"
+                      className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-[11px] font-mono transition-colors"
                     >
                       $ dimas.getTechStack()
                     </button>
                     <button
                       type="button"
                       onClick={() => handleRunCommand('dimas.getCertifications()')}
-                      className="px-2.5 py-1 rounded bg-red-600/15 hover:bg-red-600/30 border border-red-400/30 text-red-300 text-[11px] font-mono transition-colors"
+                      className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-[11px] font-mono transition-colors"
                     >
                       $ dimas.getCertifications()
                     </button>
                     <button
                       type="button"
                       onClick={() => handleRunCommand('dimas.getHonors()')}
-                      className="px-2.5 py-1 rounded bg-amber-500/15 hover:bg-amber-500/30 border border-amber-400/30 text-amber-300 text-[11px] font-mono transition-colors"
+                      className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-[11px] font-mono transition-colors"
                     >
                       $ dimas.getHonors()
                     </button>
                     <button
                       type="button"
                       onClick={() => handleRunCommand('dimas.getEducation()')}
-                      className="px-2.5 py-1 rounded bg-emerald-500/15 hover:bg-emerald-500/30 border border-emerald-400/30 text-emerald-300 text-[11px] font-mono transition-colors"
+                      className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-[11px] font-mono transition-colors"
                     >
                       $ dimas.getEducation()
                     </button>
                   </div>
 
                   {/* Output Terminal Console */}
-                  <div className="p-3 rounded-xl bg-black/60 border border-white/8 space-y-2 max-h-40 overflow-y-auto">
+                  <div className="p-3 rounded-xl bg-zinc-900/70 border border-zinc-800 space-y-2 max-h-36 overflow-y-auto">
                     {cliHistory.map((item, idx) => (
                       <div key={idx} className="space-y-0.5">
-                        <div className="text-rose-400 text-[11px]">
+                        <div className="text-zinc-400 text-[11px]">
                           &gt; {item.cmd}
                         </div>
-                        <div className="text-slate-300 text-[11px] pl-2 border-l border-rose-500/40">
+                        <div className="text-zinc-200 text-[11px] pl-2 border-l border-zinc-600">
                           {item.res}
                         </div>
                       </div>
@@ -242,80 +234,84 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             </div>
 
             {/* Footer status bar */}
-            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400 mt-4">
-              <span className="flex items-center gap-1.5 text-emerald-400">
+            <div className="pt-3 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-500 mt-4">
+              <span className="flex items-center gap-1.5 text-zinc-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-indicator" />
                 Interaktif • Ready
               </span>
-              <span>Dimas Studio v2.0</span>
+              <span>Dimas Studio</span>
             </div>
           </div>
 
-          {/* Bento Card 3: Keunggulan Kompetensi & Pengalaman Industri (Col 6 on Desktop) */}
-          <div className="lg:col-span-6 glass-panel p-6 sm:p-7 flex flex-col justify-between reveal-left delay-200">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-rose-600/15 border border-rose-400/35 flex items-center justify-center text-rose-400 text-xl">
-                <i className="ri-building-4-line" />
+          {/* Bento Card 3: Pengalaman Industri (Col 6) */}
+          <div className="lg:col-span-6 p-6 sm:p-7 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-on-scroll delay-200">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 text-xl">
+                  <i className="ri-building-4-line" />
+                </div>
+                <div>
+                  <h4 className="text-base font-semibold text-white">
+                    Pengalaman di Industri BUMN / Telekomunikasi
+                  </h4>
+                  <p className="text-xs text-zinc-400">
+                    PT PGAS Telekomunikasi Nusantara (PGNCOM)
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 className="text-base font-bold text-white">
-                  Pengalaman di Industri Telekomunikasi &amp; BUMN
-                </h4>
-                <p className="text-xs text-slate-400">
-                  PT PGAS Telekomunikasi Nusantara (PGNCOM)
-                </p>
-              </div>
+
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4">
+                Mengembangkan sistem web operasional *Monitoring Realisasi Biaya &amp; Quality Control*, 
+                mengintegrasikan validasi dokumen BASTO, serta merancang dashboard Microsoft Power BI 
+                untuk pemantauan real-time deviasi anggaran dan prognosa proyek.
+              </p>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-              Mengembangkan sistem web operasional *Monitoring Realisasi Biaya &amp; Quality Control*, 
-              mengintegrasikan validasi dokumen BASTO, serta merancang dashboard Microsoft Power BI 
-              untuk pemantauan real-time deviasi anggaran dan prognosa proyek skala enterprise.
-            </p>
-
-            <div className="flex flex-wrap gap-2 text-xs">
-              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono">
+            <div className="flex flex-wrap gap-2 text-xs pt-2">
+              <span className="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 font-mono">
                 Power BI &amp; DAX
               </span>
-              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono">
+              <span className="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 font-mono">
                 Laravel &amp; MySQL
               </span>
-              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono">
-                Pengawasan Mutu QC
+              <span className="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 font-mono">
+                Pengawasan QC
               </span>
             </div>
           </div>
 
-          {/* Bento Card 4: Pengabdian & Mentoring Teknis (Col 6 on Desktop) */}
-          <div className="lg:col-span-6 glass-panel p-6 sm:p-7 flex flex-col justify-between reveal-right delay-200">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-red-600/15 border border-red-400/35 flex items-center justify-center text-rose-400 text-xl">
-                <i className="ri-presentation-line" />
+          {/* Bento Card 4: Pengabdian & Mentoring (Col 6) */}
+          <div className="lg:col-span-6 p-6 sm:p-7 rounded-2xl bg-zinc-900/50 border border-zinc-800 flex flex-col justify-between reveal-on-scroll delay-200">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 text-xl">
+                  <i className="ri-presentation-line" />
+                </div>
+                <div>
+                  <h4 className="text-base font-semibold text-white">
+                    Mentoring &amp; Berbagi Pengetahuan
+                  </h4>
+                  <p className="text-xs text-zinc-400">
+                    SMK Muhammadiyah 15 Jakarta
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 className="text-base font-bold text-white">
-                  Mentoring &amp; Berbagi Dampak Pengetahuan
-                </h4>
-                <p className="text-xs text-slate-400">
-                  SMK Muhammadiyah 15 Jakarta
-                </p>
-              </div>
+
+              <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4">
+                Menjadi instruktur tamu bagi siswa jurusan Rekayasa Perangkat Lunak (RPL). 
+                Mengajarkan praktik pengembangan web modern menggunakan Framework Laravel, 
+                arsitektur MVC, pemodelan basis data relasional, dan kolaborasi Git.
+              </p>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
-              Menjadi instruktur tamu bagi siswa jurusan Rekayasa Perangkat Lunak (RPL). 
-              Mengajarkan praktik pengembangan web modern menggunakan Framework Laravel, 
-              arsitektur MVC, pemodelan basis data relasional, dan etika kolaborasi Git industri.
-            </p>
-
-            <div className="flex flex-wrap gap-2 text-xs">
-              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono">
+            <div className="flex flex-wrap gap-2 text-xs pt-2">
+              <span className="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 font-mono">
                 Instruktur RPL
               </span>
-              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono">
+              <span className="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 font-mono">
                 Komunikasi Publik
               </span>
-              <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 font-mono">
+              <span className="px-2.5 py-1 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 font-mono">
                 Git Workflow
               </span>
             </div>

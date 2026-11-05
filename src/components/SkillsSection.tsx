@@ -145,43 +145,38 @@ export default function SkillsSection({}: SkillsSectionProps) {
   });
 
   return (
-    <section id="skills" className="py-20 sm:py-28 relative bg-[#080608] overflow-hidden">
-      {/* Background glow in Ruby & Flame */}
-      <div className="glow-orb w-[450px] h-[450px] bg-rose-600/12 top-1/3 left-[-10%]" />
-      <div className="glow-orb w-[450px] h-[450px] bg-red-700/10 bottom-10 right-[-10%]" />
-
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="skills" className="py-20 sm:py-28 relative border-t border-zinc-800/80">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Scroll Reveal */}
-        <div className="flex flex-col items-center text-center mb-10 sm:mb-14 reveal-scale">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center mb-12 sm:mb-14 reveal-on-scroll">
           <div className="section-tag">
-            <i className="ri-cpu-line text-rose-400" />
-            <span>Matriks Kompetensi Teknis</span>
+            <span>Keahlian</span>
           </div>
           <h2 className="section-heading mb-4">
-            Keahlian <span className="gradient-text-ruby">&amp; Instrumen Rekayasa</span>
+            Kompetensi Teknis &amp; Instrumen
           </h2>
           <p className="section-description">
             Kombinasi kemampuan pengembangan aplikasi full-stack, tata kelola arsitektur basis data, 
-            dan analitik kecerdasan bisnis yang teruji di lingkungan akademik dan industri.
+            dan analitik data yang teruji di lingkungan akademik dan industri.
           </p>
 
           {/* Search & Category Filter Controls */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 w-full max-w-2xl">
-            {/* Quick Skill Search */}
+            {/* Search Input */}
             <div className="relative w-full sm:w-60">
-              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm" />
+              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-sm" />
               <input
                 type="text"
                 placeholder="Cari keahlian..."
                 value={searchSkill}
                 onChange={(e) => setSearchSkill(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-full bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-xs focus:border-rose-400 focus:bg-white/[0.07] transition-all"
+                className="w-full pl-9 pr-4 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:border-zinc-600 focus:outline-none transition-colors"
               />
             </div>
 
             {/* Category Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-1.5 p-1 rounded-full bg-white/[0.04] border border-white/8 backdrop-blur-md">
+            <div className="flex flex-wrap items-center justify-center gap-1 p-1 rounded-full bg-zinc-900 border border-zinc-800">
               {categories.map((cat) => {
                 const isActive = activeTab === cat.id;
                 return (
@@ -192,10 +187,10 @@ export default function SkillsSection({}: SkillsSectionProps) {
                       setActiveTab(cat.id);
                       playSoftPop();
                     }}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 active:scale-95 ${
+                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
                       isActive
-                        ? 'bg-rose-600/25 text-rose-200 border border-rose-400/40 shadow-[0_0_18px_rgba(244,63,94,0.35)] font-semibold'
-                        : 'text-slate-400 hover:text-white hover:bg-white/5'
+                        ? 'bg-zinc-800 text-white font-semibold shadow-sm'
+                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
                     }`}
                   >
                     {cat.label}
@@ -206,59 +201,55 @@ export default function SkillsSection({}: SkillsSectionProps) {
           </div>
         </div>
 
-        {/* Skills Bento Grid with Staggered Directional Reveals */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {filteredSkills.map((skill, idx) => {
-            const revealClass = idx % 2 === 0 ? 'reveal-left' : 'reveal-right';
-            const delayClass = idx % 3 === 1 ? 'delay-100' : idx % 3 === 2 ? 'delay-200' : '';
-
             return (
               <div
                 key={idx}
-                className={`glass-panel glass-panel-hover p-4 sm:p-6 flex flex-col justify-between group relative overflow-hidden ${revealClass} ${delayClass}`}
+                className="p-4 sm:p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800 hover:border-zinc-700 transition-all duration-200 flex flex-col justify-between group reveal-on-scroll"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-3 mb-3 sm:mb-4">
+                  <div className="flex items-center justify-between gap-3 mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center p-2 group-hover:scale-110 group-hover:border-rose-400/45 transition-all shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center p-2 shrink-0">
                         <img
                           src={skill.icon}
                           alt={skill.name}
-                          className="w-full h-full object-contain filter drop-shadow"
+                          className="w-full h-full object-contain"
                         />
                       </div>
                       <div>
-                        <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-rose-300 transition-colors">
+                        <h3 className="text-sm font-semibold text-white">
                           {skill.name}
                         </h3>
-                        <span className="text-[10px] sm:text-[11px] font-mono text-rose-400/80">
+                        <span className="text-[11px] font-mono text-zinc-400">
                           {skill.category}
                         </span>
                       </div>
                     </div>
 
-                    <span className="text-xs sm:text-sm font-mono font-bold text-slate-300">
+                    <span className="text-xs font-mono font-medium text-zinc-400">
                       {skill.level}%
                     </span>
                   </div>
 
-                  {/* Animated progress bar in Ruby to Amber flame */}
-                  <div className="w-full h-1.5 rounded-full bg-white/[0.08] overflow-hidden mb-2.5 sm:mb-3">
+                  {/* Clean Hairline Progress Meter */}
+                  <div className="w-full h-1 rounded-full bg-zinc-800 overflow-hidden mb-2.5">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-rose-600 via-red-500 to-amber-400 group-hover:shadow-[0_0_10px_rgba(244,63,94,0.8)] transition-all duration-1000 ease-out"
+                      className="h-full rounded-full bg-zinc-300"
                       style={{ width: `${skill.level}%` }}
                     />
                   </div>
 
-                  {/* Real-world highlight */}
-                  <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-zinc-400 leading-relaxed">
                     {skill.highlight}
                   </p>
                 </div>
 
-                <div className="pt-3 mt-3 sm:mt-4 border-t border-white/5 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500 font-mono">
-                  <span>Penggunaan Produksi</span>
-                  <i className="ri-checkbox-circle-fill text-rose-400/80 text-xs" />
+                <div className="pt-3 mt-3 border-t border-zinc-800/80 flex items-center justify-between text-[11px] text-zinc-500 font-mono">
+                  <span>Penggunaan Nyata</span>
+                  <i className="ri-check-line text-zinc-400" />
                 </div>
               </div>
             );

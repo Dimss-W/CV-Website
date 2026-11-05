@@ -71,60 +71,55 @@ export default function ContactSection({ profile }: ContactSectionProps) {
   };
 
   return (
-    <section id="contact" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
-      {/* Background glow in Ruby Crimson & Scarlet */}
-      <div className="glow-orb w-[500px] h-[500px] bg-rose-600/12 top-1/3 right-[-15%]" />
-      <div className="glow-orb w-[500px] h-[500px] bg-red-600/10 bottom-10 left-[-15%]" />
-
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="contact" className="py-20 sm:py-28 relative border-t border-zinc-800/80">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Scroll Reveal */}
-        <div className="flex flex-col items-center text-center mb-14 sm:mb-20 reveal-scale">
+        {/* Section Header */}
+        <div className="flex flex-col items-center text-center mb-14 sm:mb-16 reveal-on-scroll">
           <div className="section-tag">
-            <i className="ri-mail-send-line text-rose-400" />
-            <span>Kolaborasi &amp; Rekrutmen</span>
+            <span>Kontak &amp; Kolaborasi</span>
           </div>
           <h2 className="section-heading mb-4">
-            Mari Mulai <span className="gradient-text-ruby">Kolaborasi Digital</span>
+            Mari Terhubung &amp; Berdiskusi
           </h2>
           <p className="section-description">
-            Apakah Anda memiliki proyek inovatif, kebutuhan software engineer full-stack, 
-            atau peluang karir profesional? Hubungi langsung via email resmi saya di bawah ini.
+            Apakah Anda memiliki proyek aplikasi, kebutuhan software engineer, 
+            atau peluang karir profesional? Hubungi saya langsung melalui formulir atau email resmi di bawah ini.
           </p>
         </div>
 
-        {/* 2-Column Split Studio */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* 2-Column Split */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
-          {/* Left Column: Direct Email Access Hub (5 Cols) with Reveal Left */}
-          <div className="lg:col-span-5 space-y-5 reveal-left">
+          {/* Left Column: Direct Access Hub (5 Cols) */}
+          <div className="lg:col-span-5 space-y-4 reveal-on-scroll">
             {/* Availability Banner */}
-            <div className="glass-panel p-6 border-rose-500/25 relative overflow-hidden">
-              <div className="flex items-center gap-2.5 text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider mb-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 pulse-indicator" />
-                <span>Status Ketersediaan: Aktif</span>
+            <div className="p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800">
+              <div className="flex items-center gap-2 text-xs font-mono font-medium text-emerald-400 uppercase tracking-wider mb-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
+                <span>Ketersediaan: Aktif</span>
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">
+              <h3 className="text-base font-semibold text-white mb-2">
                 Terbuka untuk Peluang Kerja &amp; Proyek
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                 Siap berkontribusi secara Full-Time, Kontrak, maupun Freelance dalam pengembangan 
                 aplikasi Web, Mobile (Flutter), dan Analitika Data Enterprise.
               </p>
             </div>
 
-            {/* Official Email Direct Card with 1-Click Copy */}
-            <div className="glass-panel p-5 flex flex-col gap-4 border-rose-500/30">
+            {/* Official Email Direct Card */}
+            <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800 flex flex-col gap-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3 truncate">
-                  <div className="w-11 h-11 rounded-xl bg-rose-600/20 border border-rose-400/40 flex items-center justify-center text-rose-300 text-xl shrink-0">
-                    <i className="ri-mail-check-fill" />
+                  <div className="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 text-lg shrink-0">
+                    <i className="ri-mail-line" />
                   </div>
                   <div className="truncate">
-                    <span className="text-[10px] font-mono uppercase text-rose-400 block font-semibold">
-                      Kanal Komunikasi Resmi
+                    <span className="text-[10px] font-mono uppercase text-zinc-400 block">
+                      Email Resmi
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-white truncate block">
+                    <span className="text-xs sm:text-sm font-semibold text-white truncate block">
                       {contactEmail}
                     </span>
                   </div>
@@ -133,29 +128,29 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="px-3 py-1.5 rounded-lg bg-rose-600/15 hover:bg-rose-600/30 text-rose-300 border border-rose-400/30 text-xs font-mono transition-all shrink-0 flex items-center gap-1.5 active:scale-95"
+                  className="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white border border-zinc-700 text-xs font-mono transition-colors shrink-0 flex items-center gap-1.5 active:scale-95"
                   title="Salin Alamat Email"
                 >
-                  <i className={emailCopied ? 'ri-checkbox-circle-line text-emerald-400' : 'ri-file-copy-line'} />
-                  <span>{emailCopied ? 'Tersalin!' : 'Salin'}</span>
+                  <i className={emailCopied ? 'ri-check-line text-emerald-400' : 'ri-file-copy-line'} />
+                  <span>{emailCopied ? 'Tersalin' : 'Salin'}</span>
                 </button>
               </div>
 
-              {/* Direct Mailto Launcher */}
+              {/* Direct Mailto */}
               <a
-                href={`mailto:${contactEmail}?subject=Peluang%20Kolaborasi%20Proyek%20/%20Rekrutmen%20-%20Dimas%20Wijanarko`}
+                href={`mailto:${contactEmail}?subject=Diskusi%20Peluang%20Proyek%20/%20Rekrutmen%20-%20Dimas%20Wijanarko`}
                 onClick={playTactileClick}
-                className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/[0.04] hover:bg-rose-600/20 border border-white/10 hover:border-rose-400/40 text-xs font-semibold text-slate-200 hover:text-white transition-all text-center"
+                className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-xs font-medium text-zinc-300 hover:text-white transition-colors text-center"
               >
-                <i className="ri-external-link-line text-rose-400" />
-                <span>Buka Aplikasi Email &amp; Tulis Pesan</span>
+                <i className="ri-external-link-line text-xs text-zinc-400" />
+                <span>Buka Aplikasi Email</span>
               </a>
             </div>
 
-            {/* Social Links Matrix */}
-            <div className="glass-panel p-5">
-              <span className="text-xs font-mono uppercase text-slate-400 tracking-wider block mb-3">
-                Koneksi Jaringan Profesional
+            {/* Social Links */}
+            <div className="p-5 rounded-2xl bg-zinc-900/40 border border-zinc-800">
+              <span className="text-xs font-mono uppercase text-zinc-400 tracking-wider block mb-3">
+                Jaringan Profesional
               </span>
               <div className="grid grid-cols-3 gap-2">
                 <a
@@ -163,10 +158,10 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playTactileClick}
-                  className="p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/8 hover:border-white/20 flex flex-col items-center gap-1 text-center transition-all group"
+                  className="p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 flex flex-col items-center gap-1 text-center transition-colors group"
                 >
-                  <i className="ri-github-fill text-xl text-slate-300 group-hover:text-white" />
-                  <span className="text-xs font-medium text-slate-300">GitHub</span>
+                  <i className="ri-github-fill text-lg text-zinc-400 group-hover:text-white" />
+                  <span className="text-xs font-medium text-zinc-300">GitHub</span>
                 </a>
 
                 <a
@@ -174,10 +169,10 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playTactileClick}
-                  className="p-3 rounded-xl bg-white/[0.03] hover:bg-rose-600/20 border border-white/8 hover:border-rose-400/35 flex flex-col items-center gap-1 text-center transition-all group"
+                  className="p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 flex flex-col items-center gap-1 text-center transition-colors group"
                 >
-                  <i className="ri-linkedin-box-fill text-xl text-rose-400 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs font-medium text-slate-300 group-hover:text-rose-300">LinkedIn</span>
+                  <i className="ri-linkedin-box-fill text-lg text-zinc-400 group-hover:text-white" />
+                  <span className="text-xs font-medium text-zinc-300">LinkedIn</span>
                 </a>
 
                 <a
@@ -185,28 +180,28 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={playTactileClick}
-                  className="p-3 rounded-xl bg-white/[0.03] hover:bg-rose-500/20 border border-white/8 hover:border-rose-400/35 flex flex-col items-center gap-1 text-center transition-all group"
+                  className="p-3 rounded-xl bg-zinc-900/60 hover:bg-zinc-800 border border-zinc-800 flex flex-col items-center gap-1 text-center transition-colors group"
                 >
-                  <i className="ri-instagram-line text-xl text-rose-400 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs font-medium text-slate-300 group-hover:text-rose-300">Instagram</span>
+                  <i className="ri-instagram-line text-lg text-zinc-400 group-hover:text-white" />
+                  <span className="text-xs font-medium text-zinc-300">Instagram</span>
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Modern Interactive Form (7 Cols) with Reveal Right */}
-          <div className="lg:col-span-7 glass-panel p-6 sm:p-9 relative reveal-right">
-            <h3 className="text-xl font-bold text-white mb-2">
-              Kirimkan Pesan atau Brief Proyek
+          {/* Right Column: Modern Form (7 Cols) */}
+          <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-zinc-900/40 border border-zinc-800 reveal-on-scroll delay-100">
+            <h3 className="text-lg font-semibold text-white mb-1.5">
+              Kirimkan Pesan atau Brief Kebutuhan
             </h3>
-            <p className="text-xs sm:text-sm text-slate-400 mb-6">
-              Isi formulir di bawah ini, saya akan meninjau dan merespons via email dalam kurun waktu 1x24 jam.
+            <p className="text-xs sm:text-sm text-zinc-400 mb-6">
+              Silakan kirimkan pesan, saya akan membalas via email dalam 1x24 jam.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="user_name" className="text-xs font-mono text-slate-300 block mb-1.5">
+                  <label htmlFor="user_name" className="text-xs font-mono text-zinc-300 block mb-1.5">
                     Nama Lengkap *
                   </label>
                   <input
@@ -216,12 +211,12 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                     placeholder="Contoh: Budi Santoso"
                     value={formData.sender_name}
                     onChange={(e) => setFormData({ ...formData, sender_name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-rose-400 focus:bg-white/[0.06] transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="user_email" className="text-xs font-mono text-slate-300 block mb-1.5">
+                  <label htmlFor="user_email" className="text-xs font-mono text-zinc-300 block mb-1.5">
                     Alamat Email *
                   </label>
                   <input
@@ -231,40 +226,40 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                     placeholder="nama@perusahaan.com"
                     value={formData.sender_email}
                     onChange={(e) => setFormData({ ...formData, sender_email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-rose-400 focus:bg-white/[0.06] transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none transition-colors"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="user_message" className="text-xs font-mono text-slate-300 block mb-1.5">
+                <label htmlFor="user_message" className="text-xs font-mono text-zinc-300 block mb-1.5">
                   Pesan / Rincian Kebutuhan *
                 </label>
                 <textarea
                   id="user_message"
                   required
                   rows={5}
-                  placeholder="Ceritakan gambaran proyek, target waktu pengerjaan, atau diskusi yang ingin dilakukan..."
+                  placeholder="Ceritakan gambaran proyek atau topik yang ingin didiskusikan..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-rose-400 focus:bg-white/[0.06] transition-all resize-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none transition-colors resize-none"
                 />
               </div>
 
               {/* Status Message */}
               {statusMessage && (
                 <div
-                  className={`p-3.5 rounded-xl text-xs font-semibold flex items-center gap-2 ${
+                  className={`p-3 rounded-xl text-xs font-medium flex items-center gap-2 ${
                     statusMessage.type === 'success'
-                      ? 'bg-emerald-500/15 border border-emerald-400/40 text-emerald-300'
-                      : 'bg-red-500/15 border border-red-400/40 text-red-300'
+                      ? 'bg-emerald-950/60 border border-emerald-800 text-emerald-300'
+                      : 'bg-red-950/60 border border-red-800 text-red-300'
                   }`}
                 >
                   <i
                     className={
                       statusMessage.type === 'success'
-                        ? 'ri-checkbox-circle-fill text-base'
-                        : 'ri-error-warning-fill text-base'
+                        ? 'ri-check-line text-base'
+                        : 'ri-error-warning-line text-base'
                     }
                   />
                   <span>{statusMessage.text}</span>
@@ -275,7 +270,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-primary py-3.5 text-sm font-bold shadow-lg active:scale-98"
+                className="w-full btn-primary py-3 text-sm font-semibold active:scale-98"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">
@@ -284,7 +279,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                    <i className="ri-send-plane-fill text-base" />
+                    <i className="ri-send-plane-line text-base" />
                     <span>Kirim Pesan Sekarang</span>
                   </span>
                 )}

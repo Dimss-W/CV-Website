@@ -69,41 +69,41 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
   return (
     <>
-      {/* Floating Dynamic Island Navbar in Ruby Flame */}
+      {/* Floating Minimalist Header */}
       <header
         className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 transition-all duration-300 pointer-events-none"
       >
         <nav
-          className={`pointer-events-auto flex items-center justify-between gap-2.5 sm:gap-6 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 max-w-5xl w-full ${
+          className={`pointer-events-auto flex items-center justify-between gap-3 sm:gap-6 px-3.5 sm:px-6 py-2 sm:py-2.5 rounded-full transition-all duration-300 max-w-5xl w-full ${
             scrolled
-              ? 'bg-[#0e0a0d]/90 backdrop-blur-xl border border-white/12 shadow-[0_12px_35px_-5px_rgba(0,0,0,0.85),0_0_25px_rgba(225,29,72,0.18)]'
-              : 'bg-[#0e0a0d]/55 backdrop-blur-md border border-white/8 shadow-lg'
+              ? 'bg-zinc-950/85 backdrop-blur-xl border border-zinc-800 shadow-xl'
+              : 'bg-zinc-950/60 backdrop-blur-md border border-zinc-800/80 shadow-md'
           }`}
           aria-label="Navigasi Utama"
         >
-          {/* Brand Logo & Live Pulse */}
+          {/* Brand Logo & Minimalist Availability Dot */}
           <a
             href="#home"
             onClick={playTactileClick}
             className="flex items-center gap-2.5 group shrink-0"
             aria-label="Kembali ke Beranda"
           >
-            <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-rose-600/35 to-red-600/25 border border-rose-400/40 flex items-center justify-center text-rose-300 font-mono font-bold text-xs shadow-[0_0_15px_rgba(244,63,94,0.4)] group-hover:scale-105 transition-transform">
+            <div className="relative w-8 h-8 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center text-zinc-200 font-mono font-bold text-xs group-hover:border-zinc-500 transition-colors">
               DW
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0e0a0d] pulse-indicator" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 border-2 border-zinc-950 pulse-indicator" />
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="text-sm font-bold text-white tracking-tight group-hover:text-rose-300 transition-colors">
+              <span className="text-sm font-semibold text-zinc-100 tracking-tight">
                 Dimas Wijanarko
               </span>
-              <span className="text-[10px] text-slate-400 font-mono tracking-wider">
-                FULL STACK &amp; ANALYTICS
+              <span className="text-[10px] text-zinc-400 font-mono tracking-wider">
+                Software Engineer
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-1 bg-white/[0.03] p-1 rounded-full border border-white/5">
+          <div className="hidden lg:flex items-center gap-1 bg-zinc-900/60 p-1 rounded-full border border-zinc-800/80">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
@@ -111,10 +111,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                   key={link.id}
                   href={link.href}
                   onClick={playTactileClick}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 relative ${
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-150 ${
                     isActive
-                      ? 'text-rose-200 bg-rose-600/25 border border-rose-400/35 shadow-[0_0_16px_rgba(244,63,94,0.3)] font-semibold'
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                      ? 'text-white bg-zinc-800 border border-zinc-700/80 font-semibold shadow-sm'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
                   }`}
                 >
                   {link.name}
@@ -125,35 +125,35 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-            {/* Audio Toggle Button */}
+            {/* Audio Toggle */}
             <button
               type="button"
               onClick={handleSoundToggle}
-              className="w-8 h-8 rounded-full bg-white/[0.05] hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 hover:text-rose-300 transition-colors"
+              className="w-8 h-8 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 flex items-center justify-center transition-colors"
               title={soundOn ? 'Nonaktifkan Efek Suara' : 'Aktifkan Efek Suara'}
               aria-label="Toggle audio effects"
             >
-              <i className={soundOn ? 'ri-volume-up-line text-sm text-rose-400' : 'ri-volume-mute-line text-sm text-slate-500'} />
+              <i className={soundOn ? 'ri-volume-up-line text-sm text-zinc-300' : 'ri-volume-mute-line text-sm text-zinc-600'} />
             </button>
 
-            {/* Unduh CV Button */}
+            {/* Unduh CV ATS */}
             <a
               href={cvDownloadUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={playTactileClick}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/[0.06] hover:bg-rose-600/20 border border-white/12 hover:border-rose-400/40 text-xs font-semibold text-slate-200 hover:text-rose-300 active:scale-95 transition-all duration-200 shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-zinc-600 text-xs font-medium text-zinc-300 hover:text-white transition-all duration-150 shadow-sm"
               title="Unduh Berkas CV ATS Resmi (PDF)"
             >
-              <i className="ri-file-download-line text-sm text-rose-400" />
-              <span className="hidden xs:inline">Unduh CV</span>
+              <i className="ri-file-download-line text-sm text-zinc-400" />
+              <span className="hidden xs:inline">CV ATS</span>
             </a>
 
             {/* Hubungi Button */}
             <a
               href="#contact"
               onClick={playTactileClick}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-rose-600 to-red-600 text-white text-xs font-semibold hover:shadow-[0_0_22px_rgba(244,63,94,0.55)] hover:brightness-110 active:scale-95 transition-all duration-200"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white text-zinc-950 text-xs font-semibold hover:bg-zinc-200 active:scale-98 transition-all duration-150"
             >
               <span>Hubungi</span>
               <i className="ri-arrow-right-up-line text-xs" />
@@ -166,7 +166,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 setMobileMenuOpen(true);
                 playTactileClick();
               }}
-              className="lg:hidden w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
+              className="lg:hidden w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
               aria-label="Buka Menu Navigasi"
             >
               <i className="ri-menu-3-line text-base" />
@@ -178,18 +178,18 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-2xl flex flex-col justify-between p-6 lg:hidden animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex flex-col justify-between p-6 lg:hidden animate-in fade-in duration-200"
           onClick={() => setMobileMenuOpen(false)}
         >
           {/* Header Mobile Drawer */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-rose-600/25 border border-rose-400/40 flex items-center justify-center text-rose-300 font-mono font-bold text-sm">
+              <div className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center text-zinc-200 font-mono font-bold text-sm">
                 DW
               </div>
               <div>
-                <div className="text-sm font-bold text-white">Dimas Wijanarko</div>
-                <div className="text-[11px] text-rose-400 font-mono">Sistem Informasi UBSI</div>
+                <div className="text-sm font-semibold text-white">Dimas Wijanarko</div>
+                <div className="text-[11px] text-zinc-400 font-mono">Sistem Informasi UBSI</div>
               </div>
             </div>
 
@@ -199,10 +199,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 setMobileMenuOpen(false);
                 playTactileClick();
               }}
-              className="w-9 h-9 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white text-lg hover:bg-white/20 transition-colors"
+              className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white transition-colors"
               aria-label="Tutup Menu Navigasi"
             >
-              <i className="ri-close-line" />
+              <i className="ri-close-line text-lg" />
             </button>
           </div>
 
@@ -218,14 +218,14 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                     setMobileMenuOpen(false);
                     playTactileClick();
                   }}
-                  className={`flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-semibold transition-all ${
+                  className={`flex items-center justify-between px-5 py-3 rounded-2xl text-base font-medium transition-all ${
                     isActive
-                      ? 'bg-rose-600/20 text-rose-300 border border-rose-400/35'
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                      ? 'bg-zinc-800 text-white border border-zinc-700 font-semibold'
+                      : 'text-zinc-400 hover:text-white hover:bg-zinc-900'
                   }`}
                 >
                   <span>{link.name}</span>
-                  <i className="ri-arrow-right-s-line text-lg opacity-60" />
+                  <i className="ri-arrow-right-s-line text-lg opacity-40" />
                 </a>
               );
             })}
@@ -236,7 +236,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 setMobileMenuOpen(false);
                 playTactileClick();
               }}
-              className="flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-semibold text-white bg-gradient-to-r from-rose-600 to-red-600 mt-2 shadow-lg shadow-rose-600/30"
+              className="flex items-center justify-between px-5 py-3 rounded-2xl text-base font-semibold text-zinc-950 bg-white mt-3"
             >
               <span>Hubungi Saya via Email</span>
               <i className="ri-mail-send-line text-lg" />
@@ -244,8 +244,8 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
           </div>
 
           {/* Mobile Footer Drawer */}
-          <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-            <span className="flex items-center gap-1.5 text-emerald-400">
+          <div className="pt-4 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
+            <span className="flex items-center gap-1.5 text-zinc-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
               Siap Menerima Peluang Proyek
             </span>
@@ -254,7 +254,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 href="https://github.com/Dimss-W"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-lg text-slate-300 hover:text-rose-400"
+                className="text-lg text-zinc-400 hover:text-white"
                 aria-label="GitHub Dimas"
               >
                 <i className="ri-github-fill" />
@@ -263,7 +263,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 href="https://linkedin.com/in/dimas-wijanarko"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-lg text-slate-300 hover:text-rose-400"
+                className="text-lg text-zinc-400 hover:text-white"
                 aria-label="LinkedIn Dimas"
               >
                 <i className="ri-linkedin-box-fill" />

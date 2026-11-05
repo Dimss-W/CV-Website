@@ -15,10 +15,9 @@ export default function Hero({ profile }: HeroProps) {
   // Stage View Mode: 'photo' or 'lanyard'
   const [heroMode, setHeroMode] = useState<'photo' | 'lanyard'>('photo');
 
-  // Smooth lerping coordinates for 60fps buttery physics
+  // Smooth lerp coordinates for subtle organic 3D parallax
   const [targetPos, setTargetPos] = useState({ x: 0, y: 0 });
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   // Check prefers-reduced-motion
@@ -47,7 +46,6 @@ export default function Hero({ profile }: HeroProps) {
       x: Math.max(-1, Math.min(1, normX)),
       y: Math.max(-1, Math.min(1, normY)),
     });
-    setIsHovered(true);
   }, []);
 
   // Gyroscope / Device Orientation for mobile
@@ -75,7 +73,6 @@ export default function Hero({ profile }: HeroProps) {
 
     const onLeave = () => {
       setTargetPos({ x: 0, y: 0 });
-      setIsHovered(false);
     };
 
     el.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -87,7 +84,7 @@ export default function Hero({ profile }: HeroProps) {
     };
   }, [handleMouseMove]);
 
-  // Spring animation loop (Lerp with friction)
+  // Spring animation loop
   useEffect(() => {
     if (reducedMotion) {
       setCurrentPos({ x: 0, y: 0 });
@@ -116,98 +113,62 @@ export default function Hero({ profile }: HeroProps) {
     return () => cancelAnimationFrame(rafId);
   }, [targetPos, reducedMotion]);
 
-  // Computed 3D transformations
-  const photoRotateX = reducedMotion ? 0 : -currentPos.y * 12;
-  const photoRotateY = reducedMotion ? 0 : currentPos.x * 14;
-  const photoTranslateX = reducedMotion ? 0 : currentPos.x * 18;
-  const photoTranslateY = reducedMotion ? 0 : currentPos.y * 12;
-
-  const bgTextTranslateX = reducedMotion ? 0 : -currentPos.x * 30;
-  const bgTextTranslateY = reducedMotion ? 0 : -currentPos.y * 12;
-
-  const badge1TranslateX = reducedMotion ? 0 : currentPos.x * 24;
-  const badge1TranslateY = reducedMotion ? 0 : currentPos.y * 18;
-
-  const badge2TranslateX = reducedMotion ? 0 : -currentPos.x * 20;
-  const badge2TranslateY = reducedMotion ? 0 : currentPos.y * 16;
+  // Subtle 3D tilt values (smooth and gentle)
+  const photoRotateX = reducedMotion ? 0 : -currentPos.y * 7;
+  const photoRotateY = reducedMotion ? 0 : currentPos.x * 8;
+  const photoTranslateX = reducedMotion ? 0 : currentPos.x * 12;
+  const photoTranslateY = reducedMotion ? 0 : currentPos.y * 8;
 
   return (
     <section
       ref={containerRef}
       id="home"
-      className="relative min-h-[95vh] sm:min-h-screen flex items-center justify-center pt-24 pb-16 sm:py-28 overflow-hidden bg-cyber-grid"
+      className="relative min-h-[92vh] sm:min-h-screen flex items-center justify-center pt-28 pb-16 sm:py-28 overflow-hidden"
       aria-label="Beranda Profil Dimas Wijanarko"
     >
-      {/* Background Glowing Ambient Orbs (Cyber Crimson & Amber Flame) */}
-      <div
-        className="glow-orb w-[450px] sm:w-[600px] h-[450px] sm:h-[600px] bg-rose-600/18 top-[-10%] left-[-10%]"
-        style={{
-          transform: `translate3d(${currentPos.x * 35}px, ${currentPos.y * 35}px, 0)`,
-          transition: 'transform 0.4s ease-out',
-        }}
-      />
-      <div
-        className="glow-orb w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-red-700/15 bottom-[-15%] right-[-10%]"
-        style={{
-          transform: `translate3d(${-currentPos.x * 35}px, ${-currentPos.y * 35}px, 0)`,
-          transition: 'transform 0.4s ease-out',
-        }}
-      />
-      <div className="glow-orb w-[300px] h-[300px] bg-amber-500/12 top-[40%] left-[25%]" />
-
-      {/* Parallax Background Typographic Watermark */}
-      <div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 overflow-hidden"
-        style={{
-          transform: `translate3d(${bgTextTranslateX}px, ${bgTextTranslateY}px, 0)`,
-          transition: reducedMotion ? 'none' : 'transform 0.1s linear',
-        }}
+      {/* Subtle organic background spotlight */}
+      <div 
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/[0.02] rounded-full blur-3xl pointer-events-none"
         aria-hidden="true"
-      >
-        <span className="text-[12vw] font-black uppercase tracking-tighter text-white/[0.02] leading-none whitespace-nowrap">
-          DIMAS WIJANARKO
-        </span>
-      </div>
+      />
 
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
-          {/* Left Column: Hero Content & Value Proposition (7 Cols on Desktop) */}
-          <div className="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1 reveal-left">
+          {/* Left Column: Human Content & Value Proposition (7 Cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1 reveal-on-scroll">
             
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-400/25 text-rose-300 text-xs font-semibold w-fit mb-4 sm:mb-5 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-medium w-fit mb-5 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
               <span>Tersedia untuk Peluang Full-Time &amp; Proyek Industri</span>
             </div>
 
-            {/* Name & Role */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12] mb-3 sm:mb-4">
-              Halo, Saya <br className="hidden sm:inline" />
-              <span className="gradient-text-ruby">Dimas Wijanarko</span>
+            {/* Name & Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.15] mb-3">
+              Dimas Wijanarko
             </h1>
 
-            <p className="text-base sm:text-xl text-slate-200 font-medium leading-snug mb-3">
-              Full Stack Web &amp; Mobile Software Engineer <br className="hidden sm:inline" />
-              <span className="text-rose-400">&amp; Enterprise Data Analytics Specialist</span>
+            <p className="text-lg sm:text-xl text-zinc-300 font-medium leading-relaxed mb-4">
+              Full Stack Software Engineer &amp; Mahasiswa Sistem Informasi
             </p>
 
-            <p className="text-xs sm:text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl mb-7 sm:mb-8">
-              Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika (UBSI). Berpengalaman 
-              merancang arsitektur aplikasi mobile berbasis Flutter terintegrasi backend Laravel, 
-              serta membangun dashboard analitik Power BI &amp; kecerdasan visual Gemini AI untuk sistem operasional nyata.
+            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl mb-8">
+              Mahasiswa aktif Sistem Informasi Universitas Bina Sarana Informatika (UBSI). Berpengalaman 
+              merancang arsitektur aplikasi mobile (Flutter) terintegrasi backend (Laravel &amp; REST API), 
+              serta membangun visualisasi analitik data (Power BI) untuk kebutuhan bisnis nyata.
             </p>
 
-            {/* Interactive CTAs */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8 sm:mb-10">
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-10">
               <a
                 href="#projects"
                 onClick={playTactileClick}
-                className="btn-primary flex-1 sm:flex-initial active:scale-95 transition-transform"
+                className="btn-primary"
                 aria-label="Jelajahi portofolio proyek"
               >
-                <span>Eksplorasi Proyek</span>
-                <i className="ri-arrow-right-line text-lg" />
+                <span>Lihat Portofolio</span>
+                <i className="ri-arrow-right-line text-base" />
               </a>
 
               <a
@@ -215,73 +176,73 @@ export default function Hero({ profile }: HeroProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={playTactileClick}
-                className="btn-secondary flex-1 sm:flex-initial active:scale-95 transition-transform"
+                className="btn-secondary"
                 aria-label="Unduh CV ATS resmi Dimas Wijanarko"
               >
-                <i className="ri-file-pdf-2-line text-rose-400 text-lg" />
-                <span>Unduh CV (ATS PDF)</span>
+                <i className="ri-file-pdf-2-line text-zinc-300 text-base" />
+                <span>Unduh CV (ATS)</span>
               </a>
 
               <a
                 href="#contact"
                 onClick={playTactileClick}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 active:scale-95 transition-all w-full sm:w-auto"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 transition-all"
               >
-                <i className="ri-mail-line text-rose-400 text-base" />
-                <span>Hubungi Saya</span>
+                <i className="ri-mail-line text-base" />
+                <span>Hubungi via Email</span>
               </a>
             </div>
 
-            {/* Quick Metrics Bento Bar with Scroll Scale Animation */}
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-5 sm:pt-6 border-t border-white/8 reveal-scale delay-200">
-              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left hover:border-rose-500/40 transition-all">
-                <div className="text-lg sm:text-2xl font-black text-white font-mono">
+            {/* Key Metrics Bento */}
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-6 border-t border-zinc-800/80">
+              <div className="p-3.5 rounded-xl bg-zinc-900/50 border border-zinc-800/80 text-left">
+                <div className="text-xl sm:text-2xl font-bold text-white font-mono">
                   6+
                 </div>
-                <div className="text-[10px] sm:text-xs text-slate-400 font-medium mt-0.5">
-                  Proyek Produksi
+                <div className="text-xs text-zinc-400 mt-0.5">
+                  Proyek Nyata
                 </div>
               </div>
 
-              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left hover:border-rose-500/40 transition-all">
-                <div className="text-lg sm:text-2xl font-black text-rose-400 font-mono">
+              <div className="p-3.5 rounded-xl bg-zinc-900/50 border border-zinc-800/80 text-left">
+                <div className="text-xl sm:text-2xl font-bold text-zinc-200 font-mono">
                   2 BNSP
                 </div>
-                <div className="text-[10px] sm:text-xs text-slate-400 font-medium mt-0.5">
+                <div className="text-xs text-zinc-400 mt-0.5">
                   Sertifikasi Resmi
                 </div>
               </div>
 
-              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left hover:border-amber-500/40 transition-all">
-                <div className="text-lg sm:text-2xl font-black text-amber-400 font-mono">
+              <div className="p-3.5 rounded-xl bg-zinc-900/50 border border-zinc-800/80 text-left">
+                <div className="text-xl sm:text-2xl font-bold text-white font-mono">
                   Juara 1
                 </div>
-                <div className="text-[10px] sm:text-xs text-slate-400 font-medium mt-0.5">
+                <div className="text-xs text-zinc-400 mt-0.5">
                   IT Bootcamp UBSI
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: 3D Interactive Stage with Dual Modes (5 Cols on Desktop) */}
-          <div className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2 reveal-right">
+          {/* Right Column: Clean Visual Showcase (5 Cols) */}
+          <div className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2 reveal-on-scroll delay-100">
             
-            {/* Interactive Mode Segmented Toggle */}
-            <div className="flex items-center gap-1.5 p-1 rounded-full bg-slate-900/80 border border-white/10 backdrop-blur-md mb-4 z-30 shadow-lg">
+            {/* Minimalist Switcher */}
+            <div className="flex items-center gap-1 p-1 rounded-full bg-zinc-900 border border-zinc-800 mb-4 z-20">
               <button
                 type="button"
                 onClick={() => {
                   setHeroMode('photo');
                   playSoftPop();
                 }}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all ${
                   heroMode === 'photo'
-                    ? 'bg-gradient-to-r from-rose-600 to-red-600 text-white shadow-md shadow-rose-600/35'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-zinc-800 text-white font-semibold'
+                    : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
-                <i className="ri-user-smile-line text-sm" />
-                <span>Foto 3D Parallax</span>
+                <i className="ri-user-line text-sm" />
+                <span>Foto Profil</span>
               </button>
 
               <button
@@ -290,125 +251,95 @@ export default function Hero({ profile }: HeroProps) {
                   setHeroMode('lanyard');
                   playSoftPop();
                 }}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-all ${
                   heroMode === 'lanyard'
-                    ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md shadow-red-600/35'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-zinc-800 text-white font-semibold'
+                    : 'text-zinc-400 hover:text-zinc-200'
                 }`}
               >
                 <i className="ri-id-card-line text-sm" />
-                <span>Kartu ID 3D (Tarik/Goyang)</span>
+                <span>Kartu ID Interaktif</span>
               </button>
             </div>
 
             {/* Stage Container */}
             {heroMode === 'photo' ? (
               <div
-                className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[450px] aspect-[4/5] flex items-center justify-center"
-                style={{
-                  perspective: '1200px',
-                }}
+                className="relative w-full max-w-[320px] sm:max-w-[380px] aspect-[4/5] flex items-center justify-center"
+                style={{ perspective: '1000px' }}
               >
-                {/* Backing Luminous Halo Ring in Ruby & Flame */}
+                {/* Clean Frame Background */}
                 <div
-                  className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-rose-600/25 via-red-600/18 to-amber-600/20 border border-rose-400/25 blur-xl opacity-85"
+                  className="absolute inset-2 rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-sm overflow-hidden shadow-2xl"
                   style={{
-                    transform: `translate3d(${-photoTranslateX * 0.5}px, ${-photoTranslateY * 0.5}px, -40px)`,
-                    transition: reducedMotion ? 'none' : 'transform 0.15s ease-out',
+                    transform: `rotateX(${photoRotateX * 0.5}deg) rotateY(${photoRotateY * 0.5}deg)`,
+                    transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                 />
 
-                {/* Geometric Cyber Frame */}
+                {/* Portrait Image with subtle tilt */}
                 <div
-                  className="absolute inset-2 sm:inset-4 rounded-3xl border border-white/10 bg-slate-950/50 backdrop-blur-md overflow-hidden shadow-2xl"
+                  className="relative z-10 w-full h-full flex items-end justify-center select-none"
                   style={{
-                    transform: `rotateX(${photoRotateX * 0.6}deg) rotateY(${photoRotateY * 0.6}deg)`,
-                    transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',
-                  }}
-                >
-                  <div className="absolute inset-0 bg-cyber-dots opacity-40" />
-                  <div className="absolute top-3 left-3 text-[10px] font-mono text-rose-400/70 uppercase">
-                    UBSI // SYS-INF // 2026
-                  </div>
-                  <div className="absolute bottom-3 right-3 text-[10px] font-mono text-slate-500">
-                    LAT: -6.2088 • LONG: 106.8456
-                  </div>
-                </div>
-
-                {/* 3D Parallax Cutout Photo with Lerp Physics */}
-                <div
-                  className="relative z-20 w-full h-full flex items-end justify-center select-none pointer-events-none"
-                  style={{
-                    transform: `translate3d(${photoTranslateX}px, ${photoTranslateY}px, 30px) rotateX(${photoRotateX}deg) rotateY(${photoRotateY}deg)`,
+                    transform: `translate3d(${photoTranslateX}px, ${photoTranslateY}px, 20px) rotateX(${photoRotateX}deg) rotateY(${photoRotateY}deg)`,
                     transformStyle: 'preserve-3d',
                     transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                 >
                   <img
                     src="/dimas-cutout.png"
-                    alt="Dimas Wijanarko - Full Stack Engineer"
-                    className="w-auto h-[95%] sm:h-[98%] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] filter brightness-105 contrast-105"
+                    alt="Dimas Wijanarko - Software Engineer"
+                    className="w-auto h-[96%] object-contain drop-shadow-xl"
                     loading="eager"
-                  />
-
-                  {/* Specular Light Glint in Crimson */}
-                  <div
-                    className="absolute inset-0 rounded-3xl pointer-events-none"
-                    style={{
-                      background: `radial-gradient(circle at ${(currentPos.x + 1) * 50}% ${(currentPos.y + 1) * 50}%, rgba(255,255,255,0.2) 0%, transparent 60%)`,
-                      mixBlendMode: 'overlay',
-                      opacity: isHovered ? 0.8 : 0.3,
-                      transition: 'opacity 0.3s ease',
-                    }}
                   />
                 </div>
 
-                {/* Floating Glass Bento Badge 1: BNSP Certified */}
+                {/* Refined Floating Badge 1: BNSP */}
                 <div
-                  className="absolute -top-3 -right-2 sm:-right-4 z-30 glass-panel p-2.5 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 shadow-xl border-rose-400/35 animate-float"
+                  className="absolute -top-2 -right-2 z-20 p-2.5 sm:p-3 rounded-xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 shadow-xl flex items-center gap-2.5"
                   style={{
-                    transform: `translate3d(${badge1TranslateX}px, ${badge1TranslateY}px, 60px)`,
+                    transform: `translate3d(${photoTranslateX * 0.8}px, ${photoTranslateY * 0.8}px, 30px)`,
                     transition: reducedMotion ? 'none' : 'transform 0.14s ease-out',
                   }}
                 >
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-rose-600/20 border border-rose-400/40 flex items-center justify-center text-rose-300 text-lg sm:text-xl shrink-0">
-                    <i className="ri-shield-check-fill" />
+                  <div className="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-300 text-base shrink-0">
+                    <i className="ri-shield-check-line" />
                   </div>
                   <div>
-                    <div className="text-[11px] sm:text-xs font-bold text-white leading-tight">
-                      Tersertifikasi BNSP RI
+                    <div className="text-xs font-semibold text-white">
+                      BNSP Certified
                     </div>
-                    <div className="text-[9px] sm:text-[10px] text-rose-300/80 font-mono">
+                    <div className="text-[10px] text-zinc-400">
                       Database Administrator
                     </div>
                   </div>
                 </div>
 
-                {/* Floating Glass Bento Badge 2: Juara 1 IT Bootcamp */}
+                {/* Refined Floating Badge 2: Juara 1 */}
                 <div
-                  className="absolute -bottom-4 -left-2 sm:-left-4 z-30 glass-panel p-2.5 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 shadow-xl border-amber-400/35"
+                  className="absolute -bottom-2 -left-2 z-20 p-2.5 sm:p-3 rounded-xl bg-zinc-900/90 backdrop-blur-md border border-zinc-800 shadow-xl flex items-center gap-2.5"
                   style={{
-                    transform: `translate3d(${badge2TranslateX}px, ${badge2TranslateY}px, 70px)`,
-                    transition: reducedMotion ? 'none' : 'transform 0.16s ease-out',
+                    transform: `translate3d(${-photoTranslateX * 0.8}px, ${photoTranslateY * 0.8}px, 30px)`,
+                    transition: reducedMotion ? 'none' : 'transform 0.14s ease-out',
                   }}
                 >
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-amber-500/15 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg sm:text-xl shrink-0">
-                    <i className="ri-trophy-fill" />
+                  <div className="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-amber-300 text-base shrink-0">
+                    <i className="ri-trophy-line" />
                   </div>
                   <div>
-                    <div className="text-[11px] sm:text-xs font-bold text-white leading-tight">
+                    <div className="text-xs font-semibold text-white">
                       Juara 1 IT Bootcamp
                     </div>
-                    <div className="text-[9px] sm:text-[10px] text-amber-300/80 font-mono">
-                      Seluruh Kampus UBSI
+                    <div className="text-[10px] text-zinc-400">
+                      Software Development 2025
                     </div>
                   </div>
                 </div>
 
               </div>
             ) : (
-              /* Mode 2: Interactive Draggable 3D Lanyard Card */
-              <div className="w-full max-w-[380px] sm:max-w-[420px] py-4">
+              /* Mode 2: Interactive ID Card */
+              <div className="w-full max-w-[360px] py-2">
                 <LanyardCard profile={profile} />
               </div>
             )}

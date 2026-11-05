@@ -23,36 +23,36 @@ export default function MobileQuickDock() {
       }`}
       aria-label="Aksi Cepat Seluler"
     >
-      <div className="pointer-events-auto flex items-center justify-between gap-1 p-2 rounded-2xl bg-[#0b0e15]/95 backdrop-blur-2xl border border-white/12 shadow-[0_12px_40px_rgba(0,0,0,0.85),0_0_25px_rgba(225,29,72,0.25)]">
+      <div className="pointer-events-auto flex items-center justify-between gap-1 p-1.5 rounded-2xl bg-zinc-950/90 backdrop-blur-xl border border-zinc-800 shadow-xl">
         
         {/* Proyek Button */}
         <a
           href="#projects"
           onClick={playTactileClick}
-          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-300 hover:text-rose-300 hover:bg-white/5 active:scale-95 transition-all text-center"
+          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors text-center"
         >
-          <i className="ri-folder-open-line text-lg text-rose-400" />
-          <span className="text-[10px] font-semibold mt-0.5">Proyek</span>
+          <i className="ri-folder-open-line text-base text-zinc-300" />
+          <span className="text-[10px] font-medium mt-0.5">Proyek</span>
         </a>
 
         {/* Keahlian Button */}
         <a
           href="#skills"
           onClick={playTactileClick}
-          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-300 hover:text-rose-300 hover:bg-white/5 active:scale-95 transition-all text-center"
+          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors text-center"
         >
-          <i className="ri-cpu-line text-lg text-red-400" />
-          <span className="text-[10px] font-semibold mt-0.5">Keahlian</span>
+          <i className="ri-cpu-line text-base text-zinc-300" />
+          <span className="text-[10px] font-medium mt-0.5">Keahlian</span>
         </a>
 
         {/* Email Direct Hub */}
         <a
           href="mailto:dmswijanarko@gmail.com?subject=Peluang%20Proyek%20/%20Rekrutmen"
           onClick={playTactileClick}
-          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-slate-300 hover:text-rose-300 hover:bg-white/5 active:scale-95 transition-all text-center"
+          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl text-zinc-400 hover:text-white hover:bg-zinc-900 transition-colors text-center"
         >
-          <i className="ri-mail-line text-lg text-amber-400" />
-          <span className="text-[10px] font-semibold mt-0.5">Email</span>
+          <i className="ri-mail-line text-base text-zinc-300" />
+          <span className="text-[10px] font-medium mt-0.5">Email</span>
         </a>
 
         {/* Unduh CV ATS Button */}
@@ -61,10 +61,10 @@ export default function MobileQuickDock() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={playTactileClick}
-          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-gradient-to-r from-rose-600 via-red-600 to-amber-600 text-white font-bold active:scale-95 shadow-md shadow-rose-600/35 transition-all text-center"
+          className="flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-white text-zinc-950 font-semibold active:scale-95 transition-all text-center"
         >
-          <i className="ri-file-download-line text-lg" />
-          <span className="text-[10px] mt-0.5">Unduh CV</span>
+          <i className="ri-file-download-line text-base" />
+          <span className="text-[10px] mt-0.5">CV ATS</span>
         </a>
 
       </div>
