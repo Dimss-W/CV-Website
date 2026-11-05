@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Profile } from '@/types';
 import { submitContactMessage } from '@/lib/data';
+import { playTactileClick } from '@/lib/sound';
 
 interface ContactSectionProps {
   profile: Profile;
@@ -18,14 +19,18 @@ export default function ContactSection({ profile }: ContactSectionProps) {
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [emailCopied, setEmailCopied] = useState(false);
 
+  const contactEmail = profile.email || 'dmswijanarko@gmail.com';
+
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(profile.email || 'dmswijanarko@gmail.com');
+    playTactileClick();
+    navigator.clipboard.writeText(contactEmail);
     setEmailCopied(true);
     setTimeout(() => setEmailCopied(false), 2500);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    playTactileClick();
     if (!formData.sender_name || !formData.sender_email || !formData.message) {
       setStatusMessage({ type: 'error', text: 'Mohon lengkapi Nama, Email, dan Pesan Anda.' });
       return;
@@ -51,13 +56,13 @@ export default function ContactSection({ profile }: ContactSectionProps) {
       } else {
         setStatusMessage({
           type: 'error',
-          text: 'Pesan gagal dikirim. Silakan hubungi langsung via email atau WhatsApp.',
+          text: `Pesan gagal dikirim. Silakan hubungi langsung via email ke ${contactEmail}.`,
         });
       }
     } catch {
       setStatusMessage({
         type: 'error',
-        text: 'Pesan gagal dikirim. Silakan hubungi langsung via email atau WhatsApp.',
+        text: `Pesan gagal dikirim. Silakan hubungi langsung via email ke ${contactEmail}.`,
       });
     } finally {
       setLoading(false);
@@ -65,40 +70,36 @@ export default function ContactSection({ profile }: ContactSectionProps) {
     }
   };
 
-  const whatsappMessage = encodeURIComponent(
-    'Halo Dimas Wijanarko, saya tertarik dengan portofolio Anda dan ingin berdiskusi mengenai peluang proyek / kerja sama.'
-  );
-
   return (
-    <section id="contact" className="py-20 sm:py-28 relative bg-[#06090f] overflow-hidden">
-      {/* Background glow */}
-      <div className="glow-orb w-[500px] h-[500px] bg-cyan-600/10 top-1/3 right-[-15%]" />
+    <section id="contact" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
+      {/* Background glow in Violet & Indigo */}
+      <div className="glow-orb w-[500px] h-[500px] bg-violet-600/12 top-1/3 right-[-15%]" />
       <div className="glow-orb w-[500px] h-[500px] bg-indigo-600/10 bottom-10 left-[-15%]" />
 
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-14 sm:mb-20">
+        {/* Section Header with Scroll Reveal */}
+        <div className="flex flex-col items-center text-center mb-14 sm:mb-20 reveal-scale">
           <div className="section-tag">
-            <i className="ri-chat-smile-2-line text-cyan-400" />
+            <i className="ri-mail-send-line text-violet-400" />
             <span>Kolaborasi &amp; Rekrutmen</span>
           </div>
           <h2 className="section-heading mb-4">
-            Mari Mulai <span className="gradient-text-cyan">Kolaborasi Digital</span>
+            Mari Mulai <span className="gradient-text-violet">Kolaborasi Digital</span>
           </h2>
           <p className="section-description">
             Apakah Anda memiliki proyek inovatif, kebutuhan software engineer full-stack, 
-            atau peluang karir profesional? Saya siap berdiskusi dan memberikan dampak nyata.
+            atau peluang karir profesional? Hubungi langsung via email resmi saya di bawah ini.
           </p>
         </div>
 
         {/* 2-Column Split Studio */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
-          {/* Left Column: Direct Access Hub (5 Cols) */}
-          <div className="lg:col-span-5 space-y-5">
+          {/* Left Column: Direct Email Access Hub (5 Cols) with Reveal Left */}
+          <div className="lg:col-span-5 space-y-5 reveal-left">
             {/* Availability Banner */}
-            <div className="glass-panel p-6 border-cyan-400/25 relative overflow-hidden">
+            <div className="glass-panel p-6 border-violet-500/25 relative overflow-hidden">
               <div className="flex items-center gap-2.5 text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider mb-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 pulse-indicator" />
                 <span>Status Ketersediaan: Aktif</span>
@@ -112,56 +113,44 @@ export default function ContactSection({ profile }: ContactSectionProps) {
               </p>
             </div>
 
-            {/* Quick Email Copy Card */}
-            <div className="glass-panel p-5 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3 truncate">
-                <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-400/30 flex items-center justify-center text-cyan-300 text-lg shrink-0">
-                  <i className="ri-mail-line" />
+            {/* Official Email Direct Card with 1-Click Copy */}
+            <div className="glass-panel p-5 flex flex-col gap-4 border-violet-500/30">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 truncate">
+                  <div className="w-11 h-11 rounded-xl bg-violet-600/20 border border-violet-400/40 flex items-center justify-center text-violet-300 text-xl shrink-0">
+                    <i className="ri-mail-check-fill" />
+                  </div>
+                  <div className="truncate">
+                    <span className="text-[10px] font-mono uppercase text-violet-400 block font-semibold">
+                      Kanal Komunikasi Resmi
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-white truncate block">
+                      {contactEmail}
+                    </span>
+                  </div>
                 </div>
-                <div className="truncate">
-                  <span className="text-[10px] font-mono uppercase text-slate-400 block">
-                    Alamat Email Resmi
-                  </span>
-                  <span className="text-xs sm:text-sm font-semibold text-white truncate block">
-                    {profile.email || 'dmswijanarko@gmail.com'}
-                  </span>
-                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className="px-3 py-1.5 rounded-lg bg-violet-600/15 hover:bg-violet-600/30 text-violet-300 border border-violet-400/30 text-xs font-mono transition-all shrink-0 flex items-center gap-1.5 active:scale-95"
+                  title="Salin Alamat Email"
+                >
+                  <i className={emailCopied ? 'ri-checkbox-circle-line text-emerald-400' : 'ri-file-copy-line'} />
+                  <span>{emailCopied ? 'Tersalin!' : 'Salin'}</span>
+                </button>
               </div>
 
-              <button
-                type="button"
-                onClick={handleCopyEmail}
-                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-cyan-500/20 text-slate-300 hover:text-cyan-300 border border-white/10 text-xs font-mono transition-colors shrink-0 flex items-center gap-1.5"
-                title="Salin Email ke Clipboard"
+              {/* Direct Mailto Launcher */}
+              <a
+                href={`mailto:${contactEmail}?subject=Peluang%20Kolaborasi%20Proyek%20/%20Rekrutmen%20-%20Dimas%20Wijanarko`}
+                onClick={playTactileClick}
+                className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white/[0.04] hover:bg-violet-600/20 border border-white/10 hover:border-violet-400/40 text-xs font-semibold text-slate-200 hover:text-white transition-all text-center"
               >
-                <i className={emailCopied ? 'ri-checkbox-circle-line text-emerald-400' : 'ri-file-copy-line'} />
-                <span>{emailCopied ? 'Tersalin!' : 'Salin'}</span>
-              </button>
+                <i className="ri-external-link-line text-violet-400" />
+                <span>Buka Aplikasi Email &amp; Tulis Pesan</span>
+              </a>
             </div>
-
-            {/* Direct WhatsApp Button */}
-            <a
-              href={`https://wa.me/6281210850284?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-panel p-5 flex items-center justify-between gap-3 hover:border-emerald-500/40 group transition-all"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center text-emerald-400 text-xl shrink-0 group-hover:scale-105 transition-transform">
-                  <i className="ri-whatsapp-line" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono uppercase text-slate-400 block">
-                    Respons Cepat
-                  </span>
-                  <span className="text-sm font-bold text-white group-hover:text-emerald-300 transition-colors">
-                    Diskusi Langsung via WhatsApp
-                  </span>
-                </div>
-              </div>
-
-              <i className="ri-arrow-right-up-line text-slate-400 group-hover:text-emerald-300 text-lg transition-colors" />
-            </a>
 
             {/* Social Links Matrix */}
             <div className="glass-panel p-5">
@@ -173,6 +162,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   href="https://github.com/Dimss-W"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={playTactileClick}
                   className="p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/8 hover:border-white/20 flex flex-col items-center gap-1 text-center transition-all group"
                 >
                   <i className="ri-github-fill text-xl text-slate-300 group-hover:text-white" />
@@ -183,17 +173,19 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   href="https://linkedin.com/in/dimas-wijanarko"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-white/[0.03] hover:bg-cyan-500/15 border border-white/8 hover:border-cyan-400/30 flex flex-col items-center gap-1 text-center transition-all group"
+                  onClick={playTactileClick}
+                  className="p-3 rounded-xl bg-white/[0.03] hover:bg-violet-600/20 border border-white/8 hover:border-violet-400/35 flex flex-col items-center gap-1 text-center transition-all group"
                 >
-                  <i className="ri-linkedin-box-fill text-xl text-cyan-400 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs font-medium text-slate-300 group-hover:text-cyan-300">LinkedIn</span>
+                  <i className="ri-linkedin-box-fill text-xl text-violet-400 group-hover:scale-110 transition-transform" />
+                  <span className="text-xs font-medium text-slate-300 group-hover:text-violet-300">LinkedIn</span>
                 </a>
 
                 <a
                   href="https://instagram.com/dimsswijanark_"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-white/[0.03] hover:bg-pink-500/15 border border-white/8 hover:border-pink-400/30 flex flex-col items-center gap-1 text-center transition-all group"
+                  onClick={playTactileClick}
+                  className="p-3 rounded-xl bg-white/[0.03] hover:bg-pink-600/20 border border-white/8 hover:border-pink-400/35 flex flex-col items-center gap-1 text-center transition-all group"
                 >
                   <i className="ri-instagram-line text-xl text-pink-400 group-hover:scale-110 transition-transform" />
                   <span className="text-xs font-medium text-slate-300 group-hover:text-pink-300">Instagram</span>
@@ -202,13 +194,13 @@ export default function ContactSection({ profile }: ContactSectionProps) {
             </div>
           </div>
 
-          {/* Right Column: Modern Interactive Form (7 Cols) */}
-          <div className="lg:col-span-7 glass-panel p-6 sm:p-9 relative">
+          {/* Right Column: Modern Interactive Form (7 Cols) with Reveal Right */}
+          <div className="lg:col-span-7 glass-panel p-6 sm:p-9 relative reveal-right">
             <h3 className="text-xl font-bold text-white mb-2">
               Kirimkan Pesan atau Brief Proyek
             </h3>
             <p className="text-xs sm:text-sm text-slate-400 mb-6">
-              Isi formulir di bawah ini, saya akan meninjau dan merespons dalam kurun waktu 1x24 jam.
+              Isi formulir di bawah ini, saya akan meninjau dan merespons via email dalam kurun waktu 1x24 jam.
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -224,7 +216,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                     placeholder="Contoh: Budi Santoso"
                     value={formData.sender_name}
                     onChange={(e) => setFormData({ ...formData, sender_name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-cyan-400 focus:bg-white/[0.06] transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-violet-400 focus:bg-white/[0.06] transition-all"
                   />
                 </div>
 
@@ -239,7 +231,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                     placeholder="nama@perusahaan.com"
                     value={formData.sender_email}
                     onChange={(e) => setFormData({ ...formData, sender_email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-cyan-400 focus:bg-white/[0.06] transition-all"
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-violet-400 focus:bg-white/[0.06] transition-all"
                   />
                 </div>
               </div>
@@ -255,7 +247,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   placeholder="Ceritakan gambaran proyek, target waktu pengerjaan, atau diskusi yang ingin dilakukan..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-cyan-400 focus:bg-white/[0.06] transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-slate-500 text-sm focus:border-violet-400 focus:bg-white/[0.06] transition-all resize-none"
                 />
               </div>
 
@@ -283,7 +275,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full btn-primary py-3.5 text-sm font-bold shadow-lg"
+                className="w-full btn-primary py-3.5 text-sm font-bold shadow-lg active:scale-98"
               >
                 {loading ? (
                   <span className="flex items-center gap-2">

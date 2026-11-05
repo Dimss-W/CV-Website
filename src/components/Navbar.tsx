@@ -71,13 +71,13 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
     <>
       {/* Floating Dynamic Island Navbar */}
       <header
-        className={`fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 transition-all duration-300 pointer-events-none`}
+        className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 transition-all duration-300 pointer-events-none"
       >
         <nav
           className={`pointer-events-auto flex items-center justify-between gap-2.5 sm:gap-6 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 max-w-5xl w-full ${
             scrolled
-              ? 'bg-[#0a0e17]/85 backdrop-blur-xl border border-white/12 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.8),0_0_20px_rgba(56,189,248,0.1)]'
-              : 'bg-[#0a0e17]/50 backdrop-blur-md border border-white/8 shadow-lg'
+              ? 'bg-[#0b0e15]/90 backdrop-blur-xl border border-white/12 shadow-[0_12px_35px_-5px_rgba(0,0,0,0.8),0_0_25px_rgba(139,92,246,0.15)]'
+              : 'bg-[#0b0e15]/55 backdrop-blur-md border border-white/8 shadow-lg'
           }`}
           aria-label="Navigasi Utama"
         >
@@ -88,12 +88,12 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
             className="flex items-center gap-2.5 group shrink-0"
             aria-label="Kembali ke Beranda"
           >
-            <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-500/20 to-sky-400/30 border border-cyan-400/40 flex items-center justify-center text-cyan-300 font-mono font-bold text-xs shadow-[0_0_12px_rgba(56,189,248,0.3)] group-hover:scale-105 transition-transform">
+            <div className="relative w-8 h-8 rounded-full bg-gradient-to-tr from-violet-600/30 to-purple-500/25 border border-violet-400/40 flex items-center justify-center text-violet-300 font-mono font-bold text-xs shadow-[0_0_15px_rgba(139,92,246,0.35)] group-hover:scale-105 transition-transform">
               DW
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0a0e17] pulse-indicator" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0b0e15] pulse-indicator" />
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="text-sm font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors">
+              <span className="text-sm font-bold text-white tracking-tight group-hover:text-violet-300 transition-colors">
                 Dimas Wijanarko
               </span>
               <span className="text-[10px] text-slate-400 font-mono tracking-wider">
@@ -113,7 +113,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                   onClick={playTactileClick}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 relative ${
                     isActive
-                      ? 'text-cyan-300 bg-cyan-500/15 shadow-[0_0_12px_rgba(56,189,248,0.2)] font-semibold'
+                      ? 'text-violet-200 bg-violet-600/25 border border-violet-400/35 shadow-[0_0_15px_rgba(139,92,246,0.25)] font-semibold'
                       : 'text-slate-300 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -129,11 +129,11 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
             <button
               type="button"
               onClick={handleSoundToggle}
-              className="w-8 h-8 rounded-full bg-white/[0.05] hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-300 transition-colors"
+              className="w-8 h-8 rounded-full bg-white/[0.05] hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 hover:text-violet-300 transition-colors"
               title={soundOn ? 'Nonaktifkan Efek Suara' : 'Aktifkan Efek Suara'}
               aria-label="Toggle audio effects"
             >
-              <i className={soundOn ? 'ri-volume-up-line text-sm text-cyan-400' : 'ri-volume-mute-line text-sm text-slate-500'} />
+              <i className={soundOn ? 'ri-volume-up-line text-sm text-violet-400' : 'ri-volume-mute-line text-sm text-slate-500'} />
             </button>
 
             {/* Unduh CV Button */}
@@ -142,10 +142,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={playTactileClick}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/[0.06] hover:bg-cyan-500/15 border border-white/12 hover:border-cyan-400/40 text-xs font-semibold text-slate-200 hover:text-cyan-300 active:scale-95 transition-all duration-200 shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/[0.06] hover:bg-violet-600/20 border border-white/12 hover:border-violet-400/40 text-xs font-semibold text-slate-200 hover:text-violet-300 active:scale-95 transition-all duration-200 shadow-sm"
               title="Unduh Berkas CV ATS Resmi (PDF)"
             >
-              <i className="ri-file-download-line text-sm text-cyan-400" />
+              <i className="ri-file-download-line text-sm text-violet-400" />
               <span className="hidden xs:inline">Unduh CV</span>
             </a>
 
@@ -153,7 +153,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
             <a
               href="#contact"
               onClick={playTactileClick}
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-semibold hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 active:scale-95 transition-all duration-200"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-xs font-semibold hover:shadow-[0_0_22px_rgba(139,92,246,0.5)] hover:brightness-110 active:scale-95 transition-all duration-200"
             >
               <span>Hubungi</span>
               <i className="ri-arrow-right-up-line text-xs" />
@@ -178,18 +178,18 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex flex-col justify-between p-6 lg:hidden animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-2xl flex flex-col justify-between p-6 lg:hidden animate-in fade-in duration-200"
           onClick={() => setMobileMenuOpen(false)}
         >
           {/* Header Mobile Drawer */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 font-mono font-bold text-sm">
+              <div className="w-9 h-9 rounded-full bg-violet-600/25 border border-violet-400/40 flex items-center justify-center text-violet-300 font-mono font-bold text-sm">
                 DW
               </div>
               <div>
                 <div className="text-sm font-bold text-white">Dimas Wijanarko</div>
-                <div className="text-[11px] text-cyan-400 font-mono">Sistem Informasi UBSI</div>
+                <div className="text-[11px] text-violet-400 font-mono">Sistem Informasi UBSI</div>
               </div>
             </div>
 
@@ -220,7 +220,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                   }}
                   className={`flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-semibold transition-all ${
                     isActive
-                      ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-400/30'
+                      ? 'bg-violet-600/20 text-violet-300 border border-violet-400/35'
                       : 'text-slate-300 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -236,9 +236,9 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 setMobileMenuOpen(false);
                 playTactileClick();
               }}
-              className="flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-semibold text-white bg-gradient-to-r from-sky-500 to-cyan-500 mt-2 shadow-lg shadow-sky-500/25"
+              className="flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 mt-2 shadow-lg shadow-violet-600/30"
             >
-              <span>Hubungi Saya</span>
+              <span>Hubungi Saya via Email</span>
               <i className="ri-mail-send-line text-lg" />
             </a>
           </div>
@@ -254,7 +254,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 href="https://github.com/Dimss-W"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-lg text-slate-300 hover:text-cyan-400"
+                className="text-lg text-slate-300 hover:text-violet-400"
                 aria-label="GitHub Dimas"
               >
                 <i className="ri-github-fill" />
@@ -263,7 +263,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 href="https://linkedin.com/in/dimas-wijanarko"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-lg text-slate-300 hover:text-cyan-400"
+                className="text-lg text-slate-300 hover:text-violet-400"
                 aria-label="LinkedIn Dimas"
               >
                 <i className="ri-linkedin-box-fill" />

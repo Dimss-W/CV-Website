@@ -138,21 +138,22 @@ export default function Hero({ profile }: HeroProps) {
       className="relative min-h-[95vh] sm:min-h-screen flex items-center justify-center pt-24 pb-16 sm:py-28 overflow-hidden bg-cyber-grid"
       aria-label="Beranda Profil Dimas Wijanarko"
     >
-      {/* Background Glowing Ambient Orbs */}
+      {/* Background Glowing Ambient Orbs (Violet & Indigo & Amber) */}
       <div
-        className="glow-orb w-[450px] sm:w-[600px] h-[450px] sm:h-[600px] bg-cyan-600/15 top-[-10%] left-[-10%]"
+        className="glow-orb w-[450px] sm:w-[600px] h-[450px] sm:h-[600px] bg-violet-600/18 top-[-10%] left-[-10%]"
         style={{
           transform: `translate3d(${currentPos.x * 35}px, ${currentPos.y * 35}px, 0)`,
           transition: 'transform 0.4s ease-out',
         }}
       />
       <div
-        className="glow-orb w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-indigo-600/12 bottom-[-15%] right-[-10%]"
+        className="glow-orb w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-indigo-700/15 bottom-[-15%] right-[-10%]"
         style={{
           transform: `translate3d(${-currentPos.x * 35}px, ${-currentPos.y * 35}px, 0)`,
           transition: 'transform 0.4s ease-out',
         }}
       />
+      <div className="glow-orb w-[300px] h-[300px] bg-amber-500/10 top-[40%] left-[25%]" />
 
       {/* Parallax Background Typographic Watermark */}
       <div
@@ -163,7 +164,7 @@ export default function Hero({ profile }: HeroProps) {
         }}
         aria-hidden="true"
       >
-        <span className="text-[12vw] font-black uppercase tracking-tighter text-white/[0.022] leading-none whitespace-nowrap">
+        <span className="text-[12vw] font-black uppercase tracking-tighter text-white/[0.02] leading-none whitespace-nowrap">
           DIMAS WIJANARKO
         </span>
       </div>
@@ -172,10 +173,10 @@ export default function Hero({ profile }: HeroProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Hero Content & Value Proposition (7 Cols on Desktop) */}
-          <div className="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1">
+          <div className="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1 reveal-left">
             
             {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/25 text-cyan-300 text-xs font-semibold w-fit mb-4 sm:mb-5 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/25 text-violet-300 text-xs font-semibold w-fit mb-4 sm:mb-5 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
               <span>Tersedia untuk Peluang Full-Time &amp; Proyek Industri</span>
             </div>
@@ -183,12 +184,12 @@ export default function Hero({ profile }: HeroProps) {
             {/* Name & Role */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12] mb-3 sm:mb-4">
               Halo, Saya <br className="hidden sm:inline" />
-              <span className="gradient-text-cyan">Dimas Wijanarko</span>
+              <span className="gradient-text-violet">Dimas Wijanarko</span>
             </h1>
 
             <p className="text-base sm:text-xl text-slate-200 font-medium leading-snug mb-3">
               Full Stack Web &amp; Mobile Software Engineer <br className="hidden sm:inline" />
-              <span className="text-cyan-400">&amp; Enterprise Data Analytics Specialist</span>
+              <span className="text-violet-400">&amp; Enterprise Data Analytics Specialist</span>
             </p>
 
             <p className="text-xs sm:text-sm sm:text-base text-slate-400 leading-relaxed max-w-2xl mb-7 sm:mb-8">
@@ -217,7 +218,7 @@ export default function Hero({ profile }: HeroProps) {
                 className="btn-secondary flex-1 sm:flex-initial active:scale-95 transition-transform"
                 aria-label="Unduh CV ATS resmi Dimas Wijanarko"
               >
-                <i className="ri-file-pdf-2-line text-cyan-400 text-lg" />
+                <i className="ri-file-pdf-2-line text-violet-400 text-lg" />
                 <span>Unduh CV (ATS PDF)</span>
               </a>
 
@@ -226,14 +227,14 @@ export default function Hero({ profile }: HeroProps) {
                 onClick={playTactileClick}
                 className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-white/5 active:scale-95 transition-all w-full sm:w-auto"
               >
-                <i className="ri-chat-1-line text-cyan-400 text-base" />
+                <i className="ri-mail-line text-violet-400 text-base" />
                 <span>Hubungi Saya</span>
               </a>
             </div>
 
-            {/* Quick Metrics Bento Bar */}
-            <div className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-5 sm:pt-6 border-t border-white/8">
-              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left">
+            {/* Quick Metrics Bento Bar with Scroll Scale Animation */}
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-5 sm:pt-6 border-t border-white/8 reveal-scale delay-200">
+              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left hover:border-violet-500/40 transition-all">
                 <div className="text-lg sm:text-2xl font-black text-white font-mono">
                   6+
                 </div>
@@ -242,8 +243,8 @@ export default function Hero({ profile }: HeroProps) {
                 </div>
               </div>
 
-              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left">
-                <div className="text-lg sm:text-2xl font-black text-cyan-400 font-mono">
+              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left hover:border-violet-500/40 transition-all">
+                <div className="text-lg sm:text-2xl font-black text-violet-400 font-mono">
                   2 BNSP
                 </div>
                 <div className="text-[10px] sm:text-xs text-slate-400 font-medium mt-0.5">
@@ -251,7 +252,7 @@ export default function Hero({ profile }: HeroProps) {
                 </div>
               </div>
 
-              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left">
+              <div className="glass-panel p-3 sm:p-4 text-center sm:text-left hover:border-amber-500/40 transition-all">
                 <div className="text-lg sm:text-2xl font-black text-amber-400 font-mono">
                   Juara 1
                 </div>
@@ -263,7 +264,7 @@ export default function Hero({ profile }: HeroProps) {
           </div>
 
           {/* Right Column: 3D Interactive Stage with Dual Modes (5 Cols on Desktop) */}
-          <div className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2">
+          <div className="lg:col-span-5 relative flex flex-col items-center justify-center order-1 lg:order-2 reveal-right">
             
             {/* Interactive Mode Segmented Toggle */}
             <div className="flex items-center gap-1.5 p-1 rounded-full bg-slate-900/80 border border-white/10 backdrop-blur-md mb-4 z-30 shadow-lg">
@@ -275,7 +276,7 @@ export default function Hero({ profile }: HeroProps) {
                 }}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   heroMode === 'photo'
-                    ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-md shadow-cyan-500/25'
+                    ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-600/30'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -291,7 +292,7 @@ export default function Hero({ profile }: HeroProps) {
                 }}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   heroMode === 'lanyard'
-                    ? 'bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-md shadow-indigo-500/25'
+                    ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/30'
                     : 'text-slate-400 hover:text-white'
                 }`}
               >
@@ -308,9 +309,9 @@ export default function Hero({ profile }: HeroProps) {
                   perspective: '1200px',
                 }}
               >
-                {/* Backing Luminous Halo Ring */}
+                {/* Backing Luminous Halo Ring in Violet & Indigo */}
                 <div
-                  className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-cyan-500/20 via-sky-500/10 to-indigo-500/20 border border-cyan-400/20 blur-xl opacity-75"
+                  className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-violet-600/25 via-purple-600/15 to-indigo-600/25 border border-violet-400/25 blur-xl opacity-80"
                   style={{
                     transform: `translate3d(${-photoTranslateX * 0.5}px, ${-photoTranslateY * 0.5}px, -40px)`,
                     transition: reducedMotion ? 'none' : 'transform 0.15s ease-out',
@@ -319,14 +320,14 @@ export default function Hero({ profile }: HeroProps) {
 
                 {/* Geometric Cyber Frame */}
                 <div
-                  className="absolute inset-2 sm:inset-4 rounded-3xl border border-white/10 bg-slate-950/40 backdrop-blur-md overflow-hidden shadow-2xl"
+                  className="absolute inset-2 sm:inset-4 rounded-3xl border border-white/10 bg-slate-950/45 backdrop-blur-md overflow-hidden shadow-2xl"
                   style={{
                     transform: `rotateX(${photoRotateX * 0.6}deg) rotateY(${photoRotateY * 0.6}deg)`,
                     transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',
                   }}
                 >
                   <div className="absolute inset-0 bg-cyber-dots opacity-40" />
-                  <div className="absolute top-3 left-3 text-[10px] font-mono text-cyan-400/60 uppercase">
+                  <div className="absolute top-3 left-3 text-[10px] font-mono text-violet-400/70 uppercase">
                     UBSI // SYS-INF // 2026
                   </div>
                   <div className="absolute bottom-3 right-3 text-[10px] font-mono text-slate-500">
@@ -346,7 +347,7 @@ export default function Hero({ profile }: HeroProps) {
                   <img
                     src="/dimas-cutout.png"
                     alt="Dimas Wijanarko - Full Stack Engineer"
-                    className="w-auto h-[95%] sm:h-[98%] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] filter brightness-105 contrast-105"
+                    className="w-auto h-[95%] sm:h-[98%] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)] filter brightness-105 contrast-105"
                     loading="eager"
                   />
 
@@ -364,20 +365,20 @@ export default function Hero({ profile }: HeroProps) {
 
                 {/* Floating Glass Bento Badge 1: BNSP Certified */}
                 <div
-                  className="absolute -top-3 -right-2 sm:-right-4 z-30 glass-panel p-2.5 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 shadow-xl border-cyan-400/30"
+                  className="absolute -top-3 -right-2 sm:-right-4 z-30 glass-panel p-2.5 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 shadow-xl border-violet-400/35 animate-float"
                   style={{
                     transform: `translate3d(${badge1TranslateX}px, ${badge1TranslateY}px, 60px)`,
                     transition: reducedMotion ? 'none' : 'transform 0.14s ease-out',
                   }}
                 >
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-cyan-500/15 border border-cyan-400/40 flex items-center justify-center text-cyan-300 text-lg sm:text-xl shrink-0">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-violet-600/20 border border-violet-400/40 flex items-center justify-center text-violet-300 text-lg sm:text-xl shrink-0">
                     <i className="ri-shield-check-fill" />
                   </div>
                   <div>
                     <div className="text-[11px] sm:text-xs font-bold text-white leading-tight">
                       Tersertifikasi BNSP RI
                     </div>
-                    <div className="text-[9px] sm:text-[10px] text-cyan-300/80 font-mono">
+                    <div className="text-[9px] sm:text-[10px] text-violet-300/80 font-mono">
                       Database Administrator
                     </div>
                   </div>
@@ -385,7 +386,7 @@ export default function Hero({ profile }: HeroProps) {
 
                 {/* Floating Glass Bento Badge 2: Juara 1 IT Bootcamp */}
                 <div
-                  className="absolute -bottom-4 -left-2 sm:-left-4 z-30 glass-panel p-2.5 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 shadow-xl border-amber-400/30"
+                  className="absolute -bottom-4 -left-2 sm:-left-4 z-30 glass-panel p-2.5 sm:p-3.5 flex items-center gap-2.5 sm:gap-3 shadow-xl border-amber-400/35"
                   style={{
                     transform: `translate3d(${badge2TranslateX}px, ${badge2TranslateY}px, 70px)`,
                     transition: reducedMotion ? 'none' : 'transform 0.16s ease-out',
@@ -406,7 +407,7 @@ export default function Hero({ profile }: HeroProps) {
 
               </div>
             ) : (
-              /* Mode 2: Interactive Draggable 3D Lanyard Card with Silky Rebound Physics */
+              /* Mode 2: Interactive Draggable 3D Lanyard Card */
               <div className="w-full max-w-[380px] sm:max-w-[420px] py-4">
                 <LanyardCard profile={profile} />
               </div>

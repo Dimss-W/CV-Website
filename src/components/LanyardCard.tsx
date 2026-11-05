@@ -286,7 +286,7 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
             viewBox="0 0 360 144"
           >
             <defs>
-              {/* Futuristic Cyber Carbon & Indigo-Cyan Ribbon Gradient */}
+              {/* Futuristic Cyber Carbon & Indigo-Violet Ribbon Gradient */}
               <linearGradient id="modernStrapGradLeft" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#1e1b4b" />
                 <stop offset="40%" stopColor="#4338ca" />

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Experience } from '@/types';
+import { playTactileClick } from '@/lib/sound';
 
 interface ExperienceSectionProps {
   experiences: Experience[];
@@ -45,21 +46,21 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
   }, [modal.open, modal.exp?.images]);
 
   return (
-    <section id="experience" className="py-20 sm:py-28 relative bg-[#05070b] overflow-hidden">
-      {/* Background glow */}
-      <div className="glow-orb w-[500px] h-[500px] bg-indigo-600/10 top-1/4 right-[-10%]" />
-      <div className="glow-orb w-[450px] h-[450px] bg-cyan-600/10 bottom-10 left-[-10%]" />
+    <section id="experience" className="py-20 sm:py-28 relative bg-[#06070a] overflow-hidden">
+      {/* Background glow in Violet & Indigo */}
+      <div className="glow-orb w-[500px] h-[500px] bg-violet-600/12 top-1/4 right-[-10%]" />
+      <div className="glow-orb w-[450px] h-[450px] bg-indigo-600/10 bottom-10 left-[-10%]" />
 
       <div className="container max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-14 sm:mb-20">
+        {/* Section Header with Scroll Reveal */}
+        <div className="flex flex-col items-center text-center mb-14 sm:mb-20 reveal-scale">
           <div className="section-tag">
-            <i className="ri-briefcase-line text-cyan-400" />
+            <i className="ri-briefcase-line text-violet-400" />
             <span>Rekam Jejak &amp; Pengabdian</span>
           </div>
           <h2 className="section-heading mb-4">
-            Pengalaman <span className="gradient-text-cyan">Profesional &amp; Industri</span>
+            Pengalaman <span className="gradient-text-violet">Profesional &amp; Industri</span>
           </h2>
           <p className="section-description">
             Keterlibatan nyata dalam membangun produk perangkat lunak berskala besar, 
@@ -67,16 +68,17 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
           </p>
         </div>
 
-        {/* Vertical Interactive Timeline */}
-        <div className="relative pl-6 sm:pl-10 border-l-2 border-white/10 space-y-10 sm:space-y-12">
+        {/* Vertical Interactive Timeline with Directional Reveals */}
+        <div className="relative pl-6 sm:pl-10 border-l-2 border-violet-500/20 space-y-10 sm:space-y-12">
           {experiences.map((item, index) => {
             const hasImages = Boolean(item.images && item.images.length > 0);
+            const revealClass = index % 2 === 0 ? 'reveal-left' : 'reveal-right';
 
             return (
-              <div key={item.id || index} className="relative group">
-                {/* Glowing Node Marker */}
-                <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-6 h-6 rounded-full bg-[#05070b] border-2 border-cyan-400 flex items-center justify-center group-hover:scale-125 group-hover:border-white transition-all shadow-[0_0_12px_rgba(56,189,248,0.6)]">
-                  <div className="w-2 h-2 rounded-full bg-cyan-300" />
+              <div key={item.id || index} className={`relative group ${revealClass}`}>
+                {/* Glowing Node Marker in Electric Violet */}
+                <div className="absolute -left-[31px] sm:-left-[47px] top-1.5 w-6 h-6 rounded-full bg-[#06070a] border-2 border-violet-400 flex items-center justify-center group-hover:scale-125 group-hover:border-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.7)]">
+                  <div className="w-2 h-2 rounded-full bg-violet-300" />
                 </div>
 
                 {/* Experience Card */}
@@ -84,10 +86,10 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                   {/* Card Header */}
                   <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div>
-                      <span className="text-xs font-mono font-semibold text-cyan-400 tracking-wider uppercase block mb-1">
+                      <span className="text-xs font-mono font-semibold text-violet-400 tracking-wider uppercase block mb-1">
                         {item.company} {item.location ? `• ${item.location}` : ''}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">
+                      <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-violet-300 transition-colors">
                         {item.role}
                       </h3>
                     </div>
@@ -113,7 +115,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                     <div className="mb-6 pt-5 border-t border-white/8">
                       <div className="flex items-center justify-between mb-3">
                         <span className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
-                          <i className="ri-camera-3-line text-cyan-400 text-sm" />
+                          <i className="ri-camera-3-line text-violet-400 text-sm" />
                           Dokumentasi Pembelajaran ({item.images!.length} Foto)
                         </span>
                         <span className="text-[11px] text-slate-400 font-mono">
@@ -128,8 +130,11 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                             <button
                               key={i}
                               type="button"
-                              onClick={() => setModal({ open: true, exp: item, imgIdx: i })}
-                              className="group/img relative aspect-[4/3] rounded-xl overflow-hidden bg-black/40 border border-white/10 hover:border-cyan-400/50 transition-all text-left"
+                              onClick={() => {
+                                setModal({ open: true, exp: item, imgIdx: i });
+                                playTactileClick();
+                              }}
+                              className="group/img relative aspect-[4/3] rounded-xl overflow-hidden bg-black/40 border border-white/10 hover:border-violet-400/60 transition-all text-left"
                             >
                               <img
                                 src={img}
@@ -172,7 +177,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
       {/* High-Resolution Photo Lightbox Modal */}
       {modal.open && modal.exp && modal.exp.images && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6"
           onClick={() => setModal((p) => ({ ...p, open: false }))}
         >
           <div
@@ -182,7 +187,7 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
             {/* Modal header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
               <div>
-                <span className="text-xs font-mono text-cyan-400 uppercase">
+                <span className="text-xs font-mono text-violet-400 uppercase">
                   {modal.exp.company}
                 </span>
                 <h4 className="text-base sm:text-lg font-bold text-white">
@@ -213,12 +218,13 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                 <>
                   <button
                     type="button"
-                    onClick={() =>
+                    onClick={() => {
                       setModal((p) => ({
                         ...p,
                         imgIdx: (p.imgIdx - 1 + (modal.exp?.images?.length || 1)) % (modal.exp?.images?.length || 1),
-                      }))
-                    }
+                      }));
+                      playTactileClick();
+                    }}
                     className="absolute left-3 w-10 h-10 rounded-full bg-black/70 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center transition-all"
                     aria-label="Foto Sebelumnya"
                   >
@@ -227,12 +233,13 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
 
                   <button
                     type="button"
-                    onClick={() =>
+                    onClick={() => {
                       setModal((p) => ({
                         ...p,
                         imgIdx: (p.imgIdx + 1) % (modal.exp?.images?.length || 1),
-                      }))
-                    }
+                      }));
+                      playTactileClick();
+                    }}
                     className="absolute right-3 w-10 h-10 rounded-full bg-black/70 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center transition-all"
                     aria-label="Foto Selanjutnya"
                   >
@@ -253,10 +260,13 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                   <button
                     key={idx}
                     type="button"
-                    onClick={() => setModal((p) => ({ ...p, imgIdx: idx }))}
+                    onClick={() => {
+                      setModal((p) => ({ ...p, imgIdx: idx }));
+                      playTactileClick();
+                    }}
                     className={`h-10 w-14 rounded-lg overflow-hidden border-2 transition-all ${
                       modal.imgIdx === idx
-                        ? 'border-cyan-400 scale-105'
+                        ? 'border-violet-400 scale-105'
                         : 'border-white/20 opacity-50 hover:opacity-100'
                     }`}
                   >
