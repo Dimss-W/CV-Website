@@ -437,23 +437,240 @@ html.light .hover\:bg-zinc-900:hover:not(.interactive-terminal-box *) {
   background-color: #f1f5f9 !important;
 }
 
+/*===================================================================
+  MEDIA OVERLAY BADGES (FLOATING OVER IMAGES & MEDIA SHOWCASES)
+  Always crystal clear and high-contrast in both Dark and Light modes
+===================================================================*/
+.media-overlay-badge {
+  background: rgba(9, 9, 11, 0.82) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+}
+
+.media-overlay-badge * {
+  color: #ffffff !important;
+}
+
+/* Category Filter Tab Bar (Dark Mode Default) */
+.filter-tab-bar {
+  background: rgba(20, 20, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.filter-tab-btn {
+  color: #a1a1aa;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.filter-tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.filter-tab-btn.is-active {
+  background: #ffffff !important;
+  color: #09090b !important;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.filter-tab-btn.is-active * {
+  color: #09090b !important;
+}
+
+/* Search Input Box */
+.search-input-box {
+  background: rgba(20, 20, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.search-input-box::placeholder {
+  color: #71717a;
+}
+
+.search-input-box:focus {
+  border-color: rgba(255, 255, 255, 0.25);
+  outline: none;
+}
+
+/* Project Technical Highlight Box inside cards */
+.project-highlight-box {
+  background: rgba(20, 20, 24, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d4d4d8;
+}
+
+/* Navbar Component Styles */
+.nav-links-bar {
+  background: rgba(20, 20, 24, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav-link-item {
+  color: #a1a1aa;
+  transition: all 0.15s ease;
+}
+
+.nav-link-item:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-link-item.is-active {
+  background: rgba(39, 39, 42, 0.9);
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle-btn {
+  background: rgba(20, 20, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #d4d4d8;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(39, 39, 42, 0.9);
+  color: #ffffff;
+}
+
+.nav-cv-btn {
+  background: rgba(20, 20, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #d4d4d8;
+}
+
+.nav-cv-btn:hover {
+  background: rgba(39, 39, 42, 0.9);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
 /* Typography in Light Mode */
-html.light .text-white:not(.btn-primary):not(.interactive-terminal-box *),
-html.light .text-zinc-100:not(.interactive-terminal-box *) {
+html.light .text-white:not(.media-overlay-badge):not(.media-overlay-badge *):not(.interactive-terminal-box *):not(.btn-primary):not(.btn-primary *):not(.filter-tab-btn.is-active):not(.filter-tab-btn.is-active *),
+html.light .text-zinc-100:not(.media-overlay-badge):not(.media-overlay-badge *):not(.interactive-terminal-box *) {
   color: #0f172a !important;
 }
 
-html.light .text-zinc-200:not(.interactive-terminal-box *),
-html.light .text-zinc-300:not(.interactive-terminal-box *) {
+html.light .text-zinc-200:not(.media-overlay-badge):not(.media-overlay-badge *):not(.interactive-terminal-box *),
+html.light .text-zinc-300:not(.media-overlay-badge):not(.media-overlay-badge *):not(.interactive-terminal-box *) {
   color: #334155 !important;
 }
 
-html.light .text-zinc-400:not(.interactive-terminal-box *) {
+html.light .text-zinc-400:not(.media-overlay-badge):not(.media-overlay-badge *):not(.interactive-terminal-box *) {
   color: #64748b !important;
 }
 
 html.light .text-zinc-500:not(.interactive-terminal-box *) {
   color: #94a3b8 !important;
+}
+
+/* Light Mode Filter Tab Bar */
+html.light .filter-tab-bar {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03) !important;
+}
+
+html.light .filter-tab-btn {
+  color: #475569 !important;
+}
+
+html.light .filter-tab-btn * {
+  color: #475569 !important;
+}
+
+html.light .filter-tab-btn:hover {
+  color: #0f172a !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+html.light .filter-tab-btn.is-active {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.16) !important;
+}
+
+html.light .filter-tab-btn.is-active * {
+  color: #ffffff !important;
+}
+
+/* Light Mode Search Input */
+html.light .search-input-box {
+  background: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light .search-input-box::placeholder {
+  color: #94a3b8 !important;
+}
+
+html.light .search-input-box:focus {
+  border-color: #0f172a !important;
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Light Mode Project Highlight Box */
+html.light .project-highlight-box {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+/* Light Mode Navbar Elements */
+html.light .nav-links-bar {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+html.light .nav-link-item {
+  color: #64748b !important;
+}
+
+html.light .nav-link-item:hover {
+  color: #0f172a !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+}
+
+html.light .nav-link-item.is-active {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .theme-toggle-btn {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light .theme-toggle-btn * {
+  color: #0f172a !important;
+}
+
+html.light .nav-cv-btn {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html.light .nav-cv-btn * {
+  color: #0f172a !important;
+}
+
+html.light .nav-cv-btn:hover {
+  background: #e2e8f0 !important;
+  border-color: #94a3b8 !important;
 }
 
 html.light .section-heading {

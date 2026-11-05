@@ -165,18 +165,18 @@ export default function SkillsSection({}: SkillsSectionProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 w-full max-w-2xl">
             {/* Search Input */}
             <div className="relative w-full sm:w-60">
-              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-sm" />
+              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-sm" />
               <input
                 type="text"
                 placeholder="Cari keahlian..."
                 value={searchSkill}
                 onChange={(e) => setSearchSkill(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:border-zinc-600 focus:outline-none transition-colors"
+                className="search-input-box w-full pl-9 pr-4 py-2 rounded-full text-xs transition-colors"
               />
             </div>
 
             {/* Category Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-1 p-1 rounded-full bg-zinc-900 border border-zinc-800">
+            <div className="filter-tab-bar flex flex-wrap items-center justify-center gap-1 p-1 rounded-full">
               {categories.map((cat) => {
                 const isActive = activeTab === cat.id;
                 return (
@@ -187,10 +187,8 @@ export default function SkillsSection({}: SkillsSectionProps) {
                       setActiveTab(cat.id);
                       playSoftPop();
                     }}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
-                      isActive
-                        ? 'bg-zinc-800 text-white font-semibold shadow-sm'
-                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
+                    className={`filter-tab-btn px-3.5 py-1.5 rounded-full text-xs font-medium ${
+                      isActive ? 'is-active' : ''
                     }`}
                   >
                     {cat.label}

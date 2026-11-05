@@ -138,8 +138,8 @@ export default function ExperienceSection({ experiences }: ExperienceSectionProp
                                 alt={caption}
                                 className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-2.5">
-                                <span className="text-[11px] text-zinc-200 line-clamp-1">
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex items-end p-2.5">
+                                <span className="media-overlay-badge px-2 py-0.5 rounded text-[10px] font-medium line-clamp-1">
                                   {caption}
                                 </span>
                               </div>

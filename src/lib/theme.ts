@@ -33,3 +33,4 @@ export function applyTheme(theme: Theme) {
   }
   window.dispatchEvent(new CustomEvent('themechange', { detail: { theme } }));
 }
+

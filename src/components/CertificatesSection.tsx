@@ -86,14 +86,14 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
 
                   {/* Issuer Pill */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-0.5 rounded-full bg-zinc-950/80 backdrop-blur-md border border-zinc-700 text-[10px] font-mono text-zinc-300">
+                    <span className="media-overlay-badge px-2.5 py-0.5 rounded-full text-[10px] font-mono shadow-md">
                       {cert.badge}
                     </span>
                   </div>
 
                   {/* Multi-page dots */}
                   {hasMultipleImages && (
-                    <div className="absolute bottom-2.5 right-2.5 z-10 flex gap-1">
+                    <div className="media-overlay-badge absolute bottom-2.5 right-2.5 z-10 flex gap-1 px-1.5 py-1 rounded-full shadow-md">
                       {cert.images.map((_, dotI) => (
                         <button
                           key={dotI}
@@ -104,8 +104,8 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                             playTactileClick();
                           }}
                           aria-label={`Halaman ${dotI + 1}`}
-                          className={`w-2 h-2 rounded-full transition-all ${
-                            currentImgIdx === dotI ? 'bg-white w-4' : 'bg-zinc-600'
+                          className={`h-1.5 rounded-full transition-all ${
+                            currentImgIdx === dotI ? 'bg-white w-3.5' : 'bg-white/40 hover:bg-white/70 w-1.5'
                           }`}
                         />
                       ))}
@@ -113,7 +113,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
                   )}
 
                   {/* Expand icon */}
-                  <div className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full bg-zinc-950/80 border border-zinc-700 flex items-center justify-center text-zinc-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="media-overlay-badge absolute top-3 right-3 z-10 w-7 h-7 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
                     <i className="ri-fullscreen-line text-xs" />
                   </div>
                 </div>

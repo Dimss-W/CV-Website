@@ -114,7 +114,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
           </a>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-1 bg-zinc-900/60 p-1 rounded-full border border-zinc-800/80">
+          <div className="nav-links-bar hidden lg:flex items-center gap-1 p-1 rounded-full">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
@@ -122,10 +122,8 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                   key={link.id}
                   href={link.href}
                   onClick={playTactileClick}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-150 ${
-                    isActive
-                      ? 'text-white bg-zinc-800 border border-zinc-700/80 font-semibold shadow-sm'
-                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
+                  className={`nav-link-item px-3 py-1 rounded-full text-xs font-medium transition-all duration-150 ${
+                    isActive ? 'is-active' : ''
                   }`}
                 >
                   {link.name}
@@ -140,7 +138,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
             <button
               type="button"
               onClick={handleThemeToggle}
-              className="w-8 h-8 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/70 text-zinc-300 hover:text-white flex items-center justify-center transition-all duration-200 active:scale-95"
+              className="theme-toggle-btn w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 active:scale-95"
               title={theme === 'dark' ? 'Beralih ke Mode Terang (Light Mode)' : 'Beralih ke Mode Gelap (Dark Mode)'}
               aria-label="Ganti mode tampilan tema"
             >
@@ -157,10 +155,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={playTactileClick}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 hover:border-zinc-600 text-xs font-medium text-zinc-300 hover:text-white transition-all duration-150 shadow-sm"
+              className="nav-cv-btn inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-medium transition-all duration-150 shadow-sm"
               title="Unduh Berkas CV ATS Resmi (PDF)"
             >
-              <i className="ri-file-download-line text-sm text-zinc-400" />
+              <i className="ri-file-download-line text-sm" />
               <span className="hidden xs:inline">CV ATS</span>
             </a>
 

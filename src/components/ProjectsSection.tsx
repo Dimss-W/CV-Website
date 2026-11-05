@@ -111,13 +111,13 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 w-full max-w-2xl">
             {/* Search Input */}
             <div className="relative w-full sm:w-64">
-              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500 text-sm" />
+              <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-sm" />
               <input
                 type="text"
                 placeholder="Cari proyek / teknologi..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 rounded-full bg-zinc-900 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:border-zinc-600 focus:outline-none transition-colors"
+                className="search-input-box w-full pl-9 pr-8 py-2 rounded-full text-xs transition-colors"
               />
               {searchQuery && (
                 <button
@@ -131,7 +131,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             </div>
 
             {/* Category Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-1 p-1 rounded-full bg-zinc-900 border border-zinc-800">
+            <div className="filter-tab-bar flex flex-wrap items-center justify-center gap-1 p-1 rounded-full">
               {categories.map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
@@ -142,10 +142,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       setActiveCategory(cat.id);
                       playSoftPop();
                     }}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-150 ${
-                      isActive
-                        ? 'bg-zinc-800 text-white font-semibold shadow-sm'
-                        : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40'
+                    className={`filter-tab-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium ${
+                      isActive ? 'is-active' : ''
                     }`}
                   >
                     <i className={`${cat.icon} text-sm`} />
@@ -212,7 +210,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
 
                   {/* Category Pill Tag */}
                   <div className="absolute top-3 left-3 z-20 pointer-events-none">
-                    <span className="px-2.5 py-0.5 rounded-full bg-zinc-950/80 backdrop-blur-md border border-zinc-700 text-[10px] font-mono text-zinc-300">
+                    <span className="media-overlay-badge px-2.5 py-0.5 rounded-full text-[10px] font-mono shadow-md">
                       {project.is_mobile ? 'Mobile App' : project.category === 'data-ai' ? 'Data & BI' : 'Web Platform'}
                     </span>
                   </div>
@@ -220,11 +218,11 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   {/* Slide controls */}
                   {images.length > 1 && (
                     <div className="absolute bottom-2.5 left-2.5 right-2.5 z-20 flex items-center justify-between gap-2 pointer-events-none">
-                      <span className="px-2 py-0.5 rounded-md bg-zinc-950/80 backdrop-blur-md text-[10px] text-zinc-300 truncate max-w-[65%]">
+                      <span className="media-overlay-badge px-2 py-0.5 rounded-md text-[10px] truncate max-w-[65%] shadow-md">
                         {currentCaption}
                       </span>
 
-                      <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-zinc-950/80 backdrop-blur-md pointer-events-auto">
+                      <div className="media-overlay-badge flex items-center gap-1 px-1.5 py-0.5 rounded-full pointer-events-auto shadow-md">
                         {images.map((_, dotIdx) => (
                           <button
                             key={dotIdx}
@@ -238,7 +236,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                             className={`h-1.5 rounded-full transition-all duration-200 ${
                               currentSlide === dotIdx
                                 ? 'w-3.5 bg-white'
-                                : 'w-1.5 bg-zinc-600 hover:bg-zinc-400'
+                                : 'w-1.5 bg-white/40 hover:bg-white/70'
                             }`}
                           />
                         ))}
@@ -253,7 +251,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       setSelectedProject(project);
                       playTactileClick();
                     }}
-                    className="absolute top-3 right-3 z-20 w-7 h-7 rounded-full bg-zinc-950/80 border border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition-opacity opacity-0 group-hover:opacity-100"
+                    className="media-overlay-badge absolute top-3 right-3 z-20 w-7 h-7 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-110 active:scale-95 shadow-md"
                     title="Buka Pratinjau Penuh"
                     aria-label="Lihat detail lengkap proyek"
                   >
@@ -273,7 +271,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     </p>
 
                     {project.technical_highlight && (
-                      <div className="mb-4 p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-[11px] text-zinc-300 leading-tight">
+                      <div className="project-highlight-box mb-4 p-2.5 rounded-xl text-[11px] leading-tight">
                         {project.technical_highlight}
                       </div>
                     )}
