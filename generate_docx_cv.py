@@ -250,7 +250,7 @@ def build_docx_cv(dest_paths):
     r1_comp.font.size = Pt(8.9)
     r1_comp.font.color.rgb = c_accent
     r1_comp.bold = True
-    r1_date = p_e1.add_run("  [Agustus 2026 – Oktober 2026]")
+    r1_date = p_e1.add_run("  [Agustus 2026 – November 2026]")
     r1_date.font.size = Pt(8.5)
     r1_date.font.color.rgb = c_muted
 

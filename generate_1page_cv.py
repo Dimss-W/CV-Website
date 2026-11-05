@@ -217,10 +217,10 @@ def build_executive_1page_cv(output_path):
     for elem in section_heading("Pengalaman Kerja & Mengajar"):
         story.append(elem)
 
-    # 1. PGNCOM (Revisi: Agustus 2026 – Oktober 2026)
+    # 1. PGNCOM (Revisi: Agustus 2026 – November 2026)
     exp1_t = Table([
         [Paragraph("<b>Web Developer & Data Analytics Intern</b> — PT PGAS Telekomunikasi Nusantara (PGNCOM)", item_title_style),
-         Paragraph("Agustus 2026 – Oktober 2026", item_date_style)],
+         Paragraph("Agustus 2026 – November 2026", item_date_style)],
     ], colWidths=[usable_w - 135, 135])
     exp1_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(exp1_t)

@@ -32,7 +32,7 @@ export const defaultExperiences: Experience[] = [
     company: 'PT PGAS Telekomunikasi Nusantara (PGNCOM)',
     location: 'Jakarta, Indonesia',
     start_date: 'Agustus 2026',
-    end_date: 'Oktober 2026',
+    end_date: 'November 2026',
     is_current: false,
     description: 'Mengembangkan sistem web operasional perusahaan "Monitoring Realisasi Biaya & Quality Control" untuk pemantauan realisasi anggaran proyek, pengesahan dokumen BASTO, verifikasi mutu QC teknis, dan administrasi penagihan. Merancang dan mengintegrasikan dashboard analitik Microsoft Power BI interaktif untuk pemantauan capaian proyek, evaluasi rasio realisasi terhadap prognosa, dan pelacakan status transaksi secara real-time.',
     technologies: ['Microsoft Power BI', 'DAX', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'REST API', 'Tata Kelola Perusahaan'],
