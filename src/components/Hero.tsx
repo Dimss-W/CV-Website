@@ -270,7 +270,7 @@ export default function Hero({ profile }: HeroProps) {
               >
                 {/* Clean Frame Background */}
                 <div
-                  className="absolute inset-2 rounded-2xl border border-zinc-800/90 bg-gradient-to-b from-zinc-900/80 via-zinc-900/50 to-zinc-950/90 backdrop-blur-sm overflow-hidden shadow-2xl"
+                  className="hero-photo-frame-bg absolute inset-2 rounded-2xl border border-zinc-800/90 bg-gradient-to-b from-zinc-900/80 via-zinc-900/50 to-zinc-950/90 backdrop-blur-sm overflow-hidden shadow-2xl"
                   style={{
                     transform: `rotateX(${photoRotateX * 0.5}deg) rotateY(${photoRotateY * 0.5}deg)`,
                     transition: reducedMotion ? 'none' : 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',

@@ -99,7 +99,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
           </div>
 
           {/* Bento Card 2: Clean Developer Terminal (Col 5) */}
-          <div className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-zinc-950 border border-zinc-800 flex flex-col justify-between font-mono text-xs shadow-xl reveal-right delay-100">
+          <div className="interactive-terminal-box lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-zinc-950 border border-zinc-800 flex flex-col justify-between font-mono text-xs shadow-xl reveal-right delay-100">
             <div>
               {/* Window chrome header */}
               <div className="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">

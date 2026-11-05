@@ -337,6 +337,327 @@ body {
   animation: subtlePulse 3s infinite ease-in-out;
 }
 
+/*===================================================================
+  LIGHT MODE SYSTEM: CRISP, REFINED APPLE & LINEAR DAYLIGHT PALETTE
+  Balanced neutrals with zero color-clashing & optimal WCAG AAA contrast
+===================================================================*/
+html.light {
+  --bg-deep: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: #ffffff;
+
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-hover: rgba(15, 23, 42, 0.16);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  color-scheme: light;
+}
+
+html.light body,
+html.light .main {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+/* Spotlight & Bento Cards in Light Mode */
+html.light .spotlight-card {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05), 0 1px 2px -1px rgba(15, 23, 42, 0.05) !important;
+}
+
+html.light .spotlight-card:hover {
+  border-color: #cbd5e1 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.light .spotlight-card::before {
+  background: radial-gradient(350px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(15, 23, 42, 0.03), transparent 70%) !important;
+}
+
+html.light .glass-panel {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: #e2e8f0 !important;
+}
+
+/* Backgrounds & Surfaces Overrides (Excluding Terminal) */
+html.light nav,
+html.light .bg-zinc-950,
+html.light .bg-zinc-950\/90,
+html.light .bg-zinc-950\/85,
+html.light .bg-zinc-950\/70,
+html.light .bg-zinc-950\/60 {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+}
+
+html.light .bg-zinc-900:not(.interactive-terminal-box *),
+html.light .bg-zinc-900\/90:not(.interactive-terminal-box *),
+html.light .bg-zinc-900\/80:not(.interactive-terminal-box *),
+html.light .bg-zinc-900\/60:not(.interactive-terminal-box *),
+html.light .bg-zinc-900\/50:not(.interactive-terminal-box *),
+html.light .bg-zinc-900\/40:not(.interactive-terminal-box *) {
+  background-color: #ffffff !important;
+}
+
+html.light .bg-zinc-800:not(.interactive-terminal-box *),
+html.light .bg-zinc-800\/80:not(.interactive-terminal-box *),
+html.light .bg-zinc-800\/60:not(.interactive-terminal-box *) {
+  background-color: #f1f5f9 !important;
+}
+
+html.light .bg-zinc-300 {
+  background-color: #334155 !important;
+}
+
+/* Borders in Light Mode */
+html.light .border-zinc-800:not(.interactive-terminal-box *),
+html.light .border-zinc-800\/80:not(.interactive-terminal-box *),
+html.light .border-zinc-800\/90:not(.interactive-terminal-box *),
+html.light .border-zinc-700:not(.interactive-terminal-box *),
+html.light .border-zinc-700\/80:not(.interactive-terminal-box *),
+html.light .border-zinc-700\/70:not(.interactive-terminal-box *),
+html.light .border-zinc-700\/60:not(.interactive-terminal-box *) {
+  border-color: #e2e8f0 !important;
+}
+
+html.light .hover\:border-zinc-700:hover:not(.interactive-terminal-box *),
+html.light .hover\:border-zinc-600:hover:not(.interactive-terminal-box *),
+html.light .hover\:border-zinc-500:hover:not(.interactive-terminal-box *) {
+  border-color: #cbd5e1 !important;
+}
+
+html.light .hover\:bg-zinc-800:hover:not(.interactive-terminal-box *),
+html.light .hover\:bg-zinc-800\/40:hover:not(.interactive-terminal-box *),
+html.light .hover\:bg-zinc-900:hover:not(.interactive-terminal-box *) {
+  background-color: #f1f5f9 !important;
+}
+
+/* Typography in Light Mode */
+html.light .text-white:not(.btn-primary):not(.interactive-terminal-box *),
+html.light .text-zinc-100:not(.interactive-terminal-box *) {
+  color: #0f172a !important;
+}
+
+html.light .text-zinc-200:not(.interactive-terminal-box *),
+html.light .text-zinc-300:not(.interactive-terminal-box *) {
+  color: #334155 !important;
+}
+
+html.light .text-zinc-400:not(.interactive-terminal-box *) {
+  color: #64748b !important;
+}
+
+html.light .text-zinc-500:not(.interactive-terminal-box *) {
+  color: #94a3b8 !important;
+}
+
+html.light .section-heading {
+  color: #0f172a !important;
+}
+
+html.light .section-description {
+  color: #475569 !important;
+}
+
+html.light .section-tag {
+  color: #64748b !important;
+}
+
+html.light .section-tag::before {
+  background: #cbd5e1 !important;
+}
+
+html.light .gradient-text-ruby,
+html.light .gradient-text-gold,
+html.light .gradient-text-flame,
+html.light .gradient-text {
+  color: #0f172a !important;
+  background: linear-gradient(180deg, #0f172a 40%, #475569 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Light Mode Buttons */
+html.light .btn-primary {
+  background: #0f172a !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15) !important;
+}
+
+html.light .btn-primary:hover {
+  background: #1e293b !important;
+}
+
+html.light .btn-secondary {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light .btn-secondary:hover {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+/* Light Mode Navbar Buttons */
+html.light nav a[href="#contact"] {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html.light nav a[href="#contact"]:hover {
+  background-color: #1e293b !important;
+}
+
+/* Light Mode Form Elements */
+html.light input,
+html.light textarea {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+html.light input:focus,
+html.light textarea:focus {
+  background-color: #ffffff !important;
+  border-color: #64748b !important;
+  outline-color: #94a3b8 !important;
+}
+
+/* Light Mode Hero Photo Frame Background */
+html.light .hero-photo-frame-bg {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Authentic Dark Terminal Preservation */
+html.light .interactive-terminal-box {
+  background-color: #09090b !important;
+  border-color: #27272a !important;
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.light .interactive-terminal-box .text-white {
+  color: #fafafa !important;
+}
+
+html.light .interactive-terminal-box .text-zinc-200,
+html.light .interactive-terminal-box .text-zinc-300 {
+  color: #e4e4e7 !important;
+}
+
+html.light .interactive-terminal-box .text-zinc-400 {
+  color: #a1a1aa !important;
+}
+
+html.light .interactive-terminal-box .bg-zinc-900,
+html.light .interactive-terminal-box .bg-zinc-950 {
+  background-color: #141417 !important;
+}
+
+html.light .interactive-terminal-box .border-zinc-800 {
+  border-color: #27272a !important;
+}
+
+/* Light Mode Magnetic Cursor & Progress */
+html.light .scroll-progress-bar {
+  background: linear-gradient(to right, #94a3b8, #475569, #0f172a) !important;
+  box-shadow: 0 0 8px rgba(15, 23, 42, 0.25) !important;
+}
+
+html.light .cursor-ring {
+  border-color: rgba(15, 23, 42, 0.35) !important;
+}
+
+html.light .cursor-ring.is-hovering {
+  border-color: rgba(15, 23, 42, 0.7) !important;
+  background-color: rgba(15, 23, 42, 0.06) !important;
+}
+
+html.light .cursor-dot {
+  background-color: #0f172a !important;
+}
+
+/* Light Mode Desktop Side Floating Rail */
+html.light .floating-section-rail {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.light .floating-rail-dot-active {
+  background-color: #0f172a !important;
+  box-shadow: 0 0 8px rgba(15, 23, 42, 0.3) !important;
+}
+
+html.light .floating-rail-dot-inactive {
+  background-color: #cbd5e1 !important;
+}
+
+html.light .floating-rail-tooltip {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Light Mode Scroll to Top */
+html.light .scroll-to-top-btn {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.1) !important;
+}
+
+html.light .scroll-to-top-btn:hover {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Light Mode Mobile Quick Dock */
+html.light aside div.rounded-2xl {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1) !important;
+}
+
+html.light aside a.bg-white {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+/* Light Mode Dialogs & Modals */
+html.light div[role="dialog"] {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+html.light div[role="dialog"] > div {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.18) !important;
+}
+
+/* Light Mode Scrollbar & Selection */
+html.light ::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.16);
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.28);
+}
+
+html.light ::selection {
+  background: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+}
+
 /* Accessibility: Prefers Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *,

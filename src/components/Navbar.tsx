@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { playTactileClick, toggleSound, isSoundEnabled } from '@/lib/sound';
+import { playTactileClick } from '@/lib/sound';
+import { getInitialTheme, applyTheme, Theme } from '@/lib/theme';
 
 interface NavbarProps {
   resumeUrl?: string;
@@ -11,10 +12,16 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [soundOn, setSoundOn] = useState(true);
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
-    setSoundOn(isSoundEnabled());
+    setTheme(getInitialTheme());
+
+    const handleThemeChange = (e: Event) => {
+      const custom = e as CustomEvent<{ theme: Theme }>;
+      if (custom.detail?.theme) setTheme(custom.detail.theme);
+    };
+    window.addEventListener('themechange', handleThemeChange);
 
     const handleScroll = () => {
       setScrolled(window.scrollY >= 40);
@@ -46,13 +53,17 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('themechange', handleThemeChange);
+    };
   }, []);
 
-  const handleSoundToggle = () => {
-    const nextState = toggleSound();
-    setSoundOn(nextState);
-    if (nextState) playTactileClick();
+  const handleThemeToggle = () => {
+    const nextTheme: Theme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    applyTheme(nextTheme);
+    playTactileClick();
   };
 
   const navLinks = [
@@ -125,15 +136,19 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
           {/* Action Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-            {/* Audio Toggle */}
+            {/* Dark & Light Mode Theme Switcher */}
             <button
               type="button"
-              onClick={handleSoundToggle}
-              className="w-8 h-8 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 flex items-center justify-center transition-colors"
-              title={soundOn ? 'Nonaktifkan Efek Suara' : 'Aktifkan Efek Suara'}
-              aria-label="Toggle audio effects"
+              onClick={handleThemeToggle}
+              className="w-8 h-8 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-700/70 text-zinc-300 hover:text-white flex items-center justify-center transition-all duration-200 active:scale-95"
+              title={theme === 'dark' ? 'Beralih ke Mode Terang (Light Mode)' : 'Beralih ke Mode Gelap (Dark Mode)'}
+              aria-label="Ganti mode tampilan tema"
             >
-              <i className={soundOn ? 'ri-volume-up-line text-sm text-zinc-300' : 'ri-volume-mute-line text-sm text-zinc-600'} />
+              {theme === 'dark' ? (
+                <i className="ri-sun-line text-sm text-amber-300 transition-transform duration-300 hover:rotate-45" />
+              ) : (
+                <i className="ri-moon-line text-sm text-slate-800 transition-transform duration-300 hover:-rotate-12" />
+              )}
             </button>
 
             {/* Unduh CV ATS */}
@@ -193,17 +208,37 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                playTactileClick();
-              }}
-              className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white transition-colors"
-              aria-label="Tutup Menu Navigasi"
-            >
-              <i className="ri-close-line text-lg" />
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Mobile Drawer Theme Toggle */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleThemeToggle();
+                }}
+                className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white transition-colors"
+                title={theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'}
+                aria-label="Toggle theme mode"
+              >
+                {theme === 'dark' ? (
+                  <i className="ri-sun-line text-base text-amber-300" />
+                ) : (
+                  <i className="ri-moon-line text-base text-slate-800" />
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  playTactileClick();
+                }}
+                className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-300 hover:text-white transition-colors"
+                aria-label="Tutup Menu Navigasi"
+              >
+                <i className="ri-close-line text-lg" />
+              </button>
+            </div>
           </div>
 
           {/* Links list */}
