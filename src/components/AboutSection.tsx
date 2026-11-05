@@ -1,13 +1,38 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Profile } from '@/types';
+import { playTactileClick, playSoftPop } from '@/lib/sound';
 
 interface AboutSectionProps {
   profile: Profile;
 }
 
 export default function AboutSection({ profile }: AboutSectionProps) {
+  const [activeCodeTab, setActiveCodeTab] = useState<'spec' | 'cli'>('spec');
+  const [cliHistory, setCliHistory] = useState<Array<{ cmd: string; res: string }>>([
+    {
+      cmd: 'dimas.checkStatus()',
+      res: '🟢 STATUS: TERSEDIA UNTUK FULL-TIME & KONTRAK INDUSTRI',
+    },
+  ]);
+
+  const handleRunCommand = (cmd: string) => {
+    playTactileClick();
+    let res = '';
+    if (cmd === 'dimas.getTechStack()') {
+      res = '⚡ Flutter, Dart, Laravel, PHP, React, Next.js, Power BI, DAX, MySQL, Gemini AI';
+    } else if (cmd === 'dimas.getCertifications()') {
+      res = '🛡️ BNSP Database Administrator (No. Reg. DMS.1241.00936 2026) | BNSP Analis Program';
+    } else if (cmd === 'dimas.getHonors()') {
+      res = '🏆 JUARA 1 IT Bootcamp Software Development se-Seluruh Kampus Cabang UBSI';
+    } else if (cmd === 'dimas.getEducation()') {
+      res = '🎓 S1 Sistem Informasi - Universitas Bina Sarana Informatika (2023 - Sekarang)';
+    }
+
+    setCliHistory((prev) => [...prev, { cmd, res }]);
+  };
+
   return (
     <section id="about" className="py-20 sm:py-28 relative bg-[#06090f] overflow-hidden">
       {/* Decorative background glow */}
@@ -17,7 +42,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center mb-14 sm:mb-16">
+        <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
           <div className="section-tag">
             <i className="ri-user-smile-line text-cyan-400" />
             <span>Tentang &amp; Filosofi Rekayasa</span>
@@ -33,10 +58,10 @@ export default function AboutSection({ profile }: AboutSectionProps) {
         </div>
 
         {/* 12-Column Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
           
-          {/* Bento Card 1: Narasi Profil Utama (Col 7) */}
-          <div className="md:col-span-7 glass-panel p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
+          {/* Bento Card 1: Narasi Profil Utama (Col 7 on Desktop) */}
+          <div className="lg:col-span-7 glass-panel p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-bl-full pointer-events-none group-hover:bg-cyan-500/20 transition-colors" />
 
             <div>
@@ -49,11 +74,11 @@ export default function AboutSection({ profile }: AboutSectionProps) {
                 Fokus Pada Solusi Digital yang Bekerja Nyata di Lingkungan Produksi.
               </h3>
 
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm sm:text-base text-slate-300 leading-relaxed mb-4">
                 {profile.bio}
               </p>
 
-              <p className="text-sm text-slate-400 leading-relaxed mb-6">
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">
                 Tidak sekadar menulis baris kode, saya menaruh perhatian besar pada 
                 arsitektur sistem yang dapat diskalakan (*clean architecture*), integritas relasi basis data, 
                 efisiensi kueri SQL, serta kenyamanan antarmuka pengguna di berbagai resolusi perangkat.
@@ -61,87 +86,173 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             </div>
 
             {/* Core Values Badges */}
-            <div className="pt-5 border-t border-white/8 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+            <div className="pt-5 border-t border-white/8 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-center">
+              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-cyan-400/30 transition-all">
                 <i className="ri-code-box-line text-cyan-400 text-lg mb-1 block" />
                 <span className="text-xs font-semibold text-slate-200">Clean Code</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-cyan-400/30 transition-all">
                 <i className="ri-database-2-line text-cyan-400 text-lg mb-1 block" />
                 <span className="text-xs font-semibold text-slate-200">Relational DB</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-cyan-400/30 transition-all">
                 <i className="ri-speed-up-line text-cyan-400 text-lg mb-1 block" />
                 <span className="text-xs font-semibold text-slate-200">High Speed</span>
               </div>
-              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
+              <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-cyan-400/30 transition-all">
                 <i className="ri-shield-keyhole-line text-cyan-400 text-lg mb-1 block" />
                 <span className="text-xs font-semibold text-slate-200">Security</span>
               </div>
             </div>
           </div>
 
-          {/* Bento Card 2: Interaktif Developer Workspace / Code Card (Col 5) */}
-          <div className="md:col-span-5 glass-panel p-5 sm:p-6 flex flex-col justify-between font-mono text-xs border-cyan-500/20 shadow-xl bg-[#090d16]">
-            {/* Window chrome header */}
-            <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
-              <div className="flex items-center gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-              </div>
-              <span className="text-[11px] text-slate-400 tracking-wider">dimas_spec.ts</span>
-              <span className="text-[10px] text-cyan-400">TypeScript 5.x</span>
-            </div>
+          {/* Bento Card 2: Interactive Developer Terminal / Playground (Col 5 on Desktop) */}
+          <div className="lg:col-span-5 glass-panel p-5 sm:p-6 flex flex-col justify-between font-mono text-xs border-cyan-500/20 shadow-xl bg-[#090d16]">
+            <div>
+              {/* Window chrome header with tab toggle */}
+              <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                </div>
 
-            {/* Code content */}
-            <div className="space-y-1.5 text-slate-300 leading-relaxed overflow-x-auto py-1">
-              <div>
-                <span className="text-indigo-400">interface</span> <span className="text-yellow-300">EngineerProfile</span> &#123;
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/40 border border-white/10">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveCodeTab('spec');
+                      playSoftPop();
+                    }}
+                    className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
+                      activeCodeTab === 'spec'
+                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/30'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    dimas_spec.ts
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveCodeTab('cli');
+                      playSoftPop();
+                    }}
+                    className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-all ${
+                      activeCodeTab === 'cli'
+                        ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400/30'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    interactive_cli.sh
+                  </button>
+                </div>
               </div>
-              <div className="pl-4">
-                <span className="text-slate-400">name:</span> <span className="text-emerald-400">&quot;Dimas Wijanarko&quot;</span>;
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">degree:</span> <span className="text-emerald-400">&quot;S1 Sistem Informasi (UBSI)&quot;</span>;
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">status:</span> <span className="text-cyan-300">&quot;Active Student &amp; Builder&quot;</span>;
-              </div>
-              <div className="pl-4">
-                <span className="text-slate-400">specialization:</span> [
-              </div>
-              <div className="pl-8 text-sky-300">
-                &quot;Flutter &amp; Dart Mobile&quot;,<br />
-                &quot;Laravel &amp; RESTful API&quot;,<br />
-                &quot;Power BI &amp; DAX Analytics&quot;,<br />
-                &quot;Gemini Vision OCR AI&quot;
-              </div>
-              <div className="pl-4">];</div>
-              <div className="pl-4">
-                <span className="text-slate-400">certifications:</span> &#123;
-              </div>
-              <div className="pl-8 text-amber-300">
-                bnsp_dba: <span className="text-cyan-400">true</span>,<br />
-                bnsp_analyst: <span className="text-cyan-400">true</span>,<br />
-                juara1_bootcamp: <span className="text-cyan-400">true</span>
-              </div>
-              <div className="pl-4">&#125;;</div>
-              <div>&#125;</div>
+
+              {/* Tab 1: TypeScript Specification */}
+              {activeCodeTab === 'spec' ? (
+                <div className="space-y-1.5 text-slate-300 leading-relaxed overflow-x-auto py-1">
+                  <div>
+                    <span className="text-indigo-400">interface</span> <span className="text-yellow-300">EngineerProfile</span> &#123;
+                  </div>
+                  <div className="pl-4">
+                    <span className="text-slate-400">name:</span> <span className="text-emerald-400">&quot;Dimas Wijanarko&quot;</span>;
+                  </div>
+                  <div className="pl-4">
+                    <span className="text-slate-400">degree:</span> <span className="text-emerald-400">&quot;S1 Sistem Informasi (UBSI)&quot;</span>;
+                  </div>
+                  <div className="pl-4">
+                    <span className="text-slate-400">status:</span> <span className="text-cyan-300">&quot;Active Student &amp; Builder&quot;</span>;
+                  </div>
+                  <div className="pl-4">
+                    <span className="text-slate-400">specialization:</span> [
+                  </div>
+                  <div className="pl-8 text-sky-300">
+                    &quot;Flutter &amp; Dart Mobile&quot;,<br />
+                    &quot;Laravel &amp; RESTful API&quot;,<br />
+                    &quot;Power BI &amp; DAX Analytics&quot;,<br />
+                    &quot;Gemini Vision OCR AI&quot;
+                  </div>
+                  <div className="pl-4">];</div>
+                  <div className="pl-4">
+                    <span className="text-slate-400">certifications:</span> &#123;
+                  </div>
+                  <div className="pl-8 text-amber-300">
+                    bnsp_dba: <span className="text-cyan-400">true</span>,<br />
+                    bnsp_analyst: <span className="text-cyan-400">true</span>,<br />
+                    juara1_bootcamp: <span className="text-cyan-400">true</span>
+                  </div>
+                  <div className="pl-4">&#125;;</div>
+                  <div>&#125;</div>
+                </div>
+              ) : (
+                /* Tab 2: Interactive Terminal CLI */
+                <div className="space-y-3 py-1">
+                  <div className="text-[11px] text-slate-400">
+                    Klik perintah interaktif di bawah untuk mengeksekusi langsung:
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => handleRunCommand('dimas.getTechStack()')}
+                      className="px-2.5 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/25 border border-cyan-400/25 text-cyan-300 text-[11px] font-mono transition-colors"
+                    >
+                      $ dimas.getTechStack()
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRunCommand('dimas.getCertifications()')}
+                      className="px-2.5 py-1 rounded bg-indigo-500/10 hover:bg-indigo-500/25 border border-indigo-400/25 text-indigo-300 text-[11px] font-mono transition-colors"
+                    >
+                      $ dimas.getCertifications()
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRunCommand('dimas.getHonors()')}
+                      className="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/25 border border-amber-400/25 text-amber-300 text-[11px] font-mono transition-colors"
+                    >
+                      $ dimas.getHonors()
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRunCommand('dimas.getEducation()')}
+                      className="px-2.5 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-400/25 text-emerald-300 text-[11px] font-mono transition-colors"
+                    >
+                      $ dimas.getEducation()
+                    </button>
+                  </div>
+
+                  {/* Output Terminal Console */}
+                  <div className="p-3 rounded-xl bg-black/60 border border-white/8 space-y-2 max-h-40 overflow-y-auto">
+                    {cliHistory.map((item, idx) => (
+                      <div key={idx} className="space-y-0.5">
+                        <div className="text-cyan-400 text-[11px]">
+                          &gt; {item.cmd}
+                        </div>
+                        <div className="text-slate-300 text-[11px] pl-2 border-l border-cyan-500/30">
+                          {item.res}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Footer status bar */}
             <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400 mt-4">
               <span className="flex items-center gap-1.5 text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                Compiled 0 errors
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-indicator" />
+                Interaktif • Ready
               </span>
-              <span>UTF-8 • Jakarta, ID</span>
+              <span>Dimas Studio v2.0</span>
             </div>
           </div>
 
-          {/* Bento Card 3: Keunggulan Kompetensi & Pengalaman Industri (Col 6) */}
-          <div className="md:col-span-6 glass-panel p-6 sm:p-7 flex flex-col justify-between">
+          {/* Bento Card 3: Keunggulan Kompetensi & Pengalaman Industri (Col 6 on Desktop) */}
+          <div className="lg:col-span-6 glass-panel p-6 sm:p-7 flex flex-col justify-between">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center text-cyan-400 text-xl">
                 <i className="ri-building-4-line" />
@@ -156,7 +267,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
               </div>
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed mb-4">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
               Mengembangkan sistem web operasional *Monitoring Realisasi Biaya &amp; Quality Control*, 
               mengintegrasikan validasi dokumen BASTO, serta merancang dashboard Microsoft Power BI 
               untuk pemantauan real-time deviasi anggaran dan prognosa proyek skala enterprise.
@@ -175,8 +286,8 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             </div>
           </div>
 
-          {/* Bento Card 4: Pengabdian & Mentoring Teknis (Col 6) */}
-          <div className="md:col-span-6 glass-panel p-6 sm:p-7 flex flex-col justify-between">
+          {/* Bento Card 4: Pengabdian & Mentoring Teknis (Col 6 on Desktop) */}
+          <div className="lg:col-span-6 glass-panel p-6 sm:p-7 flex flex-col justify-between">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-400/30 flex items-center justify-center text-indigo-400 text-xl">
                 <i className="ri-presentation-line" />
@@ -191,7 +302,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
               </div>
             </div>
 
-            <p className="text-sm text-slate-300 leading-relaxed mb-4">
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
               Menjadi instruktur tamu bagi siswa jurusan Rekayasa Perangkat Lunak (RPL). 
               Mengajarkan praktik pengembangan web modern menggunakan Framework Laravel, 
               arsitektur MVC, pemodelan basis data relasional, dan etika kolaborasi Git industri.

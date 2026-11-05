@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { playTactileClick, toggleSound, isSoundEnabled } from '@/lib/sound';
 
 interface NavbarProps {
   resumeUrl?: string;
@@ -10,8 +11,11 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
 
   useEffect(() => {
+    setSoundOn(isSoundEnabled());
+
     const handleScroll = () => {
       setScrolled(window.scrollY >= 40);
 
@@ -45,6 +49,12 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleSoundToggle = () => {
+    const nextState = toggleSound();
+    setSoundOn(nextState);
+    if (nextState) playTactileClick();
+  };
+
   const navLinks = [
     { name: 'Beranda', id: 'home', href: '#home' },
     { name: 'Tentang', id: 'about', href: '#about' },
@@ -61,10 +71,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
     <>
       {/* Floating Dynamic Island Navbar */}
       <header
-        className={`fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-4 sm:px-6 transition-all duration-300 pointer-events-none`}
+        className={`fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-6 transition-all duration-300 pointer-events-none`}
       >
         <nav
-          className={`pointer-events-auto flex items-center justify-between gap-3 sm:gap-6 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 max-w-5xl w-full ${
+          className={`pointer-events-auto flex items-center justify-between gap-2.5 sm:gap-6 px-3.5 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 max-w-5xl w-full ${
             scrolled
               ? 'bg-[#0a0e17]/85 backdrop-blur-xl border border-white/12 shadow-[0_10px_35px_-5px_rgba(0,0,0,0.8),0_0_20px_rgba(56,189,248,0.1)]'
               : 'bg-[#0a0e17]/50 backdrop-blur-md border border-white/8 shadow-lg'
@@ -74,6 +84,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
           {/* Brand Logo & Live Pulse */}
           <a
             href="#home"
+            onClick={playTactileClick}
             className="flex items-center gap-2.5 group shrink-0"
             aria-label="Kembali ke Beranda"
           >
@@ -99,6 +110,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 <a
                   key={link.id}
                   href={link.href}
+                  onClick={playTactileClick}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-200 relative ${
                     isActive
                       ? 'text-cyan-300 bg-cyan-500/15 shadow-[0_0_12px_rgba(56,189,248,0.2)] font-semibold'
@@ -112,13 +124,25 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Audio Toggle Button */}
+            <button
+              type="button"
+              onClick={handleSoundToggle}
+              className="w-8 h-8 rounded-full bg-white/[0.05] hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-300 transition-colors"
+              title={soundOn ? 'Nonaktifkan Efek Suara' : 'Aktifkan Efek Suara'}
+              aria-label="Toggle audio effects"
+            >
+              <i className={soundOn ? 'ri-volume-up-line text-sm text-cyan-400' : 'ri-volume-mute-line text-sm text-slate-500'} />
+            </button>
+
             {/* Unduh CV Button */}
             <a
               href={cvDownloadUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/[0.06] hover:bg-cyan-500/15 border border-white/12 hover:border-cyan-400/40 text-xs font-semibold text-slate-200 hover:text-cyan-300 transition-all duration-200 shadow-sm"
+              onClick={playTactileClick}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/[0.06] hover:bg-cyan-500/15 border border-white/12 hover:border-cyan-400/40 text-xs font-semibold text-slate-200 hover:text-cyan-300 active:scale-95 transition-all duration-200 shadow-sm"
               title="Unduh Berkas CV ATS Resmi (PDF)"
             >
               <i className="ri-file-download-line text-sm text-cyan-400" />
@@ -128,7 +152,8 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
             {/* Hubungi Button */}
             <a
               href="#contact"
-              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-semibold hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 transition-all duration-200"
+              onClick={playTactileClick}
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 text-white text-xs font-semibold hover:shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:brightness-110 active:scale-95 transition-all duration-200"
             >
               <span>Hubungi</span>
               <i className="ri-arrow-right-up-line text-xs" />
@@ -137,7 +162,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
             {/* Mobile Hamburger Button */}
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(true)}
+              onClick={() => {
+                setMobileMenuOpen(true);
+                playTactileClick();
+              }}
               className="lg:hidden w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
               aria-label="Buka Menu Navigasi"
             >
@@ -167,7 +195,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                playTactileClick();
+              }}
               className="w-9 h-9 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white text-lg hover:bg-white/20 transition-colors"
               aria-label="Tutup Menu Navigasi"
             >
@@ -183,7 +214,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 <a
                   key={link.id}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    playTactileClick();
+                  }}
                   className={`flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-semibold transition-all ${
                     isActive
                       ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-400/30'
@@ -198,7 +232,10 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
 
             <a
               href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                playTactileClick();
+              }}
               className="flex items-center justify-between px-5 py-3.5 rounded-2xl text-base font-semibold text-white bg-gradient-to-r from-sky-500 to-cyan-500 mt-2 shadow-lg shadow-sky-500/25"
             >
               <span>Hubungi Saya</span>

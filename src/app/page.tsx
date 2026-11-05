@@ -10,6 +10,7 @@ import EducationSection from '@/components/EducationSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import ScrollObserver from '@/components/ScrollObserver';
+import MobileQuickDock from '@/components/MobileQuickDock';
 import {
   getProfileData,
   getExperiencesData,
@@ -34,40 +35,43 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Custom Cursor, Scroll Up & ScrollReveal Observer */}
+      {/* Custom Fluid Cursor, Ambient Tracker & Scroll Observer */}
       <ScrollObserver />
 
-      {/*==================== HEADER & NAV ====================*/}
+      {/* Floating Dynamic Island Header */}
       <Navbar resumeUrl={profile.resume_url} />
 
-      {/*==================== MAIN ====================*/}
-      <main className="main">
-        {/*==================== HOME SECTION ====================*/}
+      {/* Main Sections */}
+      <main className="main pb-16 lg:pb-0">
+        {/*==================== HERO / HOME ====================*/}
         <Hero profile={profile} />
 
-        {/*==================== ABOUT SECTION ====================*/}
+        {/*==================== ABOUT ====================*/}
         <AboutSection profile={profile} />
 
-        {/*==================== WORK / PROJECTS SECTION ====================*/}
+        {/*==================== PROJECTS ====================*/}
         <ProjectsSection projects={projects} />
 
-        {/*==================== SKILLS SECTION ====================*/}
+        {/*==================== SKILLS ====================*/}
         <SkillsSection skills={skills} />
 
-        {/*==================== EXPERIENCE SECTION ====================*/}
+        {/*==================== EXPERIENCE ====================*/}
         <ExperienceSection experiences={experiences} />
 
-        {/*==================== CERTIFICATES SECTION ====================*/}
+        {/*==================== CERTIFICATES ====================*/}
         <CertificatesSection certificates={certificates} />
 
-        {/*==================== ACADEMIC BACKGROUND ====================*/}
+        {/*==================== EDUCATION ====================*/}
         <EducationSection educations={educations} />
 
-        {/*==================== CONTACT SECTION ====================*/}
+        {/*==================== CONTACT ====================*/}
         <ContactSection profile={profile} />
       </main>
 
-      {/*==================== FOOTER ====================*/}
+      {/* Mobile Floating Quick Action Dock */}
+      <MobileQuickDock />
+
+      {/* Footer */}
       <Footer />
     </>
   );
