@@ -143,7 +143,7 @@ def build_ats_2page_cv(output_path):
         Spacer(1, 1.0),
         Paragraph(
             "Email: <a href='mailto:dmswijanarko@gmail.com' color='#0369a1'><u>dmswijanarko@gmail.com</u></a> &nbsp;|&nbsp; "
-            "LinkedIn: <a href='https://linkedin.com/in/dimas-wijanarko' color='#0369a1'><u>in/dimas-wijanarko</u></a> &nbsp;|&nbsp; "
+            "LinkedIn: <a href='https://linkedin.com/in/dmswijanarko' color='#0369a1'><u>in/dmswijanarko</u></a> &nbsp;|&nbsp; "
             "GitHub: <a href='https://github.com/Dimss-W' color='#0369a1'><u>github.com/Dimss-W</u></a>",
             contact_style
         ),

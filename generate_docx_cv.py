@@ -156,7 +156,7 @@ def build_docx_cv(dest_paths):
 
     r_li_label = p_contact.add_run("LinkedIn: ")
     r_li_label.font.size = Pt(8.5)
-    r_li_val = p_contact.add_run("linkedin.com/in/dimas-wijanarko")
+    r_li_val = p_contact.add_run("linkedin.com/in/dmswijanarko")
     r_li_val.font.size = Pt(8.5)
     r_li_val.font.color.rgb = c_accent
     r_li_val.underline = True

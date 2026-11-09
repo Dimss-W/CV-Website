@@ -11,7 +11,7 @@ export const defaultProfile: Profile = {
   avatar_url: '/dimas-profile-web.jpg',
   resume_url: '/CV_Dimas_Wijanarko_ATS.pdf',
   github_url: 'https://github.com/Dimss-W',
-  linkedin_url: 'https://linkedin.com/in/dimas-wijanarko',
+  linkedin_url: 'https://linkedin.com/in/dmswijanarko',
   instagram_url: 'https://instagram.com/dimsswijanark_',
 };
 

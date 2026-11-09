@@ -293,7 +293,7 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
                 <i className="ri-github-fill" />
               </a>
               <a
-                href="https://linkedin.com/in/dimas-wijanarko"
+                href="https://linkedin.com/in/dmswijanarko"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-lg text-zinc-400 hover:text-white"
