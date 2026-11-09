@@ -49,9 +49,16 @@ export default function EducationSection({ educations }: EducationSectionProps) 
                     </div>
                   </div>
 
-                  <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono">
-                    {edu.start_year} — {edu.end_year || 'Sekarang (Aktif)'}
-                  </span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {edu.gpa_or_grade && (
+                      <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-semibold">
+                        {edu.gpa_or_grade}
+                      </span>
+                    )}
+                    <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono">
+                      {edu.start_year} — {edu.end_year || 'Sekarang (Aktif)'}
+                    </span>
+                  </div>
                 </div>
 
                 {edu.description && (
@@ -61,25 +68,23 @@ export default function EducationSection({ educations }: EducationSectionProps) 
                 )}
 
                 {/* Academic Highlights & Coursework Tags */}
-                <div className="pt-4 border-t border-zinc-800">
-                  <span className="text-xs font-mono uppercase text-zinc-400 tracking-wider block mb-3">
-                    Fokus Kurikulum &amp; Spesialisasi
-                  </span>
-                  <div className="flex flex-wrap gap-2 text-xs font-mono">
-                    <span className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
-                      Rekayasa Perangkat Lunak Web &amp; Mobile
+                {edu.tags && edu.tags.length > 0 && (
+                  <div className="pt-4 border-t border-zinc-800">
+                    <span className="text-xs font-mono uppercase text-zinc-400 tracking-wider block mb-2.5">
+                      Mata Kuliah Relevan &amp; Kompetensi
                     </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
-                      Arsitektur Basis Data Relasional
-                    </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
-                      Analisis &amp; Desain Sistem (UML / BPMN)
-                    </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
-                      Kecerdasan Bisnis &amp; Analitik Power BI
-                    </span>
+                    <div className="flex flex-wrap gap-2 text-xs font-mono">
+                      {edu.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           ))}

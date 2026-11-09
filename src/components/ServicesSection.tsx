@@ -54,16 +54,16 @@ const SERVICES: ServiceItem[] = [
   },
   {
     icon: 'ri-database-2-line',
-    name: 'Arsitektur Database & AI',
+    name: 'Administrasi & Arsitektur Basis Data',
     description:
-      'Mengelola arsitektur basis data relasional berstandar kompetensi nasional BNSP (Database Administrator) serta mengintegrasikan otomasi cerdas Gemini Vision AI (Otokeep Speedometer OCR).',
+      'Mengelola arsitektur basis data relasional berstandar kompetensi nasional BNSP (Database Administrator), optimasi indeks kueri SQL, integritas relasi ERD, dan integrasi cloud database.',
     items: [
       'MySQL & PostgreSQL',
-      'Perancangan Database',
-      'Optimasi Query SQL',
+      'Perancangan Database (ERD)',
+      'Optimasi Kueri SQL',
       'Supabase Cloud',
-      'Gemini Vision AI',
-      'Keamanan Data',
+      'Integritas & Keamanan Data',
+      'Manajemen Transaksi ACID',
     ],
   },
 ];

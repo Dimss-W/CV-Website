@@ -154,9 +154,9 @@ export default function Hero({ profile }: HeroProps) {
             </p>
 
             <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl mb-8">
-              Mahasiswa aktif Sistem Informasi Universitas Bina Sarana Informatika (UBSI). Berpengalaman 
-              merancang arsitektur aplikasi mobile (Flutter) terintegrasi backend (Laravel &amp; REST API), 
-              serta membangun visualisasi analitik data (Power BI) untuk kebutuhan bisnis nyata.
+              Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) Semester 7 dengan IPK 3.82. 
+              Berfokus pada rekayasa perangkat lunak Web &amp; Mobile (Laravel &amp; Flutter) serta pengolahan analitik data 
+              (Power BI &amp; SQL), dengan pengalaman industri di PT PGAS Telekomunikasi Nusantara (PGNCOM) dan tersertifikasi Database Administrator BNSP.
             </p>
 
             {/* Action Buttons */}

@@ -87,6 +87,8 @@ export interface Education {
   start_year: string;
   end_year?: string;
   description?: string;
+  gpa_or_grade?: string;
+  tags?: string[];
   display_order?: number;
 }
 

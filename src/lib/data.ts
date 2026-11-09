@@ -5,7 +5,7 @@ import { Profile, Experience, Project, Skill, Education, Certificate, ContactMes
 export const defaultProfile: Profile = {
   full_name: 'Dimas Wijanarko',
   title: 'Full Stack Web & Mobile Software Engineer',
-  bio: 'Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika (2023 - Sekarang) yang berdedikasi membangun solusi digital Web & Mobile berkualitas tinggi. Berpengalaman merancang aplikasi mobile dengan Flutter & Dart terintegrasi backend Laravel, serta membangun website analitik enterprise terintegrasi Microsoft Power BI.',
+  bio: 'Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (Semester 7, IPK 3.82) yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) dan Analisis Data. Berpengalaman mengembangkan sistem monitoring operasional di PT PGAS Telekomunikasi Nusantara (PGNCOM), tersertifikasi resmi Database Administrator BNSP, serta peraih Juara 1 IT Bootcamp Software Development UBSI. Menguasai Laravel, Flutter, MySQL, dan Microsoft Power BI.',
   email: 'dmswijanarko@gmail.com',
   location: 'Jakarta, Indonesia',
   avatar_url: '/dimas-profile-web.jpg',
@@ -23,8 +23,8 @@ export const defaultExperiences: Experience[] = [
     start_date: '2023',
     end_date: '2023',
     is_current: false,
-    description: 'Merancang, membangun, dan merilis berbagai produk digital produksi nyata: Otokeep (Pemantauan Perawatan Kendaraan Cerdas dengan integrasi Gemini Vision AI), FindIt (Sistem Informasi Kehilangan & Penemuan Barang terpadu untuk 27 kampus UBSI se-Indonesia), CalTrack (Aplikasi mobile kesehatan & kalkulasi IMT berbasis Flutter & Laravel API), serta Kastrix (Sistem Kasir & Manajemen Multi-Gerai). Mengimplementasikan arsitektur bersih, RESTful API terstruktur, autentikasi aman, dan antarmuka responsif.',
-    technologies: ['Flutter', 'Dart', 'Laravel', 'PHP', 'React', 'Tailwind CSS', 'MySQL', 'Gemini Vision AI', 'REST API'],
+    description: 'Merancang, membangun, dan merilis berbagai produk digital produksi nyata: Otokeep (Pemantauan Perawatan Kendaraan Cerdas dengan otomasi deteksi servis), FindIt (Sistem Informasi Kehilangan & Penemuan Barang terpadu untuk 27 kampus UBSI se-Indonesia), CalTrack (Aplikasi mobile kesehatan & kalkulasi IMT berbasis Flutter & Laravel API), serta Kastrix (Sistem Kasir & Manajemen Multi-Gerai). Mengimplementasikan arsitektur bersih, RESTful API terstruktur, autentikasi aman, dan antarmuka responsif.',
+    technologies: ['Flutter', 'Dart', 'Laravel', 'PHP', 'React', 'Tailwind CSS', 'MySQL', 'REST API'],
     display_order: 1,
   },
   {
@@ -63,12 +63,12 @@ export const defaultExperiences: Experience[] = [
 
 export const defaultProjects: Project[] = [
   {
-    title: 'Otokeep - Manajemen Perawatan Kendaraan & Pemindai AI',
-    description: 'Platform cerdas pemantauan servis kendaraan & manajemen armada terintegrasi dengan pemindai speedometer AI berbasis Gemini Vision.',
-    details: 'Menyediakan pengingat servis otomatis berbasis kalkulasi jarak tempuh, pemantauan berkala masa aktif pajak & STNK, kompresi gambar JPEG otomatis di sisi klien, pipeline Google Gemini Vision OCR tanpa latensi berlebih, serta riwayat perawatan real-time.',
-    tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'Gemini Vision AI', 'REST API'],
+    title: 'Otokeep - Platform Manajemen Perawatan Kendaraan Cerdas',
+    description: 'Platform cerdas pemantauan servis kendaraan & manajemen armada terintegrasi dengan pencatatan odometer digital, kompresi gambar otomatis, penjadwalan servis berkala, dan pengingat pajak STNK.',
+    details: 'Menyediakan pengingat servis otomatis berbasis kalkulasi jarak tempuh, pemantauan berkala masa aktif pajak & STNK, kompresi gambar JPEG otomatis di sisi klien, pipeline kompresi citra cepat, serta riwayat perawatan real-time.',
+    tags: ['Laravel', 'Tailwind CSS', 'MySQL', 'REST API'],
     category: 'data-ai',
-    technical_highlight: 'Kompresi gambar JPEG otomatis dan pipeline Google Gemini Vision OCR untuk ekstraksi angka odometer tanpa latensi server berlebih.',
+    technical_highlight: 'Arsitektur sistem manajemen armada dengan kompresi citra JPEG teroptimasi dan pemodelan basis data relasional MySQL.',
     demo_url: 'https://otokeep-rho.vercel.app/',
     github_url: '',
     image_url: '/projects/otokeep-landing.png',
@@ -203,13 +203,11 @@ export const defaultSkills: Skill[] = [
   { name: 'Laravel & PHP (Arsitektur MVC)', category: 'Backend', level: 95 },
   { name: 'Arsitektur RESTful API & JWT', category: 'Backend', level: 93 },
   { name: 'Manajemen Hak Akses (RBAC)', category: 'Backend', level: 92 },
-  { name: 'Integrasi Gemini Vision AI (OCR)', category: 'Backend', level: 90 },
   { name: 'Microsoft Power BI & Analitik DAX', category: 'Database & Cloud', level: 94 },
   { name: 'MySQL & Pemodelan Basis Data Relasional', category: 'Database & Cloud', level: 93 },
   { name: 'Optimalisasi Kueri SQL', category: 'Database & Cloud', level: 91 },
   { name: 'PostgreSQL & Supabase Cloud', category: 'Database & Cloud', level: 89 },
   { name: 'Alur Kerja Tim Git & GitHub', category: 'Tools & DevOps', level: 93 },
-  { name: 'Analisis Sistem & Proses Bisnis', category: 'Tools & DevOps', level: 92 },
   { name: 'Rilis Aplikasi & Konfigurasi Server', category: 'Tools & DevOps', level: 90 },
   { name: 'Mentoring Teknis & Komunikasi Publik', category: 'Tools & DevOps', level: 92 },
 ];
@@ -320,12 +318,37 @@ export const defaultCertificates: Certificate[] = [
 
 export const defaultEducations: Education[] = [
   {
-    degree: 'S1 Sistem Informasi',
+    degree: 'S1 Sistem Informasi (Semester 7)',
     institution: 'Universitas Bina Sarana Informatika (UBSI)',
-    start_year: '2023',
+    start_year: 'September 2023',
     end_year: 'Sekarang (Mahasiswa Aktif)',
-    description: 'Menempuh pendidikan sarjana Sistem Informasi dengan fokus spesialisasi pada Rekayasa Perangkat Lunak Web & Mobile, Arsitektur Basis Data Relasional, serta Analisis & Desain Sistem Terintegrasi.',
+    gpa_or_grade: 'IPK 3.82 (Semester 7)',
+    description: 'Menempuh pendidikan sarjana Sistem Informasi di Fakultas Teknik dan Informatika dengan IPK 3.82. Mengambil mata kuliah relevan: Pemrograman Web (Laravel), Pemrograman Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL, serta Sistem Informasi Manajemen.',
+    tags: [
+      'IPK: 3.82',
+      'Pemrograman Web (Laravel)',
+      'Pemrograman Mobile (Flutter)',
+      'Basis Data Relasional & SQL',
+      'Rekayasa Perangkat Lunak',
+      'Sistem Informasi Manajemen',
+    ],
     display_order: 1,
+  },
+  {
+    degree: 'Kompetensi Keahlian Animasi',
+    institution: 'SMK Negeri 31 Jakarta',
+    start_year: 'Juli 2019',
+    end_year: 'Juli 2022',
+    gpa_or_grade: 'Nilai Rata-Rata: 84',
+    description: 'Lulus dengan nilai rata-rata 84. Mempelajari dasar-dasar visual antarmuka pengguna, pemodelan grafis digital, animasi komputer, serta kedisiplinan estetika tata letak yang mendukung rekayasa antarmuka pengguna (UI/UX) web dan mobile.',
+    tags: [
+      'Nilai Rata-Rata: 84',
+      'Desain Visual Antarmuka (UI/UX)',
+      'Pemodelan Grafis Digital',
+      'Animasi Komputer',
+      'Komposisi Aset Multimedia',
+    ],
+    display_order: 2,
   },
 ];
 

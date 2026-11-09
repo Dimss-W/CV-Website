@@ -21,13 +21,13 @@ export default function AboutSection({ profile }: AboutSectionProps) {
     playTactileClick();
     let res = '';
     if (cmd === 'dimas.getTechStack()') {
-      res = 'Flutter, Dart, Laravel, PHP, React, Next.js, Power BI, DAX, MySQL, Gemini AI';
+      res = 'Flutter, Dart, Laravel, PHP, React, Next.js, Power BI, DAX, MySQL, PostgreSQL';
     } else if (cmd === 'dimas.getCertifications()') {
       res = 'BNSP Database Administrator (No. Reg. DMS.1241.00936 2026) | BNSP Analis Program';
     } else if (cmd === 'dimas.getHonors()') {
       res = 'Juara 1 IT Bootcamp Software Development se-Seluruh Kampus Cabang UBSI';
     } else if (cmd === 'dimas.getEducation()') {
-      res = 'S1 Sistem Informasi - Universitas Bina Sarana Informatika (2023 - Sekarang)';
+      res = 'S1 Sistem Informasi (Semester 7, IPK 3.82) - Universitas Bina Sarana Informatika';
     }
 
     setCliHistory((prev) => [...prev, { cmd, res }]);
@@ -46,8 +46,8 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             Ketajaman Analisis Bisnis &amp; Rekayasa Kode
           </h2>
           <p className="section-description">
-            Sebagai mahasiswa Sistem Informasi Universitas Bina Sarana Informatika (UBSI), saya memadukan
-            pemodelan proses bisnis, disiplin arsitektur basis data relasional, dan pengembangan aplikasi interaktif modern.
+            Sebagai mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (Semester 7, IPK 3.82), 
+            saya memadukan disiplin rekayasa kode bersih, arsitektur basis data relasional, dan pengembangan aplikasi interaktif modern.
           </p>
         </div>
 
@@ -164,7 +164,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
                     &quot;Flutter &amp; Dart Mobile&quot;,<br />
                     &quot;Laravel &amp; RESTful API&quot;,<br />
                     &quot;Power BI &amp; DAX Analytics&quot;,<br />
-                    &quot;Gemini Vision OCR AI&quot;
+                    &quot;PostgreSQL &amp; MySQL DB&quot;
                   </div>
                   <div className="pl-4">];</div>
                   <div className="pl-4">

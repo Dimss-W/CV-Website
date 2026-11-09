@@ -70,11 +70,11 @@ const SKILL_ITEMS: SkillItem[] = [
     highlight: 'Partisi hak akses Super Admin, Auditor, Mitra & Kasir',
   },
   {
-    name: 'Google Gemini Vision AI',
+    name: 'Clean Code & MVC Architecture',
     category: 'Backend & API',
-    level: 90,
-    icon: '/skills/antigravity.png',
-    highlight: 'Pipeline OCR cerdas pengenal angka odometer & speedometer',
+    level: 93,
+    icon: '/skills/skills-backend-1.svg',
+    highlight: 'Pola desain modular, pemisahan logika bisnis, dan maintainability kode',
   },
 
   // Basis Data & Cloud
@@ -116,11 +116,11 @@ const SKILL_ITEMS: SkillItem[] = [
     highlight: 'Branching strategy, pull request review, & kolaborasi tim',
   },
   {
-    name: 'System Analysis & SDLC',
+    name: 'CI/CD & Server Deployment',
     category: 'Analitik & DevOps',
-    level: 92,
+    level: 91,
     icon: '/skills/skills-design-3.svg',
-    highlight: 'Tersertifikasi BNSP Analis Program, UML, BPMN & DFD',
+    highlight: 'Deployment Vercel Cloud, konfigurasi Linux server, & otomatisasi rilis',
   },
 ];
 
