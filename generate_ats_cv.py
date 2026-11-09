@@ -2,15 +2,16 @@ import os
 import sys
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable, Image, PageBreak
 )
 import pymupdf
 
-def build_ats_2page_cv(output_path):
+def build_ats_cv(output_path):
     # Dimensi A4: 595.27 x 841.89 pt
-    # Margin simetris dan lapang: 36pt kiri/kanan, 26pt atas/bawah agar proporsional di 2 halaman
+    # Margin simetris presisi: 36pt kiri/kanan, 22pt atas/bawah
     usable_w = 595.27 - (36 * 2)  # 523.27 pt
     
     doc = SimpleDocTemplate(
@@ -18,8 +19,8 @@ def build_ats_2page_cv(output_path):
         pagesize=A4,
         leftMargin=36,
         rightMargin=36,
-        topMargin=26,
-        bottomMargin=26,
+        topMargin=22,
+        bottomMargin=22,
         title="Curriculum Vitae - Dimas Wijanarko",
         author="Dimas Wijanarko",
         subject="CV ATS - Full Stack Web & Mobile Software Engineer",
@@ -32,33 +33,37 @@ def build_ats_2page_cv(output_path):
     c_body = colors.HexColor("#334155")        # Slate 700
     c_muted = colors.HexColor("#64748b")       # Slate 500
 
+    # Header Styles (CENTERED)
     name_style = ParagraphStyle(
-        'DocName',
+        'DocNameCenter',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
         fontSize=18,
         leading=21,
         textColor=c_primary,
+        alignment=TA_CENTER,
         spaceAfter=2,
     )
 
     title_style = ParagraphStyle(
-        'DocTitle',
+        'DocTitleCenter',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
         fontSize=9.8,
         leading=12.2,
         textColor=c_accent,
-        spaceAfter=3,
+        alignment=TA_CENTER,
+        spaceAfter=2.5,
     )
 
     contact_style = ParagraphStyle(
-        'DocContact',
+        'DocContactCenter',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.4,
-        leading=11.0,
+        fontSize=8.3,
+        leading=10.8,
         textColor=c_body,
+        alignment=TA_CENTER,
     )
 
     section_header_style = ParagraphStyle(
@@ -92,23 +97,26 @@ def build_ats_2page_cv(output_path):
         alignment=2,
     )
 
+    # Body Styles (JUSTIFIED)
     body_style = ParagraphStyle(
-        'DocBody',
+        'DocBodyJustify',
         parent=styles['Normal'],
         fontName='Helvetica',
         fontSize=8.3,
         leading=11.2,
         textColor=c_body,
+        alignment=TA_JUSTIFY,
         spaceAfter=0.6,
     )
 
     bullet_style = ParagraphStyle(
-        'DocBullet',
+        'DocBulletJustify',
         parent=styles['Normal'],
         fontName='Helvetica',
         fontSize=8.3,
         leading=11.0,
         textColor=c_body,
+        alignment=TA_JUSTIFY,
         leftIndent=9,
         firstLineIndent=-6,
         spaceAfter=0.8,
@@ -126,55 +134,43 @@ def build_ats_2page_cv(output_path):
     # HALAMAN 1
     # ==========================================
 
-    # 1. HEADER: FOTO PROFIL, IDENTITAS & KONTAK
+    # 1. HEADER CENTERED: FOTO, NAMA, GELAR & KONTAK
     passport_img_path = r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\dimas-profile-passport.jpg"
-    photo_w = 56
-    photo_h = 74.67
+    photo_w = 54
+    photo_h = 72
     img_element = Image(passport_img_path, width=photo_w, height=photo_h)
+    img_element.hAlign = 'CENTER'
 
-    photo_col_w = 66
-    meta_col_w = usable_w - photo_col_w
-
-    header_text_block = [
-        Paragraph("DIMAS WIJANARKO", name_style),
-        Paragraph("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI", title_style),
-        Paragraph(
-            "TTL: Jakarta, 21 April 2004 &nbsp;|&nbsp; Alamat: Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat, DKI Jakarta",
-            contact_style
-        ),
-        Spacer(1, 1.0),
-        Paragraph(
-            "Email: <a href='mailto:dmswijanarko@gmail.com' color='#0369a1'><u>dmswijanarko@gmail.com</u></a> &nbsp;|&nbsp; "
-            "LinkedIn: <a href='https://linkedin.com/in/dmswijanarko' color='#0369a1'><u>in/dmswijanarko</u></a> &nbsp;|&nbsp; "
-            "GitHub: <a href='https://github.com/Dimss-W' color='#0369a1'><u>github.com/Dimss-W</u></a>",
-            contact_style
-        ),
-    ]
-
-    header_table = Table([[img_element, header_text_block]], colWidths=[photo_col_w, meta_col_w])
-    header_table.setStyle(TableStyle([
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('LEFTPADDING', (0,0), (-1,-1), 0),
-        ('RIGHTPADDING', (0,0), (-1,-1), 0),
-        ('TOPPADDING', (0,0), (-1,-1), 0),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 0),
-    ]))
-    story.append(header_table)
+    story.append(img_element)
+    story.append(Spacer(1, 3.0))
+    story.append(Paragraph("DIMAS WIJANARKO", name_style))
+    story.append(Paragraph("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI", title_style))
+    story.append(Paragraph(
+        "TTL: Jakarta, 21 April 2004 &nbsp;|&nbsp; Alamat: Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat, DKI Jakarta",
+        contact_style
+    ))
+    story.append(Spacer(1, 1.0))
+    story.append(Paragraph(
+        "Email: <a href='mailto:dmswijanarko@gmail.com' color='#0369a1'><u>dmswijanarko@gmail.com</u></a> &nbsp;|&nbsp; "
+        "LinkedIn: <a href='https://linkedin.com/in/dmswijanarko' color='#0369a1'><u>in/dmswijanarko</u></a> &nbsp;|&nbsp; "
+        "GitHub: <a href='https://github.com/Dimss-W' color='#0369a1'><u>github.com/Dimss-W</u></a>",
+        contact_style
+    ))
     story.append(Spacer(1, 2.0))
     story.append(HRFlowable(width="100%", thickness=1.0, color=c_primary, spaceAfter=2.5, spaceBefore=0.8))
 
-    # 2. RINGKASAN PROFESIONAL
+    # 2. RINGKASAN PROFESIONAL (JUSTIFIED)
     for elem in section_heading("Ringkasan Profesional"):
         story.append(elem)
 
     summary_text = (
-        "Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) Semester 7 dengan IPK 3.82 yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) serta Analisis Data. "
+        "Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) dengan IPK 3.82 yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) serta Analisis Data. "
         "Tersertifikasi resmi <b>Database Administrator oleh BNSP</b>, lulus asesmen <b>Analis Program BNSP</b>, dan peraih predikat <b>Juara 1 IT Bootcamp Software Development UBSI</b>. "
         "Berpengalaman 4 bulan mengembangkan sistem operasional korporat internal monitoring realisasi biaya dan dashboard Microsoft Power BI di <b>PT PGAS Telekomunikasi Nusantara (PGNCOM)</b>, "
         "menjadi pengajar tamu RPL di SMK Muhammadiyah 15 Jakarta, aktif memimpin organisasi kemasyarakatan kepemudaan masjid (PRISMA), serta merilis sistem informasi terpadu FindIt untuk 27 kampus cabang UBSI."
     )
     story.append(Paragraph(summary_text, body_style))
-    story.append(Spacer(1, 2.0))
+    story.append(Spacer(1, 1.8))
 
     # 3. KEAHLIAN TEKNIS & KOMPETENSI
     for elem in section_heading("Keahlian Teknis & Kompetensi"):
@@ -200,13 +196,13 @@ def build_ats_2page_cv(output_path):
     t_skills = Table(skills_data, colWidths=[105, 8, usable_w - 113])
     t_skills.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('TOPPADDING', (0,0), (-1,-1), 0.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 0.5),
+        ('TOPPADDING', (0,0), (-1,-1), 0.4),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 0.4),
         ('LEFTPADDING', (0,0), (-1,-1), 0),
         ('RIGHTPADDING', (0,0), (-1,-1), 0),
     ]))
     story.append(t_skills)
-    story.append(Spacer(1, 2.0))
+    story.append(Spacer(1, 1.8))
 
     # 4. PENDIDIKAN FORMAL (SETELAH KEAHLIAN TEKNIS)
     for elem in section_heading("Pendidikan Formal"):
@@ -218,7 +214,7 @@ def build_ats_2page_cv(output_path):
             Paragraph("September 2023 – Sekarang (Mahasiswa Aktif)", item_date_style),
         ],
         [
-            Paragraph("• IPK: <b>3.82</b> (Semester 7)", bullet_style),
+            Paragraph("• IPK: <b>3.82</b>", bullet_style),
             Paragraph("", item_date_style),
         ],
         [
@@ -230,7 +226,7 @@ def build_ats_2page_cv(output_path):
             Paragraph("Juli 2019 – Juli 2022", item_date_style),
         ],
         [
-            Paragraph("• Nilai rata-rata: <b>84</b>", bullet_style),
+            Paragraph("• Nilai Rata-Rata: <b>84</b>", bullet_style),
             Paragraph("", item_date_style),
         ],
         [
@@ -247,9 +243,9 @@ def build_ats_2page_cv(output_path):
         ('RIGHTPADDING', (0,0), (-1,-1), 0),
     ]))
     story.append(t_edu)
-    story.append(Spacer(1, 2.0))
+    story.append(Spacer(1, 1.8))
 
-    # 5. PENGALAMAN KERJA & MENGAJAR
+    # 5. PENGALAMAN KERJA & MENGAJAR (BULLETS JUSTIFIED)
     for elem in section_heading("Pengalaman Kerja & Mengajar"):
         story.append(elem)
 
@@ -290,7 +286,7 @@ def build_ats_2page_cv(output_path):
     # ==========================================
     story.append(PageBreak())
 
-    # 6. PENGALAMAN ORGANISASI (BARU)
+    # 6. PENGALAMAN ORGANISASI (JUSTIFIED)
     for elem in section_heading("Pengalaman Organisasi"):
         story.append(elem)
 
@@ -308,7 +304,7 @@ def build_ats_2page_cv(output_path):
     story.append(Paragraph("&nbsp;&nbsp;– <b>Santunan Sosial Anak Yatim, Dhuafa & Marbot:</b> Menggalang dan menyalurkan paket sembako serta dana santunan tepat sasaran.", bullet_style))
     story.append(Spacer(1, 2.0))
 
-    # 7. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN
+    # 7. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN (JUSTIFIED)
     for elem in section_heading("Proyek Rekayasa Perangkat Lunak Unggulan"):
         story.append(elem)
 
@@ -337,7 +333,7 @@ def build_ats_2page_cv(output_path):
     story.append(Paragraph("• Mengembangkan sistem web internal monitoring anggaran dan mengintegrasikan basis data transaksi operasional ke dashboard analitik Microsoft Power BI interaktif menggunakan formula DAX untuk evaluasi deviasi proyek. <i>(Stack: Laravel, Microsoft Power BI, DAX, MySQL)</i>.", bullet_style))
     story.append(Spacer(1, 2.0))
 
-    # 8. SERTIFIKASI KOMPETENSI & PENGHARGAAN RESMI
+    # 8. SERTIFIKASI KOMPETENSI & PENGHARGAAN RESMI (JUSTIFIED)
     for elem in section_heading("Sertifikasi Kompetensi & Penghargaan Resmi"):
         story.append(elem)
 
@@ -382,7 +378,7 @@ def build_ats_2page_cv(output_path):
     story.append(cert_table)
 
     doc.build(story)
-    print(f"2-Page ATS CV generated successfully at: {output_path}")
+    print(f"Centered Header & Justified ATS CV generated successfully at: {output_path}")
 
 def render_preview_pngs(pdf_path, out_dir):
     doc = pymupdf.open(pdf_path)
@@ -391,13 +387,11 @@ def render_preview_pngs(pdf_path, out_dir):
     
     for i, page in enumerate(doc):
         pix = page.get_pixmap(dpi=200)
-        # Simpan page_X.png
         p_path = os.path.join(out_dir, "cv_preview", f"page_{i+1}.png")
         os.makedirs(os.path.dirname(p_path), exist_ok=True)
         pix.save(p_path)
         print(f"Halaman {i+1} tersimpan di: {p_path} ({pix.width}x{pix.height})")
         
-        # Simpan 1page_clean_X.png untuk backward compatibility preview
         clean_path = os.path.join(out_dir, "cv_preview", f"1page_clean_{i+1}.png")
         pix.save(clean_path)
 
@@ -408,7 +402,7 @@ if __name__ == "__main__":
     cv_ats_path = os.path.join(out_dir, "CV_Dimas_Wijanarko_ATS.pdf")
     cv_default_path = os.path.join(out_dir, "cv-dimas-wijanarko.pdf")
     
-    build_ats_2page_cv(cv_ats_path)
-    build_ats_2page_cv(cv_default_path)
+    build_ats_cv(cv_ats_path)
+    build_ats_cv(cv_default_path)
 
     render_preview_pngs(cv_ats_path, out_dir)

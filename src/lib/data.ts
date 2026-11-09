@@ -5,7 +5,7 @@ import { Profile, Experience, Project, Skill, Education, Certificate, ContactMes
 export const defaultProfile: Profile = {
   full_name: 'Dimas Wijanarko',
   title: 'Full Stack Web & Mobile Software Engineer',
-  bio: 'Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (Semester 7, IPK 3.82) yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) dan Analisis Data. Berpengalaman mengembangkan sistem monitoring operasional di PT PGAS Telekomunikasi Nusantara (PGNCOM), tersertifikasi resmi Database Administrator BNSP, peraih Juara 1 IT Bootcamp Software Development UBSI (Desainer Grafis & UI Smart Tahfidz School), serta aktif memimpin organisasi kepemudaan masjid (PRISMA). Menguasai Laravel, Flutter, MySQL, dan Microsoft Power BI.',
+  bio: 'Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) dan Analisis Data. Berpengalaman mengembangkan sistem monitoring operasional di PT PGAS Telekomunikasi Nusantara (PGNCOM), tersertifikasi resmi Database Administrator BNSP, peraih Juara 1 IT Bootcamp Software Development UBSI (Desainer Grafis & UI Smart Tahfidz School), serta aktif memimpin organisasi kepemudaan masjid (PRISMA). Menguasai Laravel, Flutter, MySQL, dan Microsoft Power BI.',
   email: 'dmswijanarko@gmail.com',
   location: 'Jakarta, Indonesia',
   avatar_url: '/dimas-profile-web.jpg',
@@ -330,14 +330,12 @@ export const defaultCertificates: Certificate[] = [
 
 export const defaultEducations: Education[] = [
   {
-    degree: 'S1 Sistem Informasi (Semester 7)',
+    degree: 'S1 Sistem Informasi',
     institution: 'Universitas Bina Sarana Informatika (UBSI)',
     start_year: 'September 2023',
     end_year: 'Sekarang (Mahasiswa Aktif)',
-    gpa_or_grade: 'IPK 3.82 (Semester 7)',
-    description: 'Menempuh pendidikan sarjana Sistem Informasi di Fakultas Teknik dan Informatika dengan IPK 3.82. Mengambil mata kuliah relevan: Pemrograman Web (Laravel), Pemrograman Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL, serta Sistem Informasi Manajemen.',
+    description: 'Menempuh pendidikan sarjana Sistem Informasi di Fakultas Teknik dan Informatika. Mengambil mata kuliah relevan: Pemrograman Web (Laravel), Pemrograman Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL, serta Sistem Informasi Manajemen.',
     tags: [
-      'IPK: 3.82',
       'Pemrograman Web (Laravel)',
       'Pemrograman Mobile (Flutter)',
       'Basis Data Relasional & SQL',

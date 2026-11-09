@@ -6,46 +6,10 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL
 from docx.oxml import parse_xml, OxmlElement
 from docx.oxml.ns import nsdecls, qn
 
-def set_cell_border(cell, **kwargs):
-    tcPr = cell._tc.get_or_add_tcPr()
-    tcBorders = tcPr.first_child_found_in("w:tcBorders")
-    if tcBorders is None:
-        tcBorders = OxmlElement('w:tcBorders')
-        tcPr.append(tcBorders)
-    
-    for edge in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
-        edge_data = kwargs.get(edge)
-        if edge_data:
-            tag = 'w:{}'.format(edge)
-            element = tcBorders.find(qn(tag))
-            if element is None:
-                element = OxmlElement(tag)
-                tcBorders.append(element)
-            for key, val in edge_data.items():
-                element.set(qn('w:{}'.format(key)), str(val))
-
-def set_cell_margins(cell, top=40, bottom=40, left=40, right=40):
-    tcPr = cell._tc.get_or_add_tcPr()
-    tcMar = OxmlElement('w:tcMar')
-    for m, val in [('top', top), ('bottom', bottom), ('left', left), ('right', right)]:
-        node = OxmlElement(f'w:{m}')
-        node.set(qn('w:w'), str(val))
-        node.set(qn('w:type'), 'dxa')
-        tcMar.append(node)
-    tcPr.append(tcMar)
-
-def add_horizontal_rule(doc, color_hex="0369A1", size_pt="10"):
-    p = doc.add_paragraph()
-    p.paragraph_format.space_before = Pt(1)
-    p.paragraph_format.space_after = Pt(3)
-    pPr = p._p.get_or_add_pPr()
-    pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="{size_pt}" w:space="1" w:color="{color_hex}"/></w:pBdr>')
-    pPr.append(pBdr)
-
 def build_docx_cv(dest_paths):
     doc = docx.Document()
     
-    # 1. Page Margins - Standard ATS friendly
+    # Page Margins - Standard ATS friendly
     for section in doc.sections:
         section.top_margin = Inches(0.5)
         section.bottom_margin = Inches(0.5)
@@ -70,7 +34,7 @@ def build_docx_cv(dest_paths):
 
     def add_section_heading(title_text):
         p = doc.add_paragraph()
-        p.paragraph_format.space_before = Pt(6)
+        p.paragraph_format.space_before = Pt(7)
         p.paragraph_format.space_after = Pt(2)
         p.paragraph_format.keep_with_next = True
         
@@ -86,54 +50,42 @@ def build_docx_cv(dest_paths):
         pPr.append(pBdr)
 
     # ==========================================
-    # 1. HEADER (FOTO + IDENTITAS ATS)
+    # 1. HEADER (CENTERED: FOTO, NAMA, KONTAK)
     # ==========================================
     passport_img_path = r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\dimas-profile-passport.jpg"
     
-    table = doc.add_table(rows=1, cols=2)
-    table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    table.autofit = False
-    
-    col_widths = [Inches(1.05), Inches(6.22)]
-    for i, col in enumerate(table.columns):
-        col.width = col_widths[i]
-        for cell in col.cells:
-            cell.width = col_widths[i]
-
-    # Cell 0: Foto Formal
-    cell_photo = table.cell(0, 0)
-    cell_photo.vertical_alignment = WD_ALIGN_VERTICAL.TOP
-    set_cell_margins(cell_photo, top=0, bottom=0, left=0, right=60)
-    p_photo = cell_photo.paragraphs[0]
-    p_photo.paragraph_format.space_before = Pt(0)
-    p_photo.paragraph_format.space_after = Pt(0)
     if os.path.exists(passport_img_path):
+        p_photo = doc.add_paragraph()
+        p_photo.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_photo.paragraph_format.space_before = Pt(0)
+        p_photo.paragraph_format.space_after = Pt(2)
         p_photo.add_run().add_picture(passport_img_path, width=Inches(0.95), height=Inches(1.27))
 
-    # Cell 1: Info Nama & Kontak
-    cell_info = table.cell(0, 1)
-    cell_info.vertical_alignment = WD_ALIGN_VERTICAL.TOP
-    set_cell_margins(cell_info, top=0, bottom=0, left=50, right=0)
-    
-    p_name = cell_info.paragraphs[0]
-    p_name.paragraph_format.space_before = Pt(0)
-    p_name.paragraph_format.space_after = Pt(1)
+    # Nama Lengkap (CENTER)
+    p_name = doc.add_paragraph()
+    p_name.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_name.paragraph_format.space_before = Pt(1)
+    p_name.paragraph_format.space_after = Pt(1.5)
     r_name = p_name.add_run("DIMAS WIJANARKO")
     r_name.bold = True
     r_name.font.name = font_family
-    r_name.font.size = Pt(17)
+    r_name.font.size = Pt(17.5)
     r_name.font.color.rgb = c_primary
 
-    p_title = cell_info.add_paragraph()
+    # Title / Gelar (CENTER)
+    p_title = doc.add_paragraph()
+    p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_title.paragraph_format.space_before = Pt(0)
-    p_title.paragraph_format.space_after = Pt(2.5)
+    p_title.paragraph_format.space_after = Pt(2)
     r_title = p_title.add_run("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI")
     r_title.bold = True
     r_title.font.name = font_family
-    r_title.font.size = Pt(9.5)
+    r_title.font.size = Pt(9.8)
     r_title.font.color.rgb = c_accent
 
-    p_addr = cell_info.add_paragraph()
+    # TTL & Alamat (CENTER)
+    p_addr = doc.add_paragraph()
+    p_addr.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_addr.paragraph_format.space_before = Pt(0)
     p_addr.paragraph_format.space_after = Pt(1.5)
     r_addr = p_addr.add_run("TTL: Jakarta, 21 April 2004  |  Alamat: Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat, DKI Jakarta")
@@ -141,9 +93,11 @@ def build_docx_cv(dest_paths):
     r_addr.font.size = Pt(8.5)
     r_addr.font.color.rgb = c_body
 
-    p_contact = cell_info.add_paragraph()
+    # Kontak Online (CENTER)
+    p_contact = doc.add_paragraph()
+    p_contact.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_contact.paragraph_format.space_before = Pt(0)
-    p_contact.paragraph_format.space_after = Pt(0)
+    p_contact.paragraph_format.space_after = Pt(3)
     
     r_em_label = p_contact.add_run("Email: ")
     r_em_label.font.size = Pt(8.5)
@@ -170,17 +124,26 @@ def build_docx_cv(dest_paths):
     r_gh_val.font.color.rgb = c_accent
     r_gh_val.underline = True
 
+    # Divider Line
+    p_div = doc.add_paragraph()
+    p_div.paragraph_format.space_before = Pt(1)
+    p_div.paragraph_format.space_after = Pt(3)
+    pPr = p_div._p.get_or_add_pPr()
+    pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="12" w:space="1" w:color="0F172A"/></w:pBdr>')
+    pPr.append(pBdr)
+
     # ==========================================
-    # 2. RINGKASAN PROFESIONAL
+    # 2. RINGKASAN PROFESIONAL (JUSTIFIED)
     # ==========================================
     add_section_heading("Ringkasan Profesional")
     p_sum = doc.add_paragraph()
+    p_sum.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_sum.paragraph_format.space_before = Pt(1)
     p_sum.paragraph_format.space_after = Pt(3)
     p_sum.paragraph_format.line_spacing = 1.15
     
     r_sum = p_sum.add_run(
-        "Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) Semester 7 dengan IPK 3.82 yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) serta Analisis Data. Tersertifikasi resmi "
+        "Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) dengan IPK 3.82 yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) serta Analisis Data. Tersertifikasi resmi "
     )
     r_sum.font.size = Pt(9.0)
     
@@ -217,7 +180,7 @@ def build_docx_cv(dest_paths):
     r_sum5.font.size = Pt(9.0)
 
     # ==========================================
-    # 3. KEAHLIAN TEKNIS & KOMPETENSI
+    # 3. KEAHLIAN TEKNIS & KOMPETENSI (JUSTIFIED)
     # ==========================================
     add_section_heading("Keahlian Teknis & Kompetensi")
     skills = [
@@ -227,6 +190,7 @@ def build_docx_cv(dest_paths):
     ]
     for cat, val in skills:
         p_sk = doc.add_paragraph()
+        p_sk.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p_sk.paragraph_format.space_before = Pt(1)
         p_sk.paragraph_format.space_after = Pt(1.5)
         r_c = p_sk.add_run(f"• {cat}: ")
@@ -259,16 +223,18 @@ def build_docx_cv(dest_paths):
     r_u3.font.color.rgb = c_muted
 
     p_ub1 = doc.add_paragraph()
+    p_ub1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_ub1.paragraph_format.left_indent = Inches(0.2)
     p_ub1.paragraph_format.space_before = Pt(0)
     p_ub1.paragraph_format.space_after = Pt(1)
     r_ub1 = p_ub1.add_run("• IPK: ")
     r_ub1.font.size = Pt(8.8)
-    r_ub1_v = p_ub1.add_run("3.82 (Semester 7)")
+    r_ub1_v = p_ub1.add_run("3.82")
     r_ub1_v.bold = True
     r_ub1_v.font.size = Pt(8.8)
 
     p_ub2 = doc.add_paragraph()
+    p_ub2.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_ub2.paragraph_format.left_indent = Inches(0.2)
     p_ub2.paragraph_format.space_before = Pt(0)
     p_ub2.paragraph_format.space_after = Pt(2)
@@ -294,6 +260,7 @@ def build_docx_cv(dest_paths):
     r_s3.font.color.rgb = c_muted
 
     p_sb1 = doc.add_paragraph()
+    p_sb1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_sb1.paragraph_format.left_indent = Inches(0.2)
     p_sb1.paragraph_format.space_before = Pt(0)
     p_sb1.paragraph_format.space_after = Pt(1)
@@ -304,6 +271,7 @@ def build_docx_cv(dest_paths):
     r_sb1_v.font.size = Pt(8.8)
 
     p_sb2 = doc.add_paragraph()
+    p_sb2.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
     p_sb2.paragraph_format.left_indent = Inches(0.2)
     p_sb2.paragraph_format.space_before = Pt(0)
     p_sb2.paragraph_format.space_after = Pt(2)
@@ -314,7 +282,7 @@ def build_docx_cv(dest_paths):
     r_sb2_c.font.size = Pt(8.8)
 
     # ==========================================
-    # 5. PENGALAMAN KERJA & MENGAJAR
+    # 5. PENGALAMAN KERJA & MENGAJAR (JUSTIFIED)
     # ==========================================
     add_section_heading("Pengalaman Kerja & Mengajar")
 
@@ -341,6 +309,7 @@ def build_docx_cv(dest_paths):
     ]
     for b in e1_bullets:
         p_b = doc.add_paragraph()
+        p_b.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p_b.paragraph_format.left_indent = Inches(0.2)
         p_b.paragraph_format.space_before = Pt(0.5)
         p_b.paragraph_format.space_after = Pt(1)
@@ -369,6 +338,7 @@ def build_docx_cv(dest_paths):
     ]
     for b in e2_bullets:
         p_b = doc.add_paragraph()
+        p_b.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p_b.paragraph_format.left_indent = Inches(0.2)
         p_b.paragraph_format.space_before = Pt(0.5)
         p_b.paragraph_format.space_after = Pt(1)
@@ -396,6 +366,7 @@ def build_docx_cv(dest_paths):
     ]
     for b in e3_bullets:
         p_b = doc.add_paragraph()
+        p_b.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p_b.paragraph_format.left_indent = Inches(0.2)
         p_b.paragraph_format.space_before = Pt(0.5)
         p_b.paragraph_format.space_after = Pt(1)
@@ -406,7 +377,7 @@ def build_docx_cv(dest_paths):
     doc.add_page_break()
 
     # ==========================================
-    # 6. PENGALAMAN ORGANISASI (BARU)
+    # 6. PENGALAMAN ORGANISASI (JUSTIFIED)
     # ==========================================
     add_section_heading("Pengalaman Organisasi")
     
@@ -435,6 +406,7 @@ def build_docx_cv(dest_paths):
     ]
     for b in org_bullets:
         p_b = doc.add_paragraph()
+        p_b.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p_b.paragraph_format.left_indent = Inches(0.2)
         p_b.paragraph_format.space_before = Pt(0.5)
         p_b.paragraph_format.space_after = Pt(1)
@@ -442,7 +414,7 @@ def build_docx_cv(dest_paths):
         r_b.font.size = Pt(8.8)
 
     # ==========================================
-    # 7. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN
+    # 7. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN (JUSTIFIED)
     # ==========================================
     add_section_heading("Proyek Rekayasa Perangkat Lunak Unggulan")
     projects = [
@@ -467,6 +439,7 @@ def build_docx_cv(dest_paths):
         r_pt.font.color.rgb = c_primary
         
         p_pd = doc.add_paragraph()
+        p_pd.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p_pd.paragraph_format.left_indent = Inches(0.2)
         p_pd.paragraph_format.space_before = Pt(0)
         p_pd.paragraph_format.space_after = Pt(1)
@@ -474,7 +447,7 @@ def build_docx_cv(dest_paths):
         r_pd.font.size = Pt(8.8)
 
     # ==========================================
-    # 8. SERTIFIKASI KOMPETENSI & PENGHARGAAN RESMI
+    # 8. SERTIFIKASI KOMPETENSI & PENGHARGAAN RESMI (JUSTIFIED)
     # ==========================================
     add_section_heading("Sertifikasi Kompetensi & Penghargaan Resmi")
     certs = [
@@ -503,6 +476,7 @@ def build_docx_cv(dest_paths):
         r_cd.font.color.rgb = c_muted
 
         p_cd = doc.add_paragraph()
+        p_cd.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p_cd.paragraph_format.left_indent = Inches(0.2)
         p_cd.paragraph_format.space_before = Pt(0)
         p_cd.paragraph_format.space_after = Pt(1)
@@ -513,12 +487,13 @@ def build_docx_cv(dest_paths):
     for path in dest_paths:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         doc.save(path)
-        print(f"Berhasil membuat file Word CV ATS di: {path}")
+        print(f"File Word CV ATS tersimpan di: {path}")
 
 if __name__ == "__main__":
     targets = [
-        r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\storage\CV_Dimas_Wijanarko_ATS.docx",
-        r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\storage\CV_Dimas_Wijanarko_ATS.docx",
-        r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\CV_Dimas_Wijanarko_ATS.docx",
+        r"C:\Users\Dimas Wijanarko\Desktop\CV_Dimas_Wijanarko_ATS.docx",
+        r"C:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\storage\CV_Dimas_Wijanarko_ATS.docx",
+        r"C:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\storage\CV_Dimas_Wijanarko_ATS.docx",
+        r"C:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\CV_Dimas_Wijanarko_ATS.docx",
     ]
     build_docx_cv(targets)

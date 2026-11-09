@@ -29,9 +29,9 @@ export default function AboutSection({ profile }: AboutSectionProps) {
     } else if (cmd === 'dimas.getOrganization()') {
       res = 'Ketua Umum Pengurus Remaja Islam Masjid (PRISMA) 2023 - Sekarang';
     } else if (cmd === 'dimas.getEducation()') {
-      res = 'S1 Sistem Informasi (Semester 7, IPK 3.82) - Universitas Bina Sarana Informatika';
+      res = 'S1 Sistem Informasi - Universitas Bina Sarana Informatika';
     }
-
+ 
     setCliHistory((prev) => [...prev, { cmd, res }]);
   };
 
@@ -48,7 +48,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             Ketajaman Analisis Bisnis &amp; Rekayasa Kode
           </h2>
           <p className="section-description">
-            Sebagai mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (Semester 7, IPK 3.82), 
+            Sebagai mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika, 
             saya memadukan disiplin rekayasa kode bersih, arsitektur basis data relasional, dan pengembangan aplikasi interaktif modern.
           </p>
         </div>
