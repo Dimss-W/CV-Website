@@ -25,7 +25,9 @@ export default function AboutSection({ profile }: AboutSectionProps) {
     } else if (cmd === 'dimas.getCertifications()') {
       res = 'BNSP Database Administrator (No. Reg. DMS.1241.00936 2026) | BNSP Analis Program';
     } else if (cmd === 'dimas.getHonors()') {
-      res = 'Juara 1 IT Bootcamp Software Development se-Seluruh Kampus Cabang UBSI';
+      res = 'Juara 1 IT Bootcamp Software Development (Desainer Grafis & UI Smart Tahfidz School)';
+    } else if (cmd === 'dimas.getOrganization()') {
+      res = 'Ketua Umum Pengurus Remaja Islam Masjid (PRISMA) 2023 - Sekarang';
     } else if (cmd === 'dimas.getEducation()') {
       res = 'S1 Sistem Informasi (Semester 7, IPK 3.82) - Universitas Bina Sarana Informatika';
     }
@@ -206,6 +208,13 @@ export default function AboutSection({ profile }: AboutSectionProps) {
                       className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-[11px] font-mono transition-colors"
                     >
                       $ dimas.getHonors()
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRunCommand('dimas.getOrganization()')}
+                      className="px-2 py-1 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 text-[11px] font-mono transition-colors"
+                    >
+                      $ dimas.getOrganization()
                     </button>
                     <button
                       type="button"
