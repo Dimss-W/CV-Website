@@ -97,7 +97,11 @@ def build_ats_cv(output_path):
         leftMargin=margin_lr,
         rightMargin=margin_lr,
         topMargin=margin_tb,
-        bottomMargin=margin_tb
+        bottomMargin=margin_tb,
+        title="CV - Dimas Wijanarko",
+        author="Dimas Wijanarko",
+        subject="Curriculum Vitae Dimas Wijanarko - Full Stack Web & Mobile Software Engineer",
+        creator="Dimas Wijanarko"
     )
 
     styles = getSampleStyleSheet()
@@ -296,7 +300,7 @@ def build_ats_cv(output_path):
 
     edu1_t = Table([
         [Paragraph("<b>Universitas Bina Sarana Informatika (UBSI)</b> – <i>S1 Sistem Informasi</i>", item_title_style),
-         Paragraph("Sep 2023 – Sekarang (Aktif)", item_date_style)]
+         Paragraph("2023 – Sekarang (Aktif)", item_date_style)]
     ], colWidths=[usable_w - 140, 140])
     edu1_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(edu1_t)
@@ -306,7 +310,7 @@ def build_ats_cv(output_path):
 
     edu2_t = Table([
         [Paragraph("<b>SMK Negeri 31 Jakarta</b> – <i>Kompetensi Keahlian Animasi</i>", item_title_style),
-         Paragraph("Juli 2019 – Juli 2022", item_date_style)]
+         Paragraph("2019 – 2022", item_date_style)]
     ], colWidths=[usable_w - 140, 140])
     edu2_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(edu2_t)
@@ -321,7 +325,7 @@ def build_ats_cv(output_path):
 
     cert1_t = Table([
         [Paragraph("<b>Sertifikat Kompetensi Database Administrator (DBA)</b> – <i>BNSP & LSP UBSI</i>", item_title_style),
-         Paragraph("Mar 2026 – 2029", item_date_style)],
+         Paragraph("2026 – 2029", item_date_style)],
     ], colWidths=[usable_w - 140, 140])
     cert1_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(cert1_t)
@@ -329,7 +333,7 @@ def build_ats_cv(output_path):
 
     cert2_t = Table([
         [Paragraph("<b>Sertifikasi Kompetensi Analis Program (Program Analyst)</b> – <i>BNSP & LSP UBSI</i>", item_title_style),
-         Paragraph("Ags 2026 – 2029", item_date_style)],
+         Paragraph("2026 – 2029", item_date_style)],
     ], colWidths=[usable_w - 140, 140])
     cert2_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(cert2_t)

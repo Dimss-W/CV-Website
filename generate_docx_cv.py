@@ -10,6 +10,12 @@ from docx.oxml.ns import nsdecls, qn
 def build_docx_cv(dest_paths):
     doc = docx.Document()
     
+    # Set Document Metadata
+    doc.core_properties.title = "CV - Dimas Wijanarko"
+    doc.core_properties.author = "Dimas Wijanarko"
+    doc.core_properties.subject = "Curriculum Vitae Dimas Wijanarko - Full Stack Web & Mobile Software Engineer"
+    doc.core_properties.creator = "Dimas Wijanarko"
+    
     # Page Margins - Compact 1-Page Format
     for section in doc.sections:
         section.top_margin = Inches(0.35)
@@ -218,11 +224,11 @@ def build_docx_cv(dest_paths):
     # ==========================================
     add_section_divider("Pendidikan Formal")
 
-    add_item_row("Universitas Bina Sarana Informatika (UBSI)", "S1 Sistem Informasi", "Sep 2023 – Sekarang (Aktif)")
+    add_item_row("Universitas Bina Sarana Informatika (UBSI)", "S1 Sistem Informasi", "2023 – Sekarang (Aktif)")
     add_bullet("IPK: 3.82 / 4.00")
     add_bullet("Mata Kuliah Relevan: Pemrograman Web (Laravel), Pemrograman Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL.")
 
-    add_item_row("SMK Negeri 31 Jakarta", "Kompetensi Keahlian Animasi", "Juli 2019 – Juli 2022")
+    add_item_row("SMK Negeri 31 Jakarta", "Kompetensi Keahlian Animasi", "2019 – 2022")
     add_bullet("Fokus Keahlian: Desain antarmuka pengguna (UI/UX), permodelan grafis digital, animasi komputer, dan komposisi aset multimedia.")
 
     # ==========================================
@@ -230,10 +236,10 @@ def build_docx_cv(dest_paths):
     # ==========================================
     add_section_divider("Sertifikasi Kompetensi & Penghargaan")
 
-    add_item_row("Sertifikat Kompetensi Database Administrator (DBA)", "BNSP & LSP UBSI", "Mar 2026 – 2029")
+    add_item_row("Sertifikat Kompetensi Database Administrator (DBA)", "BNSP & LSP UBSI", "2026 – 2029")
     add_bullet("Kompeten nasional: perancangan basis data relasional, penulisan kueri SQL lanjutan, optimasi indeks, dan integritas data.")
 
-    add_item_row("Sertifikasi Kompetensi Analis Program (Program Analyst)", "BNSP & LSP UBSI", "Ags 2026 – 2029")
+    add_item_row("Sertifikasi Kompetensi Analis Program (Program Analyst)", "BNSP & LSP UBSI", "2026 – 2029")
     add_bullet("Lulus asesmen 10 unit kompetensi SKKNI: spesifikasi perangkat lunak, algoritma, debugging, profiling, dan software testing.")
 
     add_item_row("Juara 1 IT Bootcamp Software Development", "FTI & Rektorat UBSI", "2025")
