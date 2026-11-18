@@ -84,9 +84,9 @@ def build_docx_cv(dest_paths):
     if os.path.exists(passport_img_path):
         p_photo.add_run().add_picture(passport_img_path, width=Inches(0.92), height=Inches(1.23))
 
-    # 2. Teks di Kolom Kanan (Rata Kiri, Naik ke Atas Sejajar Foto)
+    # 2. Teks di Kolom Kanan (Rata Tengah, Naik ke Atas Sejajar Foto)
     p_name = cell_text.paragraphs[0]
-    p_name.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_name.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_name.paragraph_format.space_before = Pt(0)
     p_name.paragraph_format.space_after = Pt(1.5)
     r_name = p_name.add_run("DIMAS WIJANARKO")
@@ -96,7 +96,7 @@ def build_docx_cv(dest_paths):
     r_name.font.color.rgb = c_primary
 
     p_title = cell_text.add_paragraph()
-    p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_title.paragraph_format.space_before = Pt(0)
     p_title.paragraph_format.space_after = Pt(1.5)
     r_title = p_title.add_run("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI")
@@ -106,7 +106,7 @@ def build_docx_cv(dest_paths):
     r_title.font.color.rgb = c_primary
 
     p_addr = cell_text.add_paragraph()
-    p_addr.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_addr.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_addr.paragraph_format.space_before = Pt(0)
     p_addr.paragraph_format.space_after = Pt(1.5)
     r_addr = p_addr.add_run("TTL: Jakarta, 21 April 2004  |  Alamat: Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat, DKI Jakarta")
@@ -115,7 +115,7 @@ def build_docx_cv(dest_paths):
     r_addr.font.color.rgb = c_body
 
     p_contact = cell_text.add_paragraph()
-    p_contact.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_contact.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_contact.paragraph_format.space_before = Pt(0)
     p_contact.paragraph_format.space_after = Pt(0)
     

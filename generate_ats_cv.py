@@ -33,37 +33,37 @@ def build_ats_cv(output_path):
     c_body = colors.HexColor("#334155")        # Slate 700
     c_muted = colors.HexColor("#64748b")       # Slate 500
 
-    # Header Styles (LEFT ALIGNED NEXT TO PHOTO)
+    # Header Styles (CENTERED NEXT TO PHOTO)
     name_style = ParagraphStyle(
-        'DocNameLeft',
+        'DocNameCenter',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
         fontSize=17,
         leading=20,
         textColor=c_primary,
-        alignment=TA_LEFT,
+        alignment=TA_CENTER,
         spaceAfter=1.5,
     )
 
     title_style = ParagraphStyle(
-        'DocTitleLeft',
+        'DocTitleCenter',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
         fontSize=9.2,
         leading=11.5,
         textColor=c_primary,
-        alignment=TA_LEFT,
+        alignment=TA_CENTER,
         spaceAfter=2.0,
     )
 
     contact_style = ParagraphStyle(
-        'DocContactLeft',
+        'DocContactCenter',
         parent=styles['Normal'],
         fontName='Helvetica',
         fontSize=8.0,
         leading=10.5,
         textColor=c_body,
-        alignment=TA_LEFT,
+        alignment=TA_CENTER,
         spaceAfter=1.5,
     )
 
