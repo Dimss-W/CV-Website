@@ -10,90 +10,78 @@ from docx.oxml.ns import nsdecls, qn
 def build_docx_cv(dest_paths):
     doc = docx.Document()
     
-    # Page Margins - Standard 0.55 in (40 pt) ATS friendly
+    # Page Margins - Compact 1-Page Format
     for section in doc.sections:
-        section.top_margin = Inches(0.5)
-        section.bottom_margin = Inches(0.5)
-        section.left_margin = Inches(0.55)
-        section.right_margin = Inches(0.55)
+        section.top_margin = Inches(0.35)
+        section.bottom_margin = Inches(0.35)
+        section.left_margin = Inches(0.5)
+        section.right_margin = Inches(0.5)
         section.page_width = Inches(8.27)   # A4 width
         section.page_height = Inches(11.69) # A4 height
 
-    # Palette: Pure Black (Hitam Pekat Murni #000000), tanpa warna abu
-    c_black = RGBColor(0, 0, 0)
+    # Palette matching reference
+    c_black = RGBColor(15, 23, 42)      # Slate 900
+    c_blue = RGBColor(30, 58, 138)      # Deep Navy Blue #1E3A8A
+    c_line = RGBColor(148, 163, 184)    # Slate 400
+    c_badge_bg = "EFF6FF"               # Hex for cell background #EFF6FF
 
     font_family = "Times New Roman"
 
-    # Set normal style font
+    # Set normal style
     normal_style = doc.styles['Normal']
     normal_style.font.name = font_family
-    normal_style.font.size = Pt(9.8)
+    normal_style.font.size = Pt(8.6)
     normal_style.font.color.rgb = c_black
 
-    def add_section_heading(title_text):
+    def add_section_divider(title_text):
         p = doc.add_paragraph()
-        p.paragraph_format.space_before = Pt(8.0)
-        p.paragraph_format.space_after = Pt(3.0)
+        p.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(4.5)
+        p.paragraph_format.space_after = Pt(2.0)
         p.paragraph_format.keep_with_next = True
-        run = p.add_run(title_text.upper())
-        run.bold = True
-        run.font.name = font_family
-        run.font.size = Pt(11.0)
-        run.font.color.rgb = c_black
-
-        pPr = p._p.get_or_add_pPr()
-        pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="8" w:space="1" w:color="000000"/></w:pBdr>')
-        pPr.append(pBdr)
+        
+        # Format: ──────── ■ TITLE ■ ────────
+        r_line1 = p.add_run("────────  ")
+        r_line1.font.name = font_family
+        r_line1.font.size = Pt(8.5)
+        r_line1.font.color.rgb = c_line
+        
+        r_sq1 = p.add_run("■  ")
+        r_sq1.font.name = font_family
+        r_sq1.font.size = Pt(7.5)
+        r_sq1.font.color.rgb = c_blue
+        
+        r_title = p.add_run(title_text.upper())
+        r_title.bold = True
+        r_title.font.name = font_family
+        r_title.font.size = Pt(9.0)
+        r_title.font.color.rgb = c_black
+        
+        r_sq2 = p.add_run("  ■")
+        r_sq2.font.name = font_family
+        r_sq2.font.size = Pt(7.5)
+        r_sq2.font.color.rgb = c_blue
+        
+        r_line2 = p.add_run("  ────────")
+        r_line2.font.name = font_family
+        r_line2.font.size = Pt(8.5)
+        r_line2.font.color.rgb = c_line
         return p
 
-    def add_bullet(text_runs, is_sub=False):
-        p = doc.add_paragraph()
-        p.paragraph_format.left_indent = Inches(0.35 if is_sub else 0.2)
-        p.paragraph_format.first_line_indent = Inches(-0.15)
-        p.paragraph_format.space_before = Pt(0)
-        p.paragraph_format.space_after = Pt(2.2 if is_sub else 2.5)
-        p.paragraph_format.line_spacing = 1.15
-        
-        # Bullet symbol
-        r_sym = p.add_run("•  " if not is_sub else "-  ")
-        r_sym.font.name = font_family
-        r_sym.font.size = Pt(9.5 if is_sub else 9.8)
-        r_sym.font.color.rgb = c_black
-        
-        for item in text_runs:
-            if isinstance(item, str):
-                r = p.add_run(item)
-                r.font.name = font_family
-                r.font.size = Pt(9.5 if is_sub else 9.8)
-                r.font.color.rgb = c_black
-            elif isinstance(item, tuple):
-                # (text, is_bold, is_italic)
-                txt = item[0]
-                is_bold = item[1] if len(item) > 1 else False
-                is_italic = item[2] if len(item) > 2 else False
-                
-                r = p.add_run(txt)
-                r.font.name = font_family
-                r.font.size = Pt(9.5 if is_sub else 9.8)
-                r.bold = is_bold
-                r.italic = is_italic
-                r.font.color.rgb = c_black
-        return p
-
-    def add_table_item(left_title, right_date, sub_label=None):
+    def add_item_row(role_text, comp_text, date_text):
         table = doc.add_table(rows=1, cols=2)
         table.alignment = WD_TABLE_ALIGNMENT.CENTER
         table.autofit = False
         
-        table.columns[0].width = Inches(5.3)
-        table.columns[1].width = Inches(1.87)
+        table.columns[0].width = Inches(5.35)
+        table.columns[1].width = Inches(1.92)
         
         for row in table.rows:
             trPr = row._tr.get_or_add_trPr()
             trPr.append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
             for cell in row.cells:
                 tcPr = cell._tc.get_or_add_tcPr()
-                tcMar = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="0" w:type="dxa"/><w:bottom w:w="40" w:type="dxa"/><w:left w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tcMar>')
+                tcMar = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="0" w:type="dxa"/><w:bottom w:w="20" w:type="dxa"/><w:left w:w="0" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tcMar>')
                 tcPr.append(tcMar)
         
         c0 = table.cell(0, 0)
@@ -102,266 +90,246 @@ def build_docx_cv(dest_paths):
         p0 = c0.paragraphs[0]
         p0.paragraph_format.space_before = Pt(0)
         p0.paragraph_format.space_after = Pt(1.0)
-        r0 = p0.add_run(left_title[0])
+        r0 = p0.add_run(role_text)
         r0.bold = True
         r0.font.name = font_family
-        r0.font.size = Pt(10.0)
+        r0.font.size = Pt(9.0)
         r0.font.color.rgb = c_black
         
-        if len(left_title) > 1:
-            r0_sub = p0.add_run(left_title[1])
-            r0_sub.font.name = font_family
-            r0_sub.font.size = Pt(10.0)
-            r0_sub.font.color.rgb = c_black
-            
-        if sub_label:
-            p_sub = c0.add_paragraph()
-            p_sub.paragraph_format.space_before = Pt(0)
-            p_sub.paragraph_format.space_after = Pt(1.0)
-            r_sub = p_sub.add_run(sub_label)
-            r_sub.font.name = font_family
-            r_sub.font.size = Pt(8.8)
-            r_sub.italic = True
-            r_sub.font.color.rgb = c_black
+        if comp_text:
+            r0_sp = p0.add_run(" ")
+            r0_c = p0.add_run(comp_text)
+            r0_c.italic = True
+            r0_c.font.name = font_family
+            r0_c.font.size = Pt(9.0)
+            r0_c.font.color.rgb = c_blue
             
         p1 = c1.paragraphs[0]
         p1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         p1.paragraph_format.space_before = Pt(0)
         p1.paragraph_format.space_after = Pt(1.0)
-        r1 = p1.add_run(right_date)
-        r1.italic = True
+        r1 = p1.add_run(date_text)
+        r1.bold = True
         r1.font.name = font_family
-        r1.font.size = Pt(9.5)
-        r1.font.color.rgb = c_black
+        r1.font.size = Pt(8.6)
+        r1.font.color.rgb = c_blue
+
+    def add_bullet(lead_bold, rest_text):
+        p = doc.add_paragraph()
+        p.paragraph_format.left_indent = Inches(0.18)
+        p.paragraph_format.first_line_indent = Inches(-0.14)
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after = Pt(1.5)
+        p.paragraph_format.line_spacing = 1.12
+        
+        r_sym = p.add_run("•  ")
+        r_sym.font.name = font_family
+        r_sym.font.size = Pt(8.5)
+        r_sym.font.color.rgb = c_black
+        
+        if lead_bold:
+            r_lead = p.add_run(lead_bold)
+            r_lead.bold = True
+            r_lead.font.name = font_family
+            r_lead.font.size = Pt(8.5)
+            r_lead.font.color.rgb = c_black
+            
+        r_rest = p.add_run(rest_text)
+        r_rest.font.name = font_family
+        r_rest.font.size = Pt(8.5)
+        r_rest.font.color.rgb = c_black
+        return p
 
     # ==========================================
-    # HALAMAN 1
+    # 1. HEADER (PERSIS REFERENSI)
     # ==========================================
-
-    # 1. HEADER (NO PHOTO, SOLID BLACK)
     p_name = doc.add_paragraph()
     p_name.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_name.paragraph_format.space_before = Pt(0)
-    p_name.paragraph_format.space_after = Pt(2.0)
-    r_name = p_name.add_run("DIMAS WIJANARKO")
+    p_name.paragraph_format.space_after = Pt(1.5)
+    r_name = p_name.add_run("Dimas Wijanarko")
     r_name.bold = True
     r_name.font.name = font_family
-    r_name.font.size = Pt(18.0)
+    r_name.font.size = Pt(20.0)
     r_name.font.color.rgb = c_black
 
-    p_title = doc.add_paragraph()
-    p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_title.paragraph_format.space_before = Pt(0)
-    p_title.paragraph_format.space_after = Pt(3.0)
-    r_title = p_title.add_run("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI")
-    r_title.bold = True
-    r_title.font.name = font_family
-    r_title.font.size = Pt(10.5)
-    r_title.font.color.rgb = c_black
+    p_tag = doc.add_paragraph()
+    p_tag.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_tag.paragraph_format.space_before = Pt(0)
+    p_tag.paragraph_format.space_after = Pt(2.0)
+    r_tag = p_tag.add_run("FULL STACK WEB & MOBILE DEVELOPER  |  DATA ANALYTICS  |  S1 SISTEM INFORMASI")
+    r_tag.bold = True
+    r_tag.font.name = font_family
+    r_tag.font.size = Pt(9.0)
+    r_tag.font.color.rgb = c_blue
 
-    # Baris Kontak 1
-    p_c1 = doc.add_paragraph()
-    p_c1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_c1.paragraph_format.space_before = Pt(0)
-    p_c1.paragraph_format.space_after = Pt(1.5)
-    
-    r1 = p_c1.add_run("Jakarta Pusat  •  Email: ")
-    r1.font.size = Pt(9.5)
-    r1.font.color.rgb = c_black
-    r1_em = p_c1.add_run("dmswijanarko@gmail.com")
-    r1_em.font.size = Pt(9.5)
-    r1_em.underline = True
-    r1_em.font.color.rgb = c_black
-    r1_sep = p_c1.add_run("  •  Web: ")
-    r1_sep.font.size = Pt(9.5)
-    r1_sep.font.color.rgb = c_black
-    r1_w = p_c1.add_run("dimaswijanarko.me")
-    r1_w.font.size = Pt(9.5)
-    r1_w.underline = True
-    r1_w.font.color.rgb = c_black
+    p_cnt = doc.add_paragraph()
+    p_cnt.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_cnt.paragraph_format.space_before = Pt(0)
+    p_cnt.paragraph_format.space_after = Pt(2.5)
+    r_cnt = p_cnt.add_run("Jakarta Pusat  |  dmswijanarko@gmail.com  |  dimaswijanarko.me  |  linkedin.com/in/dmswijanarko  |  github.com/Dimss-W")
+    r_cnt.font.name = font_family
+    r_cnt.font.size = Pt(8.2)
+    r_cnt.font.color.rgb = c_black
 
-    # Baris Kontak 2
-    p_c2 = doc.add_paragraph()
-    p_c2.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_c2.paragraph_format.space_before = Pt(0)
-    p_c2.paragraph_format.space_after = Pt(4.0)
-
-    r2 = p_c2.add_run("LinkedIn: ")
-    r2.font.size = Pt(9.5)
-    r2.font.color.rgb = c_black
-    r2_li = p_c2.add_run("linkedin.com/in/dmswijanarko")
-    r2_li.font.size = Pt(9.5)
-    r2_li.underline = True
-    r2_li.font.color.rgb = c_black
-    r2_sep = p_c2.add_run("  •  GitHub: ")
-    r2_sep.font.size = Pt(9.5)
-    r2_sep.font.color.rgb = c_black
-    r2_gh = p_c2.add_run("github.com/Dimss-W")
-    r2_gh.font.size = Pt(9.5)
-    r2_gh.underline = True
-    r2_gh.font.color.rgb = c_black
-
-    # Bottom border line for header
-    pPr = p_c2._p.get_or_add_pPr()
-    pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="12" w:space="2" w:color="000000"/></w:pBdr>')
+    # Double bottom border on header
+    pPr = p_cnt._p.get_or_add_pPr()
+    pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="double" w:sz="12" w:space="3" w:color="0F172A"/></w:pBdr>')
     pPr.append(pBdr)
 
+    # ==========================================
     # 2. RINGKASAN PERSONAL
-    add_section_heading("Ringkasan Personal")
+    # ==========================================
+    add_section_divider("Ringkasan Personal")
     
-    p_sum1 = doc.add_paragraph()
-    p_sum1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    p_sum1.paragraph_format.space_before = Pt(0)
-    p_sum1.paragraph_format.space_after = Pt(3.5)
-    p_sum1.paragraph_format.line_spacing = 1.15
-    p_sum1.add_run(
-        "Mahasiswa S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) dengan konsentrasi pada rekayasa perangkat lunak Web & Mobile serta analisis data. "
-        "Memiliki pengalaman kerja industri di PT PGAS Telekomunikasi Nusantara (PGNCOM) dalam merancang dan mengembangkan sistem web operasional internal serta implementasi dashboard analitik interaktif berbasis Microsoft Power BI."
-    )
-
-    p_sum2 = doc.add_paragraph()
-    p_sum2.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    p_sum2.paragraph_format.space_before = Pt(0)
-    p_sum2.paragraph_format.space_after = Pt(4.0)
-    p_sum2.paragraph_format.line_spacing = 1.15
-    p_sum2.add_run(
-        "Memiliki penguasaan teknis mendalam pada framework Laravel, ekosistem Flutter & Dart untuk aplikasi mobile lintas platform, serta manajemen basis data relasional tersertifikasi Database Administrator BNSP. "
-        "Memadukan kedisiplinan penulisan kode bersih, pemahaman arsitektur perangkat lunak, serta kepemimpinan aktif dalam organisasi kemasyarakatan dan pengajaran teknis untuk menghadirkan solusi teknologi yang efisien, aman, dan berdaya guna."
-    )
-
-    # 3. PENDIDIKAN FORMAL
-    add_section_heading("Pendidikan Formal")
+    p_sum = doc.add_paragraph()
+    p_sum.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    p_sum.paragraph_format.space_before = Pt(0)
+    p_sum.paragraph_format.space_after = Pt(2.5)
+    p_sum.paragraph_format.line_spacing = 1.15
     
-    add_table_item(["Universitas Bina Sarana Informatika (UBSI)", " - S1 Sistem Informasi"], "Sep 2023 - Sekarang (Aktif)")
-    add_bullet([
-        "Mata Kuliah Relevan: Pemrograman Web (Laravel), Pemrograman Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL, Sistem Informasi Manajemen."
-    ])
-    
-    add_table_item(["SMK Negeri 31 Jakarta", " - Kompetensi Keahlian Animasi"], "Juli 2019 - Juli 2022")
-    add_bullet([
-        "Fokus Pembelajaran: Desain visual antarmuka pengguna (UI/UX), permodelan grafis digital, animasi komputer, dan komposisi aset multimedia."
-    ])
-
-    # 4. PENGALAMAN KERJA & MENGAJAR
-    add_section_heading("Pengalaman Kerja & Mengajar")
-
-    add_table_item(["Web Developer & Data Analytics Intern", " - PT PGAS Telekomunikasi Nusantara (PGNCOM)"], "Agustus 2026 - November 2026")
-    add_bullet([
-        "Merancang dan mengembangkan sistem web internal ",
-        ("Monitoring Realisasi Biaya & QC BASTO", False, True),
-        " berbasis Laravel dan MySQL untuk mengotomasi alur validasi berkas Berita Acara Serah Terima Operasional (BASTO) dan kepatuhan anggaran proyek."
-    ])
-    add_bullet([
-        "Membangun dashboard analitik interaktif berbasis Microsoft Power BI menggunakan pemodelan data relasional dan kalkulasi formula DAX untuk memonitor deviasi realisasi biaya serta tren performa operasional proyek secara real-time."
-    ])
-    add_bullet([
-        "Mengimplementasikan mekanisme otentikasi Role-Based Access Control (RBAC) dan pencatatan audit log transaksi untuk menjamin integritas data dan kepatuhan tata kelola teknologi informasi perusahaan."
-    ])
-
-    add_table_item(["Pengajar Tamu & Instruktur Rekayasa Perangkat Lunak (RPL)", " - SMK Muhammadiyah 15 Jakarta"], "2025")
-    add_bullet([
-        "Menjadi instruktur teknis tamu kurikulum RPL, menyampaikan materi fundamental struktur arsitektur MVC, pengembangan web dengan Laravel, dan administrasi database MySQL."
-    ])
-    add_bullet([
-        "Membimbing praktikum laboratorium komputer mengenai penerapan clean code, teknik debugging, dan simulasi alur kolaborasi version control Git & GitHub berstandar industri."
-    ])
-
-    add_table_item(["Pengembang Perangkat Lunak Web & Mobile (Full Stack)", " - Proyek Independen & Klien"], "2023 - Sekarang")
-    add_bullet([
-        "Merancang dan membangun aplikasi mobile lintas platform (Flutter & Dart) serta sistem web responsif yang terintegrasi dengan arsitektur RESTful API terstruktur dan database relasional."
-    ])
-    add_bullet([
-        "Menerapkan prinsip rekayasa perangkat lunak modern, optimalisasi performa rendering antarmuka, dan keamanan data pengguna pada setiap produk aplikasi yang dikembangkan."
-    ])
+    r_s1 = p_sum.add_run("Mahasiswa S1 Sistem Informasi UBSI ")
+    r_s1.bold = True
+    p_sum.add_run("dengan konsentrasi rekayasa perangkat lunak ")
+    r_s2 = p_sum.add_run("Web & Mobile ")
+    r_s2.bold = True
+    p_sum.add_run("serta analisis data. Berpengalaman industri di ")
+    r_s3 = p_sum.add_run("PT PGAS Telekomunikasi Nusantara (PGNCOM) ")
+    r_s3.bold = True
+    p_sum.add_run("mengembangkan sistem monitoring biaya dan dashboard analitik Power BI. Menguasai framework ")
+    r_s4 = p_sum.add_run("Laravel")
+    r_s4.bold = True
+    p_sum.add_run(", ")
+    r_s5 = p_sum.add_run("Flutter & Dart")
+    r_s5.bold = True
+    p_sum.add_run(", basis data ")
+    r_s6 = p_sum.add_run("MySQL ")
+    r_s6.bold = True
+    p_sum.add_run("tersertifikasi ")
+    r_s7 = p_sum.add_run("Database Administrator BNSP")
+    r_s7.bold = True
+    p_sum.add_run(", serta aktif memimpin organisasi kepemudaan ")
+    r_s8 = p_sum.add_run("PRISMA")
+    r_s8.bold = True
+    p_sum.add_run(". Berorientasi pada solusi teknologi yang efisien, skalabel, dan berdampak nyata.")
 
     # ==========================================
-    # HALAMAN 2
+    # 3. PENGALAMAN KERJA & MENGAJAR
     # ==========================================
-    doc.add_page_break()
+    add_section_divider("Pengalaman Kerja & Mengajar")
 
-    # 5. PENGALAMAN ORGANISASI
-    add_section_heading("Pengalaman Organisasi")
+    add_item_row("Web Developer & Data Analytics Intern", "PT PGAS Telekomunikasi Nusantara (PGNCOM)", "Agustus 2026 – November 2026")
+    add_bullet("Mengembangkan sistem web internal ", "Monitoring Realisasi Biaya & QC BASTO berbasis Laravel & MySQL untuk otomatisasi validasi berkas operasional.")
+    add_bullet("Merancang dashboard interaktif Microsoft Power BI ", "dengan pemodelan data relasional dan kalkulasi formula DAX untuk memonitor deviasi biaya secara real-time.")
+    add_bullet("Mengimplementasikan manajemen hak akses berjenjang (RBAC) ", "dan audit log transaksi untuk menjaga keamanan data operasional.")
 
-    add_table_item(["Ketua Umum", " - Pengurus Remaja Islam Masjid (PRISMA)"], "2023 - Sekarang (Aktif)")
-    add_bullet([
-        "Memimpin arah strategis organisasi kepemudaan, mengoordinasikan seluruh jajaran pengurus divisi, menyusun program kerja tahunan, serta memelihara akuntabilitas pengelolaan anggaran kas organisasi."
-    ])
-    add_bullet([
-        "Menjalin komunikasi dan koordinasi berkala bersama Dewan Kemakmuran Masjid (DKM), tokoh masyarakat, dan aparatur wilayah dalam rangka sinergi pembinaan pemuda lingkungan."
-    ])
-    add_bullet([
-        "Menginisiasi dan memimpin penyelenggaraan rangkaian program sosial-keagamaan tahunan dengan ratusan penerima manfaat:"
-    ])
-    add_bullet([
-        ("Layanan Pemeriksaan Medis Gratis: ", True),
-        "Menyelenggarakan posko kesehatan cuma-cuma bagi warga lanjut usia dan dhuafa bekerja sama dengan tim tenaga medis profesional."
-    ], is_sub=True)
-    add_bullet([
-        ("Santunan Sosial Yatim & Dhuafa: ", True),
-        "Menggalang dana donasi umat serta mendistribusikan santunan tunai dan puluhan paket sembako kepada mustahik."
-    ], is_sub=True)
-    add_bullet([
-        ("Syiar Pemuda & Kajian Akbar: ", True),
-        "Mengoordinasikan kepanitiaan teknis acara tabligh akbar, buka puasa bersama, dan kajian kepemudaan secara tertib dan terjadwal."
-    ], is_sub=True)
+    add_item_row("Pengajar Tamu & Instruktur Rekayasa Perangkat Lunak", "SMK Muhammadiyah 15 Jakarta", "2025")
+    add_bullet("Menjadi instruktur kurikulum RPL: ", "materi framework Laravel, struktur arsitektur MVC, dan administrasi database MySQL.")
+    add_bullet("Membimbing praktikum pemrograman: ", "penerapan clean code, debugging, serta simulasi version control Git & GitHub berstandar industri.")
 
-    # 6. SERTIFIKASI KOMPETENSI & PENGHARGAAN RESMI
-    add_section_heading("Sertifikasi Kompetensi & Penghargaan Resmi")
+    add_item_row("Pengembang Perangkat Lunak Web & Mobile (Full Stack)", "Proyek Independen & Klien", "2023 – Sekarang")
+    add_bullet("Merancang dan membangun aplikasi mobile ", "(Flutter & Dart) dan web responsif berskala produksi terintegrasi RESTful API terstruktur.")
 
-    add_table_item(
-        ["Sertifikat Kompetensi Database Administrator (DBA)"],
-        "Maret 2026 - 2029",
-        sub_label="Badan Nasional Sertifikasi Profesi (BNSP) & Lembaga Sertifikasi Profesi (LSP) UBSI"
-    )
-    add_bullet([
-        "Dinyatakan Kompeten secara nasional dalam perancangan arsitektur basis data relasional, normalisasi skema ERD, optimalisasi kueri SQL lanjutan, indexing performa tinggi, serta pemeliharaan integritas dan keamanan data."
-    ])
+    # ==========================================
+    # 4. PENGALAMAN ORGANISASI
+    # ==========================================
+    add_section_divider("Pengalaman Organisasi")
 
-    add_table_item(
-        ["Sertifikasi Kompetensi Analis Program (Program Analyst)"],
-        "Agustus 2026 - 2029",
-        sub_label="Badan Nasional Sertifikasi Profesi (BNSP) & Lembaga Sertifikasi Profesi (LSP) UBSI"
-    )
-    add_bullet([
-        "Lulus uji asesmen 10 unit kompetensi standar SKKNI: analisis spesifikasi perangkat lunak, perancangan algoritma efisien, skalabilitas struktur data, teknik debugging, code profiling, dan pengujian program (software testing)."
-    ])
+    add_item_row("Ketua Umum", "Pengurus Remaja Islam Masjid (PRISMA)", "2023 – Sekarang (Aktif)")
+    add_bullet("Memimpin arah strategis organisasi, ", "mengoordinasikan jajaran divisi kepengurusan, menyusun program kerja tahunan, serta transparansi kas.")
+    add_bullet("Menginisiasi program sosial kemanusiaan rutin: ", "layanan pemeriksaan kesehatan gratis, santunan yatim dhuafa, dan tabligh akbar pemuda.")
 
-    add_table_item(
-        ["Juara 1 IT Bootcamp Software Development"],
-        "2025",
-        sub_label="Fakultas Teknologi Informasi (FTI) & Rektorat Universitas Bina Sarana Informatika"
-    )
-    add_bullet([
-        "Meraih predikat Juara 1 tingkat nasional mengungguli seluruh tim mahasiswa kampus cabang UBSI se-Indonesia melalui inovasi platform Smart Tahfidz School (Nomor Sertifikat e-Sn: 19230181)."
-    ])
+    # ==========================================
+    # 5. PENDIDIKAN FORMAL
+    # ==========================================
+    add_section_divider("Pendidikan Formal")
 
-    # 7. KETERAMPILAN
-    add_section_heading("Keterampilan")
+    add_item_row("Universitas Bina Sarana Informatika (UBSI)", "S1 Sistem Informasi", "Sep 2023 – Sekarang (Aktif)")
+    add_bullet("Mata Kuliah Relevan: ", "Pemrograman Web (Laravel), Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL.")
 
-    # Postman API, Windows OS, Linux CLI telah dihapus
+    add_item_row("SMK Negeri 31 Jakarta", "Kompetensi Keahlian Animasi", "Juli 2019 – Juli 2022")
+    add_bullet("Fokus Keahlian: ", "Desain antarmuka pengguna (UI/UX), grafis visual digital, animasi komputer, dan komposisi aset multimedia.")
+
+    # ==========================================
+    # 6. SERTIFIKASI KOMPETENSI & PENGHARGAAN
+    # ==========================================
+    add_section_divider("Sertifikasi Kompetensi & Penghargaan")
+
+    add_item_row("Sertifikat Kompetensi Database Administrator (DBA)", "BNSP & LSP UBSI", "Mar 2026 – 2029")
+    add_bullet("Kompeten nasional: ", "perancangan basis data relasional, penulisan kueri SQL lanjutan, optimasi indeks, dan integritas data.")
+
+    add_item_row("Sertifikasi Kompetensi Analis Program (Program Analyst)", "BNSP & LSP UBSI", "Ags 2026 – 2029")
+    add_bullet("Lulus asesmen 10 unit kompetensi SKKNI: ", "spesifikasi perangkat lunak, algoritma, debugging, profiling, dan software testing.")
+
+    add_item_row("Juara 1 IT Bootcamp Software Development", "FTI & Rektorat UBSI", "2025")
+    add_bullet("Juara 1 nasional se-UBSI ", "melalui platform Smart Tahfidz School (e-Sn: 19230181).")
+
+    # ==========================================
+    # 7. CORE SKILLS (TABEL PERSIS REFERENSI)
+    # ==========================================
+    add_section_divider("Core Skills")
+
     skills_data = [
-        ("Hard Skills (Teknis)", "Software Development, Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS), Mobile Development (Dart, Flutter), Database Management (MySQL, PostgreSQL, Optimasi Kueri SQL), Data Analytics (Microsoft Power BI, Formula DAX), Arsitektur RESTful API, Version Control (Git & GitHub)."),
-        ("Tools & Lingkungan", "Git, GitHub, Visual Studio Code, Microsoft Power BI Desktop."),
-        ("Soft Skills (Interpersonal)", "Kerja Sama Tim (Teamwork), Komunikasi Efektif & Presentasi Teknis, Problem Solving & Berpikir Analitis, Kepemimpinan Organisasi, Manajemen Waktu & Skala Prioritas, Kemampuan Beradaptasi Cepat."),
-        ("Kemampuan Bahasa", "Bahasa Indonesia (Penutur Asli / Native), Bahasa Inggris (Tingkat Menengah / Intermediate).")
+        ("Hard Skills", "Software Development • Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS) • Mobile Development (Dart, Flutter) • Database Management (MySQL, PostgreSQL, SQL Optimization) • Data Analytics (Microsoft Power BI, DAX) • RESTful API"),
+        ("Tools", "Git • GitHub • Visual Studio Code • Microsoft Power BI Desktop"),
+        ("Soft Skills", "Kerja Sama Tim (Teamwork) • Komunikasi Efektif • Problem Solving & Analitis • Kepemimpinan Organisasi • Manajemen Waktu • Adaptabilitas Cepat"),
+        ("Bahasa", "Bahasa Indonesia (Penutur Asli / Native) • Bahasa Inggris (Tingkat Menengah / Intermediate)")
     ]
-    for label, val in skills_data:
-        add_bullet([
-            (f"{label}: ", True),
-            val
-        ])
 
+    table_s = doc.add_table(rows=len(skills_data), cols=2)
+    table_s.alignment = WD_TABLE_ALIGNMENT.CENTER
+    table_s.autofit = False
+    table_s.columns[0].width = Inches(1.15)
+    table_s.columns[1].width = Inches(6.12)
+
+    for i, (cat, items) in enumerate(skills_data):
+        row = table_s.rows[i]
+        c_badge = row.cells[0]
+        c_content = row.cells[1]
+
+        # Left cell badge styling
+        tcPr0 = c_badge._tc.get_or_add_tcPr()
+        shd0 = parse_xml(f'<w:shd {nsdecls("w")} w:fill="{c_badge_bg}"/>')
+        tcPr0.append(shd0)
+        tcMar0 = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="40" w:type="dxa"/><w:bottom w:w="40" w:type="dxa"/><w:left w:w="40" w:type="dxa"/><w:right w:w="40" w:type="dxa"/></w:tcMar>')
+        tcPr0.append(tcMar0)
+
+        p_b = c_badge.paragraphs[0]
+        p_b.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p_b.paragraph_format.space_before = Pt(0)
+        p_b.paragraph_format.space_after = Pt(0)
+        r_b = p_b.add_run(cat)
+        r_b.bold = True
+        r_b.font.name = font_family
+        r_b.font.size = Pt(8.5)
+        r_b.font.color.rgb = c_blue
+
+        # Right cell content
+        tcPr1 = c_content._tc.get_or_add_tcPr()
+        tcMar1 = parse_xml(f'<w:tcMar {nsdecls("w")}><w:top w:w="30" w:type="dxa"/><w:bottom w:w="30" w:type="dxa"/><w:left w:w="80" w:type="dxa"/><w:right w:w="0" w:type="dxa"/></w:tcMar>')
+        tcPr1.append(tcMar1)
+
+        p_c = c_content.paragraphs[0]
+        p_c.paragraph_format.space_before = Pt(0)
+        p_c.paragraph_format.space_after = Pt(0)
+        p_c.paragraph_format.line_spacing = 1.12
+        r_c = p_c.add_run(items)
+        r_c.font.name = font_family
+        r_c.font.size = Pt(8.3)
+        r_c.font.color.rgb = c_black
+
+    # Save to all destination paths
     for path in dest_paths:
         try:
             os.makedirs(os.path.dirname(path), exist_ok=True)
             doc.save(path)
-            print(f"DOCX CV Pure Black saved successfully at: {path}")
+            print(f"DOCX Reference Style CV saved at: {path}")
         except Exception as e:
             print(f"Error saving to {path}: {e}")
             alt_path = path.replace(".docx", "_Updated.docx")
             try:
                 doc.save(alt_path)
-                print(f"DOCX CV saved to alternate path: {alt_path}")
+                print(f"Saved alternate DOCX at: {alt_path}")
             except Exception as e2:
                 print(f"Failed alternate save: {e2}")
 
