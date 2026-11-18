@@ -190,7 +190,7 @@ export const defaultProjects: Project[] = [
     tags: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Python', 'ReportLab'],
     category: 'web',
     technical_highlight: 'Arsitektur komponen modular Next.js 14 dengan animasi kursor kustom fluida, efek kartu 3D lanyard interaktif, dan integrasi ekspor PDF ATS 1 halaman penuh.',
-    demo_url: 'https://portofolio-dimas-kappa.vercel.app/',
+    demo_url: 'https://dimaswijanarko.me',
     github_url: '',
     image_url: '/projects/cv-web-landing.png',
     images: [
