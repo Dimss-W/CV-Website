@@ -26,42 +26,43 @@ def build_ats_cv(output_path):
 
     styles = getSampleStyleSheet()
 
-    c_primary = colors.HexColor("#0f172a")     # Slate 900
-    c_accent = colors.HexColor("#0369a1")      # Sky 700 (Clean Blue)
+    c_primary = colors.HexColor("#0f172a")     # Slate 900 (Hitam Pekat)
+    c_accent = colors.HexColor("#0f172a")      # Hitam Formal (No Blue)
     c_body = colors.HexColor("#334155")        # Slate 700
     c_muted = colors.HexColor("#64748b")       # Slate 500
 
-    # Header Styles (CENTERED)
+    # Header Styles (LEFT ALIGNED NEXT TO PHOTO)
     name_style = ParagraphStyle(
-        'DocNameCenter',
+        'DocNameLeft',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=18,
-        leading=21,
+        fontSize=17,
+        leading=20,
         textColor=c_primary,
-        alignment=TA_CENTER,
-        spaceAfter=2,
+        alignment=TA_LEFT,
+        spaceAfter=1.5,
     )
 
     title_style = ParagraphStyle(
-        'DocTitleCenter',
+        'DocTitleLeft',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=9.8,
-        leading=12.2,
-        textColor=c_accent,
-        alignment=TA_CENTER,
-        spaceAfter=2.5,
+        fontSize=9.2,
+        leading=11.5,
+        textColor=c_primary,
+        alignment=TA_LEFT,
+        spaceAfter=2.0,
     )
 
     contact_style = ParagraphStyle(
-        'DocContactCenter',
+        'DocContactLeft',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=8.3,
-        leading=10.8,
+        fontSize=8.0,
+        leading=10.5,
         textColor=c_body,
-        alignment=TA_CENTER,
+        alignment=TA_LEFT,
+        spaceAfter=1.5,
     )
 
     section_header_style = ParagraphStyle(
@@ -123,7 +124,7 @@ def build_ats_cv(output_path):
     def section_heading(title_text):
         return [
             Paragraph(title_text.upper(), section_header_style),
-            HRFlowable(width="100%", thickness=0.8, color=c_accent, spaceAfter=2.5, spaceBefore=0.8)
+            HRFlowable(width="100%", thickness=0.8, color=c_primary, spaceAfter=2.5, spaceBefore=0.8)
         ]
 
     story = []
@@ -132,30 +133,46 @@ def build_ats_cv(output_path):
     # HALAMAN 1
     # ==========================================
 
-    # 1. HEADER CENTERED: FOTO, NAMA, GELAR & KONTAK
+    # 1. HEADER: FOTO DI POJOK KIRI, DATA DIRI NAIK KE ATAS DI SEBELAHNYA
     passport_img_path = r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\dimas-profile-passport.jpg"
-    photo_w = 54
-    photo_h = 72
+    photo_w = 56
+    photo_h = 75
     img_element = Image(passport_img_path, width=photo_w, height=photo_h)
-    img_element.hAlign = 'CENTER'
+    img_element.hAlign = 'LEFT'
 
-    story.append(img_element)
-    story.append(Spacer(1, 3.0))
-    story.append(Paragraph("DIMAS WIJANARKO", name_style))
-    story.append(Paragraph("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI", title_style))
-    story.append(Paragraph(
-        "TTL: Jakarta, 21 April 2004 &nbsp;|&nbsp; Alamat: Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat, DKI Jakarta",
-        contact_style
-    ))
-    story.append(Spacer(1, 1.0))
-    story.append(Paragraph(
-        "Email: <a href='mailto:dmswijanarko@gmail.com' color='#0369a1'><u>dmswijanarko@gmail.com</u></a> &nbsp;|&nbsp; "
-        "LinkedIn: <a href='https://linkedin.com/in/dmswijanarko' color='#0369a1'><u>in/dmswijanarko</u></a> &nbsp;|&nbsp; "
-        "GitHub: <a href='https://github.com/Dimss-W' color='#0369a1'><u>github.com/Dimss-W</u></a>",
-        contact_style
-    ))
-    story.append(Spacer(1, 2.0))
-    story.append(HRFlowable(width="100%", thickness=1.0, color=c_primary, spaceAfter=2.5, spaceBefore=0.8))
+    header_text_cells = [
+        Paragraph("DIMAS WIJANARKO", name_style),
+        Paragraph("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI", title_style),
+        Paragraph(
+            "TTL: Jakarta, 21 April 2004 &nbsp;|&nbsp; Alamat: Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat, DKI Jakarta",
+            contact_style
+        ),
+        Paragraph(
+            "Email: <a href='mailto:dmswijanarko@gmail.com' color='#0f172a'><u>dmswijanarko@gmail.com</u></a> &nbsp;|&nbsp; "
+            "LinkedIn: <a href='https://linkedin.com/in/dmswijanarko' color='#0f172a'><u>in/dmswijanarko</u></a> &nbsp;|&nbsp; "
+            "GitHub: <a href='https://github.com/Dimss-W' color='#0f172a'><u>github.com/Dimss-W</u></a> &nbsp;|&nbsp; "
+            "Web: <a href='https://dimaswijanarko.me' color='#0f172a'><u>dimaswijanarko.me</u></a>",
+            contact_style
+        ),
+    ]
+
+    header_table = Table(
+        [[img_element, header_text_cells]],
+        colWidths=[66, usable_w - 66]
+    )
+    header_table.setStyle(TableStyle([
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('LEFTPADDING', (0, 0), (0, 0), 0),
+        ('RIGHTPADDING', (0, 0), (0, 0), 8),
+        ('TOPPADDING', (0, 0), (-1, -1), 0),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+        ('LEFTPADDING', (1, 0), (1, 0), 2),
+        ('RIGHTPADDING', (1, 0), (1, 0), 0),
+    ]))
+
+    story.append(header_table)
+    story.append(Spacer(1, 2.5))
+    story.append(HRFlowable(width="100%", thickness=1.0, color=c_primary, spaceAfter=2.5, spaceBefore=1.0))
 
     # 2. RINGKASAN PROFESIONAL (JUSTIFIED)
     for elem in section_heading("Ringkasan Profesional"):

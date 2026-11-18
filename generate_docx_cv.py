@@ -19,8 +19,8 @@ def build_docx_cv(dest_paths):
         section.page_height = Inches(11.69) # A4 height
 
     # Palette
-    c_primary = RGBColor(15, 23, 42)    # Slate 900
-    c_accent = RGBColor(3, 105, 161)    # Sky 700
+    c_primary = RGBColor(15, 23, 42)    # Slate 900 (Hitam Pekat)
+    c_accent = RGBColor(15, 23, 42)     # Hitam Formal (No Blue)
     c_body = RGBColor(51, 65, 85)       # Slate 700
     c_muted = RGBColor(100, 116, 139)   # Slate 500
 
@@ -44,89 +44,118 @@ def build_docx_cv(dest_paths):
         run.font.size = Pt(10.5)
         run.font.color.rgb = c_primary
         
-        # Border bawah aksen biru
+        # Border bawah aksen hitam
         pPr = p._p.get_or_add_pPr()
-        pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="8" w:space="2" w:color="0369A1"/></w:pBdr>')
+        pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="8" w:space="2" w:color="0F172A"/></w:pBdr>')
         pPr.append(pBdr)
 
     # ==========================================
-    # 1. HEADER (CENTERED: FOTO, NAMA, KONTAK)
+    # 1. HEADER: FOTO DI POJOK KIRI, DATA DIRI NAIK KE ATAS DI SEBELAHNYA
     # ==========================================
     passport_img_path = r"c:\Users\Dimas Wijanarko\.gemini\antigravity-ide\scratch\personal-cv-web\public\dimas-profile-passport.jpg"
     
-    if os.path.exists(passport_img_path):
-        p_photo = doc.add_paragraph()
-        p_photo.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p_photo.paragraph_format.space_before = Pt(0)
-        p_photo.paragraph_format.space_after = Pt(2)
-        p_photo.add_run().add_picture(passport_img_path, width=Inches(0.95), height=Inches(1.27))
+    header_table = doc.add_table(rows=1, cols=2)
+    header_table.alignment = WD_TABLE_ALIGNMENT.LEFT
+    header_table.autofit = False
 
-    # Nama Lengkap (CENTER)
-    p_name = doc.add_paragraph()
-    p_name.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_name.paragraph_format.space_before = Pt(1)
+    header_table.columns[0].width = Inches(1.05)
+    header_table.columns[1].width = Inches(6.22)
+
+    cell_photo = header_table.cell(0, 0)
+    cell_photo.width = Inches(1.05)
+    cell_photo.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+
+    cell_text = header_table.cell(0, 1)
+    cell_text.width = Inches(6.22)
+    cell_text.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+
+    # Hilangkan border tabel
+    for row in header_table.rows:
+        for cell in row.cells:
+            tcPr = cell._tc.get_or_add_tcPr()
+            tcBorders = parse_xml(f'<w:tcBorders {nsdecls("w")}><w:top w:val="none"/><w:left w:val="none"/><w:bottom w:val="none"/><w:right w:val="none"/></w:tcBorders>')
+            tcPr.append(tcBorders)
+
+    # 1. Foto di Kolom Kiri
+    p_photo = cell_photo.paragraphs[0]
+    p_photo.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_photo.paragraph_format.space_before = Pt(0)
+    p_photo.paragraph_format.space_after = Pt(0)
+    if os.path.exists(passport_img_path):
+        p_photo.add_run().add_picture(passport_img_path, width=Inches(0.92), height=Inches(1.23))
+
+    # 2. Teks di Kolom Kanan (Rata Kiri, Naik ke Atas Sejajar Foto)
+    p_name = cell_text.paragraphs[0]
+    p_name.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_name.paragraph_format.space_before = Pt(0)
     p_name.paragraph_format.space_after = Pt(1.5)
     r_name = p_name.add_run("DIMAS WIJANARKO")
     r_name.bold = True
     r_name.font.name = font_family
-    r_name.font.size = Pt(17.5)
+    r_name.font.size = Pt(17.0)
     r_name.font.color.rgb = c_primary
 
-    # Title / Gelar (CENTER)
-    p_title = doc.add_paragraph()
-    p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_title = cell_text.add_paragraph()
+    p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p_title.paragraph_format.space_before = Pt(0)
-    p_title.paragraph_format.space_after = Pt(2)
+    p_title.paragraph_format.space_after = Pt(1.5)
     r_title = p_title.add_run("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI")
     r_title.bold = True
     r_title.font.name = font_family
-    r_title.font.size = Pt(9.8)
-    r_title.font.color.rgb = c_accent
+    r_title.font.size = Pt(9.5)
+    r_title.font.color.rgb = c_primary
 
-    # TTL & Alamat (CENTER)
-    p_addr = doc.add_paragraph()
-    p_addr.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_addr = cell_text.add_paragraph()
+    p_addr.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p_addr.paragraph_format.space_before = Pt(0)
     p_addr.paragraph_format.space_after = Pt(1.5)
     r_addr = p_addr.add_run("TTL: Jakarta, 21 April 2004  |  Alamat: Jl. Kramat Jaya RT.001 RW.01, Johar Baru, Jakarta Pusat, DKI Jakarta")
     r_addr.font.name = font_family
-    r_addr.font.size = Pt(8.5)
+    r_addr.font.size = Pt(8.2)
     r_addr.font.color.rgb = c_body
 
-    # Kontak Online (CENTER)
-    p_contact = doc.add_paragraph()
-    p_contact.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p_contact = cell_text.add_paragraph()
+    p_contact.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p_contact.paragraph_format.space_before = Pt(0)
-    p_contact.paragraph_format.space_after = Pt(3)
+    p_contact.paragraph_format.space_after = Pt(0)
     
     r_em_label = p_contact.add_run("Email: ")
-    r_em_label.font.size = Pt(8.5)
+    r_em_label.font.size = Pt(8.2)
     r_em_val = p_contact.add_run("dmswijanarko@gmail.com")
-    r_em_val.font.size = Pt(8.5)
-    r_em_val.font.color.rgb = c_accent
+    r_em_val.font.size = Pt(8.2)
+    r_em_val.font.color.rgb = c_primary
     r_em_val.underline = True
 
-    p_contact.add_run("  |  ").font.size = Pt(8.5)
+    p_contact.add_run("  |  ").font.size = Pt(8.2)
 
     r_li_label = p_contact.add_run("LinkedIn: ")
-    r_li_label.font.size = Pt(8.5)
+    r_li_label.font.size = Pt(8.2)
     r_li_val = p_contact.add_run("linkedin.com/in/dmswijanarko")
-    r_li_val.font.size = Pt(8.5)
-    r_li_val.font.color.rgb = c_accent
+    r_li_val.font.size = Pt(8.2)
+    r_li_val.font.color.rgb = c_primary
     r_li_val.underline = True
 
-    p_contact.add_run("  |  ").font.size = Pt(8.5)
+    p_contact.add_run("  |  ").font.size = Pt(8.2)
 
     r_gh_label = p_contact.add_run("GitHub: ")
-    r_gh_label.font.size = Pt(8.5)
+    r_gh_label.font.size = Pt(8.2)
     r_gh_val = p_contact.add_run("github.com/Dimss-W")
-    r_gh_val.font.size = Pt(8.5)
-    r_gh_val.font.color.rgb = c_accent
+    r_gh_val.font.size = Pt(8.2)
+    r_gh_val.font.color.rgb = c_primary
     r_gh_val.underline = True
+
+    p_contact.add_run("  |  ").font.size = Pt(8.2)
+
+    r_web_label = p_contact.add_run("Web: ")
+    r_web_label.font.size = Pt(8.2)
+    r_web_val = p_contact.add_run("dimaswijanarko.me")
+    r_web_val.font.size = Pt(8.2)
+    r_web_val.font.color.rgb = c_primary
+    r_web_val.underline = True
 
     # Divider Line
     p_div = doc.add_paragraph()
-    p_div.paragraph_format.space_before = Pt(1)
+    p_div.paragraph_format.space_before = Pt(2)
     p_div.paragraph_format.space_after = Pt(3)
     pPr = p_div._p.get_or_add_pPr()
     pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="12" w:space="1" w:color="0F172A"/></w:pBdr>')
