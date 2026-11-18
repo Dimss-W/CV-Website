@@ -349,10 +349,8 @@ export const defaultEducations: Education[] = [
     institution: 'SMK Negeri 31 Jakarta',
     start_year: 'Juli 2019',
     end_year: 'Juli 2022',
-    gpa_or_grade: 'Nilai Rata-Rata: 84',
-    description: 'Lulus dengan nilai rata-rata 84. Mempelajari dasar-dasar visual antarmuka pengguna, pemodelan grafis digital, animasi komputer, serta kedisiplinan estetika tata letak yang mendukung rekayasa antarmuka pengguna (UI/UX) web dan mobile.',
+    description: 'Mempelajari dasar-dasar visual antarmuka pengguna, pemodelan grafis digital, animasi komputer, serta kedisiplinan estetika tata letak yang mendukung rekayasa antarmuka pengguna (UI/UX) web dan mobile.',
     tags: [
-      'Nilai Rata-Rata: 84',
       'Desain Visual Antarmuka (UI/UX)',
       'Pemodelan Grafis Digital',
       'Animasi Komputer',
