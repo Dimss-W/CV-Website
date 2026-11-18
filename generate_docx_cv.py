@@ -169,7 +169,7 @@ def build_docx_cv(dest_paths):
     pPr.append(pBdr)
 
     # ==========================================
-    # 2. RINGKASAN PROFESIONAL (JUSTIFIED, NO BOLD IN BODY)
+    # 2. RINGKASAN PROFESIONAL (MENCERMINKAN IDENTITAS DIRI, JUSTIFIED, ISI BERSIH)
     # ==========================================
     add_section_heading("Ringkasan Profesional")
     p_sum = doc.add_paragraph()
@@ -179,14 +179,18 @@ def build_docx_cv(dest_paths):
     p_sum.paragraph_format.line_spacing = 1.15
     
     r_sum = p_sum.add_run(
-        "Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) serta Analisis Data. Tersertifikasi resmi Database Administrator oleh BNSP, lulus asesmen Analis Program BNSP, dan peraih predikat Juara 1 IT Bootcamp Software Development UBSI. Berpengalaman 4 bulan mengembangkan sistem operasional korporat internal monitoring realisasi biaya dan dashboard Microsoft Power BI di PT PGAS Telekomunikasi Nusantara (PGNCOM), menjadi pengajar tamu RPL di SMK Muhammadiyah 15 Jakarta, aktif memimpin organisasi kemasyarakatan kepemudaan masjid (PRISMA), serta merilis sistem informasi terpadu FindIt untuk 27 kampus cabang UBSI."
+        "Software Engineer (Web & Mobile) dan mahasiswa S1 Sistem Informasi UBSI dengan fondasi desain visual serta analitik data. "
+        "Berfokus pada perancangan aplikasi web modern menggunakan Laravel, aplikasi mobile lintas platform dengan Flutter, dan arsitektur basis data relasional tersertifikasi Database Administrator BNSP. "
+        "Memiliki pengalaman industri di PT PGAS Telekomunikasi Nusantara (PGNCOM) dalam membangun sistem monitoring operasional dan dashboard interaktif Power BI. "
+        "Memadukan ketelitian kode bersih, kepekaan estetika antarmuka (UI/UX), serta jiwa kepemimpinan aktif sebagai Ketua Umum PRISMA dan instruktur tamu RPL. "
+        "Berdedikasi menghadirkan produk digital yang efisien, skalabel, dan memberikan nilai nyata bagi pengguna."
     )
     r_sum.font.name = font_family
     r_sum.font.size = Pt(9.4)
     r_sum.font.color.rgb = c_body
 
     # ==========================================
-    # 3. KEAHLIAN TEKNIS & KOMPETENSI
+    # 3. KEAHLIAN TEKNIS & KOMPETENSI (SEJAJAR RATA PENUH)
     # ==========================================
     add_section_heading("Keahlian Teknis & Kompetensi")
     skills = [
@@ -196,11 +200,13 @@ def build_docx_cv(dest_paths):
     ]
     for label, val in skills:
         p_sk = doc.add_paragraph()
+        p_sk.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        p_sk.paragraph_format.left_indent = Inches(0.18)
         p_sk.paragraph_format.space_before = Pt(0.5)
         p_sk.paragraph_format.space_after = Pt(1)
         p_sk.paragraph_format.line_spacing = 1.15
         
-        r_lbl = p_sk.add_run(f"{label} : ")
+        r_lbl = p_sk.add_run(f"• {label}: ")
         r_lbl.bold = True
         r_lbl.font.name = font_family
         r_lbl.font.size = Pt(9.4)

@@ -174,82 +174,63 @@ def build_ats_cv(output_path):
     story.append(Spacer(1, 2.0))
     story.append(HRFlowable(width="100%", thickness=1.0, color=c_primary, spaceAfter=2.5, spaceBefore=1.0))
 
-    # 2. RINGKASAN PROFESIONAL (JUSTIFIED, ISI TIDAK DI-BOLD)
+    # 2. RINGKASAN PROFESIONAL (MENCERMINKAN IDENTITAS DIRI, JUSTIFIED, ISI BERSIH)
     for elem in section_heading("Ringkasan Profesional"):
         story.append(elem)
 
     summary_text = (
-        "Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika (UBSI) yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) serta Analisis Data. "
-        "Tersertifikasi resmi Database Administrator oleh BNSP, lulus asesmen Analis Program BNSP, dan peraih predikat Juara 1 IT Bootcamp Software Development UBSI. "
-        "Berpengalaman 4 bulan mengembangkan sistem operasional korporat internal monitoring realisasi biaya dan dashboard Microsoft Power BI di PT PGAS Telekomunikasi Nusantara (PGNCOM), "
-        "menjadi pengajar tamu RPL di SMK Muhammadiyah 15 Jakarta, aktif memimpin organisasi kemasyarakatan kepemudaan masjid (PRISMA), serta merilis sistem informasi terpadu FindIt untuk 27 kampus cabang UBSI."
+        "Software Engineer (Web & Mobile) dan mahasiswa S1 Sistem Informasi UBSI dengan fondasi desain visual serta analitik data. "
+        "Berfokus pada perancangan aplikasi web modern menggunakan Laravel, aplikasi mobile lintas platform dengan Flutter, dan arsitektur basis data relasional tersertifikasi Database Administrator BNSP. "
+        "Memiliki pengalaman industri di PT PGAS Telekomunikasi Nusantara (PGNCOM) dalam membangun sistem monitoring operasional dan dashboard interaktif Power BI. "
+        "Memadukan ketelitian kode bersih, kepekaan estetika antarmuka (UI/UX), serta jiwa kepemimpinan aktif sebagai Ketua Umum PRISMA dan instruktur tamu RPL. "
+        "Berdedikasi menghadirkan produk digital yang efisien, skalabel, dan memberikan nilai nyata bagi pengguna."
     )
     story.append(Paragraph(summary_text, body_style))
     story.append(Spacer(1, 2.0))
 
-    # 3. KEAHLIAN TEKNIS & KOMPETENSI
+    # 3. KEAHLIAN TEKNIS & KOMPETENSI (SEJAJAR RATA PENUH DENGAN BULLET LAINNYA)
     for elem in section_heading("Keahlian Teknis & Kompetensi"):
         story.append(elem)
 
-    skills_data = [
-        [
-            Paragraph("<b>Bahasa & Framework</b>", item_title_style),
-            Paragraph(":", item_title_style),
-            Paragraph("PHP, Laravel, Dart, Flutter, TypeScript, JavaScript, React.js, Next.js, Tailwind CSS, HTML5, CSS3", body_style),
-        ],
-        [
-            Paragraph("<b>Basis Data & Analitik</b>", item_title_style),
-            Paragraph(":", item_title_style),
-            Paragraph("MySQL, PostgreSQL, Supabase Cloud, Microsoft Power BI, Kalkulasi DAX, Optimasi Kueri SQL, Relasi ERD", body_style),
-        ],
-        [
-            Paragraph("<b>Tools & Arsitektur</b>", item_title_style),
-            Paragraph(":", item_title_style),
-            Paragraph("Git, GitHub, RESTful API, Arsitektur MVC, RBAC, Postman, Linux Server, Vercel Cloud", body_style),
-        ],
+    skills_items = [
+        ("Bahasa & Framework", "PHP, Laravel, Dart, Flutter, TypeScript, JavaScript, React.js, Next.js, Tailwind CSS, HTML5, CSS3"),
+        ("Basis Data & Analitik", "MySQL, PostgreSQL, Supabase Cloud, Microsoft Power BI, Kalkulasi DAX, Optimasi Kueri SQL, Relasi ERD"),
+        ("Tools & Arsitektur", "Git, GitHub, RESTful API, Arsitektur MVC, RBAC, Postman, Linux Server, Vercel Cloud"),
     ]
-    t_skills = Table(skills_data, colWidths=[112, 8, usable_w - 120])
-    t_skills.setStyle(TableStyle([
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('TOPPADDING', (0,0), (-1,-1), 0.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 0.5),
-        ('LEFTPADDING', (0,0), (-1,-1), 0),
-        ('RIGHTPADDING', (0,0), (-1,-1), 0),
-    ]))
-    story.append(t_skills)
+    for cat, items in skills_items:
+        story.append(Paragraph(f"• <b>{cat}:</b> {items}", bullet_style))
     story.append(Spacer(1, 2.0))
 
-    # 4. PENDIDIKAN FORMAL (NILAI RATA-RATA & IPK SUDAH DIHAPUS)
+    # 4. PENDIDIKAN FORMAL (SEJAJAR RATA PENUH PERSIS SEPERTI PENGALAMAN KERJA)
     for elem in section_heading("Pendidikan Formal"):
         story.append(elem)
 
-    edu_table_data = [
-        [
-            Paragraph("<b>Universitas Bina Sarana Informatika (UBSI)</b> — S1 Sistem Informasi", item_title_style),
-            Paragraph("September 2023 – Sekarang (Mahasiswa Aktif)", item_date_style),
-        ],
-        [
-            Paragraph("• Mata Kuliah Relevan: Pemrograman Web (Laravel), Pemrograman Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL, Sistem Informasi Manajemen.", bullet_style),
-            Paragraph("", item_date_style),
-        ],
-        [
-            Paragraph("<b>SMK Negeri 31 Jakarta</b> — Kompetensi Keahlian Animasi", item_title_style),
-            Paragraph("Juli 2019 – Juli 2022", item_date_style),
-        ],
-        [
-            Paragraph("• Fokus Pembelajaran: Desain visual antarmuka pengguna (UI/UX), permodelan grafis digital, animasi komputer, dan komposisi aset multimedia.", bullet_style),
-            Paragraph("", item_date_style),
-        ],
-    ]
-    t_edu = Table(edu_table_data, colWidths=[usable_w - 160, 160])
-    t_edu.setStyle(TableStyle([
-        ('VALIGN', (0,0), (-1,-1), 'TOP'),
-        ('TOPPADDING', (0,0), (-1,-1), 0.4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 0.4),
-        ('LEFTPADDING', (0,0), (-1,-1), 0),
-        ('RIGHTPADDING', (0,0), (-1,-1), 0),
+    # UBSI
+    edu1_t = Table([
+        [Paragraph("<b>Universitas Bina Sarana Informatika (UBSI)</b> — S1 Sistem Informasi", item_title_style),
+         Paragraph("Sep 2023 – Sekarang (Aktif)", item_date_style)],
+    ], colWidths=[usable_w - 150, 150])
+    edu1_t.setStyle(TableStyle([
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('PADDING', (0,0), (-1,-1), 0),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1),
     ]))
-    story.append(t_edu)
+    story.append(edu1_t)
+    story.append(Paragraph("• Mata Kuliah Relevan: Pemrograman Web (Laravel), Pemrograman Mobile (Flutter & Dart), Rekayasa Perangkat Lunak, Basis Data Relasional & SQL, Sistem Informasi Manajemen.", bullet_style))
+    story.append(Spacer(1, 1.8))
+
+    # SMK Negeri 31 Jakarta
+    edu2_t = Table([
+        [Paragraph("<b>SMK Negeri 31 Jakarta</b> — Kompetensi Keahlian Animasi", item_title_style),
+         Paragraph("Juli 2019 – Juli 2022", item_date_style)],
+    ], colWidths=[usable_w - 150, 150])
+    edu2_t.setStyle(TableStyle([
+        ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
+        ('PADDING', (0,0), (-1,-1), 0),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 1),
+    ]))
+    story.append(edu2_t)
+    story.append(Paragraph("• Fokus Pembelajaran: Desain visual antarmuka pengguna (UI/UX), permodelan grafis digital, animasi komputer, dan komposisi aset multimedia.", bullet_style))
     story.append(Spacer(1, 2.0))
 
     # 5. PENGALAMAN KERJA & MENGAJAR (ISI TIDAK DI-BOLD)

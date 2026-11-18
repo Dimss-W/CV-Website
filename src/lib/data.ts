@@ -5,7 +5,7 @@ import { Profile, Experience, Project, Skill, Education, Certificate, ContactMes
 export const defaultProfile: Profile = {
   full_name: 'Dimas Wijanarko',
   title: 'Full Stack Web & Mobile Software Engineer',
-  bio: 'Mahasiswa aktif S1 Sistem Informasi Universitas Bina Sarana Informatika yang berfokus pada rekayasa perangkat lunak Web & Mobile (Full Stack) dan Analisis Data. Berpengalaman mengembangkan sistem monitoring operasional di PT PGAS Telekomunikasi Nusantara (PGNCOM), tersertifikasi resmi Database Administrator BNSP, peraih Juara 1 IT Bootcamp Software Development UBSI (Desainer Grafis & UI Smart Tahfidz School), serta aktif memimpin organisasi kepemudaan masjid (PRISMA). Menguasai Laravel, Flutter, MySQL, dan Microsoft Power BI.',
+  bio: 'Software Engineer (Web & Mobile) dan mahasiswa S1 Sistem Informasi UBSI dengan fondasi desain visual serta analitik data. Berfokus pada perancangan aplikasi web modern menggunakan Laravel, aplikasi mobile lintas platform dengan Flutter, dan arsitektur basis data relasional tersertifikasi Database Administrator BNSP. Memiliki pengalaman industri di PT PGAS Telekomunikasi Nusantara (PGNCOM) dalam membangun sistem monitoring operasional dan dashboard interaktif Power BI. Memadukan ketelitian kode bersih, kepekaan estetika antarmuka (UI/UX), serta jiwa kepemimpinan aktif sebagai Ketua Umum PRISMA dan instruktur tamu RPL. Berdedikasi menghadirkan produk digital yang efisien, skalabel, dan memberikan nilai nyata bagi pengguna.',
   email: 'dmswijanarko@gmail.com',
   location: 'Jakarta, Indonesia',
   avatar_url: '/dimas-profile-web.jpg',
