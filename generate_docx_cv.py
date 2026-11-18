@@ -233,13 +233,13 @@ def build_docx_cv(dest_paths):
     r_u1.font.size = Pt(9.8)
     r_u1.font.color.rgb = c_primary
     
-    r_u2 = p_ub.add_run("— S1 Sistem Informasi")
+    r_u2 = p_ub.add_run("- S1 Sistem Informasi")
     r_u2.bold = True
     r_u2.font.name = font_family
     r_u2.font.size = Pt(9.8)
     r_u2.font.color.rgb = c_primary
 
-    r_ud = p_ub.add_run("\tSeptember 2023 – Sekarang (Mahasiswa Aktif)")
+    r_ud = p_ub.add_run("\tSeptember 2023 - Sekarang (Mahasiswa Aktif)")
     r_ud.italic = True
     r_ud.font.name = font_family
     r_ud.font.size = Pt(9.0)
@@ -267,13 +267,13 @@ def build_docx_cv(dest_paths):
     r_s1.font.size = Pt(9.8)
     r_s1.font.color.rgb = c_primary
     
-    r_s2 = p_smk.add_run("— Kompetensi Keahlian Animasi")
+    r_s2 = p_smk.add_run("- Kompetensi Keahlian Animasi")
     r_s2.bold = True
     r_s2.font.name = font_family
     r_s2.font.size = Pt(9.8)
     r_s2.font.color.rgb = c_primary
 
-    r_sd = p_smk.add_run("\tJuli 2019 – Juli 2022")
+    r_sd = p_smk.add_run("\tJuli 2019 - Juli 2022")
     r_sd.italic = True
     r_sd.font.name = font_family
     r_sd.font.size = Pt(9.0)
@@ -306,13 +306,13 @@ def build_docx_cv(dest_paths):
     r1_pos.font.size = Pt(9.8)
     r1_pos.font.color.rgb = c_primary
     
-    r1_comp = p_e1.add_run("— PT PGAS Telekomunikasi Nusantara (PGNCOM)")
+    r1_comp = p_e1.add_run("- PT PGAS Telekomunikasi Nusantara (PGNCOM)")
     r1_comp.bold = True
     r1_comp.font.name = font_family
     r1_comp.font.size = Pt(9.8)
     r1_comp.font.color.rgb = c_primary
 
-    r1_d = p_e1.add_run("\tAgustus 2026 – November 2026")
+    r1_d = p_e1.add_run("\tAgustus 2026 - November 2026")
     r1_d.italic = True
     r1_d.font.name = font_family
     r1_d.font.size = Pt(9.0)
@@ -346,7 +346,7 @@ def build_docx_cv(dest_paths):
     r2_pos.font.size = Pt(9.8)
     r2_pos.font.color.rgb = c_primary
     
-    r2_comp = p_e2.add_run("— SMK Muhammadiyah 15 Jakarta")
+    r2_comp = p_e2.add_run("- SMK Muhammadiyah 15 Jakarta")
     r2_comp.bold = True
     r2_comp.font.name = font_family
     r2_comp.font.size = Pt(9.8)
@@ -385,7 +385,7 @@ def build_docx_cv(dest_paths):
     r3_pos.font.size = Pt(9.8)
     r3_pos.font.color.rgb = c_primary
     
-    r3_comp = p_e3.add_run("— Proyek Independen & Klien")
+    r3_comp = p_e3.add_run("- Proyek Independen & Klien")
     r3_comp.bold = True
     r3_comp.font.name = font_family
     r3_comp.font.size = Pt(9.8)
@@ -424,13 +424,13 @@ def build_docx_cv(dest_paths):
     r_og_pos.font.size = Pt(9.8)
     r_og_pos.font.color.rgb = c_primary
     
-    r_og_comp = p_og.add_run("— Pengurus Remaja Islam Masjid (PRISMA)")
+    r_og_comp = p_og.add_run("- Pengurus Remaja Islam Masjid (PRISMA)")
     r_og_comp.bold = True
     r_og_comp.font.name = font_family
     r_og_comp.font.size = Pt(9.8)
     r_og_comp.font.color.rgb = c_primary
 
-    r_og_d = p_og.add_run("\t2023 – Sekarang (Aktif)")
+    r_og_d = p_og.add_run("\t2023 - Sekarang (Aktif)")
     r_og_d.italic = True
     r_og_d.font.name = font_family
     r_og_d.font.size = Pt(9.0)
@@ -439,10 +439,10 @@ def build_docx_cv(dest_paths):
     og_bullets = [
         "• Memimpin organisasi kepemudaan masjid dalam merencanakan program kerja tahunan, memimpin rapat kepengurusan berkala, mengelola transparansi pendanaan kas umat, serta menjalin koordinasi strategis bersama Dewan Kemakmuran Masjid (DKM) dan aparatur wilayah.",
         "• Menginisiasi dan mengeksekusi rangkaian program sosial-keagamaan rutin tahunan setiap bulan Ramadhan berskala ratusan penerima manfaat:",
-        "    – Pemeriksaan & Pengobatan Medis Gratis: Menyelenggarakan layanan posko kesehatan gratis bagi warga sekitar bekerja sama dengan tenaga medis.",
-        "    – Tabligh Akbar & Kajian Tematik: Mengoordinasikan acara keagamaan akbar menghadirkan penceramah dan ratusan jamaah.",
-        "    – Perlombaan Islami Anak & Remaja: Menyelenggarakan kompetisi hafalan, adzan, dan wawasan islami untuk memacu semangat generasi muda.",
-        "    – Santunan Sosial Anak Yatim, Dhuafa & Marbot: Menggalang dan menyalurkan paket sembako serta dana santunan tepat sasaran.",
+        "    - Pemeriksaan & Pengobatan Medis Gratis: Menyelenggarakan layanan posko kesehatan gratis bagi warga sekitar bekerja sama dengan tenaga medis.",
+        "    - Tabligh Akbar & Kajian Tematik: Mengoordinasikan acara keagamaan akbar menghadirkan penceramah dan ratusan jamaah.",
+        "    - Perlombaan Islami Anak & Remaja: Menyelenggarakan kompetisi hafalan, adzan, dan wawasan islami untuk memacu semangat generasi muda.",
+        "    - Santunan Sosial Anak Yatim, Dhuafa & Marbot: Menggalang dan menyalurkan paket sembako serta dana santunan tepat sasaran.",
     ]
     for b in og_bullets:
         p_b = doc.add_paragraph()
@@ -462,15 +462,15 @@ def build_docx_cv(dest_paths):
     add_section_heading("Proyek Rekayasa Perangkat Lunak Unggulan")
 
     projects = [
-        ("Fleedy – Sistem Monitoring Kendaraan & GIS Telemetry (PT PGN MAS)",
+        ("Fleedy - Sistem Monitoring Kendaraan & GIS Telemetry (PT PGN MAS)",
          "• Membangun sistem komando pemantauan 1.229+ armada kendaraan operasional PT PGN MAS, analisis rasio utilisasi (88.4%), komposisi kepemilikan aset, pemetaan geospasial GIS interaktif (Leaflet) sebaran nasional, serta rekonsiliasi kontrak terintegrasi. (Stack: Laravel, React, Tailwind CSS, Leaflet GIS, MySQL)."),
-        ("Otokeep – Platform Servis Kendaraan Cerdas & Manajemen Armada",
+        ("Otokeep - Platform Servis Kendaraan Cerdas & Manajemen Armada",
          "• Platform pemantauan servis kendaraan & armada cerdas dengan kompresi citra cepat, penjadwalan servis berkala berbasis kalkulasi jarak tempuh, estimasi biaya perawatan, dan pengingat masa aktif STNK. (Stack: Laravel, Tailwind CSS, MySQL, REST API)."),
-        ("FindIt – Sistem Informasi Barang Hilang & Ditemukan 27 Kampus UBSI",
+        ("FindIt - Sistem Informasi Barang Hilang & Ditemukan 27 Kampus UBSI",
          "• Sistem informasi pengelolaan barang hilang & penemuan terpadu untuk 27 kampus cabang UBSI se-Indonesia dengan partisi data multi-cabang tanpa benturan ID, pencatatan loker brankas penitipan terpusat, dan verifikasi identitas mahasiswa. (Stack: Laravel, Blade, MySQL, REST API)."),
-        ("CalTrack – Aplikasi Mobile Kesehatan & Kalkulator Nutrisi IMT",
+        ("CalTrack - Aplikasi Mobile Kesehatan & Kalkulator Nutrisi IMT",
          "• Aplikasi mobile Android cross-platform dengan Flutter & MVVM untuk kalkulasi IMT/BMI real-time, panduan rekomendasi nutrisi harian, dan integrasi backend REST API Laravel. (Stack: Flutter, Dart, Laravel REST API, MySQL)."),
-        ("Kastrix – Platform Kasir Pintar (POS) & Manajemen Multi-Gerai",
+        ("Kastrix - Platform Kasir Pintar (POS) & Manajemen Multi-Gerai",
          "• Membangun sistem Point of Sale (POS) multi-gerai dengan pembagian peran Super Admin dan Kasir, katalog menu dinamis, pencatatan transaksi kasir kilat, serta visualisasi rekap laba kotor real-time. (Stack: Laravel, React, Tailwind CSS, MySQL, REST API)."),
         ("Sistem Monitoring Realisasi Biaya & Dashboard Power BI (PGNCOM)",
          "• Mengembangkan sistem web internal monitoring anggaran dan mengintegrasikan basis data transaksi operasional ke dashboard analitik Microsoft Power BI interaktif menggunakan formula DAX untuk evaluasi deviasi proyek. (Stack: Laravel, Microsoft Power BI, DAX, MySQL)."),
@@ -503,15 +503,15 @@ def build_docx_cv(dest_paths):
 
     certs = [
         ("Sertifikat Kompetensi Database Administrator",
-         "— Badan Nasional Sertifikasi Profesi (BNSP) & LSP UBSI",
-         "Mar 2026 – 2029",
+         "- Badan Nasional Sertifikasi Profesi (BNSP) & LSP UBSI",
+         "Mar 2026 - 2029",
          "• Dinyatakan Kompeten secara nasional dalam perancangan basis data relasional, penulisan kueri SQL tingkat lanjut, pengoptimalan indeks, dan integritas data."),
         ("Sertifikasi Kompetensi Analis Program (Program Analyst)",
-         "— BNSP & LSP UBSI",
-         "Agustus 2026 – 2029",
+         "- BNSP & LSP UBSI",
+         "Agustus 2026 - 2029",
          "• Lulus uji asesmen 10 unit kompetensi SKKNI: skalabilitas sistem, SQL, algoritma, debugging, profiling, code review, dan pengujian program. (Blangko fisik dalam proses penerbitan BNSP)."),
         ("Juara 1 IT Bootcamp Software Development",
-         "— Fakultas Teknologi Informasi (FTI) & Rektorat UBSI",
+         "- Fakultas Teknologi Informasi (FTI) & Rektorat UBSI",
          "2025",
          "• Meraih predikat Juara 1 tingkat nasional mengungguli seluruh perwakilan mahasiswa kampus cabang UBSI se-Indonesia melalui platform Smart Tahfidz School."),
     ]

@@ -208,8 +208,8 @@ def build_ats_cv(output_path):
 
     # UBSI
     edu1_t = Table([
-        [Paragraph("<b>Universitas Bina Sarana Informatika (UBSI)</b> — S1 Sistem Informasi", item_title_style),
-         Paragraph("Sep 2023 – Sekarang (Aktif)", item_date_style)],
+        [Paragraph("<b>Universitas Bina Sarana Informatika (UBSI)</b> - S1 Sistem Informasi", item_title_style),
+         Paragraph("Sep 2023 - Sekarang (Aktif)", item_date_style)],
     ], colWidths=[usable_w - 150, 150])
     edu1_t.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
@@ -222,8 +222,8 @@ def build_ats_cv(output_path):
 
     # SMK Negeri 31 Jakarta
     edu2_t = Table([
-        [Paragraph("<b>SMK Negeri 31 Jakarta</b> — Kompetensi Keahlian Animasi", item_title_style),
-         Paragraph("Juli 2019 – Juli 2022", item_date_style)],
+        [Paragraph("<b>SMK Negeri 31 Jakarta</b> - Kompetensi Keahlian Animasi", item_title_style),
+         Paragraph("Juli 2019 - Juli 2022", item_date_style)],
     ], colWidths=[usable_w - 150, 150])
     edu2_t.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
@@ -240,8 +240,8 @@ def build_ats_cv(output_path):
 
     # Exp 1: PGNCOM
     exp1_t = Table([
-        [Paragraph("<b>Web Developer & Data Analytics Intern</b> — PT PGAS Telekomunikasi Nusantara (PGNCOM)", item_title_style),
-         Paragraph("Agustus 2026 – November 2026", item_date_style)],
+        [Paragraph("<b>Web Developer & Data Analytics Intern</b> - PT PGAS Telekomunikasi Nusantara (PGNCOM)", item_title_style),
+         Paragraph("Agustus 2026 - November 2026", item_date_style)],
     ], colWidths=[usable_w - 140, 140])
     exp1_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(exp1_t)
@@ -252,7 +252,7 @@ def build_ats_cv(output_path):
 
     # Exp 2: SMK Muhammadiyah 15
     exp2_t = Table([
-        [Paragraph("<b>Pengajar Tamu & Instruktur Rekayasa Perangkat Lunak (RPL)</b> — SMK Muhammadiyah 15 Jakarta", item_title_style),
+        [Paragraph("<b>Pengajar Tamu & Instruktur Rekayasa Perangkat Lunak (RPL)</b> - SMK Muhammadiyah 15 Jakarta", item_title_style),
          Paragraph("2025", item_date_style)],
     ], colWidths=[usable_w - 140, 140])
     exp2_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
@@ -263,7 +263,7 @@ def build_ats_cv(output_path):
 
     # Exp 3: Proyek Mandiri
     exp3_t = Table([
-        [Paragraph("<b>Pengembang Perangkat Lunak Web & Mobile (Full Stack)</b> — Proyek Independen & Klien", item_title_style),
+        [Paragraph("<b>Pengembang Perangkat Lunak Web & Mobile (Full Stack)</b> - Proyek Independen & Klien", item_title_style),
          Paragraph("2023", item_date_style)],
     ], colWidths=[usable_w - 140, 140])
     exp3_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
@@ -280,17 +280,17 @@ def build_ats_cv(output_path):
         story.append(elem)
 
     org_t = Table([
-        [Paragraph("<b>Ketua Umum</b> — Pengurus Remaja Islam Masjid (PRISMA)", item_title_style),
-         Paragraph("2023 – Sekarang (Aktif)", item_date_style)],
+        [Paragraph("<b>Ketua Umum</b> - Pengurus Remaja Islam Masjid (PRISMA)", item_title_style),
+         Paragraph("2023 - Sekarang (Aktif)", item_date_style)],
     ], colWidths=[usable_w - 140, 140])
     org_t.setStyle(TableStyle([('VALIGN', (0,0), (-1,-1), 'MIDDLE'), ('PADDING', (0,0), (-1,-1), 0)]))
     story.append(org_t)
     story.append(Paragraph("• Memimpin organisasi kepemudaan masjid dalam merencanakan program kerja tahunan, memimpin rapat kepengurusan berkala, mengelola transparansi pendanaan kas umat, serta menjalin koordinasi strategis bersama Dewan Kemakmuran Masjid (DKM) dan aparatur wilayah.", bullet_style))
     story.append(Paragraph("• Menginisiasi dan mengeksekusi rangkaian program sosial-keagamaan rutin tahunan setiap bulan Ramadhan berskala ratusan penerima manfaat:", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;– Pemeriksaan & Pengobatan Medis Gratis: Menyelenggarakan layanan posko kesehatan gratis bagi warga sekitar bekerja sama dengan tenaga medis.", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;– Tabligh Akbar & Kajian Tematik: Mengoordinasikan acara keagamaan akbar menghadirkan penceramah dan ratusan jamaah.", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;– Perlombaan Islami Anak & Remaja: Menyelenggarakan kompetisi hafalan, adzan, dan wawasan islami untuk memacu semangat generasi muda.", bullet_style))
-    story.append(Paragraph("&nbsp;&nbsp;– Santunan Sosial Anak Yatim, Dhuafa & Marbot: Menggalang dan menyalurkan paket sembako serta dana santunan tepat sasaran.", bullet_style))
+    story.append(Paragraph("&nbsp;&nbsp;- Pemeriksaan & Pengobatan Medis Gratis: Menyelenggarakan layanan posko kesehatan gratis bagi warga sekitar bekerja sama dengan tenaga medis.", bullet_style))
+    story.append(Paragraph("&nbsp;&nbsp;- Tabligh Akbar & Kajian Tematik: Mengoordinasikan acara keagamaan akbar menghadirkan penceramah dan ratusan jamaah.", bullet_style))
+    story.append(Paragraph("&nbsp;&nbsp;- Perlombaan Islami Anak & Remaja: Menyelenggarakan kompetisi hafalan, adzan, dan wawasan islami untuk memacu semangat generasi muda.", bullet_style))
+    story.append(Paragraph("&nbsp;&nbsp;- Santunan Sosial Anak Yatim, Dhuafa & Marbot: Menggalang dan menyalurkan paket sembako serta dana santunan tepat sasaran.", bullet_style))
     story.append(Spacer(1, 2.5))
 
     # 7. PROYEK REKAYASA PERANGKAT LUNAK UNGGULAN
@@ -298,27 +298,27 @@ def build_ats_cv(output_path):
         story.append(elem)
 
     # Fleedy PGNMAS
-    story.append(Paragraph("<b>Fleedy – Sistem Monitoring Kendaraan & GIS Telemetry (PT PGN MAS)</b>", item_title_style))
+    story.append(Paragraph("<b>Fleedy - Sistem Monitoring Kendaraan & GIS Telemetry (PT PGN MAS)</b>", item_title_style))
     story.append(Paragraph("• Membangun sistem komando pemantauan 1.229+ armada kendaraan operasional PT PGN MAS, analisis rasio utilisasi (88.4%), komposisi kepemilikan aset, pemetaan geospasial GIS interaktif (Leaflet) sebaran nasional, serta rekonsiliasi kontrak terintegrasi. (Stack: Laravel, React, Tailwind CSS, Leaflet GIS, MySQL).", bullet_style))
     story.append(Spacer(1, 1.5))
 
     # Otokeep
-    story.append(Paragraph("<b>Otokeep – Platform Servis Kendaraan Cerdas & Manajemen Armada</b>", item_title_style))
+    story.append(Paragraph("<b>Otokeep - Platform Servis Kendaraan Cerdas & Manajemen Armada</b>", item_title_style))
     story.append(Paragraph("• Platform pemantauan servis kendaraan & armada cerdas dengan kompresi citra cepat, penjadwalan servis berkala berbasis kalkulasi jarak tempuh, estimasi biaya perawatan, dan pengingat masa aktif STNK. (Stack: Laravel, Tailwind CSS, MySQL, REST API).", bullet_style))
     story.append(Spacer(1, 1.5))
 
     # FindIt
-    story.append(Paragraph("<b>FindIt – Sistem Informasi Barang Hilang & Ditemukan 27 Kampus UBSI</b>", item_title_style))
+    story.append(Paragraph("<b>FindIt - Sistem Informasi Barang Hilang & Ditemukan 27 Kampus UBSI</b>", item_title_style))
     story.append(Paragraph("• Sistem informasi pengelolaan barang hilang & penemuan terpadu untuk 27 kampus cabang UBSI se-Indonesia dengan partisi data multi-cabang tanpa benturan ID, pencatatan loker brankas penitipan terpusat, dan verifikasi identitas mahasiswa. (Stack: Laravel, Blade, MySQL, REST API).", bullet_style))
     story.append(Spacer(1, 1.5))
 
     # CalTrack
-    story.append(Paragraph("<b>CalTrack – Aplikasi Mobile Kesehatan & Kalkulator Nutrisi IMT</b>", item_title_style))
+    story.append(Paragraph("<b>CalTrack - Aplikasi Mobile Kesehatan & Kalkulator Nutrisi IMT</b>", item_title_style))
     story.append(Paragraph("• Aplikasi mobile Android cross-platform dengan Flutter & MVVM untuk kalkulasi IMT/BMI real-time, panduan rekomendasi nutrisi harian, dan integrasi backend REST API Laravel. (Stack: Flutter, Dart, Laravel REST API, MySQL).", bullet_style))
     story.append(Spacer(1, 1.5))
 
     # Kastrix POS
-    story.append(Paragraph("<b>Kastrix – Platform Kasir Pintar (POS) & Manajemen Multi-Gerai</b>", item_title_style))
+    story.append(Paragraph("<b>Kastrix - Platform Kasir Pintar (POS) & Manajemen Multi-Gerai</b>", item_title_style))
     story.append(Paragraph("• Membangun sistem Point of Sale (POS) multi-gerai dengan pembagian peran Super Admin dan Kasir, katalog menu dinamis, pencatatan transaksi kasir kilat, serta visualisasi rekap laba kotor real-time. (Stack: Laravel, React, Tailwind CSS, MySQL, REST API).", bullet_style))
     story.append(Spacer(1, 1.5))
 
@@ -333,23 +333,23 @@ def build_ats_cv(output_path):
 
     cert_table = Table([
         [
-            Paragraph("<b>Sertifikat Kompetensi Database Administrator</b> — Badan Nasional Sertifikasi Profesi (BNSP) & LSP UBSI", item_title_style),
-            Paragraph("Mar 2026 – 2029", item_date_style)
+            Paragraph("<b>Sertifikat Kompetensi Database Administrator</b> - Badan Nasional Sertifikasi Profesi (BNSP) & LSP UBSI", item_title_style),
+            Paragraph("Mar 2026 - 2029", item_date_style)
         ],
         [
             Paragraph("• Dinyatakan Kompeten secara nasional dalam perancangan basis data relasional, penulisan kueri SQL tingkat lanjut, pengoptimalan indeks, dan integritas data.", bullet_style),
             Paragraph("", item_date_style)
         ],
         [
-            Paragraph("<b>Sertifikasi Kompetensi Analis Program (Program Analyst)</b> — BNSP & LSP UBSI", item_title_style),
-            Paragraph("Agustus 2026 – 2029", item_date_style)
+            Paragraph("<b>Sertifikasi Kompetensi Analis Program (Program Analyst)</b> - BNSP & LSP UBSI", item_title_style),
+            Paragraph("Agustus 2026 - 2029", item_date_style)
         ],
         [
             Paragraph("• Lulus uji asesmen 10 unit kompetensi SKKNI: skalabilitas sistem, SQL, algoritma, debugging, profiling, code review, dan pengujian program. (Blangko fisik dalam proses penerbitan BNSP).", bullet_style),
             Paragraph("", item_date_style)
         ],
         [
-            Paragraph("<b>Juara 1 IT Bootcamp Software Development</b> — Fakultas Teknologi Informasi (FTI) & Rektorat UBSI", item_title_style),
+            Paragraph("<b>Juara 1 IT Bootcamp Software Development</b> - Fakultas Teknologi Informasi (FTI) & Rektorat UBSI", item_title_style),
             Paragraph("2025", item_date_style)
         ],
         [
