@@ -190,8 +190,8 @@ export const defaultProjects: Project[] = [
     tags: ['Laravel 10', 'React 18', 'Tailwind CSS', 'Leaflet GIS', 'MySQL', 'PhpSpreadsheet', 'REST API'],
     category: 'web',
     technical_highlight: 'Arsitektur geospasial GIS Leaflet dengan dynamic clustering, inline cell editing data kontrak langsung ke database, audit rekonsiliasi anomali unit, serta engine ekspor/impor Excel multi-sheet.',
-    demo_url: 'https://monitoringkendaraan-delta.vercel.app',
-    github_url: 'https://github.com/Dimss-W/monitoring_kendaraan',
+    demo_url: '',
+    github_url: '',
     image_url: '/projects/fleedy-dashboard.png',
     images: [
       '/projects/fleedy-dashboard.png',

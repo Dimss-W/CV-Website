@@ -296,6 +296,11 @@ def build_ats_cv(output_path):
     for elem in section_heading("Proyek Rekayasa Perangkat Lunak Unggulan"):
         story.append(elem)
 
+    # Fleedy PGNMAS
+    story.append(Paragraph("<b>Fleedy – Sistem Monitoring Kendaraan & GIS Telemetry (PT PGN MAS)</b>", item_title_style))
+    story.append(Paragraph("• Membangun sistem komando pemantauan 1.229+ armada kendaraan operasional PT PGN MAS, analisis rasio utilisasi (88.4%), komposisi kepemilikan aset, pemetaan geospasial GIS interaktif (Leaflet) sebaran nasional, serta rekonsiliasi kontrak terintegrasi. (Stack: Laravel, React, Tailwind CSS, Leaflet GIS, MySQL).", bullet_style))
+    story.append(Spacer(1, 1.5))
+
     # Otokeep
     story.append(Paragraph("<b>Otokeep – Platform Servis Kendaraan Cerdas & Manajemen Armada</b>", item_title_style))
     story.append(Paragraph("• Platform pemantauan servis kendaraan & armada cerdas dengan kompresi citra cepat, penjadwalan servis berkala berbasis kalkulasi jarak tempuh, estimasi biaya perawatan, dan pengingat masa aktif STNK. (Stack: Laravel, Tailwind CSS, MySQL, REST API).", bullet_style))

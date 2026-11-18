@@ -462,6 +462,8 @@ def build_docx_cv(dest_paths):
     add_section_heading("Proyek Rekayasa Perangkat Lunak Unggulan")
 
     projects = [
+        ("Fleedy – Sistem Monitoring Kendaraan & GIS Telemetry (PT PGN MAS)",
+         "• Membangun sistem komando pemantauan 1.229+ armada kendaraan operasional PT PGN MAS, analisis rasio utilisasi (88.4%), komposisi kepemilikan aset, pemetaan geospasial GIS interaktif (Leaflet) sebaran nasional, serta rekonsiliasi kontrak terintegrasi. (Stack: Laravel, React, Tailwind CSS, Leaflet GIS, MySQL)."),
         ("Otokeep – Platform Servis Kendaraan Cerdas & Manajemen Armada",
          "• Platform pemantauan servis kendaraan & armada cerdas dengan kompresi citra cepat, penjadwalan servis berkala berbasis kalkulasi jarak tempuh, estimasi biaya perawatan, dan pengingat masa aktif STNK. (Stack: Laravel, Tailwind CSS, MySQL, REST API)."),
         ("FindIt – Sistem Informasi Barang Hilang & Ditemukan 27 Kampus UBSI",
