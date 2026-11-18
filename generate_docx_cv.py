@@ -19,10 +19,8 @@ def build_docx_cv(dest_paths):
         section.page_width = Inches(8.27)   # A4 width
         section.page_height = Inches(11.69) # A4 height
 
-    # Palette
-    c_primary = RGBColor(15, 23, 42)    # Slate 900
-    c_body = RGBColor(51, 65, 85)       # Slate 700
-    c_muted = RGBColor(100, 116, 139)   # Slate 500
+    # Palette: Pure Black (Hitam Pekat Murni #000000), tanpa warna abu
+    c_black = RGBColor(0, 0, 0)
 
     font_family = "Times New Roman"
 
@@ -30,7 +28,7 @@ def build_docx_cv(dest_paths):
     normal_style = doc.styles['Normal']
     normal_style.font.name = font_family
     normal_style.font.size = Pt(9.8)
-    normal_style.font.color.rgb = c_body
+    normal_style.font.color.rgb = c_black
 
     def add_section_heading(title_text):
         p = doc.add_paragraph()
@@ -41,10 +39,10 @@ def build_docx_cv(dest_paths):
         run.bold = True
         run.font.name = font_family
         run.font.size = Pt(11.0)
-        run.font.color.rgb = c_primary
+        run.font.color.rgb = c_black
 
         pPr = p._p.get_or_add_pPr()
-        pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="8" w:space="1" w:color="0F172A"/></w:pBdr>')
+        pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="8" w:space="1" w:color="000000"/></w:pBdr>')
         pPr.append(pBdr)
         return p
 
@@ -60,27 +58,26 @@ def build_docx_cv(dest_paths):
         r_sym = p.add_run("•  " if not is_sub else "-  ")
         r_sym.font.name = font_family
         r_sym.font.size = Pt(9.5 if is_sub else 9.8)
-        r_sym.font.color.rgb = c_body
+        r_sym.font.color.rgb = c_black
         
         for item in text_runs:
             if isinstance(item, str):
                 r = p.add_run(item)
                 r.font.name = font_family
                 r.font.size = Pt(9.5 if is_sub else 9.8)
-                r.font.color.rgb = c_body
+                r.font.color.rgb = c_black
             elif isinstance(item, tuple):
-                # (text, is_bold, is_italic, color)
+                # (text, is_bold, is_italic)
                 txt = item[0]
                 is_bold = item[1] if len(item) > 1 else False
                 is_italic = item[2] if len(item) > 2 else False
-                clr = item[3] if len(item) > 3 else c_body
                 
                 r = p.add_run(txt)
                 r.font.name = font_family
                 r.font.size = Pt(9.5 if is_sub else 9.8)
                 r.bold = is_bold
                 r.italic = is_italic
-                r.font.color.rgb = clr
+                r.font.color.rgb = c_black
         return p
 
     def add_table_item(left_title, right_date, sub_label=None):
@@ -88,11 +85,9 @@ def build_docx_cv(dest_paths):
         table.alignment = WD_TABLE_ALIGNMENT.CENTER
         table.autofit = False
         
-        # Table width ~ 7.17 inches
         table.columns[0].width = Inches(5.3)
         table.columns[1].width = Inches(1.87)
         
-        # Remove borders & padding
         for row in table.rows:
             trPr = row._tr.get_or_add_trPr()
             trPr.append(parse_xml(f'<w:cantSplit {nsdecls("w")}/>'))
@@ -111,13 +106,13 @@ def build_docx_cv(dest_paths):
         r0.bold = True
         r0.font.name = font_family
         r0.font.size = Pt(10.0)
-        r0.font.color.rgb = c_primary
+        r0.font.color.rgb = c_black
         
         if len(left_title) > 1:
             r0_sub = p0.add_run(left_title[1])
             r0_sub.font.name = font_family
             r0_sub.font.size = Pt(10.0)
-            r0_sub.font.color.rgb = c_primary
+            r0_sub.font.color.rgb = c_black
             
         if sub_label:
             p_sub = c0.add_paragraph()
@@ -126,7 +121,8 @@ def build_docx_cv(dest_paths):
             r_sub = p_sub.add_run(sub_label)
             r_sub.font.name = font_family
             r_sub.font.size = Pt(8.8)
-            r_sub.font.color.rgb = c_muted
+            r_sub.italic = True
+            r_sub.font.color.rgb = c_black
             
         p1 = c1.paragraphs[0]
         p1.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.RIGHT
@@ -136,13 +132,13 @@ def build_docx_cv(dest_paths):
         r1.italic = True
         r1.font.name = font_family
         r1.font.size = Pt(9.5)
-        r1.font.color.rgb = c_muted
+        r1.font.color.rgb = c_black
 
     # ==========================================
     # HALAMAN 1
     # ==========================================
 
-    # 1. HEADER
+    # 1. HEADER (NO PHOTO, SOLID BLACK)
     p_name = doc.add_paragraph()
     p_name.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_name.paragraph_format.space_before = Pt(0)
@@ -151,7 +147,7 @@ def build_docx_cv(dest_paths):
     r_name.bold = True
     r_name.font.name = font_family
     r_name.font.size = Pt(18.0)
-    r_name.font.color.rgb = c_primary
+    r_name.font.color.rgb = c_black
 
     p_title = doc.add_paragraph()
     p_title.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -161,7 +157,7 @@ def build_docx_cv(dest_paths):
     r_title.bold = True
     r_title.font.name = font_family
     r_title.font.size = Pt(10.5)
-    r_title.font.color.rgb = c_primary
+    r_title.font.color.rgb = c_black
 
     # Baris Kontak 1
     p_c1 = doc.add_paragraph()
@@ -171,14 +167,18 @@ def build_docx_cv(dest_paths):
     
     r1 = p_c1.add_run("Jakarta Pusat  •  Email: ")
     r1.font.size = Pt(9.5)
+    r1.font.color.rgb = c_black
     r1_em = p_c1.add_run("dmswijanarko@gmail.com")
     r1_em.font.size = Pt(9.5)
     r1_em.underline = True
+    r1_em.font.color.rgb = c_black
     r1_sep = p_c1.add_run("  •  Web: ")
     r1_sep.font.size = Pt(9.5)
+    r1_sep.font.color.rgb = c_black
     r1_w = p_c1.add_run("dimaswijanarko.me")
     r1_w.font.size = Pt(9.5)
     r1_w.underline = True
+    r1_w.font.color.rgb = c_black
 
     # Baris Kontak 2
     p_c2 = doc.add_paragraph()
@@ -188,18 +188,22 @@ def build_docx_cv(dest_paths):
 
     r2 = p_c2.add_run("LinkedIn: ")
     r2.font.size = Pt(9.5)
+    r2.font.color.rgb = c_black
     r2_li = p_c2.add_run("linkedin.com/in/dmswijanarko")
     r2_li.font.size = Pt(9.5)
     r2_li.underline = True
+    r2_li.font.color.rgb = c_black
     r2_sep = p_c2.add_run("  •  GitHub: ")
     r2_sep.font.size = Pt(9.5)
+    r2_sep.font.color.rgb = c_black
     r2_gh = p_c2.add_run("github.com/Dimss-W")
     r2_gh.font.size = Pt(9.5)
     r2_gh.underline = True
+    r2_gh.font.color.rgb = c_black
 
     # Bottom border line for header
     pPr = p_c2._p.get_or_add_pPr()
-    pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="12" w:space="2" w:color="0F172A"/></w:pBdr>')
+    pBdr = parse_xml(f'<w:pBdr {nsdecls("w")}><w:bottom w:val="single" w:sz="12" w:space="2" w:color="000000"/></w:pBdr>')
     pPr.append(pBdr)
 
     # 2. RINGKASAN PERSONAL
@@ -334,9 +338,10 @@ def build_docx_cv(dest_paths):
     # 7. KETERAMPILAN
     add_section_heading("Keterampilan")
 
+    # Postman API, Windows OS, Linux CLI telah dihapus
     skills_data = [
         ("Hard Skills (Teknis)", "Software Development, Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS), Mobile Development (Dart, Flutter), Database Management (MySQL, PostgreSQL, Optimasi Kueri SQL), Data Analytics (Microsoft Power BI, Formula DAX), Arsitektur RESTful API, Version Control (Git & GitHub)."),
-        ("Tools & Lingkungan", "Git, GitHub, Visual Studio Code, Postman API, Microsoft Power BI Desktop, Windows OS, Linux CLI."),
+        ("Tools & Lingkungan", "Git, GitHub, Visual Studio Code, Microsoft Power BI Desktop."),
         ("Soft Skills (Interpersonal)", "Kerja Sama Tim (Teamwork), Komunikasi Efektif & Presentasi Teknis, Problem Solving & Berpikir Analitis, Kepemimpinan Organisasi, Manajemen Waktu & Skala Prioritas, Kemampuan Beradaptasi Cepat."),
         ("Kemampuan Bahasa", "Bahasa Indonesia (Penutur Asli / Native), Bahasa Inggris (Tingkat Menengah / Intermediate).")
     ]
@@ -350,7 +355,7 @@ def build_docx_cv(dest_paths):
         try:
             os.makedirs(os.path.dirname(path), exist_ok=True)
             doc.save(path)
-            print(f"DOCX CV saved successfully at: {path}")
+            print(f"DOCX CV Pure Black saved successfully at: {path}")
         except Exception as e:
             print(f"Error saving to {path}: {e}")
             alt_path = path.replace(".docx", "_Updated.docx")

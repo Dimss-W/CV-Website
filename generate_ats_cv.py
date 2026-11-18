@@ -8,7 +8,7 @@ from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
 
 def build_ats_cv(output_path):
-    # Standar A4 dengan margin 40pt horizontal dan 38pt vertikal yang nyaman dibaca
+    # Standar A4 dengan margin 40pt horizontal dan 38pt vertikal yang proporsional
     margin_lr = 40
     margin_tb = 38
     usable_w = A4[0] - (margin_lr * 2)
@@ -22,9 +22,8 @@ def build_ats_cv(output_path):
         bottomMargin=margin_tb
     )
 
-    c_primary = colors.HexColor("#0f172a") # Slate 900
-    c_body = colors.HexColor("#334155")    # Slate 700
-    c_muted = colors.HexColor("#64748b")   # Slate 500
+    # Warna teks hitam pekat murni (Pure Black #000000), tanpa warna abu
+    c_black = colors.black
 
     styles = getSampleStyleSheet()
 
@@ -34,7 +33,7 @@ def build_ats_cv(output_path):
         fontName='Times-Bold',
         fontSize=18.0,
         leading=22.0,
-        textColor=c_primary,
+        textColor=c_black,
         alignment=TA_CENTER,
         spaceAfter=3.0,
     )
@@ -45,7 +44,7 @@ def build_ats_cv(output_path):
         fontName='Times-Bold',
         fontSize=10.5,
         leading=14.0,
-        textColor=c_primary,
+        textColor=c_black,
         alignment=TA_CENTER,
         spaceAfter=4.0,
     )
@@ -56,7 +55,7 @@ def build_ats_cv(output_path):
         fontName='Times-Roman',
         fontSize=9.5,
         leading=14.0,
-        textColor=c_body,
+        textColor=c_black,
         alignment=TA_CENTER,
         spaceAfter=2.0,
     )
@@ -67,7 +66,7 @@ def build_ats_cv(output_path):
         fontName='Times-Bold',
         fontSize=11.0,
         leading=15.0,
-        textColor=c_primary,
+        textColor=c_black,
         spaceBefore=8.0,
         spaceAfter=3.0,
         keepWithNext=True,
@@ -79,7 +78,7 @@ def build_ats_cv(output_path):
         fontName='Times-Roman',
         fontSize=10.0,
         leading=14.2,
-        textColor=c_primary,
+        textColor=c_black,
         alignment=TA_LEFT,
     )
 
@@ -89,7 +88,7 @@ def build_ats_cv(output_path):
         fontName='Times-Italic',
         fontSize=9.5,
         leading=14.2,
-        textColor=c_muted,
+        textColor=c_black,
         alignment=TA_RIGHT,
     )
 
@@ -99,7 +98,7 @@ def build_ats_cv(output_path):
         fontName='Times-Roman',
         fontSize=9.8,
         leading=14.2,
-        textColor=c_body,
+        textColor=c_black,
         alignment=TA_JUSTIFY,
         spaceAfter=3.5,
     )
@@ -110,7 +109,7 @@ def build_ats_cv(output_path):
         fontName='Times-Roman',
         fontSize=9.8,
         leading=14.2,
-        textColor=c_body,
+        textColor=c_black,
         alignment=TA_JUSTIFY,
         leftIndent=12,
         firstLineIndent=-8,
@@ -123,7 +122,7 @@ def build_ats_cv(output_path):
         fontName='Times-Roman',
         fontSize=9.5,
         leading=13.8,
-        textColor=c_body,
+        textColor=c_black,
         alignment=TA_JUSTIFY,
         leftIndent=24,
         firstLineIndent=-8,
@@ -133,7 +132,7 @@ def build_ats_cv(output_path):
     def section_heading(title_text):
         return [
             Paragraph(title_text.upper(), section_header_style),
-            HRFlowable(width="100%", thickness=0.8, color=c_primary, spaceAfter=5.0, spaceBefore=2.0)
+            HRFlowable(width="100%", thickness=0.8, color=c_black, spaceAfter=5.0, spaceBefore=2.0)
         ]
 
     story = []
@@ -142,16 +141,16 @@ def build_ats_cv(output_path):
     # HALAMAN 1
     # ==========================================
 
-    # 1. HEADER (NO PHOTO, FULL WIDTH CENTERED, CLEAN LINKS)
+    # 1. HEADER (NO PHOTO, FULL WIDTH CENTERED, CLEAN LINKS, SOLID BLACK)
     story.append(Paragraph("DIMAS WIJANARKO", name_style))
     story.append(Paragraph("Full Stack Web & Mobile Software Engineer • Mahasiswa S1 Sistem Informasi UBSI", tagline_style))
     
-    contact_p1 = "Jakarta Pusat &nbsp;•&nbsp; Email: <a href='mailto:dmswijanarko@gmail.com' color='#0f172a'><u>dmswijanarko@gmail.com</u></a> &nbsp;•&nbsp; Web: <a href='https://dimaswijanarko.me' color='#0f172a'><u>dimaswijanarko.me</u></a>"
-    contact_p2 = "LinkedIn: <a href='https://linkedin.com/in/dmswijanarko' color='#0f172a'><u>linkedin.com/in/dmswijanarko</u></a> &nbsp;•&nbsp; GitHub: <a href='https://github.com/Dimss-W' color='#0f172a'><u>github.com/Dimss-W</u></a>"
+    contact_p1 = "Jakarta Pusat &nbsp;•&nbsp; Email: <a href='mailto:dmswijanarko@gmail.com' color='#000000'><u>dmswijanarko@gmail.com</u></a> &nbsp;•&nbsp; Web: <a href='https://dimaswijanarko.me' color='#000000'><u>dimaswijanarko.me</u></a>"
+    contact_p2 = "LinkedIn: <a href='https://linkedin.com/in/dmswijanarko' color='#000000'><u>linkedin.com/in/dmswijanarko</u></a> &nbsp;•&nbsp; GitHub: <a href='https://github.com/Dimss-W' color='#000000'><u>github.com/Dimss-W</u></a>"
     story.append(Paragraph(contact_p1, contact_style))
     story.append(Paragraph(contact_p2, contact_style))
     story.append(Spacer(1, 2.0))
-    story.append(HRFlowable(width="100%", thickness=1.0, color=c_primary, spaceAfter=5.0, spaceBefore=2.0))
+    story.append(HRFlowable(width="100%", thickness=1.0, color=c_black, spaceAfter=5.0, spaceBefore=2.0))
 
     # 2. RINGKASAN PERSONAL
     for elem in section_heading("Ringkasan Personal"):
@@ -254,7 +253,7 @@ def build_ats_cv(output_path):
 
     cert_table = Table([
         [
-            Paragraph("<b>Sertifikat Kompetensi Database Administrator (DBA)</b><br/><font color='#64748b' size='8.8'>Badan Nasional Sertifikasi Profesi (BNSP) & Lembaga Sertifikasi Profesi (LSP) UBSI</font>", item_title_style),
+            Paragraph("<b>Sertifikat Kompetensi Database Administrator (DBA)</b><br/><font color='#000000' size='8.8'><i>Badan Nasional Sertifikasi Profesi (BNSP) & Lembaga Sertifikasi Profesi (LSP) UBSI</i></font>", item_title_style),
             Paragraph("Maret 2026 - 2029", item_date_style)
         ],
         [
@@ -262,7 +261,7 @@ def build_ats_cv(output_path):
             Paragraph("", item_date_style)
         ],
         [
-            Paragraph("<b>Sertifikasi Kompetensi Analis Program (Program Analyst)</b><br/><font color='#64748b' size='8.8'>Badan Nasional Sertifikasi Profesi (BNSP) & Lembaga Sertifikasi Profesi (LSP) UBSI</font>", item_title_style),
+            Paragraph("<b>Sertifikasi Kompetensi Analis Program (Program Analyst)</b><br/><font color='#000000' size='8.8'><i>Badan Nasional Sertifikasi Profesi (BNSP) & Lembaga Sertifikasi Profesi (LSP) UBSI</i></font>", item_title_style),
             Paragraph("Agustus 2026 - 2029", item_date_style)
         ],
         [
@@ -270,7 +269,7 @@ def build_ats_cv(output_path):
             Paragraph("", item_date_style)
         ],
         [
-            Paragraph("<b>Juara 1 IT Bootcamp Software Development</b><br/><font color='#64748b' size='8.8'>Fakultas Teknologi Informasi (FTI) & Rektorat Universitas Bina Sarana Informatika</font>", item_title_style),
+            Paragraph("<b>Juara 1 IT Bootcamp Software Development</b><br/><font color='#000000' size='8.8'><i>Fakultas Teknologi Informasi (FTI) & Rektorat Universitas Bina Sarana Informatika</i></font>", item_title_style),
             Paragraph("2025", item_date_style)
         ],
         [
@@ -290,9 +289,10 @@ def build_ats_cv(output_path):
     for elem in section_heading("Keterampilan"):
         story.append(elem)
 
+    # Postman API, Windows OS, Linux CLI telah dihapus sesuai instruksi pengguna
     skills_data = [
         ("Hard Skills (Teknis)", "Software Development, Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS), Mobile Development (Dart, Flutter), Database Management (MySQL, PostgreSQL, Optimasi Kueri SQL), Data Analytics (Microsoft Power BI, Formula DAX), Arsitektur RESTful API, Version Control (Git & GitHub)."),
-        ("Tools & Lingkungan", "Git, GitHub, Visual Studio Code, Postman API, Microsoft Power BI Desktop, Windows OS, Linux CLI."),
+        ("Tools & Lingkungan", "Git, GitHub, Visual Studio Code, Microsoft Power BI Desktop."),
         ("Soft Skills (Interpersonal)", "Kerja Sama Tim (Teamwork), Komunikasi Efektif & Presentasi Teknis, Problem Solving & Berpikir Analitis, Kepemimpinan Organisasi, Manajemen Waktu & Skala Prioritas, Kemampuan Beradaptasi Cepat."),
         ("Kemampuan Bahasa", "Bahasa Indonesia (Penutur Asli / Native), Bahasa Inggris (Tingkat Menengah / Intermediate).")
     ]
@@ -301,7 +301,7 @@ def build_ats_cv(output_path):
         story.append(Paragraph(p_txt, bullet_style))
 
     doc.build(story)
-    print(f"Times New Roman ATS CV generated successfully at: {output_path}")
+    print(f"Times New Roman Pure Black ATS CV generated successfully at: {output_path}")
 
 def render_preview_pngs(pdf_path, out_dir):
     doc = pymupdf.open(pdf_path)
