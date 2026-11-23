@@ -251,7 +251,7 @@ def build_docx_cv(dest_paths):
     add_section_divider("Core Skills")
 
     skills_data = [
-        ("Hard Skills", "Software Development • Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS) • Mobile Development (Dart, Flutter) • Database Management (MySQL, PostgreSQL, Optimasi SQL) • Data Analytics (Microsoft Power BI, DAX) • RESTful API"),
+        ("Hard Skills", "Software Development • Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS) • Mobile Development (Dart, Flutter) • Database Management (MySQL, Optimasi SQL) • Data Analytics (Microsoft Power BI, DAX) • RESTful API"),
         ("Tools", "Git • GitHub • Visual Studio Code • Microsoft Power BI Desktop"),
         ("Soft Skills", "Kerja Sama Tim (Teamwork) • Komunikasi Efektif • Problem Solving & Analitis • Kepemimpinan Organisasi • Manajemen Waktu • Kemampuan Beradaptasi"),
         ("Bahasa", "Bahasa Indonesia (Penutur Asli / Native) • Bahasa Inggris (Tingkat Menengah / Intermediate)")

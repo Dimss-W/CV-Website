@@ -132,7 +132,6 @@ export default function RecruiterSection({ profile }: RecruiterSectionProps) {
       {/* Header Badge & Title */}
       <div className="text-center max-w-3xl mx-auto mb-16">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-700/60 text-emerald-400 text-xs font-semibold mb-4 backdrop-blur-md shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
           <span>STATUS REKRUTMEN: TERSEDIA SEGERA</span>
         </div>
 

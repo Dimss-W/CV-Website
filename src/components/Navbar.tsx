@@ -101,7 +101,6 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
           >
             <div className="relative w-8 h-8 rounded-full bg-zinc-900 border border-zinc-700 flex items-center justify-center text-zinc-200 font-mono font-bold text-xs group-hover:border-zinc-500 transition-colors">
               DW
-              <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 border-2 border-zinc-950 pulse-indicator" />
             </div>
             <div className="hidden sm:flex flex-col">
               <span className="text-sm font-semibold text-zinc-100 tracking-tight">
@@ -279,7 +278,6 @@ export default function Navbar({ resumeUrl }: NavbarProps) {
           {/* Mobile Footer Drawer */}
           <div className="pt-4 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
             <span className="flex items-center gap-1.5 text-zinc-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
               Siap Menerima Peluang Proyek
             </span>
             <div className="flex items-center gap-3">

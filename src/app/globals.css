@@ -334,7 +334,8 @@ body {
 }
 
 .pulse-indicator {
-  animation: subtlePulse 3s infinite ease-in-out;
+  /* Disabled per user request */
+  display: none;
 }
 
 /*===================================================================

@@ -357,7 +357,7 @@ def build_ats_cv(output_path):
     skills_table_data = [
         [
             Paragraph("Hard Skills", skill_badge_style),
-            Paragraph("Software Development • Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS) • Mobile Development (Dart, Flutter) • Database Management (MySQL, PostgreSQL, Optimasi SQL) • Data Analytics (Microsoft Power BI, DAX) • RESTful API", skill_content_style)
+            Paragraph("Software Development • Web Development (PHP, Laravel, React.js, Next.js, Tailwind CSS) • Mobile Development (Dart, Flutter) • Database Management (MySQL, Optimasi SQL) • Data Analytics (Microsoft Power BI, DAX) • RESTful API", skill_content_style)
         ],
         [
             Paragraph("Tools", skill_badge_style),

@@ -35,7 +35,6 @@ export default function RecruiterQuickBar({ profile }: RecruiterQuickBarProps) {
           onClick={() => setIsMinimized(false)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold shadow-xl shadow-rose-600/30 transition-all transform hover:scale-105 border border-rose-400/40"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <Briefcase size={14} />
           <span>Rekrut Dimas</span>
           <ChevronUp size={14} />
@@ -57,7 +56,6 @@ export default function RecruiterQuickBar({ profile }: RecruiterQuickBarProps) {
                 className="w-full h-full object-cover object-center"
               />
             </div>
-            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950" />
           </div>
 
           <div className="min-w-0">

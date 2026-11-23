@@ -21,7 +21,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
     playTactileClick();
     let res = '';
     if (cmd === 'dimas.getTechStack()') {
-      res = 'Flutter, Dart, Laravel, PHP, React, Next.js, Power BI, DAX, MySQL, PostgreSQL';
+      res = 'Flutter, Dart, Laravel, PHP, React, Next.js, Power BI, DAX, MySQL';
     } else if (cmd === 'dimas.getCertifications()') {
       res = 'BNSP Database Administrator (No. Reg. DMS.1241.00936 2026) | BNSP Analis Program';
     } else if (cmd === 'dimas.getHonors()') {
@@ -166,7 +166,7 @@ export default function AboutSection({ profile }: AboutSectionProps) {
                     &quot;Flutter &amp; Dart Mobile&quot;,<br />
                     &quot;Laravel &amp; RESTful API&quot;,<br />
                     &quot;Power BI &amp; DAX Analytics&quot;,<br />
-                    &quot;PostgreSQL &amp; MySQL DB&quot;
+                    &quot;MySQL Relational DB&quot;
                   </div>
                   <div className="pl-4">];</div>
                   <div className="pl-4">
@@ -245,7 +245,6 @@ export default function AboutSection({ profile }: AboutSectionProps) {
             {/* Footer status bar */}
             <div className="pt-3 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-500 mt-4">
               <span className="flex items-center gap-1.5 text-zinc-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-indicator" />
                 Interaktif • Ready
               </span>
               <span>Dimas Studio</span>

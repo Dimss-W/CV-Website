@@ -221,9 +221,7 @@ export const defaultSkills: Skill[] = [
   { name: 'Microsoft Power BI & Analitik DAX', category: 'Database & Cloud', level: 94 },
   { name: 'MySQL & Pemodelan Basis Data Relasional', category: 'Database & Cloud', level: 93 },
   { name: 'Optimalisasi Kueri SQL', category: 'Database & Cloud', level: 91 },
-  { name: 'PostgreSQL & Supabase Cloud', category: 'Database & Cloud', level: 89 },
   { name: 'Alur Kerja Tim Git & GitHub', category: 'Tools & DevOps', level: 93 },
-  { name: 'Rilis Aplikasi & Konfigurasi Server', category: 'Tools & DevOps', level: 90 },
   { name: 'Mentoring Teknis & Komunikasi Publik', category: 'Tools & DevOps', level: 92 },
 ];
 

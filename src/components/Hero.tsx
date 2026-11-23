@@ -140,7 +140,6 @@ export default function Hero({ profile }: HeroProps) {
             
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-medium w-fit mb-5 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
               <span>Tersedia untuk Peluang Full-Time &amp; Proyek Industri</span>
             </div>
 

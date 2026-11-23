@@ -108,9 +108,9 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           </p>
 
           {/* Search & Filter Controls */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 w-full max-w-2xl">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 mt-8 w-full max-w-4xl">
             {/* Search Input */}
-            <div className="relative w-full sm:w-64">
+            <div className="relative w-full md:w-60 shrink-0">
               <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-sm" />
               <input
                 type="text"
@@ -130,8 +130,8 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
               )}
             </div>
 
-            {/* Category Pills */}
-            <div className="filter-tab-bar flex flex-wrap items-center justify-center gap-1 p-1 rounded-full">
+            {/* Category Pills - Rata Berderet ke Samping */}
+            <div className="filter-tab-bar flex flex-nowrap items-center justify-start sm:justify-center gap-1 sm:gap-1.5 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full">
               {categories.map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
@@ -142,7 +142,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       setActiveCategory(cat.id);
                       playSoftPop();
                     }}
-                    className={`filter-tab-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium ${
+                    className={`filter-tab-btn inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap shrink-0 ${
                       isActive ? 'is-active' : ''
                     }`}
                   >

@@ -92,13 +92,6 @@ const SKILL_ITEMS: SkillItem[] = [
     icon: '/skills/skills-backend-2.svg',
     highlight: 'Query profiling, normalisasi data 3NF, mitigasi slow query',
   },
-  {
-    name: 'Supabase & PostgreSQL',
-    category: 'Basis Data & Cloud',
-    level: 89,
-    icon: '/skills/skills-backend-4.svg',
-    highlight: 'Cloud database, row-level security, & integrasi BaaS',
-  },
 
   // Analitik & DevOps
   {
@@ -114,13 +107,6 @@ const SKILL_ITEMS: SkillItem[] = [
     level: 93,
     icon: '/skills/skills-frontend-7.svg',
     highlight: 'Branching strategy, pull request review, & kolaborasi tim',
-  },
-  {
-    name: 'CI/CD & Server Deployment',
-    category: 'Analitik & DevOps',
-    level: 91,
-    icon: '/skills/skills-design-3.svg',
-    highlight: 'Deployment Vercel Cloud, konfigurasi Linux server, & otomatisasi rilis',
   },
 ];
 
@@ -162,9 +148,9 @@ export default function SkillsSection({}: SkillsSectionProps) {
           </p>
 
           {/* Search & Category Filter Controls */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 w-full max-w-2xl">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-3 mt-8 w-full max-w-4xl">
             {/* Search Input */}
-            <div className="relative w-full sm:w-60">
+            <div className="relative w-full md:w-56 shrink-0">
               <i className="ri-search-line absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-sm" />
               <input
                 type="text"
@@ -175,8 +161,8 @@ export default function SkillsSection({}: SkillsSectionProps) {
               />
             </div>
 
-            {/* Category Pills */}
-            <div className="filter-tab-bar flex flex-wrap items-center justify-center gap-1 p-1 rounded-full">
+            {/* Category Pills - Rata Berderet ke Samping */}
+            <div className="filter-tab-bar flex flex-nowrap items-center justify-start sm:justify-center gap-1 sm:gap-1.5 p-1 rounded-full overflow-x-auto no-scrollbar max-w-full">
               {categories.map((cat) => {
                 const isActive = activeTab === cat.id;
                 return (
@@ -187,7 +173,7 @@ export default function SkillsSection({}: SkillsSectionProps) {
                       setActiveTab(cat.id);
                       playSoftPop();
                     }}
-                    className={`filter-tab-btn px-3.5 py-1.5 rounded-full text-xs font-medium ${
+                    className={`filter-tab-btn px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap shrink-0 ${
                       isActive ? 'is-active' : ''
                     }`}
                   >

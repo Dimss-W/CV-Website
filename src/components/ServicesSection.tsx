@@ -58,7 +58,7 @@ const SERVICES: ServiceItem[] = [
     description:
       'Mengelola arsitektur basis data relasional berstandar kompetensi nasional BNSP (Database Administrator), optimasi indeks kueri SQL, integritas relasi ERD, dan integrasi cloud database.',
     items: [
-      'MySQL & PostgreSQL',
+      'MySQL & Database Relasional',
       'Perancangan Database (ERD)',
       'Optimasi Kueri SQL',
       'Supabase Cloud',

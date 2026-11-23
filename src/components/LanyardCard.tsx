@@ -368,7 +368,6 @@ export default function LanyardCard({ profile, onCopySuccess }: LanyardCardProps
                     Sistem Informasi • Mahasiswa Aktif
                   </div>
                 </div>
-                <div className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
               </div>
 
               {/* Portrait & Role */}

@@ -96,7 +96,6 @@ export default function ContactSection({ profile }: ContactSectionProps) {
             {/* Availability Banner */}
             <div className="p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800">
               <div className="flex items-center gap-2 text-xs font-mono font-medium text-emerald-400 uppercase tracking-wider mb-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-indicator" />
                 <span>Ketersediaan: Aktif</span>
               </div>
               <h3 className="text-base font-semibold text-white mb-2">
